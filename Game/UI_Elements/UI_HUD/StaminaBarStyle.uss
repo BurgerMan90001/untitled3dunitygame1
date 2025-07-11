@@ -1,0 +1,49 @@
+:root {
+}
+
+#StaminaBar > #unity-progress-bar > .unity-progress-bar__background > .unity-progress-bar__progress {
+    -unity-background-image-tint-color: rgb(140, 253, 116);
+    background-image: none;
+    opacity: 1;
+    background-position-y: top 0;
+    background-position-x: left 0;
+    width: auto;
+    height: auto;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    -unity-slice-scale: 1px;
+    background-color: rgb(53, 100, 43);
+    overflow: hidden;
+    visibility: visible;
+}
+
+#StaminaBar > #unity-progress-bar > .unity-progress-bar__background {
+    -unity-background-image-tint-color: rgba(138, 214, 255, 0.43);
+    background-image: none;
+    background-color: rgba(32, 56, 74, 0.45);
+    opacity: 1;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    visibility: visible;
+    min-width: 17px;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: -1px;
+    margin-right: -1px;
+    margin-bottom: -1px;
+    margin-left: -1px;
+}
+
+.unity-stamina-bar {
+    height: auto;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0);
+    width: 30%;
+    opacity: 1;
+    background-image: none;
+    overflow: hidden;
+}

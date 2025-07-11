@@ -1,0 +1,5 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1;">
+        <ui:VisualElement style="flex-grow: 1; background-color: rgba(154, 241, 81, 0.37); width: 22%; height: 0%; min-height: 0%; max-height: 71%; background-size: 100% 100%; min-width: auto;" />
+    </ui:VisualElement>
+</ui:UXML>

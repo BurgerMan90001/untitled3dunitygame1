@@ -1,0 +1,6 @@
+:root {
+    opacity: 1;
+}
+
+#MoneyField > #unity-text-input > .unity-text-element--inner-input-field-component {
+}

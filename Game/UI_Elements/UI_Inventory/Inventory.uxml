@@ -1,0 +1,53 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Game/UI_Elements/UI_HUD/MoneyFieldStyle.uss?fileID=7433441132597879392&amp;guid=e664ec3c1db1e58498b812ec768f58d3&amp;type=3#MoneyFieldStyle" />
+    <Style src="project://database/Assets/Game/UI_Elements/UI_Inventory/Inventory.uss?fileID=7433441132597879392&amp;guid=8089a9f7c998d4a46aac97bb4e11a787&amp;type=3#Inventory" />
+    <Style src="project://database/Assets/Game/UI_Elements/Tooltip.uss?fileID=7433441132597879392&amp;guid=92f147d235c47d54ea1b7f7ba1fb9115&amp;type=3#Tooltip" />
+    <ui:VisualElement name="Root" class="inventory" style="margin-top: 0%; margin-right: 0%; margin-bottom: 0%; margin-left: 0%;">
+        <ui:VisualElement name="InventoryBackingPanel1" class="inventoryBackingPanel1">
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1; flex-direction: row-reverse; background-image: none;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1; flex-direction: column;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1; flex-direction: row-reverse; flex-shrink: 1;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1; flex-direction: row-reverse; flex-shrink: 1;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1; flex-direction: row-reverse; flex-shrink: 1;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1; flex-direction: row-reverse; flex-shrink: 1;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1; flex-direction: row-reverse; flex-shrink: 1;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1; flex-direction: row-reverse; flex-shrink: 1;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1; flex-direction: row-reverse; flex-shrink: 1;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1; flex-direction: row-reverse; flex-shrink: 1;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1; flex-direction: row-reverse; flex-shrink: 1;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1; flex-direction: row-reverse; flex-shrink: 1;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1; flex-direction: row-reverse; flex-shrink: 1;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1; flex-direction: row-reverse; flex-shrink: 1;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1; flex-direction: row-reverse; flex-shrink: 1;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1; flex-direction: row-reverse; flex-shrink: 1;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1; flex-direction: row-reverse; flex-shrink: 1;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1; flex-direction: row-reverse; flex-shrink: 1;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1; flex-direction: row-reverse; flex-shrink: 1;" />
+            <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1; flex-direction: row-reverse; flex-shrink: 1;" />
+        </ui:VisualElement>
+        <ui:VisualElement enabled="true" name="TooltipLayer" focusable="false" picking-mode="Ignore" class="tooltipLayer">
+            <ui:VisualElement name="GhostImage" focusable="false" tabindex="-1" picking-mode="Ignore" class="slotContainer ghostImage" />
+            <ui:Label text="fasdffffffffffffffffffasfdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd" name="Tooltip" picking-mode="Ignore" enabled="true" class="tooltip" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Money" picking-mode="Ignore" class="money" style="flex-grow: 1; flex-wrap: wrap;">
+            <ui:VisualElement name="MoneyBackingPanel2" class="moneyValueBackingPanel">
+                <ui:Label text="Label" name="MoneyValue" class="money moneytext" style="align-self: flex-start; justify-content: flex-end; align-content: stretch; align-items: flex-start;">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="Money" data-source="project://database/Assets/Game/Scripts/Character/Stats/PlayerStats%201.asset?fileID=11400000&amp;guid=52b218812565c5e4a950196553673cc0&amp;type=2#PlayerStats 1" binding-mode="ToTarget" />
+                    </Bindings>
+                </ui:Label>
+            </ui:VisualElement>
+            <ui:VisualElement name="MoneyBackingPanel1" class="moneyTextBackingPanel">
+                <ui:Label text="MONEY" name="MoneyText" class="money moneytext" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

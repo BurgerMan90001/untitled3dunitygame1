@@ -1,0 +1,38 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Game/UI_Elements/UI_HUD/CrosshairStyle.uss?fileID=7433441132597879392&amp;guid=889bfc94aa058cf4c99cb90efa306825&amp;type=3#CrosshairStyle" />
+    <Style src="project://database/Assets/Game/UI_Elements/UI_HUD/HUDStyle.uss?fileID=7433441132597879392&amp;guid=afc80005e6bdf1f40b7c7934dbd33934&amp;type=3#HUDStyle" />
+    <Style src="project://database/Assets/Game/UI_Elements/UI_HUD/StaminaBarStyle.uss?fileID=7433441132597879392&amp;guid=d76d9c4a1f21e7740848a7be638b37a5&amp;type=3#StaminaBarStyle" />
+    <Style src="project://database/Assets/Game/UI_Elements/UI_HUD/HealthBarStyle.uss?fileID=7433441132597879392&amp;guid=b22b7cdcc182f094780b3192124ee398&amp;type=3#HealthBarStyle" />
+    <Style src="project://database/Assets/Game/UI_Elements/UI_HUD/MoneyFieldStyle.uss?fileID=7433441132597879392&amp;guid=e664ec3c1db1e58498b812ec768f58d3&amp;type=3#MoneyFieldStyle" />
+    <ui:VisualElement name="Root" style="flex-grow: 1; min-height: auto; min-width: 100%; max-width: 100%; flex-direction: column-reverse; background-image: url(&quot;project://database/Assets/Game/Graphics/2D_Textures&amp;Mats/2D_UI_Sprites/100x100cross.png?fileID=2800000&amp;guid=de599eab15cc8484c91f9c94cfc7458f&amp;type=3#100x100cross&quot;); background-size: 3% 5%;">
+        <ui:Label text="PlaceHodler" name="headline__label" enabled="true" class="header" style="-unity-font-definition: url(&quot;project://database/Assets/PackageStuff/TextMesh%20Pro/Fonts/LiberationSans.ttf?fileID=12800000&amp;guid=e3265ab4bf004d28a9537516768c1c75&amp;type=3#LiberationSans&quot;); visibility: visible; color: rgb(255, 255, 255); -unity-font-style: bold;">
+            <Bindings>
+                <ui:DataBinding property="text" data-source-path="CurrentEnergy" data-source="project://database/Assets/Game/Scripts/Character/Stats/PlayerStats%201.asset?fileID=11400000&amp;guid=52b218812565c5e4a950196553673cc0&amp;type=2#PlayerStats 1" binding-mode="ToTarget" />
+            </Bindings>
+        </ui:Label>
+        <ui:ProgressBar enabled="true" value="92.9" low-value="0" name="StaminaBar" class="unity-stamina-bar staminabar">
+            <Bindings>
+                <ui:DataBinding property="value" data-source-path="Stamina" data-source="project://database/Assets/Game/Scripts/Character/Stats/PlayerStats%201.asset?fileID=11400000&amp;guid=52b218812565c5e4a950196553673cc0&amp;type=2#PlayerStats 1" binding-mode="ToTarget" />
+                <ui:DataBinding property="highValue" data-source-path="MaxStamina" data-source="project://database/Assets/Game/Scripts/Character/Stats/PlayerStats%201.asset?fileID=11400000&amp;guid=52b218812565c5e4a950196553673cc0&amp;type=2#PlayerStats 1" binding-mode="ToTarget" />
+            </Bindings>
+        </ui:ProgressBar>
+        <ui:ProgressBar high-value="100" low-value="0" name="HealthBar" class="unity-health-bar" style="background-image: none; -unity-slice-left: -74; -unity-slice-top: -74; -unity-slice-right: -74; -unity-slice-bottom: -74; width: 30%; -unity-background-image-tint-color: rgba(255, 255, 255, 0); height: auto; visibility: hidden; background-color: rgba(0, 0, 0, 0); display: flex;">
+            <Bindings>
+                <ui:DataBinding property="highValue" data-source-path="MaxHealth" data-source="project://database/Assets/Game/Scripts/Character/Stats/PlayerStats%201.asset?fileID=11400000&amp;guid=52b218812565c5e4a950196553673cc0&amp;type=2#PlayerStats 1" binding-mode="ToTarget" />
+                <ui:DataBinding property="value" data-source-path="Health" data-source="project://database/Assets/Game/Scripts/Character/Stats/PlayerStats%201.asset?fileID=11400000&amp;guid=52b218812565c5e4a950196553673cc0&amp;type=2#PlayerStats 1" binding-mode="ToTarget" />
+            </Bindings>
+        </ui:ProgressBar>
+        <ui:VisualElement name="Money" style="flex-grow: 1; flex-direction: row; width: auto; align-content: auto;">
+            <ui:VisualElement name="MoneyTextBackingPanel" class="moneyTextBackingPanel" style="flex-grow: 1; flex-direction: row-reverse; width: auto; align-content: auto; align-items: auto;">
+                <ui:Label text="MONEY&#10;" name="MoneyText" class="moneytext" />
+            </ui:VisualElement>
+            <ui:VisualElement name="MoneyValueBackingPanel" class="moneyValueBackingPanel" style="flex-grow: 1; flex-direction: row;">
+                <ui:Label text="Label" class="moneytext">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="Money" data-source="project://database/Assets/Game/Scripts/Character/Stats/PlayerStats%201.asset?fileID=11400000&amp;guid=52b218812565c5e4a950196553673cc0&amp;type=2#PlayerStats 1" binding-mode="ToTarget" />
+                    </Bindings>
+                </ui:Label>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

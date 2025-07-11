@@ -1,0 +1,48 @@
+:root {
+}
+
+#HealthBar > #unity-progress-bar > .unity-progress-bar__background > .unity-progress-bar__progress {
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0);
+    background-color: rgb(125, 54, 48);
+    overflow: hidden;
+    visibility: visible;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+#MoneyField > .unity-integer-field__label {
+}
+
+#HealthBar > #unity-progress-bar > .unity-progress-bar__background {
+    -unity-background-image-tint-color: rgba(138, 214, 255, 0.43);
+    background-image: none;
+    background-color: rgba(32, 56, 74, 0.45);
+    opacity: 1;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    visibility: visible;
+    min-width: 17px;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: -1px;
+    margin-right: -1px;
+    margin-bottom: -1px;
+    margin-left: -1px;
+}
+
+.unity-health-bar {
+    height: auto;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0);
+    width: auto;
+    opacity: 1;
+    margin-top: 4px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    margin-left: 4px;
+    overflow: hidden;
+}

@@ -1,0 +1,18 @@
+{
+    "name": "Graphics",
+    "rootNamespace": "",
+    "references": [
+        "GUID:457756d89b35d2941b3e7b37b4ece6f1",
+        "GUID:dc960734dc080426fa6612f1c5fe95f3",
+        "GUID:df380645f10b7bc4b97d4f5eb6303d95"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

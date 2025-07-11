@@ -1,0 +1,113 @@
+
+using UnityEngine;
+#region
+/// <summary>
+/// Handles horizontal movement for the player using keyboard input.
+/// </summary>
+#endregion
+
+public class HorizontalMovement
+{
+    
+    private Vector3 _flatHorizontalVelocity; // velocities for calculating in the limitspeed() function
+    private Vector3 _limitedHorizontalVelocity;
+
+    private Vector3 _horizontalVelocity;
+
+
+    private float _slopeMovementSpeedMultiplyer = 1.25f; 
+
+    private Rigidbody _rigidBody;
+    private MovementStateManager _movementStateManager;
+    private Transform _orientation;
+
+    
+    public HorizontalMovement(Rigidbody rigidBody, MovementStateManager movementStateManager, Transform orientation)
+    {
+        
+        _movementStateManager = movementStateManager; 
+        _rigidBody = rigidBody;
+        _orientation = orientation;
+        
+        
+    }
+
+    public void MoveRigidBody(Vector2 movementInput, IsGrounded isGrounded)
+    {
+        if (movementInput == Vector2.zero) return; // if no input, do not move
+
+        _horizontalVelocity = _orientation.forward * movementInput.y + _orientation.right * movementInput.x;
+        
+        switch (_movementStateManager.MovementState)
+        {
+            case MovementStates.Walking:
+                WalkingMovement(isGrounded);
+                break;
+
+            case MovementStates.Climbing:
+                LadderMovement();
+                break;
+            default:
+                WalkingMovement(isGrounded);
+                break;
+        }
+        
+    }
+    
+    private void WalkingMovement(IsGrounded isGrounded)
+    {
+        
+        if (isGrounded.OnSlope)
+        {
+
+            _rigidBody.AddForce(isGrounded.GetSlopeMoveDirection(_horizontalVelocity)
+                * _movementStateManager.GetCurrentSpeed() * _slopeMovementSpeedMultiplyer, ForceMode.Force);
+        }
+        else
+        {
+            _rigidBody.AddForce(_horizontalVelocity.normalized * _movementStateManager.GetCurrentSpeed(), ForceMode.Force);
+        }
+            
+    }
+    private void LadderMovement()
+    {
+
+        _rigidBody.useGravity = false;
+        _horizontalVelocity.y = -_horizontalVelocity.z;
+        _horizontalVelocity.z = 0f;
+        _rigidBody.linearVelocity = _horizontalVelocity.normalized * _movementStateManager.GetCurrentSpeed();
+
+    }
+}
+
+    
+    
+
+    
+
+#region
+/*
+    public  void LimitSpeed(Rigidbody rigidBody, MovementStateManager MovementStateManager, bool exitingSlope)
+    {
+
+        if (OnSlope() && !exitingSlope)
+        {
+            if (rigidBody.linearVelocity.magnitude > MovementStateManager.GetCurrentSpeed())
+            {
+                rigidBody.linearVelocity = rigidBody.linearVelocity.normalized * MovementStateManager.GetCurrentSpeed();
+            }
+        }
+        else
+        {
+
+            _flatHorizontalVelocity = new Vector3(rigidBody.linearVelocity.x, 0f, rigidBody.linearVelocity.z);
+
+            if (_flatHorizontalVelocity.magnitude > MovementStateManager.GetCurrentSpeed())
+            {
+                _limitedHorizontalVelocity = _flatHorizontalVelocity.normalized * MovementStateManager.GetCurrentSpeed();
+                rigidBody.linearVelocity = new Vector3(_limitedHorizontalVelocity.x, rigidBody.linearVelocity.y, _limitedHorizontalVelocity.z);
+            }
+        }
+    }
+    */
+#endregion

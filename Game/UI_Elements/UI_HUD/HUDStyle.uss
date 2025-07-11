@@ -1,0 +1,18 @@
+:root {
+}
+
+.unity-progress-bar__container {
+    background-size: 100% 100%;
+    min-height: auto;
+    min-width: auto;
+    max-height: none;
+    height: 57px;
+    opacity: 1;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0);
+}
+
+.header {
+    font-size: 40px;
+    -unity-font-definition: resource('FlatSkin/Font/Roboto-Black');
+    -unity-font-style: normal;
+}
