@@ -90,7 +90,7 @@ public class MainMenu : Menu
     {
         QueryElements(); // get all elements
 
-        VisualElement panelSaveSlots = _uxmlFileHandler.GetVisualElement(UserInterfaces.SaveSlotsMenu);
+        VisualElement panelSaveSlots = _uxmlFileHandler.UserInterfaceElements[UserInterfaces.SaveSlotsMenu];
 
         _saveSlotsMenu.QueryElements(panelSaveSlots);
 

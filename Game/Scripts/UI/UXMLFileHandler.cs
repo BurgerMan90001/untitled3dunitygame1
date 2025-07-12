@@ -21,7 +21,7 @@ public class UXMLFileHandler
 
     private AsyncOperationHandle _loadedUserInterfaces;
 
-    private Dictionary<UserInterfaces, VisualElement> _userInterfaces = new Dictionary<UserInterfaces, VisualElement>();
+    public Dictionary<UserInterfaces, VisualElement> UserInterfaceElements { get; private set; }
    
 
     public UXMLFileHandler(VisualElement root, AssetLabelReference uxmlAssetLabelReference)
@@ -29,6 +29,8 @@ public class UXMLFileHandler
         _root = root;
         
         _labelReference = uxmlAssetLabelReference;
+
+        UserInterfaceElements = new Dictionary<UserInterfaces, VisualElement>();
     }
     #region
     /// <summary>
@@ -38,9 +40,10 @@ public class UXMLFileHandler
     /// <param name="userInterface"></param>
     /// <param name="toggled"></param>
     #endregion  
-    
+    /*
     public VisualElement GetVisualElement(UserInterfaces userInterface)
     {
+        
         if (userInterface == UserInterfaces.None)
         {
             return null;
@@ -49,6 +52,7 @@ public class UXMLFileHandler
         if (_userInterfaces.TryGetValue(userInterface, out VisualElement element))
         {
             Debug.Log("AsdASDASDA");
+            element.style.display = DisplayStyle.Flex;
             return element;
 
         } else 
@@ -60,6 +64,7 @@ public class UXMLFileHandler
 
         
     }
+    */
     
     private void ShowLoadingResults(VisualTreeAsset visualTreeAsset, bool showLoadingResults)
     {
@@ -92,8 +97,7 @@ public class UXMLFileHandler
                 }
                 
             }
-         
-            test(false);
+            test(true);
 
         }
         
@@ -102,7 +106,7 @@ public class UXMLFileHandler
     {
         if (active)
         {
-            foreach (var test in _userInterfacesToBeLoaded)
+            foreach (var test in UserInterfaceElements)
             {
                 Debug.Log(test.ToString());
             }
@@ -135,21 +139,25 @@ public class UXMLFileHandler
         _addedUserInterfaceElement.style.width = new Length(100, LengthUnit.Percent);
         _addedUserInterfaceElement.style.height = new Length(100, LengthUnit.Percent);
 
-        //    _addedUserInterfaceElement.name = visualTree.name;
+        _addedUserInterfaceElement.name = visualTree.name;
+        
+        
+
+        
+
+         _root.Add(_addedUserInterfaceElement);
         
         UserInterfaces userInterface = FindMatchingInterfaceType(visualTree.name);
-
         if (userInterface == UserInterfaces.None)
         {
             return;
         }
         else
         {
-            _userInterfaces.Add(userInterface, _addedUserInterfaceElement);
-        }
-        _addedUserInterfaceElement.style.display = DisplayStyle.None;
+            UserInterfaceElements.Add(userInterface, _addedUserInterfaceElement);
 
-        _root.Add(_addedUserInterfaceElement);
+            _addedUserInterfaceElement.style.display = DisplayStyle.None;
+        }
     }
     #region
     /// <summary>

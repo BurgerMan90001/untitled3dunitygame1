@@ -123,18 +123,15 @@ public class UserInterface : MonoBehaviour
     public void ToggleUserInterface(UserInterfaces userInterface)
     {
         
-        VisualElement elementToBeShown = _uxmlFileHandler.GetVisualElement(userInterface);
+        VisualElement elementToBeShown = _uxmlFileHandler.UserInterfaceElements[userInterface];
 
-        
-        VisualElement toggledUserInterfaceElement = _uxmlFileHandler.GetVisualElement(ShownUserInterface);
-
-        if (toggledUserInterfaceElement == null)
-        {
- 
+        if (ShownUserInterface == UserInterfaces.None)
+        { // default 
             elementToBeShown.style.display = DisplayStyle.Flex;
             ShownUserInterface = userInterface;
         } else
         {
+            VisualElement toggledUserInterfaceElement = _uxmlFileHandler.UserInterfaceElements[ShownUserInterface];
             toggledUserInterfaceElement.style.display = DisplayStyle.None;
             elementToBeShown.style.display = DisplayStyle.Flex;
             ShownUserInterface = userInterface;
