@@ -9,7 +9,6 @@ public class SceneLoadTrigger : MonoBehaviour
 {
     
     [Header("Dependancies")]
-    [SerializeField] private UserInterface _userInterface;
     
 
     [Header("Loading Settings")]
@@ -34,6 +33,7 @@ public class SceneLoadTrigger : MonoBehaviour
         if (_debugLoadingScreen)
         {
             _sceneLoader.LoadScene(_debugSceneToLoad);
+            Debug.LogWarning("Loading debug scene");
 
         } else if (SceneLoadingManager.SceneToLoad == null)
         {
@@ -42,6 +42,7 @@ public class SceneLoadTrigger : MonoBehaviour
         } else
         {
             _sceneLoader.LoadScene(SceneLoadingManager.SceneToLoad, SceneLoadingManager.UserInterfaceToLoad);
+
         }
             
     }

@@ -72,7 +72,7 @@ public class Interact
     #region //interactions with game objects
     private void NPCInteraction(GameObject gameObject)
     {
-        if (hitGameObject.TryGetComponent(out NPC_Interaction component))
+        if (hitGameObject.TryGetComponent(out NPCInteraction component))
         {
             component.NPCDialogue();
         }

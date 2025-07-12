@@ -1,10 +1,15 @@
 
+using NUnit.Framework;
+using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using UnityEngine;
 
 
 public class MainManger : MonoBehaviour 
 {
+    [Header("Managers")]
+    [SerializeField] private List<ManagerSettings> _managerSettings;
+    
     [SerializeField] private Transform _userInterface;
     [SerializeField] private Transform _npcs; // the NPCs gameObject is itself
 
@@ -59,12 +64,18 @@ public class MainManger : MonoBehaviour
 
     private void ToggleManagers()
     {
-        foreach (Transform manager in _managers) 
+        foreach (ManagerSettings managerSetting in _managerSettings)
         {
-            manager.gameObject.SetActive(true);
+            if (managerSetting.Enabled)
+            {
+                Debug.Log(managerSetting.ManagerType.name);
+                Transform manager = transform.Find(managerSetting.ManagerType.name);
 
+                manager.gameObject.SetActive(managerSetting.Enabled);
+            }
+            
         }
-
+        
     }
     private void ToggleNPCs()
     {
@@ -80,3 +91,4 @@ public class MainManger : MonoBehaviour
     
 
 }
+

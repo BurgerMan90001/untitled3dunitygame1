@@ -1,31 +1,64 @@
 
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _player;
-    [SerializeField] private GameObject _playerMovement;
-    [SerializeField] private GameObject _playerCamera;
+    [SerializeField] private List<ScriptableObject> _inputs;
+    private Dictionary<string, InputActionMap> _actionMaps = new Dictionary<string, InputActionMap>();
+    public PlayerInput PlayerInput { get; private set; }
 
-    private PlayerInput _playerInput;
-
+    
     private void Awake()
     { 
-        _playerInput = GetComponent<PlayerInput>();
+        PlayerInput = GetComponent<PlayerInput>();
+        
+    }
+    private void Start()
+    {
+        
+        foreach (var map in PlayerInput.actions.actionMaps)
+        {
+            PlayerInput.SwitchCurrentActionMap(map.name);
+        }
+        
         
     }
     private void OnEnable()
     {
         
-     //   _playerCamera.SetActive(true);
     }
+
+    public void SwitchToActionMap(string mapName)
+    {
+        Debug.Log(mapName);
+        PlayerInput.SwitchCurrentActionMap(mapName);
+        
+
+        /*
+        if (_actionMaps.ContainsKey(mapName))
+        {
+            PlayerInput.SwitchCurrentActionMap(mapName);
+            
+
+            Debug.Log($"Switched to {mapName} action map");
+        }
+        else
+        {
+            Debug.LogWarning("Can't find action map from mapName.");
+        }
+        */
+    }
+    
     public void LockCursor()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
     public void UnlockCursor()
     {
+        Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
 

@@ -63,7 +63,9 @@ public class SceneLoader
             if (!_loadedSceneHandle.IsValid())
             {
                 _loadedSceneHandle = handle;
+                
                 SceneLoadingManager.OnSceneLoaded.Invoke(userInterface);
+                Debug.Log(userInterface.ToString());
                 Debug.Log("LOADED SUCCESSFULLY");
             }
             else

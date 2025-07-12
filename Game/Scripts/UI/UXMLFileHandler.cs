@@ -12,6 +12,9 @@ public class UXMLFileHandler
 {
     private AssetLabelReference _labelReference;
 
+    private bool _showLoadingResults = false;
+
+
     private VisualElement _root;
     private VisualElement _addedUserInterfaceElement;
     private VisualTreeAsset _visualTree;
@@ -32,39 +35,6 @@ public class UXMLFileHandler
 
         UserInterfaceElements = new Dictionary<UserInterfaces, VisualElement>();
     }
-    #region
-    /// <summary>
-    /// <br> Searches for the user interface string name through the key pair value of userInterface. </br>
-    /// <br> Then it returns the query, which is the corresponding visual element </br>
-    /// </summary>
-    /// <param name="userInterface"></param>
-    /// <param name="toggled"></param>
-    #endregion  
-    /*
-    public VisualElement GetVisualElement(UserInterfaces userInterface)
-    {
-        
-        if (userInterface == UserInterfaces.None)
-        {
-            return null;
-        }
-
-        if (_userInterfaces.TryGetValue(userInterface, out VisualElement element))
-        {
-            Debug.Log("AsdASDASDA");
-            element.style.display = DisplayStyle.Flex;
-            return element;
-
-        } else 
-        { 
-
-            Debug.LogError("The element " + userInterface.ToString() + " can't be found.");
-            return null;
-        }
-
-        
-    }
-    */
     
     private void ShowLoadingResults(VisualTreeAsset visualTreeAsset, bool showLoadingResults)
     {
@@ -74,7 +44,7 @@ public class UXMLFileHandler
             
         }
     }
-    public async Task LoadInterfacesAsync(bool showLoadingResults)
+    public async Task LoadInterfacesAsync()
     {
         var uxmlLabelHandle = Addressables.LoadAssetsAsync<Object>(_labelReference.labelString);
 
@@ -84,34 +54,32 @@ public class UXMLFileHandler
         {
             _loadedUserInterfaces = uxmlLabelHandle;
 
-            foreach (object result in uxmlLabelHandle.Result)
-            {
-                if (result is VisualTreeAsset visualTree)
-                {
-                    ShowLoadingResults(visualTree, showLoadingResults);
-                    SetUserInterfaceElementStyle(visualTree);
-
-                } else
-                {
-                    Debug.LogError("The loaded asset is not a VisualTreeAsset!");
-                }
-                
-            }
-            test(true);
+            SetupIntefaces(uxmlLabelHandle);
+            
 
         }
         
     }
-    private void test(bool active)
+    private void SetupIntefaces(AsyncOperationHandle<IList<Object>> uxmlLabelHandle)
     {
-        if (active)
+        foreach (object result in uxmlLabelHandle.Result)
         {
-            foreach (var test in UserInterfaceElements)
+            if (result is VisualTreeAsset visualTree)
             {
-                Debug.Log(test.ToString());
+                ShowLoadingResults(visualTree, _showLoadingResults);
+                SetUserInterfaceElementStyle(visualTree);
+
             }
+            else
+            {
+                Debug.LogError("The loaded asset is not a VisualTreeAsset!");
+            }
+
         }
     }
+    /// <summary>
+    /// <br> Releases all uxml addressables assets that have been loaded. </br>
+    /// </summary>
     public void ReleaseInterfaces() // callded in ondestroy 
     {
         
@@ -126,7 +94,7 @@ public class UXMLFileHandler
         
     }
 
-    
+
 
     private void SetUserInterfaceElementStyle(VisualTreeAsset visualTree)
     {
@@ -140,25 +108,29 @@ public class UXMLFileHandler
         _addedUserInterfaceElement.style.height = new Length(100, LengthUnit.Percent);
 
         _addedUserInterfaceElement.name = visualTree.name;
-        
-        
+        _addedUserInterfaceElement.style.display = DisplayStyle.None;
 
-        
+        _root.Add(_addedUserInterfaceElement);
 
-         _root.Add(_addedUserInterfaceElement);
-        
+        UpdateUserInterfaceData(visualTree);
+    }
+    private void UpdateUserInterfaceData(VisualTreeAsset visualTree)
+    {
         UserInterfaces userInterface = FindMatchingInterfaceType(visualTree.name);
         if (userInterface == UserInterfaces.None)
         {
+            Debug.LogWarning("Can't find a user interface type from the visual tree name.");
             return;
         }
         else
         {
             UserInterfaceElements.Add(userInterface, _addedUserInterfaceElement);
 
-            _addedUserInterfaceElement.style.display = DisplayStyle.None;
+
         }
     }
+    
+
     #region
     /// <summary>
     /// <br> Finds the first matching interface type by its exact name. </br>
@@ -171,7 +143,10 @@ public class UXMLFileHandler
         var firstMatch = System.Enum.GetValues(typeof(UserInterfaces))
                 .Cast<UserInterfaces>()
                 .FirstOrDefault(g => g.ToString().Contains(name));
-        Debug.Log(firstMatch);
+        if (_showLoadingResults)
+        {
+            Debug.Log(firstMatch);
+        }
         return firstMatch;
     }
 }

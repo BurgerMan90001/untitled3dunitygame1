@@ -3,13 +3,14 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+// TODO MOVE INPUT INTO SEPARATE FUNCTION
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Dependencies")]
     [SerializeField] private Rigidbody _rigidBody;
-    [SerializeField] private SO_Stats _stats;
+    [SerializeField] private GeneralStats _stats;
     [SerializeField] private Transform _orientation;
+    [SerializeField] private MovementInput _input;
 
     [Header("MovementStateManager Settings")]
     [SerializeField] private float _baseSpeed;
@@ -21,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private InputActionReference _sprintAction;
     [SerializeField] private InputActionReference _jumpAction;
     [SerializeField] private InputActionReference _crouchAction;
+
 
     [Header("Crouch Settings")]
     [SerializeField] private float _crouchYScale = 0.5f;
@@ -80,46 +82,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        _moveAction.action.Enable();
-        _sprintAction.action.Enable();
-        _crouchAction.action.Enable();
-        _jumpAction.action.Enable();
+        _input.Register(this);
 
-        _moveAction.action.started += OnMove;
-        _moveAction.action.performed += OnMove;
-        _moveAction.action.canceled += OnMove;
-
-        _sprintAction.action.started += OnSprint;
-        _sprintAction.action.canceled += OnSprint;
-
-        _crouchAction.action.started += OnCrouch;
-        _crouchAction.action.canceled += OnCrouch;
-
-        _jumpAction.action.started += OnJumpPerformed;
+        
     }
 
     private void OnDisable()
     {
-        _moveAction.action.started -= OnMove;
-        _moveAction.action.performed -= OnMove;
-        _moveAction.action.canceled += OnMove;
-
-        _sprintAction.action.started -= OnSprint;
-        _sprintAction.action.canceled -= OnSprint;
-
-        _crouchAction.action.started -= OnCrouch;
-        _crouchAction.action.canceled -= OnCrouch;
-
-        _jumpAction.action.started -= OnJumpPerformed;
-
-
-        _moveAction.action.Disable();
-        _sprintAction.action.Disable();
-        _crouchAction.action.Disable();
-        _jumpAction.action.Disable();
+        _input?.Unregister(this);
     }
-
-    private void OnMove(InputAction.CallbackContext ctx)
+    
+    public void OnMove(InputAction.CallbackContext ctx)
     {
         Vector2 newInput = ctx.ReadValue<Vector2>();
         if (newInput != _movementInput) // only update if the input has changed to avoid unnecessary updates
@@ -127,12 +100,12 @@ public class PlayerMovement : MonoBehaviour
             _movementInput = newInput;
         }
     }
-    private void OnJumpPerformed(InputAction.CallbackContext ctx)
+    public void OnJumpPerformed(InputAction.CallbackContext ctx)
     {
         _verticalMovement.MakeBodyJump(_rigidBody, _jumpForce, _isGrounded.OnGround);
         
     }
-    private void OnSprint(InputAction.CallbackContext ctx)
+    public void OnSprint(InputAction.CallbackContext ctx)
     {
         
         if (ctx.started && _isGrounded.OnGround)
@@ -149,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
         
     }
     
-    private void OnCrouch(InputAction.CallbackContext ctx)
+    public void OnCrouch(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
         {

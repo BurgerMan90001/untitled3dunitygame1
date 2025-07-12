@@ -27,12 +27,11 @@ public class MainMenu : Menu
     private SaveSlotsMenu _saveSlotsMenu;
     
 
-    private DataPersistenceManager _dataPersistenceManager;
-
     private VisualElement _root;
 
     private UXMLFileHandler _uxmlFileHandler;
 
+    private DataPersistenceData _dataPersistenceData;
     
 
     // menuButton
@@ -58,15 +57,16 @@ public class MainMenu : Menu
     */
     #endregion
     public MainMenu(VisualElement root, 
-        DataPersistenceManager dataPersistenceManager, 
-        UXMLFileHandler uxmlfileHandler)
+        UXMLFileHandler uxmlfileHandler,
+        DataPersistenceData dataPersistenceData)
     {
         _root = root;
-        _dataPersistenceManager = dataPersistenceManager;
+        
         _uxmlFileHandler = uxmlfileHandler;
         
+        _dataPersistenceData = dataPersistenceData;
 
-        _saveSlotsMenu = new SaveSlotsMenu(_dataPersistenceManager, this);
+        _saveSlotsMenu = new SaveSlotsMenu(this, _dataPersistenceData);
 
     }
     
@@ -78,7 +78,7 @@ public class MainMenu : Menu
     #endregion
     private void CheckIfThereIsSaveData() // called in on start in userinterface
     {
-        if (!_dataPersistenceManager.HasSaveGameData()) // if there is no saved game data
+        if (!_dataPersistenceData.SearchForSaveGameData()) // if there is no saved game data
         {
             _buttonContinueGame.SetEnabled(false);
             _buttonContinueGame.style.opacity = 0.5f;
@@ -97,6 +97,8 @@ public class MainMenu : Menu
         _buttonNewGame.clicked += OnNewGameClicked;
         _buttonLoadGame.clicked += OnLoadGameClicked;
         _buttonContinueGame.clicked += OnContinueGameClicked;
+
+        
 
         CheckIfThereIsSaveData();
 
@@ -133,12 +135,13 @@ public class MainMenu : Menu
     public void OnContinueGameClicked()
     {
         DisableMenuButtons();
-        
+        /*
         _dataPersistenceManager.SaveGame(); // save the game before loading new scene
         SceneManager.LoadSceneAsync("Main Game");
         
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         UnityEngine.Cursor.visible = false;
+        */
         
     }
 

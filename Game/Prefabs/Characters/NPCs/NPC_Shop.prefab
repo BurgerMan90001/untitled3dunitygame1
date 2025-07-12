@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 399195524025708289, guid: 2283d4bcaacfd784b857439b3bb9f926, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.07
+      value: 6.59
       objectReference: {fileID: 0}
     - target: {fileID: 399195524025708289, guid: 2283d4bcaacfd784b857439b3bb9f926, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.24
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 399195524025708289, guid: 2283d4bcaacfd784b857439b3bb9f926, type: 3}
       propertyPath: m_LocalPosition.z
@@ -53,8 +53,16 @@ PrefabInstance:
       value: NPC_Shop
       objectReference: {fileID: 0}
     - target: {fileID: 3589159676945201763, guid: 2283d4bcaacfd784b857439b3bb9f926, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3589159676945201763, guid: 2283d4bcaacfd784b857439b3bb9f926, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 123
+      objectReference: {fileID: 0}
+    - target: {fileID: 5551920730502716715, guid: 2283d4bcaacfd784b857439b3bb9f926, type: 3}
+      propertyPath: _dialogueKnotName
+      value: NPC_Shop
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7869662424804253149, guid: 2283d4bcaacfd784b857439b3bb9f926, type: 3}

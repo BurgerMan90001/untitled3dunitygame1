@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2142478289644107325}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.17037, y: 56, z: -65.72735}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
@@ -90,10 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dynamicInventory: {fileID: 11400000, guid: 429beb422e6f2764ab242e6b1ace72b8, type: 2}
-  _lookAction: {fileID: 3708735494957354713, guid: 1571a21ec2f1ba545a70d97ed9b5b4ab, type: 3}
-  _pickUpAction: {fileID: 0}
-  _interactAction: {fileID: -3393959859071047672, guid: 1571a21ec2f1ba545a70d97ed9b5b4ab, type: 3}
-  _leftClickAction: {fileID: 1419558995094729199, guid: 1571a21ec2f1ba545a70d97ed9b5b4ab, type: 3}
+  _cameraInput: {fileID: 11400000, guid: a9af73362ae1ead4dad683960fcf65fc, type: 2}
   _orientation: {fileID: 0}
   _rainPosition: {fileID: 0}
   _mask:

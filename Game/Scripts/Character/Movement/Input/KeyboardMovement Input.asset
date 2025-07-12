@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c2d189345501b847ae7dc1368738337, type: 3}
+  m_Name: KeyboardMovement Input
+  m_EditorClassIdentifier: 
+  <Enabled>k__BackingField: 0
+  _moveAction: {fileID: 695006976769473254, guid: 1571a21ec2f1ba545a70d97ed9b5b4ab, type: 3}
+  _sprintAction: {fileID: 5819807020796326140, guid: 1571a21ec2f1ba545a70d97ed9b5b4ab, type: 3}
+  _crouchAction: {fileID: -7023192742598419029, guid: 1571a21ec2f1ba545a70d97ed9b5b4ab, type: 3}
+  _jumpAction: {fileID: -2525736970476107741, guid: 1571a21ec2f1ba545a70d97ed9b5b4ab, type: 3}

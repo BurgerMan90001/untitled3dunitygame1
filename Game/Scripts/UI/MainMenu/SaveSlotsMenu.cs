@@ -17,9 +17,6 @@ public class SaveSlotsMenu : Menu
     private List<string> _profileIDs = new List<string>();
 
     private Button _buttonBack;
-
-
-    private DataPersistenceManager _dataPersistenceManager;
   
     #region
     /*
@@ -43,14 +40,13 @@ public class SaveSlotsMenu : Menu
     #endregion
     private bool _isLoadingGame = false;
 
-    public SaveSlotsMenu(DataPersistenceManager dataPersistenceManager, 
-        MainMenu mainMenu)
+    private DataPersistenceData _dataPersistenceData;
+
+    public SaveSlotsMenu(MainMenu mainMenu, DataPersistenceData dataPersistenceData)
     {
-        _dataPersistenceManager = dataPersistenceManager;
 
         _mainMenu = mainMenu;
-
-
+        _dataPersistenceData = dataPersistenceData;
     }
     public void QueryElements(VisualElement panelSaveSlots)
     {
@@ -112,14 +108,14 @@ public class SaveSlotsMenu : Menu
         _panelSaveSlots.style.display = DisplayStyle.None;
     //    DisableSaveSlotButtons();
 
-        _dataPersistenceManager.ChangeSelectedProfileID(saveSlotData.ProfileID);
+        _dataPersistenceData.ChangeSelectedProfileID(saveSlotData.ProfileID);
 
         if (!_isLoadingGame) //create a new game 
         {
-            _dataPersistenceManager.NewGame();
+            _dataPersistenceData.StartNewGame();
         }
 
-        _dataPersistenceManager.SaveGame();
+        _dataPersistenceData.SaveGameData();
 
         SceneLoadingManager.SceneToLoad = "Main Game";
         SceneLoadingManager.UserInterfaceToLoad = UserInterfaces.HUD;
@@ -139,12 +135,9 @@ public class SaveSlotsMenu : Menu
         _isLoadingGame = isLoadingGame;
 
 
-        // a dictionary of all of the profiles ids with their corresponding data
-        Dictionary<string, GameData> profilesGameData = _dataPersistenceManager.GetAllProfilesGameData();
-
-
         
-        ActivateSaveSlots(profilesGameData);
+        
+        ActivateSaveSlots();
 
         Button firstSelectedButton = _buttonBack;
 
@@ -153,8 +146,9 @@ public class SaveSlotsMenu : Menu
     //    SetFirstSelected(firstSelectedButton);
     }
 
-    private void ActivateSaveSlots(Dictionary<string, GameData> profilesGameData)
+    private void ActivateSaveSlots()
     {
+        Dictionary<string, GameData> profilesGameData = _dataPersistenceData.GetAllProfilesGameData();
         Button firstSelectedButton = _buttonBack; // the defualt button that is selected
 
         for (int i = 0; i < _saveSlotButtons.Count; i++)

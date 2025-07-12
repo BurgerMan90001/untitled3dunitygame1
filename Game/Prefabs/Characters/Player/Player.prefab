@@ -75,10 +75,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bc743dbb5c71754f81a3929d6bd4a45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveAction: {fileID: 695006976769473254, guid: 1571a21ec2f1ba545a70d97ed9b5b4ab, type: 3}
-  _lookAction: {fileID: 0}
-  _jumpAction: {fileID: 0}
-  _fireAction: {fileID: 0}
 --- !u!1 &1067157739710738330
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,8 +537,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c4662de983fc414286daaff6b380c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _userInterfaceData: {fileID: 11400000, guid: 1c7fbd88d5738b74087a9f4ddfe1e972, type: 2}
   Inventory: {fileID: 11400000, guid: 429beb422e6f2764ab242e6b1ace72b8, type: 2}
-  clearOnEnable: 1
+  _inventoryOpenAction: {fileID: 5582636049184023659, guid: 1571a21ec2f1ba545a70d97ed9b5b4ab, type: 3}
+  _inventoryCloseAction: {fileID: -6920595432773600368, guid: 1571a21ec2f1ba545a70d97ed9b5b4ab, type: 3}
+  _clearOnEnable: 0
 --- !u!1 &7439382914111481758
 GameObject:
   m_ObjectHideFlags: 0
@@ -700,10 +699,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: aceb83ccfb0d48b4194c365e4ad19d50, type: 2}
   - {fileID: 11400000, guid: 5d10b517b4cf04340a34e98944b9ea31, type: 2}
   - {fileID: 11400000, guid: 065cca293604c934ca59a3e923e71821, type: 2}
-  _moveAction: {fileID: 0}
-  _sprintAction: {fileID: 0}
-  _jumpAction: {fileID: 0}
-  _crouchAction: {fileID: 0}
+  _moveAction: {fileID: 695006976769473254, guid: 1571a21ec2f1ba545a70d97ed9b5b4ab, type: 3}
+  _sprintAction: {fileID: 5819807020796326140, guid: 1571a21ec2f1ba545a70d97ed9b5b4ab, type: 3}
+  _jumpAction: {fileID: -2525736970476107741, guid: 1571a21ec2f1ba545a70d97ed9b5b4ab, type: 3}
+  _crouchAction: {fileID: -7023192742598419029, guid: 1571a21ec2f1ba545a70d97ed9b5b4ab, type: 3}
   _crouchYScale: 0.5
   _jumpForce: 5
   _maxStamina: 10

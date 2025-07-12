@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 399195524025708289, guid: 2283d4bcaacfd784b857439b3bb9f926, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.228931
+      value: 2.17
       objectReference: {fileID: 0}
     - target: {fileID: 399195524025708289, guid: 2283d4bcaacfd784b857439b3bb9f926, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.885952
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 399195524025708289, guid: 2283d4bcaacfd784b857439b3bb9f926, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.68
+      value: -57.12
       objectReference: {fileID: 0}
     - target: {fileID: 399195524025708289, guid: 2283d4bcaacfd784b857439b3bb9f926, type: 3}
       propertyPath: m_LocalRotation.w
@@ -53,8 +53,16 @@ PrefabInstance:
       value: NPC_Static
       objectReference: {fileID: 0}
     - target: {fileID: 3589159676945201763, guid: 2283d4bcaacfd784b857439b3bb9f926, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3589159676945201763, guid: 2283d4bcaacfd784b857439b3bb9f926, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 123
+      objectReference: {fileID: 0}
+    - target: {fileID: 5551920730502716715, guid: 2283d4bcaacfd784b857439b3bb9f926, type: 3}
+      propertyPath: _dialogueKnotName
+      value: NPC_Static
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7869662424804253149, guid: 2283d4bcaacfd784b857439b3bb9f926, type: 3}

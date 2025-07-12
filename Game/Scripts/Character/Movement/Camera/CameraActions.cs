@@ -1,3 +1,4 @@
+using DG.Tweening.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 /// <summary>
@@ -10,22 +11,18 @@ public class CameraActions : MonoBehaviour
     private RotateCamera _rotateCamera;
     private MouseClick _mouseClick;
     private HitDetect _hitDetect;
- 
+    
+
     private Vector2 _lookInput;
     private Vector2 _mousePosition;
-
 
     private Transform _cameraTransform;
 
     [Header("Dependencies")]
     [SerializeField] private DynamicInventory _dynamicInventory;
-    //   [SerializeField] private GameEvents gameEvents;
 
-    [Header("InputActionReferences")]
-    [SerializeField] private InputActionReference _lookAction;
-    [SerializeField] private InputActionReference _pickUpAction;
-    [SerializeField] private InputActionReference _interactAction;
-    [SerializeField] private InputActionReference _leftClickAction;
+    [SerializeField] private CameraInput _cameraInput;
+
 
     [Header("Positions")]
     [SerializeField] private Transform _orientation;
@@ -54,9 +51,11 @@ public class CameraActions : MonoBehaviour
 
     private void Awake()
     {
-        _cameraTransform = transform; 
+        _cameraTransform = transform;
+
+
         // the camera transform is this script's transform because it will be on the cinemachine camera gameobject
-        
+
         _hitDetect = new HitDetect(_cameraTransform);
         _interact = new Interact(_hitDetect, _dynamicInventory, _interactMask);
         _rotateCamera = new RotateCamera(_verticalRotationLimit);
@@ -65,47 +64,16 @@ public class CameraActions : MonoBehaviour
 
     }
 
+
     private void OnEnable()
     {
-        _lookAction.action.Enable();
-        _interactAction.action.Enable();
-        _leftClickAction.action.Enable();
-        _pickUpAction.action.Enable();
-
-        _lookAction.action.started += OnLook;
-        _lookAction.action.performed += OnLook;
-        _lookAction.action.canceled += OnLook;
-
-        _interactAction.action.started += OnInteract;
-        _interactAction.action.canceled += OnInteract;
-
-        _leftClickAction.action.started += OnLeftClick;
-        _leftClickAction.action.canceled += OnLeftClick;
-
-        _pickUpAction.action.started += OnPickup;
-        _pickUpAction.action.canceled += OnPickup;
+        _cameraInput.Register(this);
     }
     private void OnDisable()
     {
-        _lookAction.action.started -= OnLook;
-        _lookAction.action.performed -= OnLook;
-        _lookAction.action.canceled -= OnLook;
-
-        _interactAction.action.started -= OnInteract;
-        _interactAction.action.canceled -= OnInteract;
-
-        _leftClickAction.action.started -= OnLeftClick;
-        _leftClickAction.action.canceled -= OnLeftClick;
-
-        _pickUpAction.action.started -= OnPickup;
-        _pickUpAction.action.canceled -= OnPickup;
-
-        _lookAction.action.Disable();
-        _interactAction.action.Disable();
-        _leftClickAction.action.Disable();
-        _pickUpAction.action.Disable();
+        _cameraInput?.Unregister(this);
     }
-    private void OnLeftClick(InputAction.CallbackContext ctx)
+    public void OnLeftClick(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
         {
@@ -117,7 +85,7 @@ public class CameraActions : MonoBehaviour
         }
 
     }
-    private void OnLook(InputAction.CallbackContext ctx)
+    public void OnLook(InputAction.CallbackContext ctx)
     {
         _lookInput = ctx.ReadValue<Vector2>(); // the velocity direction and magnitude from a device, such as a mouse or joystick
 
@@ -125,7 +93,7 @@ public class CameraActions : MonoBehaviour
 
     }
 
-    private void OnInteract(InputAction.CallbackContext ctx)
+    public void OnInteract(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
         {
@@ -138,7 +106,11 @@ public class CameraActions : MonoBehaviour
     }
     public void OnPickup(InputAction.CallbackContext ctx)
     {
-
+        if (ctx.started)
+        {
+            
+            _cameraInput.ToggleLook();
+        }
     }
     private void Update()
     {

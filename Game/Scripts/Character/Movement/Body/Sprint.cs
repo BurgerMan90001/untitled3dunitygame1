@@ -9,12 +9,12 @@ using UnityEngine;
 #endregion
 public class Sprint
 {
-    private SO_Stats _stats;
+    private GeneralStats _stats;
 
     public Action<float> StaminaChanged; 
     public bool ButtonHeld { get ; private set; }
 
-    public Sprint(SO_Stats stats)
+    public Sprint(GeneralStats stats)
     {
         _stats = stats;
     }
