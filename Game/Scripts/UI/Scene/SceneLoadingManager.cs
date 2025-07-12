@@ -15,7 +15,7 @@ public static class SceneLoadingManager
     public static string LoadingSceneName = "Loading";
     public static void LoadLoadingScreen()
     {
-        OnSceneLoaded.Invoke(UserInterfaces.Loading);
+     //   OnSceneLoaded.Invoke(UserInterfaces.Loading);
         _sceneLoader.LoadScene(LoadingSceneName);
        
         

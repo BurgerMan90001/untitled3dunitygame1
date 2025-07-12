@@ -7,15 +7,20 @@ using UnityEngine;
 /// </summary>
 public class SceneLoadTrigger : MonoBehaviour
 {
-    
-    [Header("Dependancies")]
-    
+
 
     [Header("Loading Settings")]
-    [SerializeField] private string _defaultSceneToLoad = "Main Game";
+
+
+    [Header("Initilize Settings")]
+    [SerializeField] private bool _initilize;
+    [SerializeField] private string _sceneAfterInitilize;
+    [SerializeField] private UserInterfaces _initilizeUserInterface;
+
 
     [Header("Debug")]
     [SerializeField] private bool _debugLoadingScreen = false;
+    [SerializeField] private string _defaultSceneToLoad = "Main Game";
     [SerializeField] private string _debugSceneToLoad = "Main Game";
 
     private SceneLoader _sceneLoader;
@@ -29,8 +34,12 @@ public class SceneLoadTrigger : MonoBehaviour
     }
     private void Start()
     {
-        
-        if (_debugLoadingScreen)
+        if (_initilize)
+        {
+            _sceneLoader.LoadScene(_sceneAfterInitilize, _initilizeUserInterface);
+        }
+
+        else if (_debugLoadingScreen)
         {
             _sceneLoader.LoadScene(_debugSceneToLoad);
             Debug.LogWarning("Loading debug scene");
@@ -39,7 +48,9 @@ public class SceneLoadTrigger : MonoBehaviour
         {
             _sceneLoader.LoadScene(_defaultSceneToLoad);
             Debug.LogWarning("Loading default scene");
-        } else
+        }
+        
+        else
         {
             _sceneLoader.LoadScene(SceneLoadingManager.SceneToLoad, SceneLoadingManager.UserInterfaceToLoad);
 

@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b58a6ac795e6b741bf1ead222cf8b4b, type: 3}
-  m_Name: The Fool
+  m_Name: 123
   m_EditorClassIdentifier: 
-  <ItemName>k__BackingField: The Fool
+  <ItemName>k__BackingField: 123
   <Icon>k__BackingField: {fileID: 0}
-  <Description>k__BackingField: The beginning.
+  <Description>k__BackingField: 123
   <IsStackable>k__BackingField: 1
   <OriginalValue>k__BackingField: 0
+  <MinQuality>k__BackingField: 0
   <MaxQuality>k__BackingField: 5
