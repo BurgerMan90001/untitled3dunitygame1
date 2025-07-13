@@ -4731,7 +4731,7 @@ MonoBehaviour:
   priority: 0
   customPasses:
   - rid: 6819347259848917282
-  injectionPoint: 1
+  injectionPoint: 4
   m_TargetCamera: {fileID: 0}
   useTargetCamera: 0
   references:
@@ -4876,7 +4876,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 123
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &101031037
 Transform:
   m_ObjectHideFlags: 0
@@ -4913,8 +4913,8 @@ MonoBehaviour:
   - rid: 6819347245357596672
   - rid: 6819347245357596673
   - rid: 6819347259848917071
-  injectionPoint: 2
-  m_TargetCamera: {fileID: 0}
+  injectionPoint: 6
+  m_TargetCamera: {fileID: 962476756}
   useTargetCamera: 0
   references:
     version: 2
@@ -4965,21 +4965,21 @@ MonoBehaviour:
       type: {class: FullScreenCustomPass, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
       data:
         m_Name: Custom Pass
-        enabled: 0
+        enabled: 1
         targetColorBuffer: 0
         targetDepthBuffer: 0
         clearFlags: 0
         passFoldout: 0
         m_Version: 0
-        fullscreenPassMaterial: {fileID: 0}
+        fullscreenPassMaterial: {fileID: 2100000, guid: c810dc32b18b66044bb3f7c157df41cf, type: 2}
         materialPassIndex: 0
-        materialPassName: Custom Pass 0
+        materialPassName: DrawProcedural
         fetchColorBuffer: 0
     - rid: 8363469730664415313
       type: {class: FullScreenCustomPass, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
       data:
         m_Name: Custom Pass
-        enabled: 1
+        enabled: 0
         targetColorBuffer: 2
         targetDepthBuffer: 2
         clearFlags: 0
@@ -19196,7 +19196,7 @@ GameObject:
   m_Component:
   - component: {fileID: 656419356}
   - component: {fileID: 656419357}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: NPCs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27173,6 +27173,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!20 &962476756 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 6214064463745274643, guid: dc9cc93027786b147b9779a8d2273da3, type: 3}
+  m_PrefabInstance: {fileID: 1555558692850207959}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &983850964
 GameObject:
   m_ObjectHideFlags: 0
@@ -51038,6 +51043,29 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6545192168572867432, guid: 5ea1b9d6edacc5e428979622065cacda, type: 3}
   m_PrefabInstance: {fileID: 1614933168}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1617321583 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2142478289644107325, guid: dc9cc93027786b147b9779a8d2273da3, type: 3}
+  m_PrefabInstance: {fileID: 1555558692850207959}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1617321586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617321583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 530f512bb812fbc41813a038c0460571, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fullScreenBlur: {fileID: 93033770}
+  targetCamera: {fileID: 962476756}
+  cullingMask:
+    serializedVersion: 2
+    m_Bits: 512
+  _dialogueData: {fileID: 11400000, guid: b7057052d12597d459bf37d69cac44f3, type: 2}
 --- !u!1 &1623441137
 GameObject:
   m_ObjectHideFlags: 0
@@ -61650,6 +61678,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 355992307929792169, guid: dc9cc93027786b147b9779a8d2273da3, type: 3}
+      propertyPath: _mask.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 355992307929792169, guid: dc9cc93027786b147b9779a8d2273da3, type: 3}
       propertyPath: _orientation
       value: 
       objectReference: {fileID: 755377175}
@@ -61697,10 +61729,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: CinemachineCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 6214064463745274643, guid: dc9cc93027786b147b9779a8d2273da3, type: 3}
+      propertyPath: m_FOVAxisMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6214064463745274643, guid: dc9cc93027786b147b9779a8d2273da3, type: 3}
+      propertyPath: m_OcclusionCulling
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6214064463745274643, guid: dc9cc93027786b147b9779a8d2273da3, type: 3}
+      propertyPath: m_BackGroundColor.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6214064463745274643, guid: dc9cc93027786b147b9779a8d2273da3, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 1079
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2142478289644107325, guid: dc9cc93027786b147b9779a8d2273da3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1617321586}
   m_SourcePrefab: {fileID: 100100000, guid: dc9cc93027786b147b9779a8d2273da3, type: 3}
 --- !u!23 &1711813854676043702
 MeshRenderer:

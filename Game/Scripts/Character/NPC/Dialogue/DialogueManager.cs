@@ -6,7 +6,6 @@ using System.Collections;
 public class DialogueManager : MonoBehaviour
 {
     [Header("Dependencies")]
-    [SerializeField] private UserInterfaceData _userInterfaceData;
     
 
     [Header("Dialogue Settings")]
@@ -18,6 +17,7 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Data")]
     [SerializeField] private DialogueData _dialogueData;
+    [SerializeField] private UserInterfaceData _userInterfaceData;
 
     private Story _story;
 
@@ -26,7 +26,7 @@ public class DialogueManager : MonoBehaviour
     private void Awake()
     {
         _story = new Story(_inkJson.text);
-        
+    //    _story.variablesState[]
     }
     private void OnEnable()
     {
@@ -116,8 +116,6 @@ public class DialogueManager : MonoBehaviour
 
     private void ExitDialogue()
     {
-        Debug.Log("Exiting dialogue");
-
         _dialoguePlaying = false;
 
         _userInterfaceData.ToggleUserInterface(UserInterfaces.Dialogue);
@@ -125,6 +123,8 @@ public class DialogueManager : MonoBehaviour
         _dialogueData.DialogueLine = "";
 
         _story.ResetState();
+
+        _dialogueData.ExitDialogue();
     }
 
 

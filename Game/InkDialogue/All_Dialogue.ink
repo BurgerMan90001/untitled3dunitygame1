@@ -1,6 +1,6 @@
 VAR yourVariable = true
 
-
+VAR startBattle = false;
 //-> question
 // [] to hide choice when chosen
 // + to show a question again when its picked/

@@ -11,6 +11,7 @@ public class DialogueData : ScriptableObject
 {
     public event Action<string> OnEnterDialogue;
 
+    public event Action OnExitDialogue;
     [field: SerializeField] public string DialogueLine { get; internal set; }
 
 
@@ -19,7 +20,10 @@ public class DialogueData : ScriptableObject
     {
         OnEnterDialogue?.Invoke(knotName); // null check
     }
-    
+    public void ExitDialogue()
+    {
+        OnExitDialogue?.Invoke();
+    }
 
     
 }
