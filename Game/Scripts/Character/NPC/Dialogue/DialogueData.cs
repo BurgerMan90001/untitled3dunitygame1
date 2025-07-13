@@ -13,9 +13,9 @@ public class DialogueData : ScriptableObject
 
     public event Action OnExitDialogue;
     [field: SerializeField] public string DialogueLine { get; internal set; }
-
-
-    public List<Choice> Choiceslist { get; internal set; }
+    
+    
+    public List<string> Choiceslist { get; internal set; }
     public void EnterDialogue(string knotName)
     {
         OnEnterDialogue?.Invoke(knotName); // null check

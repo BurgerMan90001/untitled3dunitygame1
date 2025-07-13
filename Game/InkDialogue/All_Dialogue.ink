@@ -1,6 +1,6 @@
 VAR yourVariable = true
 
-VAR startBattle = false
+VAR battleEntered = false
 //-> question
 // [] to hide choice when chosen
 // + to show a question again when its picked/
@@ -19,6 +19,7 @@ VAR startBattle = false
 DO YOU WAN'T TO CARD BATTLE?
     * yes
         LETS BATTLE!!
+        ~ battleEntered = true
         -> END
     + no
         -> NPC_NonStatic

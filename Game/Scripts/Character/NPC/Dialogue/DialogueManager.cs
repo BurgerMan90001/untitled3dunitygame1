@@ -88,7 +88,6 @@ public class DialogueManager : MonoBehaviour
             if (IsThereStoryChoices())
             {
                 ShowChoices(); // debugg.
-            //    _dialogue.Choiceslist = _story.currentChoices; 
             }
             
             
