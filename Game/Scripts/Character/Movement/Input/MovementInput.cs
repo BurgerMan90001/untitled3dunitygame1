@@ -3,10 +3,12 @@ using UnityEngine.InputSystem;
 
 [System.Serializable]
 [CreateAssetMenu(menuName = "Input/MovementInput")]
-public class MovementInput : ScriptableObject
+public class MovementInput : ScriptableObject, IInputEvent
 {
     public bool LookEnabled { get; private set; }
     public bool Enabled { get; private set; }
+
+    [field: SerializeField] public InputType InputType { get; private set; } 
 
     [Header("InputActionReferences")]
     [SerializeField] private InputActionReference _moveAction;
@@ -14,12 +16,15 @@ public class MovementInput : ScriptableObject
     [SerializeField] private InputActionReference _crouchAction;
     [SerializeField] private InputActionReference _jumpAction;
 
-
+    public MovementInput()
+    {
+        InputType = InputType.Movement;
+    }
     public void SetActive(bool active)
     {
         if (active)
         {
-            Enabled = true;
+            
             _moveAction.action.Enable();
             _sprintAction.action.Enable();
             _crouchAction.action.Enable();
@@ -31,9 +36,9 @@ public class MovementInput : ScriptableObject
             _sprintAction.action.Disable();
             _crouchAction.action.Disable();
             _jumpAction.action.Disable();
-            Enabled = false;
+            
         }
-
+        Enabled = active;
     }
     
     public void Register(PlayerMovement playerMovement)

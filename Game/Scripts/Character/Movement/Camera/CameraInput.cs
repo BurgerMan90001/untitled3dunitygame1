@@ -3,10 +3,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 [System.Serializable]
 [CreateAssetMenu(menuName = "Input/CameraInput")]
-public class CameraInput : ScriptableObject
+public class CameraInput : ScriptableObject, IInputEvent
 {
+
     public bool LookEnabled {  get; private set; }
     public bool Enabled { get; private set; }
+
+    [field: SerializeField] public InputType InputType { get; private set; }
 
     [Header("InputActionReferences")]
     [SerializeField] private InputActionReference _lookAction;
@@ -14,15 +17,23 @@ public class CameraInput : ScriptableObject
     [SerializeField] private InputActionReference _interactAction;
     [SerializeField] private InputActionReference _leftClickAction;
 
+    public CameraInput()
+    {
+        InputType = InputType.Camera;
 
+    }
     public void SetActive(bool active)
     {
         if (active)
         {
+            
             _lookAction.action.Enable();
             _interactAction.action.Enable();
             _leftClickAction.action.Enable();
             _pickUpAction.action.Enable();
+            
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
         else
         {
@@ -30,7 +41,12 @@ public class CameraInput : ScriptableObject
             _interactAction.action.Disable();
             _leftClickAction.action.Disable();
             _pickUpAction.action.Disable();
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            
         }
+        Enabled = active;
 
     }
     public void ToggleLook()

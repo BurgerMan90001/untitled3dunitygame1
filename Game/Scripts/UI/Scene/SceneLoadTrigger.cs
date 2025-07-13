@@ -36,7 +36,8 @@ public class SceneLoadTrigger : MonoBehaviour
     {
         if (_initilize)
         {
-            _sceneLoader.LoadScene(_sceneAfterInitilize, _initilizeUserInterface);
+            SceneLoadingManager.LoadScene(_sceneAfterInitilize, _initilizeUserInterface, true);
+            
         }
 
         else if (_debugLoadingScreen)

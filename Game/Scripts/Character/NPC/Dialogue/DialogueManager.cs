@@ -26,6 +26,7 @@ public class DialogueManager : MonoBehaviour
     private void Awake()
     {
         _story = new Story(_inkJson.text);
+        
     }
     private void OnEnable()
     {

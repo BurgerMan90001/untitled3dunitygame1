@@ -16,8 +16,12 @@ VAR yourVariable = true
 
 
 === NPC_NonStatic ===
-I love moving!
-:)
+DO YOU WAN'T TO CARD BATTLE 
+    * yes
+        LETS BATTLE!!
+        -> END
+    + no
+        -> NPC_NonStatic
 ->END
 === NPC_Static ===
 I CANT MOVE

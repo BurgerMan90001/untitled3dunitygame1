@@ -117,9 +117,8 @@ public class SaveSlotsMenu : Menu
 
         _dataPersistenceData.SaveGameData();
 
-        SceneLoadingManager.SceneToLoad = "Main Game";
-        SceneLoadingManager.UserInterfaceToLoad = UserInterfaces.HUD;
-        SceneLoadingManager.LoadLoadingScreen();
+        SceneLoadingManager.LoadScene("Main Game", UserInterfaces.HUD, true);
+        
 
 
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;

@@ -54,7 +54,7 @@ public class UserInterface : MonoBehaviour
 
     private void Awake()
     {
-        if (_instance == null)
+        if (this != null)
         {
             _instance = this;
             DontDestroyOnLoad(gameObject);

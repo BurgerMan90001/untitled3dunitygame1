@@ -8,9 +8,8 @@ public class PlayerInventory : MonoBehaviour, IDataPersistence
     [Header("Dependancies")]
     
     [SerializeField] private UserInterfaceData _userInterfaceData;
-    public PlayerInput playerInput;
+    [SerializeField] private InputData _inputData;
 
-    [SerializeField] private string _inventoryActionMap;
     public DynamicInventory Inventory;
 
     [Header("InputActionReferences")]
@@ -55,12 +54,12 @@ public class PlayerInventory : MonoBehaviour, IDataPersistence
     private void OnOpenInventory(InputAction.CallbackContext ctx)
     {
         
-        _userInterfaceData.ToggleUserInterface(UserInterfaces.Inventory, _inventoryActionMap);
-    //    playerInput.SwitchCurrentActionMap(_inventoryActionMap);
+        _userInterfaceData.ToggleUserInterface(UserInterfaces.Inventory);
+        _inputData.ToggleInput();
     }
     private void OnCloseInventory(InputAction.CallbackContext ctx)
     {
-     //   _userInterfaceData.ToggleUserInterface(UserInterfaces.Inventory);
+
     }
     private void ClearInventory(bool active)
     {
