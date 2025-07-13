@@ -6,6 +6,9 @@ public class CameraSettings : MonoBehaviour
     [SerializeField] private Transform _fullScreenBlur;
     [SerializeField] private Camera targetCamera;
 
+    [Header("Settings")]
+    [SerializeField] private bool _blurScreen;
+
     [Header("Cull Mask")]
     [SerializeField] private LayerMask cullingMask;
 
@@ -19,17 +22,22 @@ public class CameraSettings : MonoBehaviour
     }
     public void OnEnable()
     {
-
-        _dialogueData.OnEnterDialogue += ShowBlur;
-        _dialogueData.OnExitDialogue += HideBlur;
+        if (_blurScreen)
+        {
+            _dialogueData.OnEnterDialogue += ShowBlur;
+            _dialogueData.OnExitDialogue += HideBlur;
+        }
     }
     public void OnDisable()
     {
-        _dialogueData.OnEnterDialogue -= ShowBlur;
+        if (_blurScreen) { 
+            _dialogueData.OnEnterDialogue -= ShowBlur;
         _dialogueData.OnExitDialogue -= HideBlur;
+        }
     }
     private void ShowBlur(string knotName)
     {
+        
         targetCamera.cullingMask = ~(1 << cullingMask);
         _fullScreenBlur.gameObject.SetActive(true);
     }
