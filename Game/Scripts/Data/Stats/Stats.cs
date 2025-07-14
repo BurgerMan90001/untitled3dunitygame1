@@ -16,8 +16,6 @@ public class GeneralStats : ScriptableObject, IDataPersistence
     public float Energy;
     public float MaxEnergy;
 
-    public float MaxHealth;
-    public float Health; // used in battle
 
     public float Experience;
     public float Level;
@@ -32,7 +30,6 @@ public class GeneralStats : ScriptableObject, IDataPersistence
         data.MaxEnergy = MaxEnergy;
         data.Energy = Energy;
 
-        data.MaxHealth = MaxHealth;
 
         data.Money = Money;
         data.Experience = Experience;
@@ -48,7 +45,6 @@ public class GeneralStats : ScriptableObject, IDataPersistence
         MaxEnergy = data.MaxEnergy;
         Energy = data.Energy;
 
-        MaxHealth = data.MaxHealth;
 
         Money = data.Money;
 
@@ -56,6 +52,7 @@ public class GeneralStats : ScriptableObject, IDataPersistence
         Experience = data.Experience;
         Level = data.Level;
 
+        
     }
 
 

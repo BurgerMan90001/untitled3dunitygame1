@@ -1,6 +1,9 @@
-using UnityEngine;
 using Ink.Runtime;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using UnityEngine;
 
 
 public class DialogueManager : MonoBehaviour
@@ -17,39 +20,43 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Data")]
     [SerializeField] private DialogueData _dialogueData;
-    [SerializeField] private UserInterfaceData _userInterfaceData;
 
     private Story _story;
 
-    private bool _dialoguePlaying = false;
+    //private bool _dialoguePlaying = false;
+
+    private StringBuilder _choiceText;
 
     private void Awake()
     {
         _story = new Story(_inkJson.text);
-    //    _story.variablesState[]
+        _choiceText = new StringBuilder();
+        //    _story.variablesState[]
     }
     private void OnEnable()
     {
         // trigger this class' EnterDialogue when the game dialogue event is triggered
         _dialogueData.OnEnterDialogue += EnterDialogue;
+        _dialogueData.OnContinueDialogue += ContinueOrExitStory;
+    //    _dialogueData.OnExitDialogue += ExitDialogue;
     }
     private void OnDisable()
     {
         _dialogueData.OnEnterDialogue -= EnterDialogue;
-
+        _dialogueData.OnContinueDialogue -= ContinueOrExitStory;
+     //   _dialogueData.OnExitDialogue -= ExitDialogue;
     }
-
-    private void ContinueDialogue() // called when a continue dialogue button is pressed
-    {
-        ContinueOrExitStory();
-
-    }
+    /*
+  
     private void BeginDialogue(string knotName) // happens when beginning a new dialogue with an NPC
     {
-        _dialoguePlaying = true;
 
-        _userInterfaceData.ToggleUserInterface(UserInterfaces.Dialogue);
-
+        
+        
+    }
+    */
+    private void EnterDialogue(string knotName) // begins or continues dialogue
+    {
         if (!knotName.Equals(""))
         {
             _story.ChoosePathString(knotName); // jump to the knotname in the ink file
@@ -58,45 +65,47 @@ public class DialogueManager : MonoBehaviour
         {
             Debug.LogWarning("Knot name was empty when entering dialogue");
         }
-        ContinueOrExitStory(); // begins the dialogue
-    }
-    private void EnterDialogue(string knotName) // begins or continues dialogue
-    {
-        if (_dialoguePlaying)
-        {
-            ContinueDialogue(); // continue dialogue if there is dialogue playing
+    //    ContinueOrExitStory(); // begins the dialogue
 
-        } else
-        {
-            BeginDialogue(knotName);
-        }
-        
-        
     }
 
     private void ContinueOrExitStory() // updates the dialogue lines
     {
-     
-
         if (_story.canContinue)
         {
             string dialogueLine = _story.Continue();
 
             _dialogueData.DialogueLine = dialogueLine; // update the scriptable object's line
 
-
             if (IsThereStoryChoices())
             {
-                ShowChoices(); // debugg.
+                UpdateChoices();
+
             }
-            
-            
-        } else // when there is no more dialogue lines in the story, exit
+
+        } 
+        else // when there is no more dialogue lines in the story, exit
         {
             ExitDialogue();
+            
         }
+    }
+    private void ExitDialogue()
+    {
+        _dialogueData.DialogueLine = "";
 
+        _story.ResetState();
+
+        _dialogueData.ExitDialogue();
+
+    }
+    private void UpdateChoices()
+    {
         
+
+        List<string> choicesText = _story.currentChoices.Select(choice => choice.text).ToList();
+        _dialogueData.UpdateStoryChoices(choicesText);
+   //     _choiceText.Clear();
     }
 
     private bool IsThereStoryChoices()
@@ -113,18 +122,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    private void ExitDialogue()
-    {
-        _dialoguePlaying = false;
-
-        _userInterfaceData.ToggleUserInterface(UserInterfaces.Dialogue);
-
-        _dialogueData.DialogueLine = "";
-
-        _story.ResetState();
-
-        _dialogueData.ExitDialogue();
-    }
+    
 
 
 

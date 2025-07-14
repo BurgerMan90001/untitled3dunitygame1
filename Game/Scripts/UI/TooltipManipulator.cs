@@ -72,6 +72,7 @@ public class TooltipManipulator : PointerManipulator
 
         _tooltipLabel.style.height = _tooltipSize.y; // in pixels
         _tooltipLabel.style.width = _tooltipSize.x;
+
         _tooltipLabel.text = itemInstance.GetToolTipString();
 
         PositionTooltip();

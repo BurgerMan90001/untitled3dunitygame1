@@ -44,6 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b221497f73e1afd478787d7343bdb81f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultSceneToLoad: Main Game
+  _initilize: 0
+  _sceneAfterInitilize: Main
+  _initilizeUserInterface: 7
   _debugLoadingScreen: 0
+  _defaultSceneToLoad: Main Game
   _debugSceneToLoad: Main Game

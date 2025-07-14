@@ -27,10 +27,8 @@ public class PlayerInventory : MonoBehaviour, IDataPersistence
 
 
         _inventoryOpenAction.action.started += OnOpenInventory;
-    //    _inventoryOpenAction.action.canceled += OnOpenInventory;
 
         _inventoryCloseAction.action.started += OnCloseInventory;
-     //   _inventoryCloseAction.action.canceled += OnCloseInventory;
 
         ClearInventory(_clearOnEnable);
 

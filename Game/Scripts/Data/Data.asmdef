@@ -2,7 +2,8 @@
     "name": "Data",
     "rootNamespace": "",
     "references": [
-        "Unity.InputSystem"
+        "Unity.InputSystem",
+        "Ink-Libraries"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

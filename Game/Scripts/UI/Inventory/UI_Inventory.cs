@@ -4,53 +4,39 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 
-public class UI_Inventory // animation and stuff
+public class UI_Inventory : IUserInterface // animation and stuff
 {
 
-    private VisualElement _root;
-
     private DynamicInventory _dynamicInventory;
-
-    private Vector2 _toolTipsize = new Vector2(200, 200); // default size for the tooltip, can be changed later
-    
 
     private List<VisualElement> _itemVisualElements;
 
     private DragAndDropManipulator _dragAndDropManipulator;
     private TooltipManipulator _tooltipManipulator;
 
-    private readonly Dictionary<VisualElement, string> _elementNames = new Dictionary<VisualElement, string>
-    {
-        
-    };
 
     private VisualElement _inventoryBackingPanel;
-    private string _inventoryBackinganelName = "InventoryBackingPanel1"; // the name of the inventory backing panel in the uxml file
 
     private VisualElement _ghostImage; // the ghost image that will be used to show the item being dragged
-    private string _ghostImageName = "GhostImage";
 
 
-    public UI_Inventory(DynamicInventory dynamicInventory,VisualElement root)
+    public UI_Inventory(DynamicInventory dynamicInventory)
     {
         _dynamicInventory = dynamicInventory; // the dynamic inventory that this UI_Inventory will use
-        _root = root;
 
         
         _itemVisualElements = new List<VisualElement>();
 
     }
-    #region
-    /// <summary>
-    /// <br> Registers events. </br>
-    /// <br> Called in onenable in userInterface.cs</br>
-    /// </summary>
-    #endregion
-    public void RegisterEvents()
-    {
 
-        _inventoryBackingPanel = _root.Q<VisualElement>(_inventoryBackinganelName);
-        _ghostImage = _root.Q<VisualElement>(_ghostImageName);
+    public void QueryElements(VisualElement root)
+    {
+        _inventoryBackingPanel = root.Q<VisualElement>("Panel_Inventory");
+        _ghostImage = root.Q<VisualElement>("GhostImage");
+    }
+    
+    public void Register(VisualElement root)
+    {
 
     //   _itemVisualElements = (List<VisualElement>)_inventoryBackingPanel.Children();
         for (int i = 0; i < _inventoryBackingPanel.childCount; i++)
@@ -60,8 +46,8 @@ public class UI_Inventory // animation and stuff
 
             _itemVisualElements.Add(child);
 
-            _dragAndDropManipulator = new DragAndDropManipulator(child, _ghostImage, _inventoryBackingPanel, _root, _dynamicInventory);
-            _tooltipManipulator = new TooltipManipulator(_root, _inventoryBackingPanel); // tooltip manipulator will be used to show the tooltip
+            _dragAndDropManipulator = new DragAndDropManipulator(child, _ghostImage, _inventoryBackingPanel, root, _dynamicInventory);
+            _tooltipManipulator = new TooltipManipulator(root, _inventoryBackingPanel); // tooltip manipulator will be used to show the tooltip
            
             
             child.AddManipulator(_tooltipManipulator);
@@ -72,11 +58,11 @@ public class UI_Inventory // animation and stuff
                 child.userData = _dynamicInventory.Items[i]; // Store directly in the element
             }
         }
-        
-        AssignItemInstancesToVisualElements(); // assign the item instances to the visual elements in the inventory
+
+        UpdateInterface(); // assign the item instances to the visual elements in the inventory
 
     }
-    public void UnregisterEvents()
+    public void Unregister()
     {
         for (int i = 0; i < _inventoryBackingPanel.childCount; i++)
         {
@@ -93,7 +79,7 @@ public class UI_Inventory // animation and stuff
     /// Updates the ItemSlots dictionary with the current items in the dynamic inventory. 
     /// </summary>
     #endregion
-    public void AssignItemInstancesToVisualElements() // O(n)
+    public void UpdateInterface() // O(n)
     {
 
         for (int i = 0; i < _dynamicInventory.Items.Count; i++)
@@ -118,6 +104,9 @@ public class UI_Inventory // animation and stuff
             
         }
     }
+
+    
+    
 }
 
 

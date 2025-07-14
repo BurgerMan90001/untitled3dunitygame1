@@ -45,18 +45,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 719ef5baad7a4f54782c45e32193b530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _UIDocument: {fileID: 3293367255992662212}
   _inputManager: {fileID: 0}
+  _data:
+  - {fileID: 0}
   _dynamicInventory: {fileID: 11400000, guid: 429beb422e6f2764ab242e6b1ace72b8, type: 2}
   _userInterfaceData: {fileID: 11400000, guid: 1c7fbd88d5738b74087a9f4ddfe1e972, type: 2}
   _dataPersistenceData: {fileID: 11400000, guid: 721e3fea6cf2b2c40a65ae5e4f51be8a, type: 2}
+  _dialogueData: {fileID: 11400000, guid: b7057052d12597d459bf37d69cac44f3, type: 2}
   _pauseOnInventory: 1
   _uxmlAssetLabelReference:
     m_LabelString: uxml
   InitalShownUserInterface: 7
   _sceneLabelReference:
     m_LabelString: scene
-  TooltipSize: {x: 200, y: 200}
 --- !u!114 &3293367255992662212
 MonoBehaviour:
   m_ObjectHideFlags: 0

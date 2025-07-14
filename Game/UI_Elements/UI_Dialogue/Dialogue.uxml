@@ -1,14 +1,17 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/myprojectV1/Game/UI_Elements/UI_Dialogue/BackingPanelStyle.uss?fileID=7433441132597879392&amp;guid=2cb65a084cf2ea74ba876db72d1c8d36&amp;type=3#BackingPanelStyle" />
     <Style src="project://database/Assets/myprojectV1/Game/UI_Elements/UI_Dialogue/DialogueStyle.uss?fileID=7433441132597879392&amp;guid=c94d937465828d64da245005be5847bb&amp;type=3#DialogueStyle" />
-    <ui:VisualElement name="Root" style="flex-grow: 1;">
-        <ui:VisualElement name="VisualElement" style="flex-grow: 10; justify-content: center; align-self: auto; align-items: auto; align-content: stretch;">
-            <ui:VisualElement name="Panel_Dialogue" class="panel_primary" style="opacity: 1; position: absolute; width: 28%; height: auto; align-content: center; align-self: flex-end; justify-content: center; align-items: stretch; right: 2%; top: auto; left: auto; bottom: auto; letter-spacing: 0; margin-top: 0%; margin-right: 0%;">
-                <ui:Label text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." parse-escape-sequences="false" selectable="false" name="Label" enabled="true" class="text_dialogueLine" style="width: 40%; font-size: 27px; margin-bottom: 20px; margin-top: 20px; right: auto; bottom: auto; left: auto; top: auto; align-items: center;" />
+    <ui:VisualElement name="Root" style="flex-grow: 1; align-content: flex-end; align-self: center; width: 100%; height: auto;">
+        <ui:VisualElement name="VisualElement" style="flex-grow: 10; justify-content: center; align-self: auto; align-items: auto; align-content: stretch; width: 100%;">
+            <ui:VisualElement name="Panel_Choices" class="panel_secondary" style="flex-grow: 1;">
+                <ui:Button text="Button" name="Button_Choice1" class="choiceButton" />
+                <ui:Button text="Button" name="Button_Choice2" class="choiceButton" />
+                <ui:Button text="Button" name="Button_Choice3" class="choiceButton" />
+                <ui:Button text="button" name="Button_Choice4" class="choiceButton" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="Panel_Dialogue" class="panel_primary" style="opacity: 1; bottom: 2%;">
-            <ui:Label text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." parse-escape-sequences="false" selectable="false" name="Label" enabled="true" class="text_dialogueLine" />
+        <ui:VisualElement name="Panel_Dialogue" class="panel_primary" style="opacity: 1; bottom: 2%; width: 90%; align-items: center; justify-content: space-around; align-self: center; align-content: flex-end;">
+            <ui:Label text="asddasdassadasd" parse-escape-sequences="false" selectable="false" name="Label_Dialogue" enabled="true" class="text_dialogueLine" style="width: 40%; align-content: center; align-self: center; align-items: auto; font-size: 30%;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

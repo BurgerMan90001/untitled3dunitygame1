@@ -77,8 +77,14 @@ public class ItemInstance
     }
     public virtual string GetToolTipString() // can be updated whenever
     {
-        
-        _tooltipString.Clear();
+        if (_tooltipString == null)
+        {
+
+            _tooltipString = new StringBuilder();
+        } else
+        {
+            _tooltipString.Clear();
+        }
 
         _tooltipString.Append("Item: ").Append(ItemType.ToString()).Append("\n")
             .Append("Quantity: ").Append(Quantity.ToString()).Append("\n")

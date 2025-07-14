@@ -9,16 +9,18 @@ public class UserInterfaceData : ScriptableObject
 {
     public Dictionary<UserInterfaces, VisualElement> UserInterfaceElements;
 //    public Action<UserInterfaces> OnToggleUserInterface;
-    public Action<UserInterfaces, string> OnToggleUserInterface;
+    public Action<UserInterfaces> OnToggleUserInterface;
 
     public void ToggleUserInterface(UserInterfaces userInterface)
     {
-        OnToggleUserInterface?.Invoke(userInterface, null);
+        OnToggleUserInterface?.Invoke(userInterface);
     }
+    /*
     public void ToggleUserInterface(UserInterfaces userInterface, string inputActionMap)
     {
         OnToggleUserInterface?.Invoke(userInterface, inputActionMap);
     }
+    */
 }
 
 public enum UserInterfaces

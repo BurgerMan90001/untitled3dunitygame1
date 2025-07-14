@@ -28,13 +28,20 @@ public class NPCInteraction : MonoBehaviour
             Debug.LogWarning("This npc has not been initialized yet!");
             return;
         }
-
-        if (!_dialogueKnotName.Equals("")) // if the knot name is not empty
+        
+        if (_dialogueData.InDialogue)
         {
-   
+        //    Debug.Log("CONTUN");
+            _dialogueData.ContinueDialogue();
+        }
+        
+        else if (!_dialogueKnotName.Equals("")) // if the knot name is not empty
+        {
+         //   Debug.Log("START");
             _dialogueData.EnterDialogue(_dialogueKnotName);// begins the NPC's dialgoue at their knotName
 
-        } else // the npc will default to ... if there is no dialogue knot 
+        }
+        else // the npc will default to ... if there is no dialogue knot 
         {
             _dialogueData.EnterDialogue("silentDialogue");
         }

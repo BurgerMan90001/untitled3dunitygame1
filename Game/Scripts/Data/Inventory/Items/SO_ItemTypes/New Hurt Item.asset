@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50c08145cfef93a4e91034f6e3092e21, type: 3}
-  m_Name: Cigarette
+  m_Script: {fileID: 11500000, guid: a591a9b81c44e5a4491022e6211f1267, type: 3}
+  m_Name: New Hurt Item
   m_EditorClassIdentifier: 
-  <ItemName>k__BackingField: Cigarette
-  <Icon>k__BackingField: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  <Description>k__BackingField: Smoke
+  <ItemName>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <Description>k__BackingField: This is a placehodler for a Hurt Item please remove.
   <IsStackable>k__BackingField: 1
-  <OriginalValue>k__BackingField: 2
+  <OriginalValue>k__BackingField: 0
   <MinQuality>k__BackingField: 0
   <MaxQuality>k__BackingField: 5
-  <HealValue>k__BackingField: -3
-  <HealType>k__BackingField: 1
+  <HurtValue>k__BackingField: 0
+  <HurtType>k__BackingField: 5

@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UIElements;
 
-public class SaveSlotsMenu : Menu
+public class UI_SaveSlotsMenu : IUserInterface
 {
 
     private VisualElement _panelSaveSlots;
@@ -11,10 +10,8 @@ public class SaveSlotsMenu : Menu
     private List<Button> _saveSlotButtons;
 
 
-    private MainMenu _mainMenu;
-
-
     private List<string> _profileIDs = new List<string>();
+
 
     private Button _buttonBack;
   
@@ -41,19 +38,17 @@ public class SaveSlotsMenu : Menu
     private bool _isLoadingGame = false;
 
     private DataPersistenceData _dataPersistenceData;
+    private UserInterfaceToggler _userInterfaceToggler;
 
-    public SaveSlotsMenu(MainMenu mainMenu, DataPersistenceData dataPersistenceData)
+    public UI_SaveSlotsMenu(DataPersistenceData dataPersistenceData, UserInterfaceToggler userInterfaceToggler)
     {
 
-        _mainMenu = mainMenu;
         _dataPersistenceData = dataPersistenceData;
+        _userInterfaceToggler = userInterfaceToggler;
     }
-    public void QueryElements(VisualElement panelSaveSlots)
-    {
-
-        _panelSaveSlots = panelSaveSlots;
-
-        _panelSaveSlots.style.display = DisplayStyle.None;
+    public void QueryElements(VisualElement root)
+    { 
+        _panelSaveSlots = root.Q<VisualElement>("Panel_SaveSlots");
 
         _saveSlotButtons = _panelSaveSlots.Query<Button>( className: "button_saveSlot").ToList(); // without the dot
         
@@ -61,14 +56,17 @@ public class SaveSlotsMenu : Menu
 
     }
    
-    public void RegisterEvents() // called in on enable after query elements
+    
+    public void Register(VisualElement root)
     {
-
         _buttonBack.clicked += OnBackClicked;
-
         SetupSaveSlots();
+    }
 
-        
+    public void Unregister()
+    {
+        _buttonBack.clicked -= OnBackClicked;
+        UnsetupSaveSlots();
     }
     private void SetupSaveSlots()
     {
@@ -80,16 +78,25 @@ public class SaveSlotsMenu : Menu
 
             saveSlotButton.style.display = DisplayStyle.Flex;
 
-            saveSlotButton.clicked += () => OnSaveSlotClicked(saveSlotButton.userData); // register click events
+            var buttonData = saveSlotButton.userData;
+
+            saveSlotButton.clicked += () => OnSaveSlotClicked(buttonData); // register click events
 
         }
     }
-    
+    private void UnsetupSaveSlots()
+    {
+        for (int i = 0; i < _saveSlotButtons.Count; i++)
+        {
+            Button saveSlotButton = _saveSlotButtons[i];
+            var buttonData = saveSlotButton.userData;
+            saveSlotButton.clicked -= () => OnSaveSlotClicked(buttonData); // register click events
+        }
+    }
     private void OnBackClicked()
     {
-        _mainMenu.Activate(true);
-
-        _panelSaveSlots.style.display = DisplayStyle.None; // deactivates or hides the save slot menu
+        _userInterfaceToggler.ToggleUserInterface(UserInterfaces.MainMenu);
+        _userInterfaceToggler.ToggleUserInterface(UserInterfaces.SaveSlotsMenu);
     }
     public void OnSaveSlotClicked(object userData)
     {
@@ -133,16 +140,12 @@ public class SaveSlotsMenu : Menu
         _panelSaveSlots.SetEnabled(true);
         _isLoadingGame = isLoadingGame;
 
-
-        
-        
         ActivateSaveSlots();
 
         Button firstSelectedButton = _buttonBack;
 
         firstSelectedButton.Focus(); // selects the button
 
-    //    SetFirstSelected(firstSelectedButton);
     }
 
     private void ActivateSaveSlots()
@@ -198,4 +201,5 @@ public class SaveSlotsMenu : Menu
         }
     }
 
+    
 }

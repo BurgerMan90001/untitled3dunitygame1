@@ -22,10 +22,15 @@ public enum HurtType {
 
     Physical,
     Stun,
-
+    /*
     Cold,
     Fire, 
     Electric,
     Magic,
+    */
         
+    Love, // lifesteal
+    Spook,
+
+    
 }

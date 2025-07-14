@@ -1,38 +1,18 @@
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
-public class MainMenu : Menu
+using UnityEngine.UIElements;
+// TODO FIX CONTIUME AND DATA PERSISTENCE
+
+public class UI_MainMenu : IUserInterface
 {
 
     private Button _buttonNewGame;
-    private string _buttonNewGameName = "Button_NewGame";
-
     private Button _buttonLoadGame;
-    private string _buttonLoadGameName = "Button_LoadGame";
-
     private Button _buttonContinueGame;
-    private string _buttonContinueGameName = "Button_ContinueGame";
 
-    private List<string> elementNames = new List<string>()
-    {
-
-    };
-
-    private string _panelMainMenuName = "Panel_MainMenu";
     private VisualElement _panelMainMenu;
 
-
-    private SaveSlotsMenu _saveSlotsMenu;
-    
-
-    private VisualElement _root;
-
-    private UXMLFileHandler _uxmlFileHandler;
-
     private DataPersistenceData _dataPersistenceData;
-    
+    private UserInterfaceToggler _userInterfaceToggler;
 
     // menuButton
     // mainMenuBackingPanel
@@ -56,80 +36,54 @@ public class MainMenu : Menu
     .button_secondary
     */
     #endregion
-    public MainMenu(VisualElement root, 
-        UXMLFileHandler uxmlfileHandler,
-        DataPersistenceData dataPersistenceData)
+    public UI_MainMenu(DataPersistenceData dataPersistenceData, UserInterfaceToggler userInterfaceToggler)
     {
-        _root = root;
-        
-        _uxmlFileHandler = uxmlfileHandler;
-        
-        _dataPersistenceData = dataPersistenceData;
-
-        _saveSlotsMenu = new SaveSlotsMenu(this, _dataPersistenceData);
+   
+        _dataPersistenceData = dataPersistenceData; 
+        _userInterfaceToggler = userInterfaceToggler;
 
     }
-    
-    #region
-    /// <summary>
-    /// <br> Checks if there is save data.</br>
-    /// <br> If there isn't, disable the continue game button.</br>
-    /// </summary>
-    #endregion
-    private void CheckIfThereIsSaveData() // called in on start in userinterface
-    {
-        if (!_dataPersistenceData.SearchForSaveGameData()) // if there is no saved game data
-        {
-            _buttonContinueGame.SetEnabled(false);
-            _buttonContinueGame.style.opacity = 0.5f;
-        }
-    }
-    
-    
-    public void RegisterEvents() // called in on enable in userinterface
-    {
-        QueryElements(); // get all elements
 
-        VisualElement panelSaveSlots = _uxmlFileHandler.UserInterfaceElements[UserInterfaces.SaveSlotsMenu];
-
-        _saveSlotsMenu.QueryElements(panelSaveSlots);
+    public void Register(VisualElement root) // called in on enable in userinterface
+    {
 
         _buttonNewGame.clicked += OnNewGameClicked;
         _buttonLoadGame.clicked += OnLoadGameClicked;
         _buttonContinueGame.clicked += OnContinueGameClicked;
 
-        
-
         CheckIfThereIsSaveData();
-
-        _saveSlotsMenu.RegisterEvents();
-
-
     }
-
-    private void QueryElements()
+    public void Unregister()
     {
-        _panelMainMenu = _root.Q<VisualElement>(_panelMainMenuName);
+        _buttonNewGame.clicked -= OnNewGameClicked;
+        _buttonLoadGame.clicked -= OnLoadGameClicked;
+        _buttonContinueGame.clicked -= OnContinueGameClicked;
+    }
+    public void QueryElements(VisualElement root)
+    {
+        _panelMainMenu = root.Q<VisualElement>("Panel_MainMenu");
 
-        _buttonNewGame = _panelMainMenu.Q<Button>(_buttonNewGameName);
-        _buttonLoadGame = _panelMainMenu.Q<Button>(_buttonLoadGameName);
-        _buttonContinueGame = _panelMainMenu.Q<Button>(_buttonContinueGameName);
-
-        
+        _buttonNewGame = _panelMainMenu.Q<Button>("Button_NewGame");
+        _buttonLoadGame = _panelMainMenu.Q<Button>("Button_LoadGame");
+        _buttonContinueGame = _panelMainMenu.Q<Button>("Button_ContinueGame");
 
     }
+
     
     private void OnNewGameClicked()
     {
-        _saveSlotsMenu.ActivateMenu(true);
-        _panelMainMenu.style.display = DisplayStyle.None;
-    
+        _userInterfaceToggler.ToggleUserInterface(UserInterfaces.SaveSlotsMenu); // is loading = false 
+
+        _userInterfaceToggler.ToggleUserInterface(UserInterfaces.MainMenu);
+
+
     }
     private void OnLoadGameClicked()
     {
-        _saveSlotsMenu.ActivateMenu(true);
+        _userInterfaceToggler.ToggleUserInterface(UserInterfaces.SaveSlotsMenu); // is loading = true
 
-        _panelMainMenu.style.display = DisplayStyle.None;
+
+        _userInterfaceToggler.ToggleUserInterface(UserInterfaces.MainMenu);
 
     }
     public void OnContinueGameClicked()
@@ -150,17 +104,21 @@ public class MainMenu : Menu
         _buttonNewGame.SetEnabled(true);
         _buttonContinueGame.SetEnabled(false);
     }
-    public void Activate(bool enable)
-    {
-        if (enable)
-        {
-            _panelMainMenu.style.display = DisplayStyle.Flex;
-        }
-        else
-        {
 
-            _panelMainMenu.style.display = DisplayStyle.None;
+    #region
+    /// <summary>
+    /// <br> Checks if there is save data.</br>
+    /// <br> If there isn't, disable the continue game button.</br>
+    /// </summary>
+    #endregion
+    private void CheckIfThereIsSaveData() // called in on start in userinterface
+    {
+        if (!_dataPersistenceData.SearchForSaveGameData()) // if there is no saved game data
+        {
+            _buttonContinueGame.SetEnabled(false);
+            _buttonContinueGame.style.opacity = 0.5f;
         }
     }
+   
     
 }

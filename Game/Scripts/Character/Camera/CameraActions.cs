@@ -97,6 +97,7 @@ public class CameraActions : MonoBehaviour
     {
         if (ctx.started)
         {
+            Debug.Log("ASDASDA");
             _interact.StartInteract(_interactDistance, _showInteractDebugRayCast);
 
         } else if (ctx.canceled)

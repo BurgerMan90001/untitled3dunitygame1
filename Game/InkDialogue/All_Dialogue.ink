@@ -6,6 +6,13 @@ VAR battleEntered = false
 // + to show a question again when its picked/
 // * to NOT show a question again when its picked/
 // ~
+=== girl1 ===
+fdgjlsdfhggflkhflgmjgdfhjmkdf
+
+-> END
+=== boy1 ===
+HI IM A DUDE
+-> END
 
 
 === silentDialogue === 

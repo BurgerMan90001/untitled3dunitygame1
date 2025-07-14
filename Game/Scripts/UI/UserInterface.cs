@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -14,14 +15,17 @@ using UnityEngine.UIElements;
 public class UserInterface : MonoBehaviour
 {
     [Header("Dependencies")]
-    [SerializeField] private UIDocument _UIDocument; // the base UIDocument that will uxmls be added on to
+    
     [SerializeField] private InputManager _inputManager;
 
+    
 
     [Header("Data")]
+    [SerializeField] private List<Data> _data;
     [SerializeField] private DynamicInventory _dynamicInventory; // the dynamic inventory scriptable object that will be used to manage the inventory
     [SerializeField] private UserInterfaceData _userInterfaceData;
     [SerializeField] private DataPersistenceData _dataPersistenceData;
+    [SerializeField] private DialogueData _dialogueData;
 
 
     [Header("Inventory Settings")]
@@ -36,24 +40,30 @@ public class UserInterface : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private AssetLabelReference _sceneLabelReference;
-    [SerializeField] private Vector2 TooltipSize = new Vector2(200, 200); // default size for the tooltip, can be changed later
-
-    private VisualElement _root;
-
-    private UXMLFileHandler _uxmlFileHandler;
-    private UI_Dialogue _uiDialogue; // handles dialogue related user interface functionality
-    private UI_Inventory _uiInventory; // handles inventory related user interface functionality
-    
 
     private UIDocument _uiDocument;
+    private VisualElement _root; // the base that will uxmls be added on to
 
 
-    private MainMenu _mainMenu;
+    private UXMLFileHandler _uxmlFileHandler;
 
-    private static UserInterface _instance;
+    private UserInterfaceToggler _interfaceToggler;
+
+    private UI_Dialogue _uiDialogue; // handles dialogue related user interface functionality
+    private UI_Inventory _uiInventory; // handles inventory related user interface functionality
+
+    private UI_MainMenu _uiMainMenu;
+    private UI_SaveSlotsMenu _uiSaveSlotsMenu;
+
+
+    private List<IUserInterface> _userInterfaces = new List<IUserInterface>();
+
+
+  //  private static UserInterface _instance;
 
     private void Awake()
     {
+        /*
         if (this != null)
         {
             _instance = this;
@@ -65,18 +75,27 @@ public class UserInterface : MonoBehaviour
             Debug.LogWarning("There was another UserInterface instance in the scene. Destroying duplicate.");
             Destroy(gameObject);
         }
+        */
 
+        _uiDocument = GetComponent<UIDocument>();
 
-        _root = _UIDocument.rootVisualElement;
+        _root = _uiDocument.rootVisualElement;
         _root.style.flexGrow = 1;
 
         
+        
         _uxmlFileHandler = new UXMLFileHandler(_root, _uxmlAssetLabelReference);
+        _interfaceToggler = new UserInterfaceToggler(_uxmlFileHandler);
 
-        _mainMenu = new MainMenu(_root, _uxmlFileHandler, _dataPersistenceData);
+        _uiMainMenu = new UI_MainMenu(_dataPersistenceData, _interfaceToggler);
+        _uiSaveSlotsMenu = new UI_SaveSlotsMenu(_dataPersistenceData, _interfaceToggler);
+        _uiDialogue = new UI_Dialogue(_userInterfaceData, _dialogueData);
+        _uiInventory = new UI_Inventory(_dynamicInventory);
 
-        _uiDialogue = new UI_Dialogue();
-        _uiInventory = new UI_Inventory(_dynamicInventory, _root);
+        _userInterfaces.Add(_uiMainMenu);
+        _userInterfaces.Add(_uiSaveSlotsMenu);
+        _userInterfaces.Add(_uiDialogue);
+        _userInterfaces.Add(_uiInventory);
 
     }
     
@@ -84,32 +103,40 @@ public class UserInterface : MonoBehaviour
 
     private async void OnEnable() // the userinterface game object will be enabled by the main manager
     {
-        // load the user interfaces asynchronously. visual element configuration is done after this.
-        await _uxmlFileHandler.LoadInterfacesAsync(); 
+        try
+        {
+            await _uxmlFileHandler.LoadInterfacesAsync(); // load the user interfaces asynchronously. visual element configuration is done after this.
 
-        
-        _uiInventory.RegisterEvents(); // register the tooltip events for the inventory
-        _mainMenu.RegisterEvents();
 
-        SceneLoadingManager.OnSceneLoaded += ToggleUserInterface;
+            QueryAllElements();
 
-        _userInterfaceData.OnToggleUserInterface += ToggleUserInterface;
 
-        _dynamicInventory.OnInventoryChanged += _uiInventory.AssignItemInstancesToVisualElements; // whenever the inventory changes, update the inventory ui
+            RegisterAllInterfaces();
+            
 
-        ToggleUserInterface(InitalShownUserInterface);
-        
+            SceneLoadingManager.OnSceneLoaded += _interfaceToggler.ToggleUserInterface;
+            _userInterfaceData.OnToggleUserInterface += _interfaceToggler.ToggleUserInterface;
+            _dynamicInventory.OnInventoryChanged += _uiInventory.UpdateInterface; // whenever the inventory changes, update the inventory ui
+
+            _interfaceToggler.ToggleUserInterface(InitalShownUserInterface);
+
+        } catch (Exception e)
+        {
+            Debug.LogError($"UI initialization failed: {e.Message}");
+        }
         
     }
     private void OnDisable()
     {
-        SceneLoadingManager.OnSceneLoaded -= ToggleUserInterface;
+        SceneLoadingManager.OnSceneLoaded -= _interfaceToggler.ToggleUserInterface;
+        _userInterfaceData.OnToggleUserInterface -= _interfaceToggler.ToggleUserInterface;
+        _dynamicInventory.OnInventoryChanged -= _uiInventory.UpdateInterface;
 
-        _userInterfaceData.OnToggleUserInterface -= ToggleUserInterface;
+        UnregisterAllInterfaces();
+
 
         _uxmlFileHandler?.ReleaseInterfaces();
-        _dynamicInventory.OnInventoryChanged -= _uiInventory.AssignItemInstancesToVisualElements;
-        _uiInventory?.UnregisterEvents();
+        
     }
     
     private void OnDestroy()
@@ -117,54 +144,31 @@ public class UserInterface : MonoBehaviour
 
         
     }
-    #region
-    /// <summary>
-    /// <br> Toggles a user interface on or off based on the UserInterfaces value. </br>
-    /// </summary>
-    /// <param name="userInterface"></param>
-    /// <param name="inputActionMap"> Set as null to leave the action map unchanged </param>
-    /// Set as null to leave the action map unchanged
-    #endregion
-    private void ToggleUserInterface(UserInterfaces userInterface)
+
+    private void QueryAllElements()
     {
-        VisualElement elementToBeShown = _uxmlFileHandler.UserInterfaceElements[userInterface];
-
-        if (elementToBeShown.style.display == DisplayStyle.Flex)
-        {
-            elementToBeShown.style.display = DisplayStyle.None;
-
-        }
-        else
-        {
-            elementToBeShown.style.display = DisplayStyle.Flex;
-        }
+        _userInterfaces.ForEach(ui => ui.QueryElements(_root));
     }
-    #region
-    /// <summary>
-    /// <br> Toggles a user interface on or off based on the UserInterfaces value.</br>
-    /// <br> Also switches to the inputActionMap set. </br>
-    /// </summary>
-    /// <param name="userInterface"></param>
-    /// <param name="inputActionMap"></param>
-    #endregion
-    private void ToggleUserInterface(UserInterfaces userInterface, string inputActionMap)
+    private void RegisterAllInterfaces()
     {
+        _userInterfaces.ForEach(ui => ui.Register(_root));
         
-        ToggleUserInterface(userInterface);
-        
-        
-        if (inputActionMap != null)
-        {
-            _inputManager.SwitchToActionMap(inputActionMap);
-            
-        } else
-        {
-            Debug.LogWarning("The switched to inputActionMap is null.");
-        }
-
-
     }
+    private void UnregisterAllInterfaces()
+    {
+        _userInterfaces.ForEach(ui => ui?.Unregister());
+    }
+   
     
+    
+    
+
+}
+
+
+
+
+/*
     public void TogglePauseGame(bool pauseGame)
     {
         if (pauseGame) //then unPause game and bring up HUD
@@ -183,9 +187,4 @@ public class UserInterface : MonoBehaviour
 
         }
     }
-
-}
-
-
-
-
+    */
