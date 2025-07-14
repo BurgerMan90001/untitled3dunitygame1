@@ -38,13 +38,13 @@ public class DialogueManager : MonoBehaviour
         // trigger this class' EnterDialogue when the game dialogue event is triggered
         _dialogueData.OnEnterDialogue += EnterDialogue;
         _dialogueData.OnContinueDialogue += ContinueOrExitStory;
-    //    _dialogueData.OnExitDialogue += ExitDialogue;
+
     }
     private void OnDisable()
     {
         _dialogueData.OnEnterDialogue -= EnterDialogue;
         _dialogueData.OnContinueDialogue -= ContinueOrExitStory;
-     //   _dialogueData.OnExitDialogue -= ExitDialogue;
+
     }
     /*
   
@@ -65,7 +65,6 @@ public class DialogueManager : MonoBehaviour
         {
             Debug.LogWarning("Knot name was empty when entering dialogue");
         }
-    //    ContinueOrExitStory(); // begins the dialogue
 
     }
 

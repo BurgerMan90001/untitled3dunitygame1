@@ -63,6 +63,7 @@ public class UserInterface : MonoBehaviour
 
     private void Awake()
     {
+
         /*
         if (this != null)
         {
@@ -96,6 +97,8 @@ public class UserInterface : MonoBehaviour
         _userInterfaces.Add(_uiSaveSlotsMenu);
         _userInterfaces.Add(_uiDialogue);
         _userInterfaces.Add(_uiInventory);
+
+        DontDestroyOnLoad(this);
 
     }
     

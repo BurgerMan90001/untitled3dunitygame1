@@ -63983,6 +63983,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2986412710600180820, guid: b9c2a7464e89b0545ab64a2691b9d644, type: 3}
+      propertyPath: _debugScene
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2986412710600180820, guid: b9c2a7464e89b0545ab64a2691b9d644, type: 3}
       propertyPath: _showInterface
       value: 1
       objectReference: {fileID: 0}

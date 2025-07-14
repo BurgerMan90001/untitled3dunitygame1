@@ -3,13 +3,14 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 public class MainManger : MonoBehaviour 
 {
     [Header("Managers")]
     [SerializeField] private List<ManagerSettings> _managerSettings;
-    
+    [SerializeField] private PlayerInput PlayerInput;
     [SerializeField] private Transform _userInterface;
     [SerializeField] private Transform _npcs; // the NPCs gameObject is itself
 
@@ -22,6 +23,7 @@ public class MainManger : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log(PlayerInput.currentActionMap);
         if (_instance == null)
         {
             _instance = this;

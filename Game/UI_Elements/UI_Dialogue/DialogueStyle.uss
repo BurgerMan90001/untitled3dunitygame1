@@ -46,19 +46,19 @@
     flex-basis: auto;
     height: auto;
     flex-grow: 1;
-    width: 89%;
+    width: 96%;
     padding-top: 0;
     padding-right: 0;
     padding-bottom: 0;
-    padding-left: 0;
-    margin-top: 5px;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    margin-left: 5px;
-    border-top-left-radius: 39px;
-    border-top-right-radius: 39px;
-    border-bottom-right-radius: 39px;
-    border-bottom-left-radius: 39px;
+    padding-left: 6%;
+    margin-top: 1%;
+    margin-right: 0%;
+    margin-bottom: 1%;
+    margin-left: 0%;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
     border-top-width: 0;
     border-right-width: 0;
     border-bottom-width: 0;
@@ -67,8 +67,8 @@
     -unity-text-align: middle-left;
     -unity-font-definition: url("project://database/Assets/PackageStuff/TextMesh%20Pro/Fonts/LiberationSans.ttf?fileID=12800000&guid=e3265ab4bf004d28a9537516768c1c75&type=3#LiberationSans");
     -unity-font-style: bold;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: rgba(0, 0, 0, 0);
+    color: rgba(255, 255, 255, 0.58);
+    background-color: rgba(82, 82, 82, 0.24);
     overflow: visible;
     text-overflow: ellipsis;
     font-size: 249%;
@@ -81,11 +81,11 @@
     bottom: auto;
     letter-spacing: 0;
     flex-wrap: wrap-reverse;
-    border-top-left-radius: 44px;
-    border-top-right-radius: 44px;
-    border-bottom-right-radius: 44px;
-    border-bottom-left-radius: 44px;
-    background-color: rgba(0, 0, 0, 0.58);
+    border-top-left-radius: -5px;
+    border-top-right-radius: -5px;
+    border-bottom-right-radius: -5px;
+    border-bottom-left-radius: -5px;
+    background-color: rgb(53, 53, 53);
     width: 28%;
     height: 60%;
     max-height: none;
@@ -103,11 +103,12 @@
     margin-bottom: 0%;
     margin-left: 0%;
     right: 3%;
-    padding-top: 1%;
-    padding-right: 1%;
-    padding-bottom: 1%;
-    padding-left: 1%;
+    padding-top: 0.5%;
+    padding-right: 0%;
+    padding-bottom: 0.5%;
+    padding-left: 0%;
     font-size: 100%;
+    color: rgba(0, 0, 0, 0.58);
 }
 
 .panel_primary {
