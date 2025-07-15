@@ -1,6 +1,8 @@
 
 
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using UnityEngine.UIElements;
 // animationsz logic
 public class UI_Dialogue : IUserInterface
@@ -17,11 +19,12 @@ public class UI_Dialogue : IUserInterface
     private List<Button> _choiceButtons;
 
     private DialogueData _dialogueData;
+
     public UI_Dialogue(UserInterfaceData userInterfaceData, DialogueData dialogueData)
     {
         _userInterfaceData = userInterfaceData;
         _dialogueData = dialogueData;
-        
+
     }
     public void QueryElements(VisualElement root)
     {
@@ -30,10 +33,10 @@ public class UI_Dialogue : IUserInterface
         _panelChoices = root.Q<VisualElement>("Panel_Choices");
 
         _dialogueLabel = _panelDialogue.Q<Label>("Label_Dialogue");
-        _choiceLabel = _panelDialogue.Q<Label>("Label_Choice");
+        _choiceLabel = _panelChoices.Q<Label>("Label_Choice");
 
         _choiceButtons = _panelChoices.Query<Button>(className: "choiceButton").ToList();
-
+        
         _panelChoices.style.display = DisplayStyle.None; // make sure
     }
     public void Register(VisualElement root)
@@ -45,15 +48,9 @@ public class UI_Dialogue : IUserInterface
 
         _dialogueData.OnUpdateChoices += UpdateChoices;
 
-        /*
-        for (int i = 0; i < _choiceButtons.Count; i++) 
-        {
-            int index = i;
-            var choiceButton = _choiceButtons[i];
-
-            choiceButton.clicked += () => ChoiceSelected(index);
-        }
-        */
+        
+        SetupChoiceButtons();
+        
         
     }
     public void Unregister()
@@ -67,7 +64,22 @@ public class UI_Dialogue : IUserInterface
         _dialogueData.OnUpdateChoices -= UpdateChoices;
 
 
-        /*
+        
+        UnsetupChoiceButtons();
+        
+    }
+    private void SetupChoiceButtons()
+    {
+        for (int i = 0; i < _choiceButtons.Count; i++)
+        {
+            int index = i;
+            var choiceButton = _choiceButtons[i];
+
+            choiceButton.clicked += () => ChoiceSelected(index);
+        }
+    }
+    private void UnsetupChoiceButtons()
+    {
         for (int i = 0; i < _choiceButtons.Count; i++)
         {
             int index = i;
@@ -75,15 +87,14 @@ public class UI_Dialogue : IUserInterface
 
             choiceButton.clicked -= () => ChoiceSelected(index);
         }
-        */
     }
-    
-    
 
     private void DisplayDialogue(string _)
     {
-        _userInterfaceData.ToggleUserInterface(UserInterfaces.Dialogue);
+        _userInterfaceData.ToggleUserInterface(UserInterfaces.Dialogue, true);
         _dialogueLabel.text = _dialogueData.DialogueLine;
+
+
     }
     private void UpdateText()
     {
@@ -91,31 +102,58 @@ public class UI_Dialogue : IUserInterface
     }
     private void HideDialogue()
     {
-        _userInterfaceData.ToggleUserInterface(UserInterfaces.Dialogue);
+        _userInterfaceData.ToggleUserInterface(UserInterfaces.Dialogue, false);
     }
     
     private void UpdateChoices(List<string> choiceText)
     {
         _panelChoices.style.display = DisplayStyle.Flex;
-        
-        /*
-        foreach (var choice in choiceText)
+
+
+        for (int i = 0; i < _choiceButtons.Count; i++)
         {
-            Debug
+            var choiceButton = _choiceButtons[i];
+            
+            
+            
+            if (i < choiceText.Count)
+            {
+                choiceButton.text = choiceText[i];
+                choiceButton.style.opacity = 1;
+                choiceButton.SetEnabled(true);
+                
+
+            } else
+            {
+                choiceButton.text = "";
+                choiceButton.style.opacity = 0;
+                choiceButton.SetEnabled(false);
+            }
+            
+
+                
         }
-        */
-        UnityEngine.Cursor.lockState = UnityEngine.CursorLockMode.None;
+        
+
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
 
         UnityEngine.Cursor.visible = true;
     }
     
     private void ChoiceSelected(int choiceIndex) 
     {
+
         _dialogueData.SelectChoice(choiceIndex);
+
+        
 
         UnityEngine.Cursor.lockState = UnityEngine.CursorLockMode.None;
 
         UnityEngine.Cursor.visible = false;
+
+        _panelChoices.style.display = DisplayStyle.None;
+
+
     }
     
  

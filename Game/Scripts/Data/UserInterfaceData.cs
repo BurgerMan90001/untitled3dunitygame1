@@ -1,21 +1,24 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 [CreateAssetMenu(menuName = "UI/UserInterfaceData")]
 public class UserInterfaceData : ScriptableObject
 {
     public Dictionary<UserInterfaces, VisualElement> UserInterfaceElements;
-//    public Action<UserInterfaces> OnToggleUserInterface;
-    public Action<UserInterfaces> OnToggleUserInterface;
 
-    public void ToggleUserInterface(UserInterfaces userInterface)
+    public Action<UserInterfaces, bool> OnToggleUserInterface;
+
+    
+    public void ToggleUserInterface(UserInterfaces userInterface, bool active)
     {
-        OnToggleUserInterface?.Invoke(userInterface);
+        OnToggleUserInterface?.Invoke(userInterface, active);
     }
+    
+    
     /*
+
     public void ToggleUserInterface(UserInterfaces userInterface, string inputActionMap)
     {
         OnToggleUserInterface?.Invoke(userInterface, inputActionMap);

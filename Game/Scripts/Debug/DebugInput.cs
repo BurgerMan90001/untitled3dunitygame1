@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class DebugInput : MonoBehaviour
+public class DebugInput : MonoBehaviour, ISingleton
 {
     [Header("Dependancies")]
     [SerializeField] private PlayerInput playerInput;
@@ -40,16 +40,24 @@ public class DebugInput : MonoBehaviour
     private bool buttonHeld = false;
     private bool show = false;
 
-
+    public static DebugInput Instance;
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        } else
+        {
+            Debug.LogWarning("There is another DebugInput in scene. Destroying duplicate.");
+        }
         if (_lockCursor)
         {
             LockCursor(true);
-            
-            
-            
-       //     LoadDebugInterface(_loadedInterface);
+
+
+
+            //     LoadDebugInterface(_loadedInterface);
         }
     }
     private void Start()
@@ -63,7 +71,7 @@ public class DebugInput : MonoBehaviour
         {
             if (_showInterface)
             {
-                _userInterfaceData.ToggleUserInterface(_loadedInterface);
+                _userInterfaceData.ToggleUserInterface(_loadedInterface, true);
             } else
             {
                 Debug.LogWarning("The user inteface will not be toggled. Enable showInterface.");

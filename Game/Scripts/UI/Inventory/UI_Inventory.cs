@@ -19,7 +19,7 @@ public class UI_Inventory : IUserInterface // animation and stuff
 
     private VisualElement _ghostImage; // the ghost image that will be used to show the item being dragged
 
-
+    
     public UI_Inventory(DynamicInventory dynamicInventory)
     {
         _dynamicInventory = dynamicInventory; // the dynamic inventory that this UI_Inventory will use

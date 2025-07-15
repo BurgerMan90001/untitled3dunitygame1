@@ -12,7 +12,7 @@ using UnityEngine.UIElements;
 /// <br> Enabled by Main Manager. </br>
 /// </summary>
 #endregion
-public class UserInterface : MonoBehaviour
+public class UserInterface : MonoBehaviour, ISingleton
 {
     [Header("Dependencies")]
     
@@ -26,6 +26,7 @@ public class UserInterface : MonoBehaviour
     [SerializeField] private UserInterfaceData _userInterfaceData;
     [SerializeField] private DataPersistenceData _dataPersistenceData;
     [SerializeField] private DialogueData _dialogueData;
+    [SerializeField] private InputData _inputData;
 
 
     [Header("Inventory Settings")]
@@ -59,15 +60,15 @@ public class UserInterface : MonoBehaviour
     private List<IUserInterface> _userInterfaces = new List<IUserInterface>();
 
 
-  //  private static UserInterface _instance;
+    public static UserInterface Instance;
 
     private void Awake()
     {
 
-        /*
-        if (this != null)
+        
+        if (Instance == null)
         {
-            _instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
 
         }
@@ -76,7 +77,7 @@ public class UserInterface : MonoBehaviour
             Debug.LogWarning("There was another UserInterface instance in the scene. Destroying duplicate.");
             Destroy(gameObject);
         }
-        */
+        
 
         _uiDocument = GetComponent<UIDocument>();
 
@@ -121,7 +122,7 @@ public class UserInterface : MonoBehaviour
             _userInterfaceData.OnToggleUserInterface += _interfaceToggler.ToggleUserInterface;
             _dynamicInventory.OnInventoryChanged += _uiInventory.UpdateInterface; // whenever the inventory changes, update the inventory ui
 
-            _interfaceToggler.ToggleUserInterface(InitalShownUserInterface);
+            _interfaceToggler.ToggleUserInterface(InitalShownUserInterface, true);
 
         } catch (Exception e)
         {

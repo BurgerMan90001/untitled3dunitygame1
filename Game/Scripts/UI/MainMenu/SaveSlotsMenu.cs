@@ -95,8 +95,8 @@ public class UI_SaveSlotsMenu : IUserInterface
     }
     private void OnBackClicked()
     {
-        _userInterfaceToggler.ToggleUserInterface(UserInterfaces.MainMenu);
-        _userInterfaceToggler.ToggleUserInterface(UserInterfaces.SaveSlotsMenu);
+        _userInterfaceToggler.ToggleUserInterface(UserInterfaces.MainMenu, true);
+        _userInterfaceToggler.ToggleUserInterface(UserInterfaces.SaveSlotsMenu, false);
     }
     public void OnSaveSlotClicked(object userData)
     {

@@ -1,12 +1,10 @@
 
-using NUnit.Framework;
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-public class MainManger : MonoBehaviour 
+public class MainManger : MonoBehaviour, ISingleton
 {
     [Header("Managers")]
     [SerializeField] private List<ManagerSettings> _managerSettings;
@@ -16,17 +14,17 @@ public class MainManger : MonoBehaviour
 
     [SerializeField] private GameObject test;
     
-    private static MainManger _instance;
+    public static MainManger Instance;
 
 
     private Transform _managers; // the Managers gameObject is itself
 
     private void Awake()
     {
-        Debug.Log(PlayerInput.currentActionMap);
-        if (_instance == null)
+        
+        if (Instance == null)
         {
-            _instance = this;
+            Instance = this;
         } else
         {
             Debug.LogWarning("There was another Main Manager instance in the scene. Destroying duplicate.");

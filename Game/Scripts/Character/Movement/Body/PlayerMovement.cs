@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-// TODO MOVE INPUT INTO SEPARATE FUNCTION
+
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Dependencies")]

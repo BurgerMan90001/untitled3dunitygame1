@@ -41,6 +41,7 @@ public class NPCManager : MonoBehaviour
             } else
             {
                 npc.gameObject.SetActive(false);
+                Debug.LogWarning("An npc was disabled because they did not have an NPCInteraction component.");
             }
 
                 

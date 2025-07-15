@@ -49,8 +49,21 @@ public class CameraActions : MonoBehaviour
     [SerializeField] private LayerMask _leftClickMask;
 
 
+    public CameraActions Instance;
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Debug.LogWarning("There is a duplicate CameraActions in the scene. Destroying duplicate.");
+            Destroy(gameObject);
+        }
+
+
         _cameraTransform = transform;
 
 
@@ -97,7 +110,7 @@ public class CameraActions : MonoBehaviour
     {
         if (ctx.started)
         {
-            Debug.Log("ASDASDA");
+            
             _interact.StartInteract(_interactDistance, _showInteractDebugRayCast);
 
         } else if (ctx.canceled)

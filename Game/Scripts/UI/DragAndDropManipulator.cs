@@ -182,7 +182,7 @@ public class DragAndDropManipulator : PointerManipulator
             _ghostImage.transform.position = new Vector2(
                 Mathf.Clamp(_ghostImageStartPosition.x + pointerDelta.x, 0, _ghostImage.panel.visualTree.worldBound.width),
                 Mathf.Clamp(_ghostImageStartPosition.y + pointerDelta.y, 0, _ghostImage.panel.visualTree.worldBound.height));
-        //    _selectedFullItemSlot.style.backgroundColor = Color.clear;
+
         }
             
         

@@ -538,6 +538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _userInterfaceData: {fileID: 11400000, guid: 1c7fbd88d5738b74087a9f4ddfe1e972, type: 2}
+  _inputData: {fileID: 11400000, guid: ad90d15a45aacc6478ff302fd813f986, type: 2}
   Inventory: {fileID: 11400000, guid: 429beb422e6f2764ab242e6b1ace72b8, type: 2}
   _inventoryOpenAction: {fileID: 5582636049184023659, guid: 1571a21ec2f1ba545a70d97ed9b5b4ab, type: 3}
   _inventoryCloseAction: {fileID: -6920595432773600368, guid: 1571a21ec2f1ba545a70d97ed9b5b4ab, type: 3}
@@ -690,6 +691,7 @@ MonoBehaviour:
   _rigidBody: {fileID: 1910124331457139435}
   _stats: {fileID: 11400000, guid: 52b218812565c5e4a950196553673cc0, type: 2}
   _orientation: {fileID: 21161711872895792}
+  _input: {fileID: 11400000, guid: 5073dac0742252247848489dfbc58d5d, type: 2}
   _baseSpeed: 10
   _globalSpeedMultiplier: 2
   _stateSettings:

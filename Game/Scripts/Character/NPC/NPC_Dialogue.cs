@@ -31,13 +31,13 @@ public class NPCInteraction : MonoBehaviour
         
         if (_dialogueData.InDialogue)
         {
-        //    Debug.Log("CONTUN");
+            
             _dialogueData.ContinueDialogue();
         }
         
         else if (!_dialogueKnotName.Equals("")) // if the knot name is not empty
         {
-         //   Debug.Log("START");
+            
             _dialogueData.EnterDialogue(_dialogueKnotName);// begins the NPC's dialgoue at their knotName
 
         }

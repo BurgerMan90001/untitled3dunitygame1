@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, ISingleton
 {
     [Header("Dependancies")]
     [SerializeField] private MovementStateManager _movementStateManager;
@@ -11,13 +11,13 @@ public class Player : MonoBehaviour
 
     private Rigidbody _rigidBody;
 
-    private static Player _instance;
+    private static Player Instance;
 
     private void Awake()
     {
-        if (_instance == null)
+        if (Instance == null)
         {
-            _instance = this;
+            Instance = this;
 
         } else
         {

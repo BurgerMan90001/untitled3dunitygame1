@@ -20,6 +20,9 @@ public class PlayerInventory : MonoBehaviour, IDataPersistence
     [Header("Debug")]
     [SerializeField] private bool _clearOnEnable = false;
 
+
+    private bool _interfaceEnabled = false;
+
     private void OnEnable()
     {
         _inventoryOpenAction.action.Enable();
@@ -51,8 +54,13 @@ public class PlayerInventory : MonoBehaviour, IDataPersistence
     }
     private void OnOpenInventory(InputAction.CallbackContext ctx)
     {
-        
-        _userInterfaceData.ToggleUserInterface(UserInterfaces.Inventory);
+        if (_interfaceEnabled)
+        {
+            _userInterfaceData.ToggleUserInterface(UserInterfaces.Inventory, false);
+        } else
+        {
+            _userInterfaceData.ToggleUserInterface(UserInterfaces.Inventory, false);
+        }
         _inputData.ToggleInput();
     }
     private void OnCloseInventory(InputAction.CallbackContext ctx)

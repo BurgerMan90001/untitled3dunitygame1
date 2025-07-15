@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1669262152851628563}
   - component: {fileID: 4082045940508526288}
   - component: {fileID: 355992307929792169}
+  - component: {fileID: 4779378915233208134}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -109,6 +110,25 @@ MonoBehaviour:
   _leftClickMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &4779378915233208134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142478289644107325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 530f512bb812fbc41813a038c0460571, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fullScreenBlur: {fileID: 0}
+  targetCamera: {fileID: 6214064463745274643}
+  _blurScreen: 0
+  cullingMask:
+    serializedVersion: 2
+    m_Bits: 512
+  _dialogueData: {fileID: 11400000, guid: b7057052d12597d459bf37d69cac44f3, type: 2}
 --- !u!1 &2397414322020366127
 GameObject:
   m_ObjectHideFlags: 0

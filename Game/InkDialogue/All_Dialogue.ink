@@ -6,6 +6,9 @@ VAR battleEntered = false
 // + to show a question again when its picked/
 // * to NOT show a question again when its picked/
 // ~
+
+-> NPC_NonStatic
+
 === girl1 ===
 fdgjlsdfhggflkhflgmjgdfhjmkdf
 
@@ -24,22 +27,52 @@ HI IM A DUDE
 
 === NPC_NonStatic ===
 DO YOU WAN'T TO CARD BATTLE?
-    * yes
+~ temp patience = 0
+    * [yes]
         LETS BATTLE!!
         ~ battleEntered = true
         -> END
-    + no
+    + [no]
+        ...
+        ~ patience ++ 
         -> NPC_NonStatic
 ->END
+
+
+/*
+	Quick random function for varying choices
+
+	Usage: 
+
+		*	{maybe()} [Ask about apples]
+		*	{maybe()} [Ask about oranges]
+		*	{maybe()} [Ask about bananas]
+		
+
+*/
+
+
+
+=== function abs(x)
+{ x < 0:
+      ~ return -1 * x
+  - else: 
+      ~ return x
+}
+
+
+
 === NPC_Static ===
 I CANT MOVE
 
 ->END
 === NPC_Shop ===
     ~ temp pickedBanana = false
+    
     /*
     The shopkeeper brings out a banana and a strawberry in either hand.
     */
+    
     The shopkeeper brings out a banana in one hand and a strawberry in the other.
     They stare at me.
     "pick one"

@@ -7,7 +7,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UIElements;
 
-// TODO ADD FULL PATHS FOR OTHER UIS OR OPTIMIZE 
+// TODO OPTIMIZE 
 public class UXMLFileHandler
 {
     private AssetLabelReference _labelReference;
@@ -17,10 +17,8 @@ public class UXMLFileHandler
 
     private VisualElement _root;
     private VisualElement _addedUserInterfaceElement;
-    private VisualTreeAsset _visualTree;
-    private UserInterfaces[] _userInterfacesToBeLoaded;
 
-    private readonly string _pathToUI_Elements = "Game/UI_Elements";
+  //  private readonly string _pathToUI_Elements = "Game/UI_Elements";
 
     private AsyncOperationHandle _loadedUserInterfaces;
 

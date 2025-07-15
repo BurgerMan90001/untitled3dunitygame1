@@ -9,14 +9,14 @@ using UnityEngine.ResourceManagement.ResourceProviders;
 // TODO PLAY SUM FADE ANIMATION
 #region
 /// <summary>
-/// <br> Handles the scene loading logic. </br>
+/// <br> Handles the scene loading logic. Uses addressables to load and unload scenes. </br>
 /// </summary>
 #endregion
 public class SceneLoader
 {
     private AsyncOperationHandle<SceneInstance> _loadedSceneHandle;
-    
-    
+
+    private readonly bool _showDebugLoadingLogs = false;
     
     #region
     /// <summary>
@@ -41,18 +41,20 @@ public class SceneLoader
             else
             {
                 UnloadScene();
-                Debug.Log("UNLOADING");
+                Debug.LogError("UNLOADING BECAUSE THE HANDLE IS INVALID.");
             }
 
                 
         }
     }
+    #region
     /// <summary>
     /// <br> Load scene with interface. </br>
     /// </summary>
     /// <param name="sceneName"></param>
     /// <param name="userInterface"></param>
-    public async void LoadScene(string sceneName, UserInterfaces userInterface)
+    #endregion
+    public async void LoadScene(string sceneName, UserInterfaces userInterfaceToBeLoaded)
     {
         var handle = Addressables.LoadSceneAsync(sceneName);
 
@@ -64,28 +66,38 @@ public class SceneLoader
             {
                 _loadedSceneHandle = handle;
                 
-                SceneLoadingManager.OnSceneLoaded?.Invoke(userInterface);
-                Debug.Log(userInterface.ToString());
-                Debug.Log("LOADED SUCCESSFULLY");
+                SceneLoadingManager.OnSceneLoaded?.Invoke(userInterfaceToBeLoaded, true);
+                if (_showDebugLoadingLogs)
+                {
+                    Debug.Log(userInterfaceToBeLoaded.ToString());
+                    Debug.Log("LOADED SUCCESSFULLY");
+                }
+                
             }
             else
             {
                 UnloadScene();
-                Debug.Log("UNLOADING");
+                Debug.LogError("UNLOADING BECAUSE THE HANDLE IS INVALID.");
             }
 
 
         }
     }
+    #region
     /// <summary>
-    /// <br> Unloads the currently loaded scene. </br>
+    /// <br> Unloads the currently loaded scene with addressables. </br>
     /// </summary>
+    #endregion
     public void UnloadScene()
     {
         if (_loadedSceneHandle.IsValid())
         {
             Addressables.UnloadSceneAsync(_loadedSceneHandle);
-
+            if (_showDebugLoadingLogs)
+            {
+                Debug.Log("UNLOADING");
+            }
+            
         }
     }
 }

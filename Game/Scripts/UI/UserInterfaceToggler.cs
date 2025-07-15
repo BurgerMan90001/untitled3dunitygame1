@@ -23,10 +23,23 @@ public class UserInterfaceToggler
     /// <param name="inputActionMap"> Set as null to leave the action map unchanged </param>
     /// Set as null to leave the action map unchanged
     #endregion
-    public void ToggleUserInterface(UserInterfaces userInterface)
+    public void ToggleUserInterface(UserInterfaces userInterface, bool active)
     {
         VisualElement elementToBeShown = _uxmlFileHandler.UserInterfaceElements[userInterface];
 
+        if (elementToBeShown == null)
+        {
+            Debug.LogError("The elementToBeShown is null.");
+            return;
+        }
+        if (active)
+        {
+            elementToBeShown.style.display = DisplayStyle.Flex;
+        } else
+        {
+            elementToBeShown.style.display = DisplayStyle.None;
+        }
+        /*
         if (elementToBeShown.style.display == DisplayStyle.Flex)
         {
             elementToBeShown.style.display = DisplayStyle.None;
@@ -36,6 +49,7 @@ public class UserInterfaceToggler
         {
             elementToBeShown.style.display = DisplayStyle.Flex;
         }
+        */
     }
 
     
@@ -47,10 +61,10 @@ public class UserInterfaceToggler
     /// <param name="userInterface"></param>
     /// <param name="inputActionMap"></param>
     #endregion
-    public void ToggleUserInterface(UserInterfaces userInterface, string inputActionMap)
+    public void ToggleUserInterface(UserInterfaces userInterface, bool active, string inputActionMap)
     {
 
-        ToggleUserInterface(userInterface);
+        ToggleUserInterface(userInterface, active);
         throw new NotImplementedException();
         /*
         if (inputActionMap != null)

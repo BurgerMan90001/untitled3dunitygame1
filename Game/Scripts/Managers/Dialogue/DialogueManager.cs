@@ -38,40 +38,35 @@ public class DialogueManager : MonoBehaviour
         // trigger this class' EnterDialogue when the game dialogue event is triggered
         _dialogueData.OnEnterDialogue += EnterDialogue;
         _dialogueData.OnContinueDialogue += ContinueOrExitStory;
+        _dialogueData.OnChoiceSelected += SelectChoice;
 
     }
     private void OnDisable()
     {
         _dialogueData.OnEnterDialogue -= EnterDialogue;
         _dialogueData.OnContinueDialogue -= ContinueOrExitStory;
-
+        _dialogueData.OnChoiceSelected -= SelectChoice;
     }
-    /*
-  
-    private void BeginDialogue(string knotName) // happens when beginning a new dialogue with an NPC
-    {
-
-        
-        
-    }
-    */
+    
     private void EnterDialogue(string knotName) // begins or continues dialogue
     {
         if (!knotName.Equals(""))
         {
             _story.ChoosePathString(knotName); // jump to the knotname in the ink file
+
         }
         else
         {
             Debug.LogWarning("Knot name was empty when entering dialogue");
         }
-
+        ContinueOrExitStory();
     }
 
     private void ContinueOrExitStory() // updates the dialogue lines
     {
         if (_story.canContinue)
         {
+            
             string dialogueLine = _story.Continue();
 
             _dialogueData.DialogueLine = dialogueLine; // update the scriptable object's line
@@ -100,11 +95,17 @@ public class DialogueManager : MonoBehaviour
     }
     private void UpdateChoices()
     {
-        
+        if (IsThereStoryChoices())
+        {
 
-        List<string> choicesText = _story.currentChoices.Select(choice => choice.text).ToList();
-        _dialogueData.UpdateStoryChoices(choicesText);
-   //     _choiceText.Clear();
+            List<string> choicesText = _story.currentChoices.Select(choice => choice.text).ToList();
+            _dialogueData.UpdateStoryChoices(choicesText);
+            _choiceText.Clear();
+
+        } else
+        {
+            Debug.LogError("There are currently no choices available. ");
+        }
     }
 
     private bool IsThereStoryChoices()
@@ -113,12 +114,12 @@ public class DialogueManager : MonoBehaviour
 
     }
 
-    private void ShowChoices()
+    private void SelectChoice(int choiceIndex)
     {
-        foreach (var choice in _story.currentChoices)
-        {
-            Debug.Log(choice.text);
-        }
+        
+        _story.ChooseChoiceIndex(choiceIndex);
+        
+        
     }
 
     

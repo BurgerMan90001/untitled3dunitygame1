@@ -26,22 +26,49 @@ public class DialogueData : Data
 
     public Action<int> OnChoiceSelected;
 
+    private void OnEnable()
+    {
+        InDialogue = false;
+    }
+    private void OnDisable()
+    {
+        InDialogue = false;
+    }
+    #region
+    /// <summary>
+    /// <br> Triggers the OnEnterDialogue event. </br>
+    /// <br> InDialogue is set to true. </br>
+    /// </summary>
+    /// <param name="choiceIndex"></param>
+    #endregion
     public void EnterDialogue(string knotName)
     {
-        
+        InDialogue = true;
+
         OnEnterDialogue?.Invoke(knotName); // null check
 
-        InDialogue = true;
-        Debug.Log("ENTER");
     }
+    #region
+    /// <summary>
+    /// <br> Triggers the OnOnContinueDialogue event. </br>
+    /// </summary>
+    /// <param name="choiceIndex"></param>
+    #endregion
     public void ContinueDialogue()
     {
         OnContinueDialogue?.Invoke();
-        Debug.Log("COJNT");
+        
     }
+    #region
+    /// <summary>
+    /// <br> Triggers the OnExitDialogue selected event. </br>
+    /// <br> Clears the ChoiceText stringbuilder string and sets InDialogue to false. </br>
+    /// </summary>
+    /// <param name="choiceIndex"></param>
+    #endregion
     public void ExitDialogue()
     {
-        Debug.Log("EXIT");
+        
         OnExitDialogue?.Invoke();
 
         ChoiceText?.Clear();
@@ -49,11 +76,28 @@ public class DialogueData : Data
         InDialogue = false;
 
     }
-
+    #region
+    /// <summary>
+    /// <br> Triggers the OnChoiceSelected event. </br>
+    /// <br> Automatically continues dialogue when a choice is chosen, and turns input back on. </br>
+    /// <br> Needs a line to play after a choice, or else it won't work. </br>
+    /// </summary>
+    /// <param name="choiceIndex"></param>
+    #endregion
     public void SelectChoice(int choiceIndex)
     {
         OnChoiceSelected?.Invoke(choiceIndex);
+
+        
+
+        ContinueDialogue(); // automatically continue dialogue
     }
+    #region
+    /// <summary>
+    /// <br> Triggers the OnUpdateChoices event. </br>
+    /// </summary>
+    /// <param name="choiceIndex"></param>
+    #endregion
     public void UpdateStoryChoices(List<string> choicesText)
     {
         OnUpdateChoices?.Invoke(choicesText);
