@@ -7,6 +7,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Character/Stats/CombatStats")]
 public class CombatStats : ScriptableObject, IDataPersistence
 {
+    public DynamicInventory Inventory;
+
     public float MaxHealth;
     public float Health; // used in battle
 

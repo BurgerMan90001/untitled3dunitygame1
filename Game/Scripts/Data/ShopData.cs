@@ -7,6 +7,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Data/ShopData")]
 public class ShopData : Data
 {
+    [Header("Item Pools")]
+    [SerializeField] private List<ShopItemPool> _shopItemPools;
     [Header("Data")]
     [SerializeField] private UserInterfaceData _userInterfaceData;
     [SerializeField] private InputData _inputData;
@@ -76,5 +78,11 @@ public class ShopData : Data
     {
 
     }
+
+}
+[CreateAssetMenu(menuName = "Items/Itempool")]
+public class ShopItemPool : ScriptableObject
+{
+    
 
 }

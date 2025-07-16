@@ -35,8 +35,9 @@ public class UI_Inventory : IUserInterface // animation and stuff
         _ghostImage = root.Q<VisualElement>("GhostImage");
     }
     
-    public void Register(VisualElement root)
+    public override void Register(VisualElement root, Action onInventoryChanged)
     {
+        onInventoryChanged += UpdateInterface;
 
     //   _itemVisualElements = (List<VisualElement>)_inventoryBackingPanel.Children();
         for (int i = 0; i < _inventoryBackingPanel.childCount; i++)
@@ -62,8 +63,9 @@ public class UI_Inventory : IUserInterface // animation and stuff
         UpdateInterface(); // assign the item instances to the visual elements in the inventory
 
     }
-    public void Unregister()
+    public override void Unregister(Action onInventoryChanged)
     {
+        onInventoryChanged -= UpdateInterface;
         for (int i = 0; i < _inventoryBackingPanel.childCount; i++)
         {
             
@@ -73,13 +75,15 @@ public class UI_Inventory : IUserInterface // animation and stuff
             child?.RemoveManipulator(_tooltipManipulator);
             child?.RemoveManipulator(_dragAndDropManipulator);
         }
+
+
     }
     #region
     /// <summary>
     /// Updates the ItemSlots dictionary with the current items in the dynamic inventory. 
     /// </summary>
     #endregion
-    public void UpdateInterface() // O(n)
+    private void UpdateInterface() // O(n)
     {
 
         for (int i = 0; i < _dynamicInventory.Items.Count; i++)

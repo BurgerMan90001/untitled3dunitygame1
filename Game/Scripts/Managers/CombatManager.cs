@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+//TODO MAKE COMBAT SYSTEM BETTER
 public class CombatManager : MonoBehaviour
 {
 
@@ -38,6 +38,7 @@ public class CombatManager : MonoBehaviour
     private void ExitCombat()
     {
         Debug.Log("COMBAT EXITED");
+        SceneLoadingManager.LoadScene("Main Game",UserInterfaceType.MainMenu);
     }
     public void ApplyHurt(HurtType type, GameObject target, float damageAmount)
     {

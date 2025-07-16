@@ -10,7 +10,7 @@ public class CombatData : Data
 
     public Action OnExitCombat;
 
-
+    public Action OnTurnChanged;
 
 
 
@@ -35,4 +35,12 @@ public class CombatData : Data
         OnExitCombat?.Invoke();
     }
 
+    /// <summary>
+    /// <br> Triggers the OnTurnChanged  event. </br>
+    /// </summary>
+    public void ChangeTurn() 
+    {
+        OnTurnChanged?.Invoke();
+
+    }
 }

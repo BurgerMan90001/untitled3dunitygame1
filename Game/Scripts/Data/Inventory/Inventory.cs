@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+// TODO REDUCE CODE
 [CreateAssetMenu(menuName = "Character/Inventory/DynamicInventory")]
 public class DynamicInventory : ScriptableObject
 {
@@ -22,6 +22,8 @@ public class DynamicInventory : ScriptableObject
         }
 
     }
+    
+    
     #region
     /// <summary>
     /// <br> True if there is an null or empty slot.</br>

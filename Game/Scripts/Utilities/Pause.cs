@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public static class Pause
+public static class GamePause
 {
     public static void PauseGame(bool pauseGame)
     {

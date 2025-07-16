@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Character/Inventory/HurtItem")]
+[CreateAssetMenu(menuName = "Items/HurtItem")]
 public class HurtItem : Item
 {
     [field: SerializeField] public float HurtValue { get; protected set; }
