@@ -34,3 +34,6 @@ public class SpookHurtEffect : HurtEffect
         attacker.GetComponent<CombatStats>().Health += (damage * HealPercent);
     }
 }
+
+[CreateAssetMenu(menuName = "Combat/HurtEffect/SpookHurtEffect")]
+//public class 

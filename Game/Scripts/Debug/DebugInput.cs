@@ -8,7 +8,10 @@ public class DebugInput : MonoBehaviour, ISingleton
     [Header("Dependancies")]
 //    [SerializeField] private PlayerInput playerInput;
     [SerializeField] private GameObject prefab;
+    [Header("Data")]
     [SerializeField] private UserInterfaceData _userInterfaceData;
+
+
     [Header("UserInteface Settings")]
     
 
@@ -17,9 +20,11 @@ public class DebugInput : MonoBehaviour, ISingleton
 
     [Header("Debug Scene")]
     [SerializeField] private bool _debugScene = true;
+
+    [Header("Debug Settings")]
     [SerializeField] private bool _lockCursor = true;
 
-    [Header("Interface")]
+    [Header("Debug Interface")]
     [SerializeField] private UserInterfaceType _loadedInterface;
     [SerializeField] private bool _showInterface;
 

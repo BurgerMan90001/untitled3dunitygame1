@@ -46,8 +46,6 @@ public class ShopData : Data
  
         GameCursor.Unlock();
 
-
-
     }
 
     public void ExitShop()
@@ -62,8 +60,12 @@ public class ShopData : Data
         GameCursor.Lock();
     }
     // 5 common top 0-2
+    public void GenerateShopContents() 
+    {
+        
 
-    private void GenerateTopRow()
+    }
+    public void GenerateTopRow()
     {
 
     }

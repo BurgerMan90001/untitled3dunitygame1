@@ -39,18 +39,33 @@ public class CombatManager : MonoBehaviour
     {
         Debug.Log("COMBAT EXITED");
     }
-    public void ApplyHurt(HurtType type, GameObject target, float damage)
+    public void ApplyHurt(HurtType type, GameObject target, float damageAmount)
     {
         if (_hurtEffects.ContainsKey(type))
         {
-            _hurtEffects[type].ApplyEffect(target, gameObject, damage);
+            _hurtEffects[type].ApplyEffect(target, gameObject, damageAmount);
         }
         else
         {
-            Debug.LogError("There is no valid hurt effect.");
+            Debug.LogError("There is no valid hurt type with that hurt effect.");
 
         }
     }
+
+
+    public void ApplyBlock(GameObject target, float blockAmount) 
+    {
+        
+        
+
+    }
+}
+
+
+public enum BlockType 
+{
+    Normal,
+    Damage, // damages the attacker back
 }
 
 
