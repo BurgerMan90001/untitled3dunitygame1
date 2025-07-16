@@ -18,7 +18,8 @@ public class UserInterface : MonoBehaviour, ISingleton
     
     [SerializeField] private InputManager _inputManager;
 
-    
+    private VisualElement currentElement;
+
 
     [Header("Data")]
     [SerializeField] private List<Data> _data;
@@ -36,7 +37,7 @@ public class UserInterface : MonoBehaviour, ISingleton
     [SerializeField] private AssetLabelReference _uxmlAssetLabelReference;
     
     [Header("First Shown Interface")]
-    public UserInterfaces InitalShownUserInterface;
+    public UserInterfaceType InitalShownUserInterface;
 
 
     [Header("Settings")]
@@ -84,8 +85,8 @@ public class UserInterface : MonoBehaviour, ISingleton
         _root = _uiDocument.rootVisualElement;
         _root.style.flexGrow = 1;
 
-        
-        
+        _root.RegisterCallback<MouseMoveEvent>(OnMouseMove);
+
         _uxmlFileHandler = new UXMLFileHandler(_root, _uxmlAssetLabelReference);
         _interfaceToggler = new UserInterfaceToggler(_uxmlFileHandler);
 
@@ -147,6 +148,29 @@ public class UserInterface : MonoBehaviour, ISingleton
     {
 
         
+    }
+    private void OnMouseMove(MouseMoveEvent evt)
+    {
+        var newElement = evt.target as VisualElement;
+
+        if (newElement != currentElement)
+        {
+            if (currentElement != null)
+            {
+                Debug.Log($"Left: {currentElement.name}");
+            }
+                
+
+            currentElement = newElement;
+
+
+            if (currentElement != null) 
+            {
+                Debug.Log($"Entered: {currentElement.name}");
+            }
+
+                
+        }
     }
 
     private void QueryAllElements()

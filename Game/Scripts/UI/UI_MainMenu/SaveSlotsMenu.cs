@@ -95,8 +95,8 @@ public class UI_SaveSlotsMenu : IUserInterface
     }
     private void OnBackClicked()
     {
-        _userInterfaceToggler.ToggleUserInterface(UserInterfaces.MainMenu, true);
-        _userInterfaceToggler.ToggleUserInterface(UserInterfaces.SaveSlotsMenu, false);
+        _userInterfaceToggler.ToggleUserInterface(UserInterfaceType.MainMenu, true);
+        _userInterfaceToggler.ToggleUserInterface(UserInterfaceType.SaveSlotsMenu, false);
     }
     public void OnSaveSlotClicked(object userData)
     {
@@ -124,7 +124,7 @@ public class UI_SaveSlotsMenu : IUserInterface
 
         _dataPersistenceData.SaveGameData();
 
-        SceneLoadingManager.LoadScene("Main Game", UserInterfaces.HUD, true);
+        SceneLoadingManager.LoadScene("Main Game", UserInterfaceType.HUD, true);
 
 
 

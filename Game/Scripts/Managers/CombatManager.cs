@@ -33,7 +33,7 @@ public class CombatManager : MonoBehaviour
     private void EnterCombat()
     {
         Debug.Log("COMBAT ENTERED");
-        SceneLoadingManager.LoadScene("Combat",UserInterfaces.MainMenu);
+        SceneLoadingManager.LoadScene("Combat",UserInterfaceType.MainMenu);
     }
     private void ExitCombat()
     {

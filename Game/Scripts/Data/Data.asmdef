@@ -3,7 +3,8 @@
     "rootNamespace": "",
     "references": [
         "Unity.InputSystem",
-        "Ink-Libraries"
+        "Ink-Libraries",
+        "Utilities"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

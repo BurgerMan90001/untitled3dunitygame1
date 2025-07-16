@@ -16,13 +16,12 @@ public class UXMLFileHandler
 
 
     private VisualElement _root;
-    private VisualElement _addedUserInterfaceElement;
 
   //  private readonly string _pathToUI_Elements = "Game/UI_Elements";
 
     private AsyncOperationHandle _loadedUserInterfaces;
 
-    public Dictionary<UserInterfaces, VisualElement> UserInterfaceElements { get; private set; }
+    public Dictionary<UserInterfaceType, VisualElement> UserInterfaceElements { get; private set; }
    
 
     public UXMLFileHandler(VisualElement root, AssetLabelReference uxmlAssetLabelReference)
@@ -31,7 +30,7 @@ public class UXMLFileHandler
         
         _labelReference = uxmlAssetLabelReference;
 
-        UserInterfaceElements = new Dictionary<UserInterfaces, VisualElement>();
+        UserInterfaceElements = new Dictionary<UserInterfaceType, VisualElement>();
     }
     
     private void ShowLoadingResults(VisualTreeAsset visualTreeAsset, bool showLoadingResults)
@@ -96,33 +95,35 @@ public class UXMLFileHandler
 
     private void SetUserInterfaceElementStyle(VisualTreeAsset visualTree)
     {
-        _addedUserInterfaceElement = visualTree.CloneTree();
+        VisualElement addedUserInterfaceElement = visualTree.CloneTree();
 
-        _addedUserInterfaceElement.style.position = Position.Absolute;
-        _addedUserInterfaceElement.style.flexGrow = 1;
-        _addedUserInterfaceElement.style.flexShrink = 1;
-        _addedUserInterfaceElement.style.alignSelf = Align.Stretch;
-        _addedUserInterfaceElement.style.width = new Length(100, LengthUnit.Percent);
-        _addedUserInterfaceElement.style.height = new Length(100, LengthUnit.Percent);
+        addedUserInterfaceElement.style.position = Position.Absolute;
+        addedUserInterfaceElement.style.flexGrow = 1;
+        addedUserInterfaceElement.style.flexShrink = 1;
+        addedUserInterfaceElement.style.alignSelf = Align.Stretch;
+        addedUserInterfaceElement.style.width = Length.Percent(100);
+        addedUserInterfaceElement.style.height = Length.Percent(100);
 
-        _addedUserInterfaceElement.name = visualTree.name;
-        _addedUserInterfaceElement.style.display = DisplayStyle.None;
+        addedUserInterfaceElement.name = visualTree.name;
+        addedUserInterfaceElement.style.display = DisplayStyle.None;
 
-        _root.Add(_addedUserInterfaceElement);
+        addedUserInterfaceElement.pickingMode = PickingMode.Ignore;
 
-        UpdateUserInterfaceData(visualTree);
+        _root.Add(addedUserInterfaceElement);
+
+        UpdateUserInterfaceData(visualTree, addedUserInterfaceElement);
     }
-    private void UpdateUserInterfaceData(VisualTreeAsset visualTree)
+    private void UpdateUserInterfaceData(VisualTreeAsset visualTree, VisualElement addedUserInterfaceElement)
     {
-        UserInterfaces userInterface = FindMatchingInterfaceType(visualTree.name);
-        if (userInterface == UserInterfaces.None)
+        UserInterfaceType userInterface = FindMatchingInterfaceType(visualTree.name);
+        if (userInterface == UserInterfaceType.None)
         {
             Debug.LogWarning("Can't find a user interface type from the visual tree name.");
             return;
         }
         else
         {
-            UserInterfaceElements.Add(userInterface, _addedUserInterfaceElement);
+            UserInterfaceElements.Add(userInterface, addedUserInterfaceElement);
 
 
         }
@@ -136,10 +137,10 @@ public class UXMLFileHandler
     /// </summary>
     /// <param name="name"></param>
     #endregion
-    private UserInterfaces FindMatchingInterfaceType(string name)
+    private UserInterfaceType FindMatchingInterfaceType(string name)
     {
-        var firstMatch = System.Enum.GetValues(typeof(UserInterfaces))
-                .Cast<UserInterfaces>()
+        var firstMatch = System.Enum.GetValues(typeof(UserInterfaceType))
+                .Cast<UserInterfaceType>()
                 .FirstOrDefault(g => g.ToString().Contains(name));
         if (_showLoadingResults)
         {
@@ -149,5 +150,22 @@ public class UXMLFileHandler
     }
 }
     
+/*
 
 
+public struct UserInterfaceStyle
+{
+    public VisualElement VisualElement;
+    public UserInterfaceType UserInterfaceType;
+
+    public StyleEnum<Position> Position { get; set; }
+    public static readonly UserInterfaceStyle StyleOverlay = new UserInterfaceStyle();
+
+    public UserInterfaceStyle()
+    {
+        VisualElement = visualElement;
+    }
+ //   public string 
+
+}
+*/

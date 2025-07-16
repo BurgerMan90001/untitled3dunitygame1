@@ -90,7 +90,7 @@ public class Interact
     }
     private void ShopInteraction(GameObject hitGameObject)
     {
-        if (hitGameObject.TryGetComponent(out ShopNPC component))
+        if (hitGameObject.TryGetComponent(out NPCShop component))
         {
             component.ShopInteraction();
         }
@@ -128,5 +128,16 @@ public class Interact
     {
         ButtonHeld = false;
     }
+
+}
+
+public enum IInteractable
+{
+
+}
+
+public class Interactable 
+
+{ 
 
 }

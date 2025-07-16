@@ -62,7 +62,7 @@ public class InputData : ScriptableObject
             InputEnabled = true;
         }
     }
-
+    
 
     public void ToggleCombatInput()
     {

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class NPCManager : MonoBehaviour
@@ -25,7 +26,7 @@ public class NPCManager : MonoBehaviour
     /// <summary>
     /// <br> Injects all npcs with depndancies. </br>
     /// </summary>
-    private void InitializeNPCS() 
+    protected virtual void InitializeNPCS() 
     {
         if (_dialogueData == null)
         {
@@ -47,4 +48,7 @@ public class NPCManager : MonoBehaviour
                 
         }
     }
+    
+
 }
+

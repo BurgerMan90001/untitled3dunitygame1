@@ -2,12 +2,18 @@ using System;
 using UnityEngine;
 // pennies
 /// <summary>
-/// <br></br>
+/// <br>Data and events for npc shops.</br>
 /// </summary>
 [CreateAssetMenu(menuName = "Data/ShopData")]
 public class ShopData : Data
 {
-    public Action OnShopShown;
+    [Header("Data")]
+    [SerializeField] private UserInterfaceData _userInterfaceData;
+    [SerializeField] private InputData _inputData;
+
+    public Action<string> OnShopEntered;
+
+    public Action OnShopExited;
 
     private void Awake()
     {
@@ -28,11 +34,33 @@ public class ShopData : Data
     /// <summary>
     /// <br> Invokes the OnShopShown event. </br>
     /// </summary>
-    public void ShowShop()
+    public void EnterShop(string shopGuid)
     {
-        OnShopShown?.Invoke();
+        OnShopEntered?.Invoke(shopGuid);
+
+        _userInterfaceData.ToggleUserInterface(UserInterfaceType.Shop, true);
+        _userInterfaceData.ToggleUserInterface(UserInterfaceType.Inventory, true);
+
+        _inputData.ToggleInput(false);
+
+ 
+        GameCursor.Unlock();
+
+
+
     }
 
+    public void ExitShop()
+    {
+        OnShopExited?.Invoke();
+
+        _userInterfaceData.ToggleUserInterface(UserInterfaceType.Shop, false);
+        _userInterfaceData.ToggleUserInterface(UserInterfaceType.Inventory, false);
+
+        _inputData.ToggleInput(true);
+
+        GameCursor.Lock();
+    }
     // 5 common top 0-2
 
     private void GenerateTopRow()

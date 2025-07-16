@@ -3,7 +3,8 @@
     <Style src="project://database/Assets/myprojectV1/Game/UI_Elements/UI_HUD/StaminaBarStyle.uss?fileID=7433441132597879392&amp;guid=d76d9c4a1f21e7740848a7be638b37a5&amp;type=3#StaminaBarStyle" />
     <Style src="project://database/Assets/myprojectV1/Game/UI_Elements/UI_HUD/HealthBarStyle.uss?fileID=7433441132597879392&amp;guid=b22b7cdcc182f094780b3192124ee398&amp;type=3#HealthBarStyle" />
     <Style src="project://database/Assets/myprojectV1/Game/UI_Elements/UI_HUD/MoneyFieldStyle.uss?fileID=7433441132597879392&amp;guid=e664ec3c1db1e58498b812ec768f58d3&amp;type=3#MoneyFieldStyle" />
-    <ui:VisualElement name="Root" style="flex-grow: 1; min-height: auto; min-width: 100%; max-width: 100%; flex-direction: column; background-image: url(&quot;project://database/Assets/myprojectV1/Game/Graphics/2D_Textures&amp;Mats/2D_UI_Sprites/100x100cross.png?fileID=2800000&amp;guid=de599eab15cc8484c91f9c94cfc7458f&amp;type=3#100x100cross&quot;); background-size: 3% 5%; background-color: rgba(255, 255, 255, 0); -unity-background-image-tint-color: rgba(0, 0, 0, 0.25);">
+    <Style src="project://database/Assets/myprojectV1/Game/UI_Elements/root.uss?fileID=7433441132597879392&amp;guid=dab9f6c68fd38894fa1aaaa31fa32d0c&amp;type=3#root" />
+    <ui:VisualElement name="Root_Hud" class="root_hud" style="-unity-background-image-tint-color: rgba(0, 0, 0, 0.73);">
         <ui:VisualElement name="Panel_Time" style="flex-grow: 0; flex-shrink: 1; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 1%; padding-right: 1%; padding-bottom: 1%; padding-left: 1%; background-color: rgba(0, 0, 0, 0.53); width: 21%;">
             <ui:Label name="Label_Time" enabled="true" text="MARCH" enable-rich-text="false" class="header_primary" style="white-space: pre-wrap;" />
             <ui:Label name="Label_Time" enabled="true" text="MONDAY 6:30" enable-rich-text="false" class="header_primary" />

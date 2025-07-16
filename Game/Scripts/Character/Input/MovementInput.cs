@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,7 +9,10 @@ public class MovementInput : ScriptableObject, IInputEvent
     public bool LookEnabled { get; private set; }
     public bool Enabled { get; private set; }
 
-    [field: SerializeField] public InputType InputType { get; private set; } 
+    [field: SerializeField] public InputType InputType { get; private set; }
+
+    public List<InputActionReference> InputActionReferences { get; }
+    //   public List<InputActionReference> InputActionReferences;
 
     [Header("InputActionReferences")]
     [SerializeField] private InputActionReference _moveAction;

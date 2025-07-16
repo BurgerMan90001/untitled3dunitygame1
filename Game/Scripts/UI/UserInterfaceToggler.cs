@@ -17,13 +17,13 @@ public class UserInterfaceToggler
     
     #region
     /// <summary>
-    /// <br> Toggles a user interface on or off based on the UserInterfaces value. </br>
+    /// <br> Toggles a user interface on or off based on the UserInterfaceType value. </br>
     /// </summary>
     /// <param name="userInterface"></param>
     /// <param name="inputActionMap"> Set as null to leave the action map unchanged </param>
     /// Set as null to leave the action map unchanged
     #endregion
-    public void ToggleUserInterface(UserInterfaces userInterface, bool active)
+    public void ToggleUserInterface(UserInterfaceType userInterface, bool active)
     {
         VisualElement elementToBeShown = _uxmlFileHandler.UserInterfaceElements[userInterface];
 
@@ -55,13 +55,13 @@ public class UserInterfaceToggler
     
     #region
     /// <summary>
-    /// <br> Toggles a user interface on or off based on the UserInterfaces value.</br>
+    /// <br> Toggles a user interface on or off based on the UserInterfaceType value.</br>
     /// <br> Also switches to the inputActionMap set. </br>
     /// </summary>
     /// <param name="userInterface"></param>
     /// <param name="inputActionMap"></param>
     #endregion
-    public void ToggleUserInterface(UserInterfaces userInterface, bool active, string inputActionMap)
+    public void ToggleUserInterface(UserInterfaceType userInterface, bool active, string inputActionMap)
     {
 
         ToggleUserInterface(userInterface, active);
@@ -84,7 +84,7 @@ public class UserInterfaceToggler
     /// <br> Loops through the entire UserInterfaceElements dictionary and disables each element. </br>
     /// </summary>
     /// <param name="userInterface"></param>
-    public void SwitchUserInterface(UserInterfaces userInterface)
+    public void SwitchUserInterface(UserInterfaceType userInterface)
     {
         // Hide all UI elements
         foreach (var element in _uxmlFileHandler.UserInterfaceElements.Values)

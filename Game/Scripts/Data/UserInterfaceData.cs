@@ -11,20 +11,35 @@ using UnityEngine.UIElements;
 [CreateAssetMenu(menuName = "Data/UserInterfaceData")]
 public class UserInterfaceData : Data
 {
-    public Dictionary<UserInterfaces, VisualElement> UserInterfaceElements;
+    /*
+    [Header("Data")]
+    [SerializeField] private ShopData 
+    */
+    public Dictionary<UserInterfaceType, VisualElement> UserInterfaceElements;
 
-    public Action<UserInterfaces, bool> OnToggleUserInterface;
+    public Action<UserInterfaceType, bool> OnToggleUserInterface;
+
+    private void OnEnable()
+    {
+        
+    }
+
+    private void OnDisable()
+    {
+        
+    }
+
+    public void ToggleUserInterface(UserInterfaceType userInterfaceType, bool active)
+    {
+        OnToggleUserInterface?.Invoke(userInterfaceType, active);
+    }
 
     
-    public void ToggleUserInterface(UserInterfaces userInterface, bool active)
-    {
-        OnToggleUserInterface?.Invoke(userInterface, active);
-    }
     
     
     /*
 
-    public void ToggleUserInterface(UserInterfaces userInterface, string inputActionMap)
+    public void ToggleUserInterface(UserInterfaceType userInterface, string inputActionMap)
     {
         OnToggleUserInterface?.Invoke(userInterface, inputActionMap);
     }
@@ -33,7 +48,7 @@ public class UserInterfaceData : Data
 /// <summary>
 /// <br> Toggleable user interfaces. </br>
 /// </summary>
-public enum UserInterfaces
+public enum UserInterfaceType
 {
     None,
     HUD,
@@ -45,5 +60,6 @@ public enum UserInterfaces
     MainMenu,
     SaveSlotsMenu,
     Combat,
+    Shop,
 
 }

@@ -91,7 +91,7 @@ public class UI_Dialogue : IUserInterface
 
     private void DisplayDialogue(string _)
     {
-        _userInterfaceData.ToggleUserInterface(UserInterfaces.Dialogue, true);
+        _userInterfaceData.ToggleUserInterface(UserInterfaceType.Dialogue, true);
         _dialogueLabel.text = _dialogueData.DialogueLine;
 
 
@@ -102,7 +102,7 @@ public class UI_Dialogue : IUserInterface
     }
     private void HideDialogue()
     {
-        _userInterfaceData.ToggleUserInterface(UserInterfaces.Dialogue, false);
+        _userInterfaceData.ToggleUserInterface(UserInterfaceType.Dialogue, false);
     }
     
     private void UpdateChoices(List<string> choiceText)

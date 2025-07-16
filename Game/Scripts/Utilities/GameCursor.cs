@@ -5,7 +5,7 @@ using UnityEngine;
 public static class GameCursor
 {
 
-    private static bool _disableLock = true;
+    private static bool _disableLock = false;
     public static CursorLockMode LockMode => Cursor.lockState = CursorLockMode.Locked;
     /// <summary>
     /// <br> Locks the cursor into the middle and hides it.</br>

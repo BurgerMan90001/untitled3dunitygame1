@@ -8,10 +8,10 @@ using System;
 #endregion
 public static class SceneLoadingManager
 {
-    public static Action<UserInterfaces,bool> OnSceneLoaded;
+    public static Action<UserInterfaceType,bool> OnSceneLoaded;
 
     public static string SceneToLoad { get; private set; }
-    public static UserInterfaces UserInterfaceToLoad {  get; private set; }
+    public static UserInterfaceType UserInterfaceToLoad {  get; private set; }
 
     private static SceneLoader _sceneLoader = new SceneLoader();
 
@@ -28,7 +28,7 @@ public static class SceneLoadingManager
     /// <param name="userInterfaceToBeLoaded"></param>
     /// <param name="loadLoadingScene"></param>
     #endregion
-    public static void LoadScene(string sceneName, UserInterfaces userInterfaceToBeLoaded, bool loadLoadingScene)
+    public static void LoadScene(string sceneName, UserInterfaceType userInterfaceToBeLoaded, bool loadLoadingScene)
     {
         SceneToLoad = sceneName;
         UserInterfaceToLoad = userInterfaceToBeLoaded;
@@ -49,7 +49,7 @@ public static class SceneLoadingManager
     /// <param name="sceneName"></param>
     /// <param name="userInterfaceToBeLoaded"></param>
 #endregion
-    public static void LoadScene(string sceneName, UserInterfaces userInterfaceToBeLoaded)
+    public static void LoadScene(string sceneName, UserInterfaceType userInterfaceToBeLoaded)
     {
         SceneToLoad = sceneName;
         UserInterfaceToLoad = userInterfaceToBeLoaded;

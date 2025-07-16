@@ -54,7 +54,7 @@ public class SceneLoader
     /// <param name="sceneName"></param>
     /// <param name="userInterface"></param>
     #endregion
-    public async void LoadScene(string sceneName, UserInterfaces userInterfaceToBeLoaded)
+    public async void LoadScene(string sceneName, UserInterfaceType userInterfaceToBeLoaded)
     {
         var handle = Addressables.LoadSceneAsync(sceneName);
 

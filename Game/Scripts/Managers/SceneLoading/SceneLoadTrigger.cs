@@ -15,7 +15,7 @@ public class SceneLoadTrigger : MonoBehaviour
     [Header("Initilize Settings")]
     [SerializeField] private bool _initilize;
     [SerializeField] private string _sceneAfterInitilize;
-    [SerializeField] private UserInterfaces _initilizeUserInterface;
+    [SerializeField] private UserInterfaceType _initilizeUserInterface;
 
 
     [Header("Debug")]

@@ -96,3 +96,10 @@
     left: 0;
     top: 0;
 }
+
+.root_shop {
+    flex-grow: 1;
+    align-content: auto;
+    align-self: auto;
+    justify-content: center;
+}

@@ -72,18 +72,18 @@ public class UI_MainMenu : IUserInterface
     
     private void OnNewGameClicked()
     {
-        _userInterfaceToggler.ToggleUserInterface(UserInterfaces.SaveSlotsMenu, true); // is loading = false 
+        _userInterfaceToggler.ToggleUserInterface(UserInterfaceType.SaveSlotsMenu, true); // is loading = false 
 
-        _userInterfaceToggler.ToggleUserInterface(UserInterfaces.MainMenu, false);
+        _userInterfaceToggler.ToggleUserInterface(UserInterfaceType.MainMenu, false);
 
 
     }
     private void OnLoadGameClicked()
     {
-        _userInterfaceToggler.ToggleUserInterface(UserInterfaces.SaveSlotsMenu, true); // is loading = true
+        _userInterfaceToggler.ToggleUserInterface(UserInterfaceType.SaveSlotsMenu, true); // is loading = true
 
 
-        _userInterfaceToggler.ToggleUserInterface(UserInterfaces.MainMenu, false);
+        _userInterfaceToggler.ToggleUserInterface(UserInterfaceType.MainMenu, false);
 
     }
     public void OnContinueGameClicked()

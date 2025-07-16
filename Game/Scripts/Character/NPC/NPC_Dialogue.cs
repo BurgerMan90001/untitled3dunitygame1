@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 /// <summary>
 /// <br> A class with a dialogueKnotName field. </br>
@@ -11,6 +12,7 @@ public class NPCInteraction : MonoBehaviour
 
     private DialogueData _dialogueData;
 
+    
     private bool _initialized = false;
 
     private string _silentDialogueKnotName;

@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,15 +8,26 @@ public class CameraInput : ScriptableObject, IInputEvent
 {
 
     public bool LookEnabled {  get; private set; }
+
+    public bool InteractEnabled { get; private set; }
     public bool Enabled { get; private set; }
 
+    
     [field: SerializeField] public InputType InputType { get; private set; }
 
+
+
     [Header("InputActionReferences")]
+    /*
+    public List<InputActionReference> InputActionReferences { get; }
+    */
+    
+    
     [SerializeField] private InputActionReference _lookAction;
     [SerializeField] private InputActionReference _pickUpAction;
     [SerializeField] private InputActionReference _interactAction;
     [SerializeField] private InputActionReference _leftClickAction;
+    
 
     public CameraInput()
     {
@@ -26,22 +38,32 @@ public class CameraInput : ScriptableObject, IInputEvent
     {
         if (active)
         {
-            
             _lookAction.action.Enable();
+            _pickUpAction.action.Enable();
             _interactAction.action.Enable();
             _leftClickAction.action.Enable();
-            _pickUpAction.action.Enable();
-
+            /*
+            foreach (var input in InputActionReferences)
+            {
+                input.action.Enable();
+            }
+            
+            */
             GameCursor.Lock();
             
         }
         else
         {
             _lookAction.action.Disable();
+            _pickUpAction.action.Disable();
             _interactAction.action.Disable();
             _leftClickAction.action.Disable();
-            _pickUpAction.action.Disable();
-
+            /*
+            foreach (var input in InputActionReferences)
+            {
+                input.action.Disable();
+            }
+            */
             GameCursor.Unlock();
             
             
@@ -49,12 +71,12 @@ public class CameraInput : ScriptableObject, IInputEvent
         Enabled = active;
 
     }
-    public void ToggleLook()
+    public void EnableLook(bool enabled)
     {
-        if (LookEnabled)
+        if (enabled)
         {
             _lookAction.action.Enable();
-
+            
             LookEnabled = true;
         }
         else
@@ -64,11 +86,26 @@ public class CameraInput : ScriptableObject, IInputEvent
             LookEnabled = false;
         }
     }
+    public void EnableInteract(bool enabled)
+    {
+        if (enabled)
+        {
+            _lookAction.action.Enable();
+
+            InteractEnabled = true;
+        }
+        else
+        {
+            _lookAction.action.Disable();
+         //   _lookAction.action.p
+            InteractEnabled = false;
+        }
+    }
     public void Register(CameraActions cameraActions)
     {
         SetActive(true);
 
-        _lookAction.action.started +=   cameraActions.OnLook;
+        _lookAction.action.started += cameraActions.OnLook;
         _lookAction.action.performed += cameraActions.OnLook;
         _lookAction.action.canceled +=  cameraActions.OnLook;
 
@@ -83,14 +120,15 @@ public class CameraInput : ScriptableObject, IInputEvent
 
         
     }
-    
+
+   
     public void Unregister(CameraActions cameraActions)
     {
 
         _lookAction.action.started -= cameraActions.OnLook;
         _lookAction.action.performed -= cameraActions.OnLook;
         _lookAction.action.canceled -= cameraActions.OnLook;
-
+     //   _interactAction.action.st
         _interactAction.action.started -= cameraActions.OnInteract;
         _interactAction.action.canceled -= cameraActions.OnInteract;
 
@@ -104,3 +142,12 @@ public class CameraInput : ScriptableObject, IInputEvent
 
     }
 }
+
+/*
+public struct InputActionCallbackType
+{
+    public InputAction.CallbackContext ctx;
+    public static readonly InputActionCallback qwe = new InputActionCallback();
+}
+
+*/

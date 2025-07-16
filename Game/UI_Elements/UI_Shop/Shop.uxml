@@ -1,7 +1,8 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/myprojectV1/Game/UI_Elements/UI_Inventory/Inventory.uss?fileID=7433441132597879392&amp;guid=8089a9f7c998d4a46aac97bb4e11a787&amp;type=3#Inventory" />
-    <ui:VisualElement name="Root" style="flex-grow: 1; flex-direction: column-reverse; align-items: center; justify-content: center; align-self: auto; align-content: flex-start;">
-        <ui:VisualElement name="Panel_Shop" class="panel_inventory" style="flex-grow: 0; height: 54%; align-self: flex-start; margin-top: 0%; margin-right: 0%; margin-bottom: 0%; margin-left: 1%;">
+    <Style src="project://database/Assets/myprojectV1/Game/UI_Elements/root.uss?fileID=7433441132597879392&amp;guid=dab9f6c68fd38894fa1aaaa31fa32d0c&amp;type=3#root" />
+    <ui:VisualElement name="Root_Shop" picking-mode="Ignore" class="root_shop">
+        <ui:VisualElement name="Panel_Shop" class="panel_inventory" style="flex-grow: 0; height: 54%; align-self: auto; margin-top: 0%; margin-right: 0%; margin-bottom: 0%; margin-left: 1%; align-content: center; justify-content: center; align-items: center;">
             <ui:VisualElement class="slotContainer slotIcon" style="flex-grow: 1;" />
             <ui:VisualElement class="slotContainer slotIcon" style="flex-grow: 1;" />
             <ui:VisualElement class="slotContainer slotIcon" style="flex-grow: 1;" />

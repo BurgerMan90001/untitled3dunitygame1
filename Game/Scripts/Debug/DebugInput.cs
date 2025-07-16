@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class DebugInput : MonoBehaviour, ISingleton
 {
     [Header("Dependancies")]
-    [SerializeField] private PlayerInput playerInput;
+//    [SerializeField] private PlayerInput playerInput;
     [SerializeField] private GameObject prefab;
     [SerializeField] private UserInterfaceData _userInterfaceData;
     [Header("UserInteface Settings")]
@@ -20,7 +20,7 @@ public class DebugInput : MonoBehaviour, ISingleton
     [SerializeField] private bool _lockCursor = true;
 
     [Header("Interface")]
-    [SerializeField] private UserInterfaces _loadedInterface;
+    [SerializeField] private UserInterfaceType _loadedInterface;
     [SerializeField] private bool _showInterface;
 
 
@@ -56,8 +56,6 @@ public class DebugInput : MonoBehaviour, ISingleton
             GameCursor.Lock();
 
 
-
-            //     LoadDebugInterface(_loadedInterface);
         }
     }
     private void Start()
@@ -83,20 +81,7 @@ public class DebugInput : MonoBehaviour, ISingleton
     {
         
     }
-    /*
-    private void LockCursor(bool active)
-    {
-        if (active) // lock cursor
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        } else // unlock cursor 
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-    }
-    */
+   
     private void InstantiatePrefabs(bool active, bool setEnabled)
     {
         if (active)
@@ -123,13 +108,7 @@ public class DebugInput : MonoBehaviour, ISingleton
             prefab.SetActive(true);
         }
     }
-    private void LoadDebugInterface(UserInterfaces userInterface)
-    {
-        if (gameObject.TryGetComponent(out UserInterface component))
-        {
-            component.InitalShownUserInterface = _loadedInterface;
-        }
-    }
+    
     public void DropItem(InputAction.CallbackContext ctx) //int itemIndex
     {
         if (ctx.started)

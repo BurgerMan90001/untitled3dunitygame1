@@ -123,7 +123,7 @@ public class CameraActions : MonoBehaviour
         if (ctx.started)
         {
             
-            _cameraInput.ToggleLook();
+         //   _cameraInput.EnableLook(true);
         }
     }
     private void Update()
