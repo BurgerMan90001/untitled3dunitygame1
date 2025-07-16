@@ -16,31 +16,3 @@ public class HurtItem : Item
         HurtValue = 0;
     }
 }
-
-/// <summary>
-/// <br> MICKEY OVERPOWERD </br>
-/// </summary>
-public enum HurtType 
-{
-    
-    Physical,
-    Stun,
-    
-
-    /*
-    Cold,
-    Fire, 
-    Electric,
-    Magic,
-    */
-        
-    Love, // lifesteal
-    Spook, // weakness
-    Bubble, // bubble
-
-
-    // MAYBE
-    Nature,
-    Rainbow, // damage over time
-    Sleep,
-}
