@@ -57,9 +57,11 @@ public class PlayerInventory : MonoBehaviour, IDataPersistence
         if (_interfaceEnabled)
         {
             _userInterfaceData.ToggleUserInterface(UserInterfaces.Inventory, false);
+            _interfaceEnabled = false;
         } else
         {
-            _userInterfaceData.ToggleUserInterface(UserInterfaces.Inventory, false);
+            _userInterfaceData.ToggleUserInterface(UserInterfaces.Inventory, true);
+            _interfaceEnabled = true;
         }
         _inputData.ToggleInput();
     }

@@ -20,11 +20,12 @@ public class HurtItem : Item
 /// <summary>
 /// <br> MICKEY OVERPOWERD </br>
 /// </summary>
-public enum HurtType {
-
+public enum HurtType 
+{
+    
     Physical,
     Stun,
-
+    
 
     /*
     Cold,
@@ -35,9 +36,11 @@ public enum HurtType {
         
     Love, // lifesteal
     Spook, // weakness
+    Bubble, // bubble
 
 
     // MAYBE
     Nature,
-    
+    Rainbow, // damage over time
+    Sleep,
 }

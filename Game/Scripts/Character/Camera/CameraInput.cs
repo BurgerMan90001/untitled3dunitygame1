@@ -31,9 +31,9 @@ public class CameraInput : ScriptableObject, IInputEvent
             _interactAction.action.Enable();
             _leftClickAction.action.Enable();
             _pickUpAction.action.Enable();
+
+            GameCursor.Lock();
             
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
         }
         else
         {
@@ -42,8 +42,8 @@ public class CameraInput : ScriptableObject, IInputEvent
             _leftClickAction.action.Disable();
             _pickUpAction.action.Disable();
 
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            GameCursor.Unlock();
+            
             
         }
         Enabled = active;

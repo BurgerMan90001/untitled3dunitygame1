@@ -133,11 +133,8 @@ public class UI_Dialogue : IUserInterface
 
                 
         }
-        
+        GameCursor.Unlock();
 
-        UnityEngine.Cursor.lockState = CursorLockMode.None;
-
-        UnityEngine.Cursor.visible = true;
     }
     
     private void ChoiceSelected(int choiceIndex) 
@@ -145,11 +142,7 @@ public class UI_Dialogue : IUserInterface
 
         _dialogueData.SelectChoice(choiceIndex);
 
-        
-
-        UnityEngine.Cursor.lockState = UnityEngine.CursorLockMode.None;
-
-        UnityEngine.Cursor.visible = false;
+        GameCursor.Lock();
 
         _panelChoices.style.display = DisplayStyle.None;
 

@@ -38,13 +38,20 @@ public class NPCInteraction : MonoBehaviour
         else if (!_dialogueKnotName.Equals("")) // if the knot name is not empty
         {
             
-            _dialogueData.EnterDialogue(_dialogueKnotName);// begins the NPC's dialgoue at their knotName
+            _dialogueData.EnterDialogue(_dialogueKnotName, gameObject);// begins the NPC's dialgoue at their knotName
 
         }
         else // the npc will default to ... if there is no dialogue knot 
         {
-            _dialogueData.EnterDialogue("silentDialogue");
+            _dialogueData.EnterDialogue("silentDialogue", gameObject);
         }
+
+    }
+
+    public void EnterCombat()
+    {
+        DontDestroyOnLoad(gameObject);
+        
 
     }
 }

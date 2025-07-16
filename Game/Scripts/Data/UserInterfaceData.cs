@@ -1,10 +1,15 @@
+
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-[CreateAssetMenu(menuName = "UI/UserInterfaceData")]
-public class UserInterfaceData : ScriptableObject
+/// <summary>
+/// <br> Toggleable user interfaces. </br>
+/// </summary>
+[CreateAssetMenu(menuName = "Data/UserInterfaceData")]
+public class UserInterfaceData : Data
 {
     public Dictionary<UserInterfaces, VisualElement> UserInterfaceElements;
 
@@ -25,7 +30,9 @@ public class UserInterfaceData : ScriptableObject
     }
     */
 }
-
+/// <summary>
+/// <br> Toggleable user interfaces. </br>
+/// </summary>
 public enum UserInterfaces
 {
     None,
@@ -37,5 +44,6 @@ public enum UserInterfaces
     PauseMenu,
     MainMenu,
     SaveSlotsMenu,
+    Combat,
 
 }

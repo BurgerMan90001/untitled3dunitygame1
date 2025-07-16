@@ -43612,13 +43612,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1460452345}
   - component: {fileID: 1460452346}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UITest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1460452345
 Transform:
   m_ObjectHideFlags: 0
@@ -43648,7 +43648,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PanelSettings: {fileID: 11400000, guid: fd4a8a6496fc6fd41b5ae931af406c0c, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: cd1b06c5557a47a42bd742c55012c73b, type: 3}
+  sourceAsset: {fileID: 9197481963319205126, guid: bdef43377225e474e8f9e0eede4620f8, type: 3}
   m_SortingOrder: 0
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
@@ -64281,6 +64281,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1493743949882894031, guid: 2283d4bcaacfd784b857439b3bb9f926, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1493743949882894031, guid: 2283d4bcaacfd784b857439b3bb9f926, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3589159676945201763, guid: 2283d4bcaacfd784b857439b3bb9f926, type: 3}
       propertyPath: m_Name
       value: NPC_NonStatic
@@ -64289,10 +64297,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5003940789161230038, guid: 2283d4bcaacfd784b857439b3bb9f926, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262924407321157869, guid: 2283d4bcaacfd784b857439b3bb9f926, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7869662424804253149, guid: 2283d4bcaacfd784b857439b3bb9f926, type: 3}
       propertyPath: playerRigidBody
       value: 
       objectReference: {fileID: 440221619}
+    - target: {fileID: 8197775398664201706, guid: 2283d4bcaacfd784b857439b3bb9f926, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0669f307808c64942b322a5b206b7c48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _userInterfaceData: {fileID: 0}
   _autoPlayDialogue: 0
   _continueDialogueInSeconds: 5
   _inkJson: {fileID: 4900000, guid: 7e2d4f69c8461424da28133ec1ce413d, type: 3}
-  _dialogue: {fileID: 11400000, guid: 141e0f093e208214f84262ff47576408, type: 2}
+  _dialogueData: {fileID: 11400000, guid: b7057052d12597d459bf37d69cac44f3, type: 2}
+  _combatData: {fileID: 11400000, guid: e99ab9cb863476f46ae38c8aee2da7b4, type: 2}

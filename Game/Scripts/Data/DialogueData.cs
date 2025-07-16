@@ -11,11 +11,16 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Data/DialogueData")]
 public class DialogueData : Data
 {
+    [Header("Data")]
+    [SerializeField] private CombatData _combatData;
+
+    public bool InDialogue { get; private set; }
+
     public event Action<string> OnEnterDialogue;
 
     public event Action OnContinueDialogue;
 
-    public bool InDialogue { get; private set; }
+    
 
     public event Action OnExitDialogue;
     public string DialogueLine;
@@ -25,6 +30,8 @@ public class DialogueData : Data
     public Action<List<string>> OnUpdateChoices;
 
     public Action<int> OnChoiceSelected;
+
+    private GameObject _interactedWithNpc;
 
     private void OnEnable()
     {
@@ -41,11 +48,13 @@ public class DialogueData : Data
     /// </summary>
     /// <param name="choiceIndex"></param>
     #endregion
-    public void EnterDialogue(string knotName)
+    public void EnterDialogue(string knotName, GameObject npc)
     {
         InDialogue = true;
 
         OnEnterDialogue?.Invoke(knotName); // null check
+
+        _interactedWithNpc = npc;
 
     }
     #region
@@ -75,6 +84,8 @@ public class DialogueData : Data
 
         InDialogue = false;
 
+        
+
     }
     #region
     /// <summary>
@@ -103,4 +114,9 @@ public class DialogueData : Data
         OnUpdateChoices?.Invoke(choicesText);
     }
     
+
+    public void OnVariableChanged()
+    {
+
+    }
 }

@@ -10,6 +10,12 @@
     margin-right: 0;
     margin-bottom: 0;
     margin-left: 0;
+    flex-grow: 1;
+    align-items: auto;
+    justify-content: center;
+    align-self: auto;
+    align-content: flex-start;
+    height: 429%;
 }
 
 #MoneyField > .unity-integer-field__label {
@@ -21,7 +27,7 @@
     background-color: rgba(32, 56, 74, 0.45);
     opacity: 1;
     width: auto;
-    height: auto;
+    height: 96%;
     overflow: hidden;
     visibility: visible;
     min-width: 17px;
@@ -33,6 +39,11 @@
     margin-right: -1px;
     margin-bottom: -1px;
     margin-left: -1px;
+    flex-grow: 1;
+    align-content: auto;
+    align-self: auto;
+    justify-content: flex-end;
+    align-items: flex-end;
 }
 
 .unity-health-bar {
@@ -45,4 +56,10 @@
     margin-bottom: 4px;
     margin-left: 4px;
     overflow: hidden;
+    background-color: rgba(0, 0, 0, 0);
+    flex-grow: 1;
+    flex-direction: column;
+}
+
+.test {
 }

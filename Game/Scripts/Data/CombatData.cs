@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
-[CreateAssetMenu(menuName = "Combat/CombatData")]
+/// <summary>
+/// 
+/// </summary>
+[CreateAssetMenu(menuName = "Data/CombatData")]
 public class CombatData : Data
 {
     public Action OnEnterCombat;
@@ -18,7 +21,11 @@ public class CombatData : Data
     /// </summary>
     public void EnterCombat()
     {
+
+        
         OnEnterCombat?.Invoke();
+
+        
     }
     /// <summary>
     /// <br> Triggers the OnExitCombat event. </br>

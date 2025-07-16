@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
+//TODO SEPARATE _variableStateHandler  and dialogue manager
 
 public class DialogueManager : MonoBehaviour
 {
     [Header("Dependencies")]
-    
+
 
     [Header("Dialogue Settings")]
     [SerializeField] private bool _autoPlayDialogue = false;
@@ -20,10 +21,12 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Data")]
     [SerializeField] private DialogueData _dialogueData;
+    [SerializeField] private CombatData _combatData;
+    [SerializeField] private VariableStateHandler _variableStateHandler;
 
     private Story _story;
 
-    //private bool _dialoguePlaying = false;
+   
 
     private StringBuilder _choiceText;
 
@@ -31,6 +34,7 @@ public class DialogueManager : MonoBehaviour
     {
         _story = new Story(_inkJson.text);
         _choiceText = new StringBuilder();
+
         //    _story.variablesState[]
     }
     private void OnEnable()
@@ -40,14 +44,20 @@ public class DialogueManager : MonoBehaviour
         _dialogueData.OnContinueDialogue += ContinueOrExitStory;
         _dialogueData.OnChoiceSelected += SelectChoice;
 
+        _story.variablesState.variableChangedEvent += _variableStateHandler.OnVariableChanged; 
+
     }
+
+
     private void OnDisable()
     {
         _dialogueData.OnEnterDialogue -= EnterDialogue;
         _dialogueData.OnContinueDialogue -= ContinueOrExitStory;
         _dialogueData.OnChoiceSelected -= SelectChoice;
+
+        _story.variablesState.variableChangedEvent -= _variableStateHandler.OnVariableChanged;
     }
-    
+
     private void EnterDialogue(string knotName) // begins or continues dialogue
     {
         if (!knotName.Equals(""))
@@ -66,7 +76,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (_story.canContinue)
         {
-            
+
             string dialogueLine = _story.Continue();
 
             _dialogueData.DialogueLine = dialogueLine; // update the scriptable object's line
@@ -77,11 +87,11 @@ public class DialogueManager : MonoBehaviour
 
             }
 
-        } 
+        }
         else // when there is no more dialogue lines in the story, exit
         {
             ExitDialogue();
-            
+
         }
     }
     private void ExitDialogue()
@@ -116,16 +126,13 @@ public class DialogueManager : MonoBehaviour
 
     private void SelectChoice(int choiceIndex)
     {
-        
+
         _story.ChooseChoiceIndex(choiceIndex);
-        
-        
+
+
     }
 
     
-
-
-
     private IEnumerator AutomaticallyContinueStory()
     {
         yield return new WaitForSeconds(_continueDialogueInSeconds);

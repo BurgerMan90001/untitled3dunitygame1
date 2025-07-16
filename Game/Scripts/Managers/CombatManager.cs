@@ -8,11 +8,11 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private CombatData _combatData;
 
     [Header("HurtEffects")]
-    [SerializeField] private Dictionary<HurtType, HurtEffect> hurtEffects;
+    [SerializeField] private Dictionary<HurtType, HurtEffect> _hurtEffects;
 
 
     [Header("Debug")]
-    [SerializeField] private bool debug;
+    [SerializeField] private bool _debug;
 
     private void Awake()
     {
@@ -33,6 +33,7 @@ public class CombatManager : MonoBehaviour
     private void EnterCombat()
     {
         Debug.Log("COMBAT ENTERED");
+        SceneLoadingManager.LoadScene("Combat",UserInterfaces.MainMenu);
     }
     private void ExitCombat()
     {
@@ -40,9 +41,9 @@ public class CombatManager : MonoBehaviour
     }
     public void ApplyHurt(HurtType type, GameObject target, float damage)
     {
-        if (hurtEffects.ContainsKey(type))
+        if (_hurtEffects.ContainsKey(type))
         {
-            hurtEffects[type].ApplyEffect(target, gameObject, damage);
+            _hurtEffects[type].ApplyEffect(target, gameObject, damage);
         }
         else
         {
