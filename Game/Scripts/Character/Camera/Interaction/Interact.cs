@@ -13,7 +13,7 @@ using UnityEngine;
 #endregion
 public class Interact
 {
-    private GameObject hitGameObject;
+    
     private HitDetect _hitDetect;
 
     private DynamicInventory _dynamicInventory;
@@ -38,7 +38,7 @@ public class Interact
 
         if (!_hitDetect.HitSomething) return; // if it didn't hit anything do nothing
 
-        hitGameObject = _hitDetect.HitInfo.transform.gameObject;
+        GameObject hitGameObject = _hitDetect.HitInfo.transform.gameObject;
 
         FindObjectType(hitGameObject); 
 
@@ -49,7 +49,6 @@ public class Interact
     }
     private void FindObjectType(GameObject hitGameObject)
     {
-     //   hitGameObject.
         if (hitGameObject.CompareTag("NPC"))
         {
             
@@ -78,7 +77,7 @@ public class Interact
         }
     }
     #region //interactions with game objects
-    private void NPCInteraction(GameObject gameObject)
+    private void NPCInteraction(GameObject hitGameObject)
     {
         if (hitGameObject.TryGetComponent(out NPCInteraction component))
         {
@@ -89,9 +88,9 @@ public class Interact
             Debug.LogError("This NPC does not have an NPC Dialogue script attached to them");
         }
     }
-    private void ShopInteraction(GameObject gameObject)
+    private void ShopInteraction(GameObject hitGameObject)
     {
-        if (hitGameObject.TryGetComponent(out ShopManager component))
+        if (hitGameObject.TryGetComponent(out ShopNPC component))
         {
             component.ShopInteraction();
         }
@@ -100,7 +99,7 @@ public class Interact
             Debug.LogError("This NPC does not have an NPC Dialogue script attached to them");
         }
     }
-    private void CardInteraction(GameObject gameObject)
+    private void CardInteraction(GameObject hitGameObject)
     {
 
         if (hitGameObject.TryGetComponent(out ItemInstanceContainer component))

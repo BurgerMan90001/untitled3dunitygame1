@@ -1,7 +1,12 @@
 using UnityEngine;
 
-public class ShopManager : MonoBehaviour
+public class ShopNPC: MonoBehaviour
 {
+    [Header("Shop Settings")]
+    [SerializeField] private ShopType _shopType;
+
+
+
     private ShopData _shopData;
     public void Initialize(ShopData shopData)
     {
@@ -12,4 +17,10 @@ public class ShopManager : MonoBehaviour
     {
         _shopData.ShowShop();
     }
+}
+
+
+public enum ShopType
+{
+
 }

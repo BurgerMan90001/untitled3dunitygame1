@@ -84,7 +84,7 @@ public class CameraActions : MonoBehaviour
     }
     private void OnDisable()
     {
-        _cameraInput?.Unregister(this);
+        _cameraInput.Unregister(this);
     }
     public void OnLeftClick(InputAction.CallbackContext ctx)
     {
