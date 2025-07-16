@@ -15,6 +15,9 @@ public class CombatStats : ScriptableObject, IDataPersistence
     public float AttackValue = 1;
     public float AttackPercent; // e.g. 1 is 100% and 0.5 is 50%
 
+
+    public float BlockValue; // MAYBE
+
     public float GetFinalAttackValue()
     {
         return AttackValue * AttackPercent;

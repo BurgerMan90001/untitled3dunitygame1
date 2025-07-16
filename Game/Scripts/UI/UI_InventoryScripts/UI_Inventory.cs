@@ -19,11 +19,12 @@ public class UI_Inventory : IUserInterface // animation and stuff
 
     private VisualElement _ghostImage; // the ghost image that will be used to show the item being dragged
 
-    
-    public UI_Inventory(DynamicInventory dynamicInventory)
+    private Action _onInventoryChanged;
+    public UI_Inventory(DynamicInventory dynamicInventory, Action onInventoryChanged)
     {
         _dynamicInventory = dynamicInventory; // the dynamic inventory that this UI_Inventory will use
 
+        _onInventoryChanged = onInventoryChanged;
         
         _itemVisualElements = new List<VisualElement>();
 
@@ -35,9 +36,9 @@ public class UI_Inventory : IUserInterface // animation and stuff
         _ghostImage = root.Q<VisualElement>("GhostImage");
     }
     
-    public override void Register(VisualElement root, Action onInventoryChanged)
+    public void Register(VisualElement root)
     {
-        onInventoryChanged += UpdateInterface;
+        _onInventoryChanged += UpdateInterface;
 
     //   _itemVisualElements = (List<VisualElement>)_inventoryBackingPanel.Children();
         for (int i = 0; i < _inventoryBackingPanel.childCount; i++)
@@ -63,9 +64,11 @@ public class UI_Inventory : IUserInterface // animation and stuff
         UpdateInterface(); // assign the item instances to the visual elements in the inventory
 
     }
-    public override void Unregister(Action onInventoryChanged)
+    public void Unregister()
     {
-        onInventoryChanged -= UpdateInterface;
+        _onInventoryChanged -= UpdateInterface;
+
+
         for (int i = 0; i < _inventoryBackingPanel.childCount; i++)
         {
             

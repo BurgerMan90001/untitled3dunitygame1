@@ -91,7 +91,7 @@ public class UserInterface : MonoBehaviour, ISingleton
         
 
         _uxmlFileHandler = new UXMLFileHandler(_root, _uxmlAssetLabelReference);
-        _interfaceToggler = new UserInterfaceToggler(_uxmlFileHandler, );
+        _interfaceToggler = new UserInterfaceToggler(_uxmlFileHandler, dynamicInventory.OnInventoryChanged);
 
         _uiMainMenu = new UI_MainMenu(_dataPersistenceData, _interfaceToggler);
         _uiSaveSlotsMenu = new UI_SaveSlotsMenu(_dataPersistenceData, _interfaceToggler);
@@ -125,6 +125,8 @@ public class UserInterface : MonoBehaviour, ISingleton
 
             _interfaceToggler.Register(SceneLoadingManager.OnSceneLoaded);
             _interfaceToggler.Register(_userInterfaceData.OnToggleUserInterface);
+
+            
             /*
 
             SceneLoadingManager.OnSceneLoaded += _interfaceToggler.ToggleUserInterface;
