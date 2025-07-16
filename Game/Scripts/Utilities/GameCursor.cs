@@ -4,12 +4,15 @@ using UnityEngine;
 /// </summary>
 public static class GameCursor
 {
-    public static bool IsLocked => Cursor.lockState == CursorLockMode.Locked;
+
+    private static bool _disableLock = true;
+    public static CursorLockMode LockMode => Cursor.lockState = CursorLockMode.Locked;
     /// <summary>
     /// <br> Locks the cursor into the middle and hides it.</br>
     /// </summary>
     public static void Lock()
     {
+        if (_disableLock) { return; }
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }

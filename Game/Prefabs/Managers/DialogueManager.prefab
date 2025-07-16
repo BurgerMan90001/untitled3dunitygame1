@@ -49,3 +49,4 @@ MonoBehaviour:
   _inkJson: {fileID: 4900000, guid: 7e2d4f69c8461424da28133ec1ce413d, type: 3}
   _dialogueData: {fileID: 11400000, guid: b7057052d12597d459bf37d69cac44f3, type: 2}
   _combatData: {fileID: 11400000, guid: e99ab9cb863476f46ae38c8aee2da7b4, type: 2}
+  _variableStateHandler: {fileID: 11400000, guid: 74ee94fa781124646884a171642cec54, type: 2}

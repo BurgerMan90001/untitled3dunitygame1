@@ -125,11 +125,10 @@ public class UI_SaveSlotsMenu : IUserInterface
         _dataPersistenceData.SaveGameData();
 
         SceneLoadingManager.LoadScene("Main Game", UserInterfaces.HUD, true);
-        
 
 
-        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
-        UnityEngine.Cursor.visible = false;
+
+        GameCursor.Lock();
     }
     
 

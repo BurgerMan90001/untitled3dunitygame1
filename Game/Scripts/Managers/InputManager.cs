@@ -51,15 +51,6 @@ public class InputManager : MonoBehaviour
         */
     }
     
-    public void LockCursor()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
-    public void UnlockCursor()
-    {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-    }
+    
 
 }

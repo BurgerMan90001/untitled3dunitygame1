@@ -17,11 +17,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _globalSpeedMultiplier = 2f;
     [SerializeField] private List<StateSettings> _stateSettings;
 
-    [Header("InputActionReferences")]
-    [SerializeField] private InputActionReference _moveAction;
-    [SerializeField] private InputActionReference _sprintAction;
-    [SerializeField] private InputActionReference _jumpAction;
-    [SerializeField] private InputActionReference _crouchAction;
 
 
     [Header("Crouch Settings")]
@@ -94,6 +89,7 @@ public class PlayerMovement : MonoBehaviour
     
     public void OnMove(InputAction.CallbackContext ctx)
     {
+
         Vector2 newInput = ctx.ReadValue<Vector2>();
         if (newInput != _movementInput) // only update if the input has changed to avoid unnecessary updates
         {

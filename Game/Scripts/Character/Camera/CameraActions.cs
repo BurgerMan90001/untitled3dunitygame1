@@ -102,7 +102,7 @@ public class CameraActions : MonoBehaviour
     {
         _lookInput = ctx.ReadValue<Vector2>(); // the velocity direction and magnitude from a device, such as a mouse or joystick
 
-        _mousePosition = Mouse.current.position.ReadValue(); // get the current mouse position
+    //    _mousePosition = Mouse.current.position.ReadValue(); // get the current mouse position
 
     }
 

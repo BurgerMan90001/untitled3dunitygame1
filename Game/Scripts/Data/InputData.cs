@@ -14,7 +14,7 @@ public class InputData : ScriptableObject
 
     public bool InputEnabled { get; private set; }
 
-
+    
     private void OnEnable()
     {
         _dialogueData.OnChoiceSelected += (_) => ToggleInput(true); // discards the chosen int index. enables input
@@ -62,6 +62,12 @@ public class InputData : ScriptableObject
             InputEnabled = true;
         }
     }
+
+
+    public void ToggleCombatInput()
+    {
+
+    }
     #region
     /// <summary>
     /// <br> Enable or disable all input based on the active boolean. </br>
@@ -88,4 +94,10 @@ public class InputData : ScriptableObject
     }
     */
 }
+
+public enum InputMaps
+{
+
+}
+
 

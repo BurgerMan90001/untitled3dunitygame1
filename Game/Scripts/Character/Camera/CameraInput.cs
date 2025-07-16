@@ -1,7 +1,7 @@
 
 using UnityEngine;
 using UnityEngine.InputSystem;
-[System.Serializable]
+
 [CreateAssetMenu(menuName = "Input/CameraInput")]
 public class CameraInput : ScriptableObject, IInputEvent
 {

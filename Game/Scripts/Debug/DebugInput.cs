@@ -53,7 +53,7 @@ public class DebugInput : MonoBehaviour, ISingleton
         }
         if (_lockCursor)
         {
-            LockCursor(true);
+            GameCursor.Lock();
 
 
 
@@ -83,6 +83,7 @@ public class DebugInput : MonoBehaviour, ISingleton
     {
         
     }
+    /*
     private void LockCursor(bool active)
     {
         if (active) // lock cursor
@@ -95,6 +96,7 @@ public class DebugInput : MonoBehaviour, ISingleton
             Cursor.visible = true;
         }
     }
+    */
     private void InstantiatePrefabs(bool active, bool setEnabled)
     {
         if (active)

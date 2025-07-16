@@ -1,6 +1,9 @@
 
 using UnityEngine;
 
+// TODO OPTIMIZE TAG CHECKING AND suthf
+
+
 #region
 /// <summary>
 /// Provides functionality for interacting with game objects in the scene, such as NPCs, doors, and ladders.
@@ -46,11 +49,16 @@ public class Interact
     }
     private void FindObjectType(GameObject hitGameObject)
     {
+     //   hitGameObject.
         if (hitGameObject.CompareTag("NPC"))
         {
             
             NPCInteraction(hitGameObject); 
         } 
+        else if (hitGameObject.CompareTag("Shop"))
+        {
+            ShopInteraction(hitGameObject);
+        }
         else if (hitGameObject.CompareTag("Card"))
         {
             CardInteraction(hitGameObject);
@@ -78,7 +86,18 @@ public class Interact
         }
         else
         {
-            Debug.LogWarning("This NPC does not have an NPC Dialogue script attached to them");
+            Debug.LogError("This NPC does not have an NPC Dialogue script attached to them");
+        }
+    }
+    private void ShopInteraction(GameObject gameObject)
+    {
+        if (hitGameObject.TryGetComponent(out ShopManager component))
+        {
+            component.ShopInteraction();
+        }
+        else
+        {
+            Debug.LogError("This NPC does not have an NPC Dialogue script attached to them");
         }
     }
     private void CardInteraction(GameObject gameObject)
@@ -97,7 +116,7 @@ public class Interact
         }
         else
         {
-            Debug.LogWarning("This card does not have an ItemInstanceContainer script attached to it.");
+            Debug.LogError("This card does not have an ItemInstanceContainer script attached to it.");
         }
     }
     private void DoorInteraction(GameObject gameObject)

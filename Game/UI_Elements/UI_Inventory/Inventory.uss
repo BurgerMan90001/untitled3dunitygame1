@@ -10,7 +10,7 @@
     flex-shrink: 1;
 }
 
-.inventoryBackingPanel1 {
+.panel_inventory {
     position: relative;
     background-color: rgba(9, 10, 19, 0.33);
     -unity-text-outline-color: rgba(0, 0, 0, 0);
@@ -21,7 +21,7 @@
     justify-content: space-between;
     align-content: center;
     flex-direction: row;
-    width: 34%;
+    width: 36%;
     flex-wrap: wrap;
     flex-shrink: 1;
     flex-grow: 1;
@@ -72,12 +72,14 @@
     border-left-width: 0;
     background-image: none;
     -unity-background-image-tint-color: rgb(248, 248, 248);
+    flex-grow: 0;
+    flex-direction: row;
 }
 
 .slotIcon {
     padding: 15px;
     flex-shrink: 0;
-    flex-grow: 1;
+    flex-grow: 0;
     background-image: none;
 }
 
