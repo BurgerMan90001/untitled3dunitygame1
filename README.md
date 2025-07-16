@@ -1,1 +1,1 @@
-Passion project
+The passion project
