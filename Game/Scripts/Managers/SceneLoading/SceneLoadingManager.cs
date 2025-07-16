@@ -8,14 +8,15 @@ using System;
 #endregion
 public static class SceneLoadingManager
 {
+    private const string LoadingSceneName = "Loading";
     public static Action<UserInterfaceType,bool> OnSceneLoaded;
 
     public static string SceneToLoad { get; private set; }
-    public static UserInterfaceType UserInterfaceToLoad {  get; private set; }
+    public static UserInterfaceType UserInterfaceToLoad { get; private set; }
 
     private static SceneLoader _sceneLoader = new SceneLoader();
 
-    private static string LoadingSceneName = "Loading";
+
     private static void LoadLoadingScene()
     {
         _sceneLoader.LoadScene(LoadingSceneName);
