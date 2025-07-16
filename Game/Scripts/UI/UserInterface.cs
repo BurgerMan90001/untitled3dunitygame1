@@ -22,7 +22,7 @@ public class UserInterface : MonoBehaviour, ISingleton
 
 
     [Header("Data")]
-    [SerializeField] private List<Data> _data;
+    //[SerializeField] private List<Data> _data;
     [SerializeField] private DynamicInventory _dynamicInventory; // the dynamic inventory scriptable object that will be used to manage the inventory
     [SerializeField] private UserInterfaceData _userInterfaceData;
     [SerializeField] private DataPersistenceData _dataPersistenceData;
@@ -39,9 +39,12 @@ public class UserInterface : MonoBehaviour, ISingleton
     [Header("First Shown Interface")]
     public UserInterfaceType InitalShownUserInterface;
 
-
     [Header("Settings")]
     [SerializeField] private AssetLabelReference _sceneLabelReference;
+
+    [Header("Debug")]
+    [SerializeField] private bool _showHoveredOnElement = false;
+
 
     private UIDocument _uiDocument;
     private VisualElement _root; // the base that will uxmls be added on to
@@ -84,11 +87,11 @@ public class UserInterface : MonoBehaviour, ISingleton
 
         _root = _uiDocument.rootVisualElement;
         _root.style.flexGrow = 1;
-
-        _root.RegisterCallback<MouseMoveEvent>(OnMouseMove);
+        
+        
 
         _uxmlFileHandler = new UXMLFileHandler(_root, _uxmlAssetLabelReference);
-        _interfaceToggler = new UserInterfaceToggler(_uxmlFileHandler);
+        _interfaceToggler = new UserInterfaceToggler(_uxmlFileHandler, dynamicInventory.OnInventoryChanged);
 
         _uiMainMenu = new UI_MainMenu(_dataPersistenceData, _interfaceToggler);
         _uiSaveSlotsMenu = new UI_SaveSlotsMenu(_dataPersistenceData, _interfaceToggler);
@@ -118,11 +121,18 @@ public class UserInterface : MonoBehaviour, ISingleton
 
             RegisterAllInterfaces();
             
+            _root.RegisterCallback<MouseMoveEvent>(OnMouseMove);
+
+            _interfaceToggler.Register(SceneLoadingManager.OnSceneLoaded);
+            _interfaceToggler.Register(_userInterfaceData.OnToggleUserInterface);
+
+            
+            /*
 
             SceneLoadingManager.OnSceneLoaded += _interfaceToggler.ToggleUserInterface;
             _userInterfaceData.OnToggleUserInterface += _interfaceToggler.ToggleUserInterface;
             _dynamicInventory.OnInventoryChanged += _uiInventory.UpdateInterface; // whenever the inventory changes, update the inventory ui
-
+            */
             _interfaceToggler.ToggleUserInterface(InitalShownUserInterface, true);
 
         } catch (Exception e)
@@ -133,10 +143,16 @@ public class UserInterface : MonoBehaviour, ISingleton
     }
     private void OnDisable()
     {
+        /*
         SceneLoadingManager.OnSceneLoaded -= _interfaceToggler.ToggleUserInterface;
         _userInterfaceData.OnToggleUserInterface -= _interfaceToggler.ToggleUserInterface;
         _dynamicInventory.OnInventoryChanged -= _uiInventory.UpdateInterface;
+        */
+        _interfaceToggler.Unregister(SceneLoadingManager.OnSceneLoaded);
+        _interfaceToggler.Unregister(_userInterfaceData.OnToggleUserInterface);
 
+        _root.UnrgisterCallback<MouseMoveEvent>(OnMouseMove);
+        
         UnregisterAllInterfaces();
 
 
@@ -151,25 +167,29 @@ public class UserInterface : MonoBehaviour, ISingleton
     }
     private void OnMouseMove(MouseMoveEvent evt)
     {
-        var newElement = evt.target as VisualElement;
+        if (_showHoveredOnElement) {
 
-        if (newElement != currentElement)
-        {
-            if (currentElement != null)
+        
+            var newElement = evt.target as VisualElement;
+
+            if (newElement != currentElement)
             {
-                Debug.Log($"Left: {currentElement.name}");
+                if (currentElement != null)
+                {
+                    Debug.Log($"Left: {currentElement.name}");
+                }
+                    
+
+                currentElement = newElement;
+
+
+                if (currentElement != null) 
+                {
+                    Debug.Log($"Entered: {currentElement.name}");
+                }
             }
-                
 
-            currentElement = newElement;
-
-
-            if (currentElement != null) 
-            {
-                Debug.Log($"Entered: {currentElement.name}");
-            }
-
-                
+                    
         }
     }
 
@@ -186,33 +206,9 @@ public class UserInterface : MonoBehaviour, ISingleton
     {
         _userInterfaces.ForEach(ui => ui?.Unregister());
     }
-   
-    
-    
     
 
 }
 
 
 
-
-/*
-    public void TogglePauseGame(bool pauseGame)
-    {
-        if (pauseGame) //then unPause game and bring up HUD
-        {
-            Time.timeScale = 1.0f;
-            pauseGame = false; //unPause
-            AudioListener.pause = true;
-
-            //  auidoSource.ignoreListenerPause = true; to ignore
-        }
-        else // then pause game and bring up inventory
-        {
-            Time.timeScale = 0f;
-            pauseGame = true;
-            AudioListener.pause = false;
-
-        }
-    }
-    */

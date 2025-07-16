@@ -1,6 +1,11 @@
 using UnityEngine;
 
-public static class Pause
+
+/// <summary>
+/// <br> A class to pause in game. <br> 
+/// 
+/// <summary>
+public static class GamePause
 {
     public static void PauseGame(bool pauseGame)
     {

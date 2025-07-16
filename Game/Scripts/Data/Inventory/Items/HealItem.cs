@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Character/Inventory/HealItem")]
+[CreateAssetMenu(menuName = "Items/HealItem")]
 public class HealItem : Item
 {
     [field: SerializeField] public float HealValue { get; protected set; }

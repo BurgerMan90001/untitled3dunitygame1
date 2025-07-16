@@ -5,7 +5,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 
-
+//TODO IMPLEMENT FOR BETTER PERFORMANCE
 // NOTES: uxml file loading is handled by UXMLFileHandler.cs
 public class AddressablesManager : MonoBehaviour
 {

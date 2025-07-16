@@ -14,7 +14,15 @@ public class UserInterfaceToggler
     {
         _uxmlFileHandler = uxmlFileHandler;
     }
-    
+    public void Register(Action<UserInterfaceType,bool> onUserInterfaceToggled) 
+    {
+        onUserInterfaceToggled += ToggleUserInterface;
+    }
+
+    public void Unregister(Action<UserInterfaceType,bool> onUserInterfaceToggled) 
+    {
+        onUserInterfaceToggled -= ToggleUserInterface;
+    }
     #region
     /// <summary>
     /// <br> Toggles a user interface on or off based on the UserInterfaceType value. </br>
@@ -25,7 +33,7 @@ public class UserInterfaceToggler
     #endregion
     public void ToggleUserInterface(UserInterfaceType userInterface, bool active)
     {
-        VisualElement elementToBeShown = _uxmlFileHandler.UserInterfaceElements[userInterface];
+        VisualElement elementToBeShown = GetUserInterfaceElement(userInterface);
 
         if (elementToBeShown == null)
         {
@@ -39,7 +47,26 @@ public class UserInterfaceToggler
         {
             elementToBeShown.style.display = DisplayStyle.None;
         }
-        /*
+        
+    }
+    #region
+    /// <summary>
+    /// <br> Toggles a user interface on or off based on the visual elements DisplayStyle value. </br>
+    /// </summary>
+    /// <param name="userInterface"></param>
+    /// <param name="inputActionMap"> Set as null to leave the action map unchanged </param>
+    /// Set as null to leave the action map unchanged
+    #endregion
+    public void ToggleUserInterface(UserInterfaceType userInterface) 
+    {
+        VisualElement elementToBeShown = GetUserInterfaceElement(userInterface);
+
+        if (elementToBeShown == null)
+        {
+            Debug.LogError("The elementToBeShown is null.");
+            return;
+        }
+        
         if (elementToBeShown.style.display == DisplayStyle.Flex)
         {
             elementToBeShown.style.display = DisplayStyle.None;
@@ -49,9 +76,8 @@ public class UserInterfaceToggler
         {
             elementToBeShown.style.display = DisplayStyle.Flex;
         }
-        */
+        
     }
-
     
     #region
     /// <summary>
@@ -100,5 +126,11 @@ public class UserInterfaceToggler
         {
             Debug.LogError("The switched to user interface has not been found!");
         }
+    }
+
+    private VisualElement GetUserInterfaceElement() 
+    {
+
+        return _uxmlFileHandler.UserInterfaceElements[userInterface];
     }
 }

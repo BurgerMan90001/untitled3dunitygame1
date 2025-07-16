@@ -19,11 +19,12 @@ public class UI_Inventory : IUserInterface // animation and stuff
 
     private VisualElement _ghostImage; // the ghost image that will be used to show the item being dragged
 
-    
-    public UI_Inventory(DynamicInventory dynamicInventory)
+    private Action _onInventoryChanged;
+    public UI_Inventory(DynamicInventory dynamicInventory, Action onInventoryChanged)
     {
         _dynamicInventory = dynamicInventory; // the dynamic inventory that this UI_Inventory will use
 
+        _onInventoryChanged = onInventoryChanged;
         
         _itemVisualElements = new List<VisualElement>();
 
@@ -37,6 +38,7 @@ public class UI_Inventory : IUserInterface // animation and stuff
     
     public void Register(VisualElement root)
     {
+        _onInventoryChanged += UpdateInterface;
 
     //   _itemVisualElements = (List<VisualElement>)_inventoryBackingPanel.Children();
         for (int i = 0; i < _inventoryBackingPanel.childCount; i++)
@@ -64,6 +66,9 @@ public class UI_Inventory : IUserInterface // animation and stuff
     }
     public void Unregister()
     {
+        _onInventoryChanged -= UpdateInterface;
+
+
         for (int i = 0; i < _inventoryBackingPanel.childCount; i++)
         {
             
@@ -73,13 +78,15 @@ public class UI_Inventory : IUserInterface // animation and stuff
             child?.RemoveManipulator(_tooltipManipulator);
             child?.RemoveManipulator(_dragAndDropManipulator);
         }
+
+
     }
     #region
     /// <summary>
     /// Updates the ItemSlots dictionary with the current items in the dynamic inventory. 
     /// </summary>
     #endregion
-    public void UpdateInterface() // O(n)
+    private void UpdateInterface() // O(n)
     {
 
         for (int i = 0; i < _dynamicInventory.Items.Count; i++)

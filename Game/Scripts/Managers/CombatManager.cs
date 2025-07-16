@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+//TODO MAKE COMBAT SYSTEM BETTER
 public class CombatManager : MonoBehaviour
 {
 
@@ -38,19 +38,35 @@ public class CombatManager : MonoBehaviour
     private void ExitCombat()
     {
         Debug.Log("COMBAT EXITED");
+        SceneLoadingManager.LoadScene("Main Game",UserInterfaceType.MainMenu);
     }
-    public void ApplyHurt(HurtType type, GameObject target, float damage)
+    public void ApplyHurt(HurtType type, GameObject target, float damageAmount)
     {
         if (_hurtEffects.ContainsKey(type))
         {
-            _hurtEffects[type].ApplyEffect(target, gameObject, damage);
+            _hurtEffects[type].ApplyEffect(target, gameObject, damageAmount);
         }
         else
         {
-            Debug.LogError("There is no valid hurt effect.");
+            Debug.LogError("There is no valid hurt type with that hurt effect.");
 
         }
     }
+
+
+    public void ApplyBlock(GameObject target, float blockAmount) 
+    {
+        
+        
+
+    }
+}
+
+
+public enum BlockType 
+{
+    Normal,
+    Damage, // damages the attacker back
 }
 
 

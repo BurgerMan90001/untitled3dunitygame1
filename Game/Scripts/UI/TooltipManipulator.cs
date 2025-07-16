@@ -148,7 +148,7 @@ public class TooltipManipulator : PointerManipulator
     
     private void StyleText(Vector2 tooltipSize)
     {
-        _tooltipLabel.style.fontSize = tooltipSize.y * 0.1f;
+        _tooltipLabel.style.fontSize = tooltipSize.y * 0.1f; // the tooltip text is set to 10% of the tooltip size.
         
     }
     public void UpdateText() // called in Update in a monobehaviour

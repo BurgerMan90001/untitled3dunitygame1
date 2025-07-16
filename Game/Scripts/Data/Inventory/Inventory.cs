@@ -3,11 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+// TODO REDUCE CODE
+/// <summary>
+/// <br> </br>
+/// </summary>
 [CreateAssetMenu(menuName = "Character/Inventory/DynamicInventory")]
 public class DynamicInventory : ScriptableObject
 {
-    [SerializeField] private GeneralStats _stats;
+    [SerializeField] private GeneralStats _stats; // the stats 
 
     public int MaxItems = 28;
     public List<ItemInstance> Items;
@@ -22,24 +25,9 @@ public class DynamicInventory : ScriptableObject
         }
 
     }
-    #region
-    /// <summary>
-    /// <br> True if there is an null or empty slot.</br>
-    ///  <br> Also returns the first empty index it finds.</br>
-    /// </summary>
-    /// <param name="firstEmptySlotIndex"></param>
-    /// <returns></returns>
-    #endregion
-    private bool IsThereEmptySlot(out int firstEmptySlotIndex)
-    {
-        
-        firstEmptySlotIndex = Items.FindIndex(item => item.ItemType == null);
-        if (firstEmptySlotIndex == -1)
-        {
-            Debug.LogWarning("There are no more empty slots!");
-        }
-        return !(firstEmptySlotIndex == -1); 
-    }
+    
+    
+   
     private void AddOrStackItem(ItemInstance itemToAdd)
     {
         if (ExistInInventory(itemToAdd, out ItemInstance matchingItem) && matchingItem.IsStackable)
@@ -54,6 +42,8 @@ public class DynamicInventory : ScriptableObject
             AddToInventory(itemToAdd);
             Debug.Log("ADDDED NEW ITEM");
 
+        } else {
+            Debug.LogError("Something went wrong when adding the item. ");
         }
         
 
@@ -77,14 +67,12 @@ public class DynamicInventory : ScriptableObject
         
         if (itemToAdd is ItemPackInstance itemPackInstance)
         {
-            Debug.Log("ITS A PACK");
-            itemPackInstance.PreviewContents();
             
             OpenPack(itemPackInstance);
             return true;
         }
  
-        else if (!IsInventoryFull())
+        else if (!IsInventoryFull()) // if its a normal item and the inventory is not full
         {
             AddOrStackItem(itemToAdd);
             OnInventoryChanged?.Invoke();
@@ -121,7 +109,7 @@ public class DynamicInventory : ScriptableObject
     /// <summary>
     /// <br> Clears the inventory and adds empty items the items list. </br>
     /// </summary>
-#endregion
+    #endregion
     public void ResetInventory()
     {
         Items.Clear(); // Clear the inventory when the player inventory is enabled
@@ -157,7 +145,24 @@ public class DynamicInventory : ScriptableObject
         
        // Return true if the item exists in the inventory and they have the same quality
     }
-
+     #region
+    /// <summary>
+    /// <br> True if there is an null or empty slot.</br>
+    ///  <br> Also returns the first empty index it finds.</br>
+    /// </summary>
+    /// <param name="firstEmptySlotIndex"></param>
+    /// <returns></returns>
+    #endregion
+    private bool IsThereEmptySlot(out int firstEmptySlotIndex)
+    {
+        
+        firstEmptySlotIndex = Items.FindIndex(item => item.ItemType == null);
+        if (firstEmptySlotIndex == -1)
+        {
+            Debug.LogWarning("There are no more empty slots!");
+        }
+        return !(firstEmptySlotIndex == -1); 
+    }
 
     public bool IsInventoryFull()
     {
@@ -179,7 +184,7 @@ public class DynamicInventory : ScriptableObject
     /// <param name="indexB"></param>
     /// <returns></returns>
     #endregion
-    public bool SwapItems(int indexA, int indexB)
+    public bool SwapItems(int indexA, int indexB) // TODO make bool function
     {
         
         SwapIndexes(indexA, indexB);
