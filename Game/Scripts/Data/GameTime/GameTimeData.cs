@@ -1,11 +1,16 @@
 using System;
 using UnityEngine;
+using UnityEngine.Rendering;
+
 
 
 [CreateAssetMenu (menuName = "Time/GameTimeData")]
 public class GameTimeData : ScriptableObject
 {
-
+    [SerializeField] private GameObject _sun;
+    [SerializeField] private GameObject _moon;
+    
+    public Volume volume;
 
     public Day Day;
     public float Time;
