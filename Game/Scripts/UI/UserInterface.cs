@@ -15,8 +15,7 @@ using UnityEngine.UIElements;
 public class UserInterface : MonoBehaviour, ISingleton
 {
     [Header("Dependencies")]
-    
-    [SerializeField] private InputManager _inputManager;
+ 
 
     private VisualElement currentElement;
 
@@ -79,6 +78,7 @@ public class UserInterface : MonoBehaviour, ISingleton
         else
         {
             Debug.LogWarning("There was another UserInterface instance in the scene. Destroying duplicate.");
+
             Destroy(gameObject);
         }
         
@@ -91,12 +91,12 @@ public class UserInterface : MonoBehaviour, ISingleton
         
 
         _uxmlFileHandler = new UXMLFileHandler(_root, _uxmlAssetLabelReference);
-        _interfaceToggler = new UserInterfaceToggler(_uxmlFileHandler, dynamicInventory.OnInventoryChanged);
+        _interfaceToggler = new UserInterfaceToggler(_uxmlFileHandler);
 
         _uiMainMenu = new UI_MainMenu(_dataPersistenceData, _interfaceToggler);
         _uiSaveSlotsMenu = new UI_SaveSlotsMenu(_dataPersistenceData, _interfaceToggler);
         _uiDialogue = new UI_Dialogue(_userInterfaceData, _dialogueData);
-        _uiInventory = new UI_Inventory(_dynamicInventory);
+        _uiInventory = new UI_Inventory(_dynamicInventory, _dynamicInventory.OnInventoryChanged);
 
         _userInterfaces.Add(_uiMainMenu);
         _userInterfaces.Add(_uiSaveSlotsMenu);
@@ -122,17 +122,17 @@ public class UserInterface : MonoBehaviour, ISingleton
             RegisterAllInterfaces();
             
             _root.RegisterCallback<MouseMoveEvent>(OnMouseMove);
-
+            /*
             _interfaceToggler.Register(SceneLoadingManager.OnSceneLoaded);
             _interfaceToggler.Register(_userInterfaceData.OnToggleUserInterface);
-
+            */
             
-            /*
+            
 
             SceneLoadingManager.OnSceneLoaded += _interfaceToggler.ToggleUserInterface;
             _userInterfaceData.OnToggleUserInterface += _interfaceToggler.ToggleUserInterface;
             _dynamicInventory.OnInventoryChanged += _uiInventory.UpdateInterface; // whenever the inventory changes, update the inventory ui
-            */
+            
             _interfaceToggler.ToggleUserInterface(InitalShownUserInterface, true);
 
         } catch (Exception e)
@@ -143,15 +143,15 @@ public class UserInterface : MonoBehaviour, ISingleton
     }
     private void OnDisable()
     {
-        /*
+        
         SceneLoadingManager.OnSceneLoaded -= _interfaceToggler.ToggleUserInterface;
         _userInterfaceData.OnToggleUserInterface -= _interfaceToggler.ToggleUserInterface;
         _dynamicInventory.OnInventoryChanged -= _uiInventory.UpdateInterface;
-        */
+        /*
         _interfaceToggler.Unregister(SceneLoadingManager.OnSceneLoaded);
         _interfaceToggler.Unregister(_userInterfaceData.OnToggleUserInterface);
-
-        _root.UnrgisterCallback<MouseMoveEvent>(OnMouseMove);
+        */
+        _root.UnregisterCallback<MouseMoveEvent>(OnMouseMove);
         
         UnregisterAllInterfaces();
 

@@ -1,6 +1,6 @@
 
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 
@@ -86,7 +86,7 @@ public class UI_Inventory : IUserInterface // animation and stuff
     /// Updates the ItemSlots dictionary with the current items in the dynamic inventory. 
     /// </summary>
     #endregion
-    private void UpdateInterface() // O(n)
+    public void UpdateInterface() // O(n)
     {
 
         for (int i = 0; i < _dynamicInventory.Items.Count; i++)

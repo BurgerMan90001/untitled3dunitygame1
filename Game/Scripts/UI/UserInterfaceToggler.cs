@@ -33,6 +33,7 @@ public class UserInterfaceToggler
     #endregion
     public void ToggleUserInterface(UserInterfaceType userInterface, bool active)
     {
+        Debug.Log("ASDASDASDa");
         VisualElement elementToBeShown = GetUserInterfaceElement(userInterface);
 
         if (elementToBeShown == null)
@@ -128,7 +129,7 @@ public class UserInterfaceToggler
         }
     }
 
-    private VisualElement GetUserInterfaceElement() 
+    private VisualElement GetUserInterfaceElement(UserInterfaceType userInterface) 
     {
 
         return _uxmlFileHandler.UserInterfaceElements[userInterface];

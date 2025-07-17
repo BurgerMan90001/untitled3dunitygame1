@@ -44,17 +44,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65d1c1ce76d17ab45a51604311857892, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: {fileID: 0}
   prefab: {fileID: 4556210685214512358, guid: 1edf35564d1358847b42187fe6112893, type: 3}
   _userInterfaceData: {fileID: 11400000, guid: 1c7fbd88d5738b74087a9f4ddfe1e972, type: 2}
   _debugScene: 1
-  _lockCursor: 1
-  _loadedInterface: 1
+  _lockCursor: 0
+  _loadedInterface: 7
   _showInterface: 1
   _instantiatedPrefabs: 1
   _setPrefabsActive: 1
   _instantiatedPrefabsOnPlaySceneWithoutLoading:
-  - {fileID: 7574062842711414073, guid: a1a755db3884371418820c6292e9cd19, type: 3}
   - {fileID: 5502777966608178585, guid: d6feb5d8cd767c84e8e3871800c2a327, type: 3}
   - {fileID: 8556511543109447766, guid: 16662e78459f0f0478e7371944fec16d, type: 3}
   spawnPoint: {x: -20.49013, y: 71, z: -32.76805}

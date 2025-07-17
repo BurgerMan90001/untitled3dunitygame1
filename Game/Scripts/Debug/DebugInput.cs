@@ -54,6 +54,7 @@ public class DebugInput : MonoBehaviour, ISingleton
             DontDestroyOnLoad(gameObject);
         } else
         {
+            Destroy(gameObject);
             Debug.LogWarning("There is another DebugInput in scene. Destroying duplicate.");
         }
         if (_lockCursor)
@@ -124,6 +125,7 @@ public class DebugInput : MonoBehaviour, ISingleton
         {
             buttonHeld = false;
         }
+
         
         //    GameObject droppedItem = new GameObject();// Creates a new object and gives it the item data
         //    droppedItem.AddComponent<Rigidbody>();
