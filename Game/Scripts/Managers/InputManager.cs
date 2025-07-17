@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputManager : MonoBehaviour
+public class InputManager : MonoBehaviour, ISingleton
 {
     [SerializeField] private List<ScriptableObject> _inputs;
     private Dictionary<string, InputActionMap> _actionMaps = new Dictionary<string, InputActionMap>();

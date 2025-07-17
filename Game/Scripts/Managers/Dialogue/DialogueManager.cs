@@ -8,7 +8,7 @@ using UnityEngine;
 
 //TODO SEPARATE _variableStateHandler  and dialogue manager
 
-public class DialogueManager : MonoBehaviour
+public class DialogueManager : MonoBehaviour, ISingleton
 {
     [Header("Dependencies")]
 
@@ -16,6 +16,9 @@ public class DialogueManager : MonoBehaviour
     [Header("Dialogue Settings")]
     [SerializeField] private bool _autoPlayDialogue = false;
     [SerializeField] private float _continueDialogueInSeconds = 5f;
+
+    [Header("Variable State")]
+    [SerializeField] private bool _showVariableName = false;
 
     [Header("Ink Story")]
     [SerializeField] private TextAsset _inkJson;
@@ -38,7 +41,7 @@ public class DialogueManager : MonoBehaviour
         _story = new Story(_inkJson.text);
         _choiceText = new StringBuilder();
 
-        _variableStateHandler = new VariableStateHandler(_combatData);
+    //    _variableStateHandler = new VariableStateHandler(_combatData);
 
 
         //    _story.variablesState[]
@@ -57,23 +60,80 @@ public class DialogueManager : MonoBehaviour
         _dialogueData.OnChoiceSelected += SelectChoice;
 
         _story.variablesState.variableChangedEvent += OnVariableChanged;
-        _story.variablesState.variableChangedEvent += Test;
+        
     }
-
-    private void OnVariableChanged(string variableName, Ink.Runtime.Object newValue)
-    {
-        Debug.Log(variableName);
-        Debug.Log(newValue);
-        _variableStateHandler.OnVariableChanged(variableName, newValue);
-    }
-
-    
     private void Test(string variableName, Ink.Runtime.Object newValue)
     {
         Debug.Log(variableName);
         Debug.Log(newValue);
-        
     }
+
+    private void OnVariableChanged(string variableName, Ink.Runtime.Object newValue)
+    {
+        if (_showVariableName)
+        {
+            Debug.Log(variableName);
+            Debug.Log(newValue);
+        }
+
+
+        switch (newValue)
+        {
+
+            case BoolValue boolValue:
+                BoolValueChanged(variableName, boolValue.value);
+                Debug.Log("BOOL");
+                break;
+            case StringValue stringValue:
+                StringValueChanged(variableName, stringValue.value);
+                break;
+            case FloatValue floatValue:
+                FloatValueChanged(variableName, floatValue.value);
+                break;
+
+            case IntValue intValue:
+                IntValueChanged(variableName, intValue.value);
+                break;
+            case null:
+                Debug.LogError("OnVariableChanged got a null variable. ");
+                break;
+            default:
+                Debug.LogWarning("OnVariableChanged got an unknown variable. ");
+                break;
+
+        }
+
+    }
+
+
+    private void BoolValueChanged(string variableName, bool newValue)
+    {
+        switch (variableName, newValue)
+        {
+            case ("battleEntered", true): // if battleEntered variable state has changed and is true
+                _combatData.EnterCombat();
+
+                break;
+            default:
+                Debug.LogError("Could not find matching variable name.");
+                break;
+        }
+
+    }
+    private void IntValueChanged(string variableName, int newValue)
+    {
+
+    }
+    private void FloatValueChanged(string variableName, float newValue)
+    {
+
+    }
+
+    private void StringValueChanged(string variableName, string newValue)
+    {
+
+    }
+
 
     private void OnDisable()
     {

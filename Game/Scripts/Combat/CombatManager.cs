@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
+
+
 //TODO MAKE COMBAT SYSTEM BETTER
-public class CombatManager : MonoBehaviour
+public class CombatManager : MonoBehaviour, ISingleton
 {
 
     [Header("Data")]
@@ -14,9 +16,19 @@ public class CombatManager : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool _debug;
 
+    public static CombatManager Instance { get; private set; }
     private void Awake()
     {
-        
+        if (Instance == null)
+        {
+            Instance = this;
+
+        } else
+        {
+            Debug.LogWarning("There is a duplicate CombatManager in the scene. Destroying duplicate. ");
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(this);
     }
     private void OnEnable()
     {

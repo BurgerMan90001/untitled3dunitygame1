@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.HighDefinition;
 
 
 
@@ -10,8 +11,12 @@ public class GameTimeData : ScriptableObject
     [SerializeField] private GameObject _sun;
     [SerializeField] private GameObject _moon;
     
-    public Volume volume;
 
+    private Volume volume;
+ //   public Volume volume;
+//    public HDRPVolumeProfileSettings volumeProfileSettings;
+
+    
     public Day Day;
     public float Time;
 

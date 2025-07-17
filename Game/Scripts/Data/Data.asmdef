@@ -4,7 +4,8 @@
     "references": [
         "Unity.InputSystem",
         "Ink-Libraries",
-        "Utilities"
+        "Utilities",
+        "Unity.RenderPipelines.HighDefinition.Editor"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

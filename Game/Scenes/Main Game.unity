@@ -19537,8 +19537,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1889363018}
   - {fileID: 1462126070922766348}
+  - {fileID: 1889363018}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &656419357
@@ -30716,7 +30716,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1049506780}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.52890533, y: -0.21657096, z: 0.14172004, w: 0.8082522}
+  m_LocalRotation: {x: 0.32600567, y: 0.24363244, z: 0.087352954, w: -0.90924865}
   m_LocalPosition: {x: 8.860001, y: 52.309998, z: -13.439999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -36519,7 +36519,7 @@ Light:
   serializedVersion: 11
   m_Type: 3
   m_Color: {r: 0.9622642, g: 0.20425421, b: 0.20425421, a: 1}
-  m_Intensity: 1.2905751
+  m_Intensity: 3.4619381
   m_Range: 38.7
   m_SpotAngle: 69.3
   m_InnerSpotAngle: 21.80208
@@ -43910,7 +43910,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemInstance:
-    <ItemType>k__BackingField: {fileID: 11400000, guid: a76ac8d87ac93d24ba895fb29551f338, type: 2}
+    <ItemType>k__BackingField: {fileID: 0}
     Quantity: 0
 --- !u!65 &1462894652
 BoxCollider:
@@ -60950,7 +60950,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemInstance:
-    <ItemType>k__BackingField: {fileID: 11400000, guid: 294a3fd0fe34241409d87b95b9b22d86, type: 2}
+    <ItemType>k__BackingField: {fileID: 0}
     Quantity: 0
 --- !u!43 &2128126337
 Mesh:
@@ -63676,7 +63676,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemInstance:
-    <ItemType>k__BackingField: {fileID: 11400000, guid: ab3af82230acc37409d6e5fc4cdab9b8, type: 2}
+    <ItemType>k__BackingField: {fileID: 0}
     Quantity: 0
 --- !u!108 &4308798270584613068
 Light:
@@ -63728,7 +63728,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 32.69, y: 5}
   m_BounceIntensity: 1
@@ -64365,12 +64365,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2986412710600180820, guid: b9c2a7464e89b0545ab64a2691b9d644, type: 3}
       propertyPath: _instantiatedPrefabsOnPlaySceneWithoutLoading.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2986412710600180820, guid: b9c2a7464e89b0545ab64a2691b9d644, type: 3}
       propertyPath: '_instantiatedPrefabsOnPlaySceneWithoutLoading.Array.data[2]'
       value: 
       objectReference: {fileID: 3873557615884718758, guid: 1eb389fbb53a2f24dba1b3c38893fdab, type: 3}
+    - target: {fileID: 2986412710600180820, guid: b9c2a7464e89b0545ab64a2691b9d644, type: 3}
+      propertyPath: '_instantiatedPrefabsOnPlaySceneWithoutLoading.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1735396627005812491, guid: 29d0da05cd858234b94b1afee26ae887, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
