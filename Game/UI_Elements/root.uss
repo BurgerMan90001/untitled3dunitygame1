@@ -22,3 +22,7 @@
     background-color: rgba(255, 255, 255, 0);
     -unity-background-image-tint-color: rgba(0, 0, 0, 0.25);
 }
+
+.root_saveSlotsMenu {
+    flex-grow: 1;
+}

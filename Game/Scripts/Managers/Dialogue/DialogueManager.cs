@@ -60,6 +60,7 @@ public class DialogueManager : MonoBehaviour
 
     private void EnterDialogue(string knotName) // begins or continues dialogue
     {
+        Debug.Log("ASDASDASDASDASDASD");
         if (!knotName.Equals(""))
         {
             _story.ChoosePathString(knotName); // jump to the knotname in the ink file

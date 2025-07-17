@@ -54,7 +54,8 @@ public class DebugInput : MonoBehaviour, ISingleton
             DontDestroyOnLoad(gameObject);
         } else
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            
             Debug.LogWarning("There is another DebugInput in scene. Destroying duplicate.");
         }
         if (_lockCursor)
@@ -66,22 +67,23 @@ public class DebugInput : MonoBehaviour, ISingleton
     }
     private void Start()
     {
-
-    //    ActivatePrefabs(true);
-    }
-    private void OnEnable()
-    {
         if (_debugScene)
         {
             if (_showInterface)
             {
                 _userInterfaceData.ToggleUserInterface(_loadedInterface, true);
-            } else
+            }
+            else
             {
                 Debug.LogWarning("The user inteface will not be toggled. Enable showInterface.");
             }
             InstantiatePrefabs(_instantiatedPrefabs, _setPrefabsActive);
         }
+        //    ActivatePrefabs(true);
+    }
+    private void OnEnable()
+    {
+        
     }
     private void OnDisable()
     {
