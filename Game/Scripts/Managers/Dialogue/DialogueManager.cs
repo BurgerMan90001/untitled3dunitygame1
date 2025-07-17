@@ -1,4 +1,5 @@
 using Ink.Runtime;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,9 @@ public class DialogueManager : MonoBehaviour
     [Header("Data")]
     [SerializeField] private DialogueData _dialogueData;
     [SerializeField] private CombatData _combatData;
-    [SerializeField] private VariableStateHandler _variableStateHandler;
+    
+    
+    private VariableStateHandler _variableStateHandler;
 
     private Story _story;
 
@@ -35,19 +38,42 @@ public class DialogueManager : MonoBehaviour
         _story = new Story(_inkJson.text);
         _choiceText = new StringBuilder();
 
+        _variableStateHandler = new VariableStateHandler(_combatData);
+
+
         //    _story.variablesState[]
     }
     private void OnEnable()
     {
+        foreach (var test in _story.variablesState)
+        {
+            Debug.Log($"Variable: '{test}' = {_story.variablesState[test]} (Type: {_story.variablesState[test].GetType()})");
+
+        }
+        
         // trigger this class' EnterDialogue when the game dialogue event is triggered
         _dialogueData.OnEnterDialogue += EnterDialogue;
         _dialogueData.OnContinueDialogue += ContinueOrExitStory;
         _dialogueData.OnChoiceSelected += SelectChoice;
 
-        _story.variablesState.variableChangedEvent += _variableStateHandler.OnVariableChanged; 
-
+        _story.variablesState.variableChangedEvent += OnVariableChanged;
+        _story.variablesState.variableChangedEvent += Test;
     }
 
+    private void OnVariableChanged(string variableName, Ink.Runtime.Object newValue)
+    {
+        Debug.Log(variableName);
+        Debug.Log(newValue);
+        _variableStateHandler.OnVariableChanged(variableName, newValue);
+    }
+
+    
+    private void Test(string variableName, Ink.Runtime.Object newValue)
+    {
+        Debug.Log(variableName);
+        Debug.Log(newValue);
+        
+    }
 
     private void OnDisable()
     {

@@ -21,7 +21,7 @@ public class CombatData : Data
     /// </summary>
     public void EnterCombat()
     {
-
+        Debug.Log("ADKSOPPOAKSDPKOASD");
         
         OnEnterCombat?.Invoke();
 

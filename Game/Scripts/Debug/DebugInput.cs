@@ -5,17 +5,16 @@ using UnityEngine.InputSystem;
 
 public class DebugInput : MonoBehaviour, ISingleton
 {
-    [Header("Dependancies")]
-//    [SerializeField] private PlayerInput playerInput;
-    [SerializeField] private GameObject prefab;
+
     [Header("Data")]
     [SerializeField] private UserInterfaceData _userInterfaceData;
 
-
+    /*
     [Header("UserInteface Settings")]
     
 
     [Header("Settings")]
+    */
 
 
     [Header("Debug Scene")]
@@ -128,16 +127,7 @@ public class DebugInput : MonoBehaviour, ISingleton
             buttonHeld = false;
         }
 
-        
-        //    GameObject droppedItem = new GameObject();// Creates a new object and gives it the item data
-        //    droppedItem.AddComponent<Rigidbody>();
-        //    droppedItem.AddComponent<InstanceItemContainer>();
-
-        // Removes the item from the inventory
-     //   inventory.items.RemoveAt(itemIndex);
-
-        // Updates the inventory again
-    //    UpdateInventory();
+     
     }
 
     public void Debug2(InputAction.CallbackContext ctx)
@@ -152,12 +142,7 @@ public class DebugInput : MonoBehaviour, ISingleton
     }
     private void Update()
     {
-        if (buttonHeld)
-        {
-            GameObject spawnedObject = Instantiate(prefab, spawnPoint, Quaternion.identity);
-            
-            
-        }
+      
     }
     
 }

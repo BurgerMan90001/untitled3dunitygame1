@@ -1,38 +1,51 @@
 
+using Ink.Runtime;
 using UnityEngine;
 
 /// <summary>
 /// <br> For when a variable changes in the ink story. </br>
 /// </summary>
-[CreateAssetMenu(menuName = "Data/VariableStateHandler")]
-public class VariableStateHandler : Data
+
+public class VariableStateHandler
 {
-    [Header("Data")]
-    [SerializeField] private CombatData _combatData;
+   
+    private CombatData _combatData;
 
+    private bool _showVariableName = false;
 
-
+    public VariableStateHandler(CombatData combatData)
+    {
+        _combatData = combatData;
+    }
     /// <summary>
     /// <br> Handles the logic for when a variable changes in the story. </br>
     /// </summary>
     /// <param name="variableName"></param>
     /// <param name="newValue"></param>
-    public void OnVariableChanged(string variableName, object newValue)
+    public void OnVariableChanged(string variableName, Ink.Runtime.Object newValue)
     {
+        if (_showVariableName)
+        {
+            Debug.Log(_showVariableName);
+            Debug.Log(newValue.GetType().ToString());
+        }
+        
+        
         switch (newValue)
         {
-            case bool boolValue:
-                BoolValueChanged(variableName, boolValue);
+            
+            case BoolValue boolValue:
+                BoolValueChanged(variableName, boolValue.value);
                 break;
-            case string stringValue:
-                StringValueChanged(variableName, stringValue);
+            case StringValue stringValue:
+                StringValueChanged(variableName, stringValue.value);
                 break;
-            case float floatValue:
-                FloatValueChanged(variableName, floatValue);
+            case FloatValue floatValue:
+                FloatValueChanged(variableName, floatValue.value);
                 break;
 
-            case int intValue:
-                IntValueChanged(variableName, intValue);
+            case IntValue intValue:
+                IntValueChanged(variableName, intValue.value);
                 break;
             case null:
                 Debug.LogError("OnVariableChanged got a null variable. ");
@@ -52,8 +65,11 @@ public class VariableStateHandler : Data
         {
             case ("battleEntered", true): // if battleEntered variable state has changed and is true
                 _combatData.EnterCombat();
+                
                 break;
-
+            default:
+                Debug.LogError("Could not find matching variable name.");
+                break;
         }
 
     }

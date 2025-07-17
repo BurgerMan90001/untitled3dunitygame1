@@ -56,7 +56,7 @@ MonoBehaviour:
   InitalShownUserInterface: 7
   _sceneLabelReference:
     m_LabelString: scene
-  _showHoveredOnElement: 1
+  _showHoveredOnElement: 0
 --- !u!114 &3293367255992662212
 MonoBehaviour:
   m_ObjectHideFlags: 0

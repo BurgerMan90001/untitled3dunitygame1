@@ -1,6 +1,9 @@
 VAR yourVariable = true
 
-VAR battleEntered = false
+VAR battleEntered = true
+
+VAR myNumber = 5
+
 //-> question
 // [] to hide choice when chosen
 // + to show a question again when its picked/
@@ -30,7 +33,9 @@ DO YOU WAN'T TO CARD BATTLE?
 ~ temp patience = 0
     * [yes]
         LETS BATTLE!!
+        
         ~ battleEntered = true
+        ~ myNumber = 5
         -> END
     + [no]
         ...

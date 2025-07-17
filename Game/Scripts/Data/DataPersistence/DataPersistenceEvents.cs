@@ -39,7 +39,7 @@ public class DataPersistenceData : ScriptableObject
     }
 
 
-    internal void SetGameData(GameData gameData)
+    public void SetGameData(GameData gameData)
     {
         GameData = gameData;
     }

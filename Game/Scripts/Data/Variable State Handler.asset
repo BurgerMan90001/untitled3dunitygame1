@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Variable State Handler
   m_EditorClassIdentifier: 
   _combatData: {fileID: 11400000, guid: e99ab9cb863476f46ae38c8aee2da7b4, type: 2}
+  _showVariableName: 1
