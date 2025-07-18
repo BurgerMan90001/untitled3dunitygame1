@@ -7,8 +7,8 @@ using UnityEngine;
 /// <summary>
 /// <br> </br>
 /// </summary>
-[CreateAssetMenu(menuName = "Character/Inventory/DynamicInventory")]
-public class DynamicInventory : ScriptableObject
+[CreateAssetMenu(menuName = "Character/Inventory/Inventory")]
+public class Inventory : ScriptableObject
 {
     [SerializeField] private GeneralStats _stats; // the stats 
 

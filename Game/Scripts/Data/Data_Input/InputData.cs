@@ -21,19 +21,25 @@ public class InputData : ScriptableObject
     
     private void OnEnable()
     {
-        _dialogueData.OnChoiceSelected += (_) => MovementInput.EnableMovement(true); // discards the chosen int index. enables input
-        _dialogueData.OnUpdateChoices += (_) => MovementInput.EnableMovement(false); // discards the list of choice strings. disables input
+        _onChoiceSelected = (_) => // discards the chosen int index. enables input
+        {
+            MovementInput.EnableMovement(true);
+            CameraInput.EnableLook(true);
+        };
 
-        _dialogueData.OnChoiceSelected += (_) => CameraInput.EnableLook(true); // discards the chosen int index. enables input
-        _dialogueData.OnUpdateChoices += (_) => CameraInput.EnableLook(false); // discards the list of choice strings. disables input
+        _onUpdateChoices = (_) => // discards the list of choice strings. disables input
+        {
+            MovementInput.EnableMovement(false);
+            CameraInput.EnableLook(false);
+        };
+
+        _dialogueData.OnChoiceSelected += _onChoiceSelected;
+        _dialogueData.OnUpdateChoices += _onUpdateChoices;
     }
     private void OnDisable()
     {
-        _dialogueData.OnChoiceSelected -= (_) => MovementInput.EnableMovement(true); 
-        _dialogueData.OnUpdateChoices -= (_) => MovementInput.EnableMovement(false);
-
-        _dialogueData.OnChoiceSelected -= (_) => CameraInput.EnableLook(true); // discards the chosen int index. enables input
-        _dialogueData.OnUpdateChoices -= (_) => CameraInput.EnableLook(false); // discards the list of choice strings. disables input
+        _dialogueData.OnChoiceSelected -= _onChoiceSelected;
+        _dialogueData.OnUpdateChoices -= _onUpdateChoices;
 
     }
     #region
@@ -47,16 +53,9 @@ public class InputData : ScriptableObject
         MovementInput.SetActive(active);
         CameraInput.SetActive(active);
     }
-    /*
-    public void EnableMovement(bool active)
-    {
-        MovementInput.EnableMovement(active);
-    }
-    public void EnableLook(bool active)
-    {
-        CameraInput.EnableLook(active);
-    }
-    */
+
+    
+    
 }
 
 public enum InputMaps
