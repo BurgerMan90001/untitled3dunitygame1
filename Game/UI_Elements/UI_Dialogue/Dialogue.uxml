@@ -7,7 +7,7 @@
                 <ui:Button text="Button" name="Button_Choice1" class="choiceButton" />
                 <ui:Button text="Button" name="Button_Choice2" class="choiceButton" />
                 <ui:Button text="Button" name="Button_Choice3" class="choiceButton" />
-                <ui:Button text="button" name="Button_Choice4" class="choiceButton" />
+                <ui:Button text="Button" name="Button_Choice4" class="choiceButton" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="Panel_Dialogue" class="panel_primary" style="opacity: 1; bottom: 2%; width: 90%; align-items: center; justify-content: space-around; align-self: center; align-content: flex-end; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px;">

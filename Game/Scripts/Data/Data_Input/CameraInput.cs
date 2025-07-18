@@ -102,7 +102,7 @@ public class CameraInput : ScriptableObject, IInputEvent
         LeftClickEnabled = enabled;
         EnableInputAction(enabled, LeftClickAction);
     }
-    public void Register(InputActionReference inputActionReference, Action<InputAction.CallbackContext> inputAction)
+    public void RegisterInputEvent(InputActionReference inputActionReference, Action<InputAction.CallbackContext> inputAction)
     {
         SetActive(true);
 
@@ -115,7 +115,7 @@ public class CameraInput : ScriptableObject, IInputEvent
     }
 
    
-    public void Unregister(InputActionReference inputActionReference, Action<InputAction.CallbackContext> inputAction)
+    public void UnregisterInputEvent(InputActionReference inputActionReference, Action<InputAction.CallbackContext> inputAction)
     {
         inputActionReference.action.started -= inputAction;
         inputActionReference.action.performed -= inputAction;

@@ -33,10 +33,13 @@ public class UserInterfaceData : Data
     {
         OnToggleUserInterface?.Invoke(userInterfaceType, active);
     }
+    /*
+    public void ToggleUserInterface(UserInterfaceType userInterfaceType, bool active)
+    {
+        OnToggleUserInterface?.Invoke(userInterfaceType, active);
+    }
+    */
 
-    
-    
-    
     /*
 
     public void ToggleUserInterface(UserInterfaceType userInterface, string inputActionMap)

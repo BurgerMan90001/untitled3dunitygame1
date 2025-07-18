@@ -10,8 +10,8 @@ public class InputData : ScriptableObject
 
     [Header("InputEvents")]
 
-    [SerializeField] private MovementInput movementInput;
-    [SerializeField] private CameraInput cameraInput;
+    [SerializeField] private MovementInput _movementInput;
+    [SerializeField] private CameraInput _cameraInput;
 //    [SerializeField] private List<ScriptableObject> _inputEvents;
 
     public bool InputEnabled { get; private set; }
@@ -19,75 +19,31 @@ public class InputData : ScriptableObject
     
     private void OnEnable()
     {
-        _dialogueData.OnChoiceSelected += (_) => ToggleInput(true); // discards the chosen int index. enables input
-        _dialogueData.OnUpdateChoices += (_) => ToggleInput(false); // discards the list of choice strings. disables input
+        _dialogueData.OnChoiceSelected += (_) => _movementInput.EnableMovement(true); // discards the chosen int index. enables input
+        _dialogueData.OnUpdateChoices += (_) => _movementInput.EnableMovement(false); // discards the list of choice strings. disables input
+
+        _dialogueData.OnChoiceSelected += (_) => _cameraInput.EnableLook(true); // discards the chosen int index. enables input
+        _dialogueData.OnUpdateChoices += (_) => _cameraInput.EnableLook(false); // discards the list of choice strings. disables input
     }
     private void OnDisable()
     {
-        _dialogueData.OnChoiceSelected -= (_) => ToggleInput(true);
-        _dialogueData.OnUpdateChoices -= (_) => ToggleInput(false); 
+        _dialogueData.OnChoiceSelected -= (_) => _movementInput.EnableMovement(true); 
+        _dialogueData.OnUpdateChoices -= (_) => _movementInput.EnableMovement(false);
 
-    }
-    private void ActivateInput(bool active)
-    {
-        /*
-        foreach (IInputEvent inputEvent in _inputEvents.Cast<IInputEvent>())
-        {
-            if (inputEvent.Enabled)
-            {
-                inputEvent.SetActive(false);
-            }
-            else
-            {
-                inputEvent.SetActive(true);
-            }
-
-        }
-        */
-        
-    }
-    #region
-    /// <summary>
-    /// <br> Toggles all input on or off.</br>
-    /// <br> If it's off, toggle on and vise versa.</br>
-    /// </summary>
-    #endregion
-    public void ToggleInput()
-    {
-        if (InputEnabled)
-        {
-            ActivateInput(false);
-            InputEnabled = false;
-        }
-        else
-        {
-            ActivateInput(true);
-            InputEnabled = true;
-        }
-    }
-    
-    public void ToggleLook()
-    {
-
-    }
-
-    public void ToggleMovement()
-    {
-
-    }
-    public void ToggleCombatInput()
-    {
+        _dialogueData.OnChoiceSelected -= (_) => _cameraInput.EnableLook(true); // discards the chosen int index. enables input
+        _dialogueData.OnUpdateChoices -= (_) => _cameraInput.EnableLook(false); // discards the list of choice strings. disables input
 
     }
     #region
     /// <summary>
-    /// <br> Enable or disable all input based on the active boolean. </br>
+    /// <br> Toggle all inputs on or off. </br>
     /// </summary>
     /// <param name="active"></param>
     #endregion
     public void ToggleInput(bool active)
     {
-        ActivateInput(active);
+        _movementInput.SetActive(active);
+        _cameraInput.SetActive(active);
     }
 
     /*

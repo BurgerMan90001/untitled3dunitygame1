@@ -23,7 +23,6 @@ public class MovementInput : ScriptableObject, IInputEvent
 
     [field: SerializeField] public InputType InputType { get; private set; }
 
- //   public List<InputActionReference> InputActionReferences { get; }
 
     [Header("InputActionReferences")]
     [field : SerializeField] public InputActionReference MoveAction { get; private set; }
@@ -47,7 +46,7 @@ public class MovementInput : ScriptableObject, IInputEvent
         Enabled = active;
     }
     
-    public void Register(InputActionReference inputActionReference, Action<InputAction.CallbackContext> inputAction)
+    public void RegisterInputEvent(InputActionReference inputActionReference, Action<InputAction.CallbackContext> inputAction)
     {
         SetActive(true);
 
@@ -57,7 +56,7 @@ public class MovementInput : ScriptableObject, IInputEvent
  
 
     }
-    public void Unregister(InputActionReference inputActionReference, Action<InputAction.CallbackContext> inputAction)
+    public void UnregisterInputEvent(InputActionReference inputActionReference, Action<InputAction.CallbackContext> inputAction)
     {
         inputActionReference.action.started -= inputAction;
         inputActionReference.action.performed -= inputAction;

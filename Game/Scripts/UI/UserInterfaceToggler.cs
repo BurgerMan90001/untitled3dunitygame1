@@ -37,7 +37,6 @@ public class UserInterfaceToggler
     #endregion
     public void ToggleUserInterface(UserInterfaceType userInterface, bool active)
     {
-        Debug.Log("ASDASDASDa");
         VisualElement elementToBeShown = GetUserInterfaceElement(userInterface);
 
         if (elementToBeShown == null)

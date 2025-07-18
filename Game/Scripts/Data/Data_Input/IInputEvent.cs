@@ -14,8 +14,8 @@ public interface IInputEvent
 
     void EnableInputAction(bool enabled, InputActionReference inputAction);
 
-    void Register( InputActionReference inputActionReference, Action<InputAction.CallbackContext> inputAction);
-    void Unregister(InputActionReference inputActionReference, Action<InputAction.CallbackContext> inputAction);
+    void RegisterInputEvent( InputActionReference inputActionReference, Action<InputAction.CallbackContext> inputAction);
+    void UnregisterInputEvent(InputActionReference inputActionReference, Action<InputAction.CallbackContext> inputAction);
 
 }
 public enum InputType

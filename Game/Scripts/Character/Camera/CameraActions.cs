@@ -80,17 +80,17 @@ public class CameraActions : MonoBehaviour
 
     private void OnEnable()
     {
-        _input.Register(_input.LookAction, OnLook);
-        _input.Register(_input.InteractAction, OnInteract);
-        _input.Register(_input.LeftClickAction, OnLeftClick);
-        _input.Register(_input.PickupAction, OnPickup);
+        _input.RegisterInputEvent(_input.LookAction, OnLook);
+        _input.RegisterInputEvent(_input.InteractAction, OnInteract);
+        _input.RegisterInputEvent(_input.LeftClickAction, OnLeftClick);
+        _input.RegisterInputEvent(_input.PickupAction, OnPickup);
     }
     private void OnDisable()
     {
-        _input.Unregister(_input.LookAction, OnLook);
-        _input.Unregister(_input.InteractAction, OnInteract);
-        _input.Unregister(_input.LeftClickAction, OnLeftClick);
-        _input.Unregister(_input.PickupAction, OnPickup);
+        _input.UnregisterInputEvent(_input.LookAction, OnLook);
+        _input.UnregisterInputEvent(_input.InteractAction, OnInteract);
+        _input.UnregisterInputEvent(_input.LeftClickAction, OnLeftClick);
+        _input.UnregisterInputEvent(_input.PickupAction, OnPickup);
     }
     public void OnLeftClick(InputAction.CallbackContext ctx)
     {

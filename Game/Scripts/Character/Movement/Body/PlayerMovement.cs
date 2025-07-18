@@ -77,19 +77,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        _input.Register(_input.MoveAction, OnMove);
-        _input.Register(_input.JumpAction, OnJump);
-        _input.Register(_input.SprintAction, OnSprint);
-        _input.Register(_input.CrouchAction, OnCrouch);
+        _input.RegisterInputEvent(_input.MoveAction, OnMove);
+        _input.RegisterInputEvent(_input.JumpAction, OnJump);
+        _input.RegisterInputEvent(_input.SprintAction, OnSprint);
+        _input.RegisterInputEvent(_input.CrouchAction, OnCrouch);
 
     }
 
     private void OnDisable()
     {
-        _input.Unregister(_input.MoveAction, OnMove);
-        _input.Unregister(_input.JumpAction, OnJump);
-        _input.Unregister(_input.SprintAction, OnSprint);
-        _input.Register(_input.CrouchAction, OnCrouch);
+        _input.UnregisterInputEvent(_input.MoveAction, OnMove);
+        _input.UnregisterInputEvent(_input.JumpAction, OnJump);
+        _input.UnregisterInputEvent(_input.SprintAction, OnSprint);
+        _input.RegisterInputEvent(_input.CrouchAction, OnCrouch);
 
     }
     

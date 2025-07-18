@@ -1,5 +1,4 @@
 
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,8 +13,6 @@ public class PlayerInventory : MonoBehaviour, IDataPersistence
 
     [Header("InputActionReferences")]
     [SerializeField] private InputActionReference _inventoryOpenAction;
-    [SerializeField] private InputActionReference _inventoryCloseAction;
-
 
     [Header("Debug")]
     [SerializeField] private bool _clearOnEnable = false;
@@ -26,12 +23,10 @@ public class PlayerInventory : MonoBehaviour, IDataPersistence
     private void OnEnable()
     {
         _inventoryOpenAction.action.Enable();
-        _inventoryCloseAction.action.Enable();
 
 
         _inventoryOpenAction.action.started += OnOpenInventory;
 
-        _inventoryCloseAction.action.started += OnCloseInventory;
 
         ClearInventory(_clearOnEnable);
 
@@ -40,13 +35,10 @@ public class PlayerInventory : MonoBehaviour, IDataPersistence
 
     private void OnDisable()
     {
-        _inventoryCloseAction.action.started -= OnCloseInventory;
-
-
         _inventoryOpenAction.action.started -= OnOpenInventory;
 
         _inventoryOpenAction.action.Disable();
-        _inventoryCloseAction.action.Disable();
+
     }
     private void OnDestroy()
     {
@@ -58,17 +50,18 @@ public class PlayerInventory : MonoBehaviour, IDataPersistence
         {
             _userInterfaceData.ToggleUserInterface(UserInterfaceType.Inventory, false);
             _interfaceEnabled = false;
+
+            _inputData.ToggleInput(true);
         } else
         {
             _userInterfaceData.ToggleUserInterface(UserInterfaceType.Inventory, true);
             _interfaceEnabled = true;
-        }
-        _inputData.ToggleInput();
-    }
-    private void OnCloseInventory(InputAction.CallbackContext ctx)
-    {
 
+            _inputData.ToggleInput(false);
+        }
+        
     }
+    
     private void ClearInventory(bool active)
     {
         if (active)

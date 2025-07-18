@@ -41,8 +41,6 @@ public class Player : MonoBehaviour, ISingleton
     }
     private void OnEnable()
     {
-        
-    
         SceneLoadingManager.OnSceneLoaded += SetupPlayer;
     }
 
