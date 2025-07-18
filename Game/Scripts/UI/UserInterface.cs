@@ -122,6 +122,11 @@ public class UserInterface : MonoBehaviour, ISingleton
             RegisterAllInterfaces();
             
             _root.RegisterCallback<MouseMoveEvent>(OnMouseMove);
+            /*
+            _interfaceToggler.Register(SceneLoadingManager.OnSceneLoaded);
+            _interfaceToggler.Register(_userInterfaceData.OnToggleUserInterface);
+            */
+            
             
 
             SceneLoadingManager.OnSceneLoaded += _interfaceToggler.ToggleUserInterface;
@@ -142,15 +147,24 @@ public class UserInterface : MonoBehaviour, ISingleton
         SceneLoadingManager.OnSceneLoaded -= _interfaceToggler.ToggleUserInterface;
         _userInterfaceData.OnToggleUserInterface -= _interfaceToggler.ToggleUserInterface;
         _dynamicInventory.OnInventoryChanged -= _uiInventory.UpdateInterface;
-        
+        /*
+        _interfaceToggler.Unregister(SceneLoadingManager.OnSceneLoaded);
+        _interfaceToggler.Unregister(_userInterfaceData.OnToggleUserInterface);
+        */
         _root.UnregisterCallback<MouseMoveEvent>(OnMouseMove);
         
         UnregisterAllInterfaces();
 
+
         _uxmlFileHandler?.ReleaseInterfaces();
         
     }
+    
+    private void OnDestroy()
+    {
 
+        
+    }
     private void OnMouseMove(MouseMoveEvent evt)
     {
         if (_showHoveredOnElement) {
