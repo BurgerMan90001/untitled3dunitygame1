@@ -1,8 +1,7 @@
 
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-[System.Serializable]
+
 [CreateAssetMenu(menuName = "Input/InputData")]
 public class InputData : ScriptableObject 
 {
@@ -10,7 +9,10 @@ public class InputData : ScriptableObject
     [SerializeField] private DialogueData _dialogueData;
 
     [Header("InputEvents")]
-    [SerializeField] private List<ScriptableObject> _inputEvents;
+
+    [SerializeField] private MovementInput movementInput;
+    [SerializeField] private CameraInput cameraInput;
+//    [SerializeField] private List<ScriptableObject> _inputEvents;
 
     public bool InputEnabled { get; private set; }
 
@@ -63,7 +65,15 @@ public class InputData : ScriptableObject
         }
     }
     
+    public void ToggleLook()
+    {
 
+    }
+
+    public void ToggleMovement()
+    {
+
+    }
     public void ToggleCombatInput()
     {
 

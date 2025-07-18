@@ -1,7 +1,16 @@
 
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+public enum CameraInputType
+{
+    Look,
+    Interact,
+    Pickup,
+    LeftClick,
+    RightClick, // UNIMP
+
+}
 
 [CreateAssetMenu(menuName = "Input/CameraInput")]
 public class CameraInput : ScriptableObject, IInputEvent
@@ -10,6 +19,13 @@ public class CameraInput : ScriptableObject, IInputEvent
     public bool LookEnabled {  get; private set; }
 
     public bool InteractEnabled { get; private set; }
+
+    public bool LeftClickEnabled { get; private set; }
+
+    public bool RightClickEnabled { get; private set; }
+
+    public bool PickupEnabled { get; private set; }
+
     public bool Enabled { get; private set; }
 
     
@@ -18,11 +34,6 @@ public class CameraInput : ScriptableObject, IInputEvent
 
 
     [Header("InputActionReferences")]
-    /*
-    public List<InputActionReference> InputActionReferences { get; }
-    */
-    
-    
     [SerializeField] private InputActionReference _lookAction;
     [SerializeField] private InputActionReference _pickUpAction;
     [SerializeField] private InputActionReference _interactAction;
@@ -34,36 +45,24 @@ public class CameraInput : ScriptableObject, IInputEvent
         InputType = InputType.Camera;
 
     }
+   
     public void SetActive(bool active)
     {
         if (active)
         {
-            _lookAction.action.Enable();
-            _pickUpAction.action.Enable();
-            _interactAction.action.Enable();
-            _leftClickAction.action.Enable();
-            /*
-            foreach (var input in InputActionReferences)
-            {
-                input.action.Enable();
-            }
-            
-            */
+            EnableLook(true);
+            EnableInteract(true);
+            EnablePickup(true);
+            EnableClick(true);
             GameCursor.Lock();
             
         }
         else
         {
-            _lookAction.action.Disable();
-            _pickUpAction.action.Disable();
-            _interactAction.action.Disable();
-            _leftClickAction.action.Disable();
-            /*
-            foreach (var input in InputActionReferences)
-            {
-                input.action.Disable();
-            }
-            */
+            EnableLook(false);
+            EnableInteract(false);
+            EnablePickup(false);
+            EnableClick(false);   
             GameCursor.Unlock();
             
             
@@ -71,35 +70,48 @@ public class CameraInput : ScriptableObject, IInputEvent
         Enabled = active;
 
     }
-    public void EnableLook(bool enabled)
+    #region
+    /// <summary>
+    /// <br> Enables or disables an input action. </br>
+    /// <br> Returns true if its enabled and false if it isnt. </br>
+    /// </summary>
+    /// <param name="enabled"></param>
+    /// <param name="inputAction"></param>
+    /// <returns></returns>
+    #endregion
+    public void EnableInputAction(bool enabled, InputActionReference inputAction)
     {
         if (enabled)
         {
-            _lookAction.action.Enable();
+            inputAction.action.Enable();
             
-            LookEnabled = true;
-        }
-        else
+        } else
         {
-            _lookAction.action.Disable();
-
-            LookEnabled = false;
+            inputAction.action.Disable();
         }
+    }
+    public void EnableLook(bool enabled)
+    {
+        LookEnabled = enabled;
+        EnableInputAction(enabled, _lookAction);
+        
     }
     public void EnableInteract(bool enabled)
     {
-        if (enabled)
-        {
-            _lookAction.action.Enable();
+        InteractEnabled = enabled;
+        EnableInputAction(enabled, _interactAction);
+    }
 
-            InteractEnabled = true;
-        }
-        else
-        {
-            _lookAction.action.Disable();
-         //   _lookAction.action.p
-            InteractEnabled = false;
-        }
+    public void EnablePickup(bool enabled)
+    {
+        PickupEnabled = enabled;
+        EnableInputAction(enabled, _pickUpAction);
+    }
+
+    public void EnableClick(bool enabled)
+    {
+        LeftClickEnabled = enabled;
+        EnableInputAction(enabled, _leftClickAction);
     }
     public void Register(CameraActions cameraActions)
     {
@@ -141,7 +153,11 @@ public class CameraInput : ScriptableObject, IInputEvent
         SetActive(false);
 
     }
+
+
 }
+
+
 
 /*
 public struct InputActionCallbackType

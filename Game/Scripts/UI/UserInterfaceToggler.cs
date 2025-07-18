@@ -10,10 +10,13 @@ public class UserInterfaceToggler
     private InputManager _inputManager;
 
     public Action InterfaceChanged;
+
+    private UserInterfaceType _previousInterface; 
     public UserInterfaceToggler(UXMLFileHandler uxmlFileHandler)
     {
         _uxmlFileHandler = uxmlFileHandler;
     }
+    /*
     public void Register(Action<UserInterfaceType,bool> onUserInterfaceToggled) 
     {
         onUserInterfaceToggled += ToggleUserInterface;
@@ -23,6 +26,7 @@ public class UserInterfaceToggler
     {
         onUserInterfaceToggled -= ToggleUserInterface;
     }
+    */
     #region
     /// <summary>
     /// <br> Toggles a user interface on or off based on the UserInterfaceType value. </br>
@@ -111,8 +115,9 @@ public class UserInterfaceToggler
     /// <br> Loops through the entire UserInterfaceElements dictionary and disables each element. </br>
     /// </summary>
     /// <param name="userInterface"></param>
-    public void SwitchUserInterface(UserInterfaceType userInterface)
+    public void SwitchUserInterface(UserInterfaceType userInterface, bool _)
     {
+
         // Hide all UI elements
         foreach (var element in _uxmlFileHandler.UserInterfaceElements.Values)
         {
@@ -123,6 +128,7 @@ public class UserInterfaceToggler
         if (_uxmlFileHandler.UserInterfaceElements.ContainsKey(userInterface))
         {
             _uxmlFileHandler.UserInterfaceElements[userInterface].style.display = DisplayStyle.Flex;
+
         } else
         {
             Debug.LogError("The switched to user interface has not been found!");

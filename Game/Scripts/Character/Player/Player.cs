@@ -29,6 +29,8 @@ public class Player : MonoBehaviour, ISingleton
 
 
         _rigidbodyTrigger = new RigidbodyTrigger(_rigidBody, _movementStateManager);
+
+        DontDestroyOnLoad(gameObject);
     }
     private void Start()
     {
@@ -39,24 +41,29 @@ public class Player : MonoBehaviour, ISingleton
     }
     private void OnEnable()
     {
-
-        SceneManager.sceneLoaded += CanPlayInScene;
-
-    }
-    private void OnDestroy()
-    {
-        SceneManager.sceneLoaded -= CanPlayInScene;
+        
+    
+        SceneLoadingManager.OnSceneLoaded += SetupPlayer;
     }
 
-
-
-    private void CanPlayInScene(Scene scene, LoadSceneMode arg1)
+  
+    private void OnDisable()
     {
+        SceneLoadingManager.OnSceneLoaded -= SetupPlayer;
+    }
+
+
+
+    private void SetupPlayer(UserInterfaceType _, bool _1)
+    {
+        gameObject.transform.position = SceneLoadingManager.SpawnPoint;
+        Debug.Log(gameObject.transform.position);
+        /*
         if (scene.name == "Main Game")
         {
             gameObject.SetActive(true);
         }
-       
+       */
     }
 
     

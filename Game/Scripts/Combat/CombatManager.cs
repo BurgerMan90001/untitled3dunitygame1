@@ -5,6 +5,8 @@ using UnityEngine;
 //TODO MAKE COMBAT SYSTEM BETTER
 public class CombatManager : MonoBehaviour, ISingleton
 {
+    [Header("Spawn Point")]
+    [SerializeField] private Vector3 _spawnPoint;
 
     [Header("Data")]
     [SerializeField] private CombatData _combatData;
@@ -45,12 +47,13 @@ public class CombatManager : MonoBehaviour, ISingleton
     private void EnterCombat()
     {
         Debug.Log("COMBAT ENTERED");
-        SceneLoadingManager.LoadScene("Combat",UserInterfaceType.MainMenu);
+        SceneLoadingManager.LoadScene("Combat",UserInterfaceType.Combat);
+        SceneLoadingManager.SetSpawnPoint(_spawnPoint);
     }
     private void ExitCombat()
     {
         Debug.Log("COMBAT EXITED");
-        SceneLoadingManager.LoadScene("Main Game",UserInterfaceType.MainMenu);
+        SceneLoadingManager.LoadScene("Main Game",UserInterfaceType.HUD);
     }
     public void ApplyHurt(HurtType type, GameObject target, float damageAmount)
     {

@@ -60,13 +60,14 @@ public class SceneLoader
 
         await handle.Task;
 
+        
         if (handle.Status == AsyncOperationStatus.Succeeded)
         {
             if (!_loadedSceneHandle.IsValid())
             {
                 _loadedSceneHandle = handle;
-                
-                SceneLoadingManager.OnSceneLoaded?.Invoke(userInterfaceToBeLoaded, true);
+
+                SceneLoadingManager.SceneLoaded(userInterfaceToBeLoaded);
                 if (_showDebugLoadingLogs)
                 {
                     Debug.Log(userInterfaceToBeLoaded.ToString());

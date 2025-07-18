@@ -11,6 +11,8 @@ public interface IInputEvent
     public bool Enabled { get; }
     public void SetActive(bool active);
 
+    void EnableInputAction(bool enabled, InputActionReference inputAction);
+
 }
 public enum InputType
 {

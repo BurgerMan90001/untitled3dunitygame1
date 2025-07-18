@@ -1,28 +1,54 @@
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[System.Serializable]
+
+public enum MovementInputType
+{
+    Move,
+    Sprint,
+    Crouch,
+    Jump,
+}
+// TODO MAKE CONSISTENT WITH CAMERAINPUT
 [CreateAssetMenu(menuName = "Input/MovementInput")]
 public class MovementInput : ScriptableObject, IInputEvent
 {
-    public bool LookEnabled { get; private set; }
+    public bool MoveEnabled { get; private set; }
+    public bool SprintEnabled { get; private set; }
+    public bool CrouchEnabled { get; private set; }
+    public bool JumpEnabled { get; private set; }
     public bool Enabled { get; private set; }
 
     [field: SerializeField] public InputType InputType { get; private set; }
 
-    public List<InputActionReference> InputActionReferences { get; }
-    //   public List<InputActionReference> InputActionReferences;
+ //   public List<InputActionReference> InputActionReferences { get; }
 
     [Header("InputActionReferences")]
-    [SerializeField] private InputActionReference _moveAction;
-    [SerializeField] private InputActionReference _sprintAction;
-    [SerializeField] private InputActionReference _crouchAction;
-    [SerializeField] private InputActionReference _jumpAction;
-
+    [field : SerializeField] public  InputActionReference MoveAction { get; private set; }
+    [field: SerializeField] public InputActionReference SprintAction { get; private set; }
+    [field: SerializeField] public InputActionReference CrouchAction { get; private set; }
+    [field: SerializeField] public InputActionReference JumpAction { get; private set; }
+  
     public MovementInput()
     {
         InputType = InputType.Movement;
+    }
+    public void EnableInputAction(bool enabled, InputActionReference inputAction)
+    {
+        if (enabled)
+        {
+            
+            inputAction.action.Enable();
+        } else
+        {
+            inputAction.action.Disable();
+        }
+    }
+    public void EnableMovement(bool enabled)
+    {
+        MoveEnabled = enabled;
+        EnableInputAction(enabled, MoveAction);
     }
     public void SetActive(bool active)
     {
@@ -64,6 +90,62 @@ public class MovementInput : ScriptableObject, IInputEvent
 
     }
 
+    
+    #region
+    /// <summary>
+    /// <br> Enables and disables movement. </br>
+    /// </summary>
+    /// <param name="active"></param>
+    #endregion
+    public void EnableMovement(bool active)
+    {
+        if (active)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
+    #region
+    /// <summary>
+    /// /// <summary>
+    /// <br> Enables and disables crouch. </br.>
+    /// </summary>
+    /// <param name="active"></param>
+    /// </summary>
+    /// <param name="active"></param>
+    #endregion
+    public void EnableCrouch(bool active)
+    {
+        
+        if (active)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
+    #region
+    /// <summary>
+    /// <br> Enables and disables jump. </br.>
+    /// </summary>
+    /// <param name="active"></param>
+#endregion
+    public void EnableJump(bool active)
+    {
+        if (active)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
     public void Unregister(PlayerMovement playerMovement)
     {
 
@@ -84,4 +166,7 @@ public class MovementInput : ScriptableObject, IInputEvent
         SetActive(false);
 
     }
+
+    
 }
+
