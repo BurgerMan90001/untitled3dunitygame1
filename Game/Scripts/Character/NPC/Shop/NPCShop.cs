@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 
+
+
 public class NPCShop: MonoBehaviour
 {
     [Header("Shop Settings")]
@@ -10,7 +12,7 @@ public class NPCShop: MonoBehaviour
 
     private ShopData _shopData;
 
-    private string _shopGuid;
+    private string _shopGuid; // MAYBE
 
     private bool _inShop = false;
     /// <summary>
@@ -29,7 +31,7 @@ public class NPCShop: MonoBehaviour
     {
         if (!_inShop) // if not in the shop
         {
-            _shopData.EnterShop(_shopGuid);
+            _shopData.EnterShop(_shopGuid, _shopType);
             _inShop = true;
 
         } else // if already in shop, exit shop when interacted with
@@ -41,10 +43,6 @@ public class NPCShop: MonoBehaviour
 }
 
 public class ShopManager
-{
-
-}
-public enum ShopType
 {
 
 }

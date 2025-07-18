@@ -1,10 +1,36 @@
 using System;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.HighDefinition;
+public enum Day
+{
+    Monday,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+    Saturday,
+    Sunday,
+}
 
 
+public enum Month
+{
+    January,
+    Febuary,
+    March,
+    April,
+    May,
+    June,
+    July,
+    August,
+    September,
+    October,
+    November,
+    December,
+}
 
+/// <summary>
+/// <br> Months and days and in game time stuff.</br>
+/// </summary>
 [CreateAssetMenu (menuName = "Time/GameTimeData")]
 public class GameTimeData : ScriptableObject
 {
@@ -12,7 +38,6 @@ public class GameTimeData : ScriptableObject
     [SerializeField] private GameObject _moon;
     
 
-    private Volume volume;
  //   public Volume volume;
 //    public HDRPVolumeProfileSettings volumeProfileSettings;
 
@@ -24,6 +49,7 @@ public class GameTimeData : ScriptableObject
 
     public Action<Day> OnDayChanged;
     public Action<Month> OnMonthChanged;
+
     public Action<int> OnYearChanged;
 
     public void ChangeDay(Day newDay) 
@@ -51,33 +77,4 @@ public class GameTimeData : ScriptableObject
 }
 
 
-public enum Day 
-{
-    Monday, 
-    Tuesday, 
-    Wednesday, 
-    Thursday, 
-    Friday, 
-    Saturday, 
-    Sunday,
-}
-
-
-public enum Month
-{
-    January,
-    Febuary,
-    March,
-    April,
-    May,
-    June,
-    July,
-    August,
-    September,
-    October,
-    November,
-    December,
-
-
-}
 

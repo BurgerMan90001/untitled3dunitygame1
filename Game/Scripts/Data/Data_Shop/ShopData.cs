@@ -1,6 +1,16 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+
+/// <summary>
+/// <br> Wealth classes </br>
+/// </summary>
+public enum ShopType
+{
+    Lower,
+    Middle,
+    Upper,
+}
 // pennies
 /// <summary>
 /// <br>Data and events for npc shops.</br>
@@ -13,7 +23,7 @@ public class ShopData : Data
     [Header("Data")]
     [SerializeField] private UserInterfaceData _userInterfaceData;
     [SerializeField] private InputData _inputData;
-
+    [SerializeField] private GameTimeData gameTimeData;
     public Action<string> OnShopEntered;
 
     public Action OnShopExited;
@@ -37,7 +47,7 @@ public class ShopData : Data
     /// <summary>
     /// <br> Invokes the OnShopShown event. </br>
     /// </summary>
-    public void EnterShop(string shopGuid)
+    public void EnterShop(string shopGuid, ShopType shopType)
     {
         OnShopEntered?.Invoke(shopGuid);
 

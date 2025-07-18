@@ -82,11 +82,12 @@ public class UserInterfaceToggler
         }
         
     }
-    
+
     #region
     /// <summary>
     /// <br> Toggles a user interface on or off based on the UserInterfaceType value.</br>
     /// <br> Also switches to the inputActionMap set. </br>
+    /// <br>NotImplementedException();</br>
     /// </summary>
     /// <param name="userInterface"></param>
     /// <param name="inputActionMap"></param>
