@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,6 +13,9 @@ public interface IInputEvent
     public void SetActive(bool active);
 
     void EnableInputAction(bool enabled, InputActionReference inputAction);
+
+    void Register( InputActionReference inputActionReference, Action<InputAction.CallbackContext> inputAction);
+    void Unregister(InputActionReference inputActionReference, Action<InputAction.CallbackContext> inputAction);
 
 }
 public enum InputType

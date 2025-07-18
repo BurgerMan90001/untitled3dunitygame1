@@ -1,4 +1,4 @@
-using DG.Tweening.Core;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 /// <summary>
@@ -21,7 +21,7 @@ public class CameraActions : MonoBehaviour
     [Header("Dependencies")]
     [SerializeField] private DynamicInventory _dynamicInventory;
 
-    [SerializeField] private CameraInput _cameraInput;
+    [SerializeField] private CameraInput _input;
 
 
     [Header("Positions")]
@@ -80,11 +80,17 @@ public class CameraActions : MonoBehaviour
 
     private void OnEnable()
     {
-        _cameraInput.Register(this);
+        _input.Register(_input.LookAction, OnLook);
+        _input.Register(_input.InteractAction, OnInteract);
+        _input.Register(_input.LeftClickAction, OnLeftClick);
+        _input.Register(_input.PickupAction, OnPickup);
     }
     private void OnDisable()
     {
-        _cameraInput.Unregister(this);
+        _input.Unregister(_input.LookAction, OnLook);
+        _input.Unregister(_input.InteractAction, OnInteract);
+        _input.Unregister(_input.LeftClickAction, OnLeftClick);
+        _input.Unregister(_input.PickupAction, OnPickup);
     }
     public void OnLeftClick(InputAction.CallbackContext ctx)
     {

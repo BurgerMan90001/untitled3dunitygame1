@@ -30,7 +30,7 @@ public class InputData : ScriptableObject
     }
     private void ActivateInput(bool active)
     {
-        
+        /*
         foreach (IInputEvent inputEvent in _inputEvents.Cast<IInputEvent>())
         {
             if (inputEvent.Enabled)
@@ -43,6 +43,7 @@ public class InputData : ScriptableObject
             }
 
         }
+        */
         
     }
     #region

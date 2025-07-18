@@ -77,17 +77,23 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        _input.Register(this);
+        _input.Register(_input.MoveAction, OnMove);
+        _input.Register(_input.JumpAction, OnJump);
+        _input.Register(_input.SprintAction, OnSprint);
+        _input.Register(_input.CrouchAction, OnCrouch);
 
-        
     }
 
     private void OnDisable()
     {
-        _input?.Unregister(this);
+        _input.Unregister(_input.MoveAction, OnMove);
+        _input.Unregister(_input.JumpAction, OnJump);
+        _input.Unregister(_input.SprintAction, OnSprint);
+        _input.Register(_input.CrouchAction, OnCrouch);
+
     }
     
-    public void OnMove(InputAction.CallbackContext ctx)
+    private void OnMove(InputAction.CallbackContext ctx)
     {
 
         Vector2 newInput = ctx.ReadValue<Vector2>();
@@ -96,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
             _movementInput = newInput;
         }
     }
-    public void OnJumpPerformed(InputAction.CallbackContext ctx)
+    private void OnJump(InputAction.CallbackContext ctx)
     {
         _verticalMovement.MakeBodyJump(_rigidBody, _jumpForce, _isGrounded.OnGround);
         
