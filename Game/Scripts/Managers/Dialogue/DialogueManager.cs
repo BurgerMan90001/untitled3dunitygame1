@@ -107,7 +107,7 @@ public class DialogueManager : MonoBehaviour, ISingleton
                 Debug.LogError("OnVariableChanged got a null variable. ");
                 break;
             default:
-                Debug.LogWarning("OnVariableChanged got an unknown variable. ");
+                Debug.LogWarning("OnVariableChanged got changed to an unknown variable. ");
                 break;
 
         }

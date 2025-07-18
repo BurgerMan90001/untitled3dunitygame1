@@ -1,7 +1,6 @@
 
 // TODO PLAY SUM FADE ANIMATION, IMPROVE CODE
 using System;
-
 using UnityEngine;
 
 #region

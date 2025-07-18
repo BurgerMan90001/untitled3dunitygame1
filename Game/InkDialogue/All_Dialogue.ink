@@ -15,11 +15,23 @@ VAR myNumber = 5
 === girl1 ===
 fdgjlsdfhggflkhflgmjgdfhjmkdf
 
-
+-> END
 === somebody1 === //MAYBE
 t..tha.thank you
 -> END // after, *stares at player* 
 
+== PayPhone ===
+
+Hello? Is your refrigerator running?
+
+    * [Yes]
+        Well you should go catch it!
+        BWAHAHAHAHAHA!!!
+        -> END
+    * [No]
+        Sounds like you need to call a repairman!
+        BWAHAHAHAHAHA!!!
+        -> END
 == girl2 === // i need a baddie for mass apeal
 
 -> END
