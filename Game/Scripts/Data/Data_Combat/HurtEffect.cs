@@ -5,14 +5,16 @@ public abstract class HurtEffect : ScriptableObject
     public abstract void ApplyEffect(GameObject target, GameObject attacker, float damage);
 }
 
-
+#region 
 /// <summary>
 /// <br> Lifesteal effect. </br>
+/// <br> 25% of attack damage heals the attacker. <br>
 /// </summary>
+#endregion
 [CreateAssetMenu(menuName = "Combat/HurtEffect/LoveHurtEffect")]
 public class LoveHurtEffect : HurtEffect
 {
-    public float HealPercent = 0.25f; // one quarter
+    [SerializeField] private float HealPercent = 0.25f; // one quarter
     public override void ApplyEffect(GameObject target, GameObject attacker, float damage)
     {
         target.GetComponent<CombatStats>().Health -= damage;
@@ -20,18 +22,23 @@ public class LoveHurtEffect : HurtEffect
         attacker.GetComponent<CombatStats>().Health += (damage * HealPercent);
     }
 }
+#region 
 /// <summary>
 /// <br> Weakness effect. </br>
+///< br> Applies an percent of weakness that reduces attack power. </br>
 /// </summary>
+#endregion
 [CreateAssetMenu(menuName = "Combat/HurtEffect/SpookHurtEffect")]
 public class SpookHurtEffect : HurtEffect
 {
-    public float HealPercent = 0.25f; // one quarter
+    [SerializeField] private float WeaknessPercent = 0.25f; // one quarter
+
+
     public override void ApplyEffect(GameObject target, GameObject attacker, float damage)
     {
         target.GetComponent<CombatStats>().Health -= damage;
+        target.GetComponent<CombatStats>().AttackPercent -= WeaknessPercent;
 
-     //   attacker.GetComponent<CombatStats>().Health += (damage * HealPercent);
     }
 }
 
@@ -39,7 +46,7 @@ public class SpookHurtEffect : HurtEffect
 
 public class SleepkHurtEffect : HurtEffect
 {
-    public float HealPercent = 0.25f; // one quarter
+  //  public float HealPercent = 0.25f; // one quarter
     public override void ApplyEffect(GameObject target, GameObject attacker, float damage)
     {
         target.GetComponent<CombatStats>().Health -= damage;

@@ -10,13 +10,14 @@ public class CombatManager : MonoBehaviour, ISingleton
 
     [Header("Data")]
     [SerializeField] private CombatData _combatData;
+    [SerializeField] private InputData _inputData;
 
     [Header("HurtEffects")]
     [SerializeField] private Dictionary<HurtType, HurtEffect> _hurtEffects;
-
+    
 
     [Header("Debug")]
-    [SerializeField] private bool _debug;
+    [SerializeField] private bool _debugMode;
 
     public static CombatManager Instance { get; private set; }
     private void Awake()

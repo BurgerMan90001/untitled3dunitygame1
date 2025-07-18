@@ -8,33 +8,64 @@ public class InputData : ScriptableObject
     [Header("Data")]
     [SerializeField] private DialogueData _dialogueData;
 
-    [Header("InputEvents")]
 
+    [Header("InputEvents")]
     [field: SerializeField] public MovementInput MovementInput { get; private set; }
     [field: SerializeField] public CameraInput CameraInput { get; private set; }
     [field: SerializeField] public MenuInput MenuInput { get; private set; }
 
-    //    [SerializeField] private List<ScriptableObject> _inputEvents;
+
+    [Header("Debug")]
+    [SerializeField] private bool _debugEnabled = false;
+    [SerializeField] private InputActionReference _debug1;
+    [SerializeField] private InputActionReference _debug2;
+
+    [SerializeField] private CombatData _combatData;
+   // [field: SerializeField] public DebugInput DebugInput { get; private set; }
+
 
     public bool InputEnabled { get; private set; }
 
     
     private void OnEnable()
     {
-        _dialogueData.OnChoiceSelected += (_) => MovementInput.EnableMovement(true); // discards the chosen int index. enables input
-        _dialogueData.OnUpdateChoices += (_) => MovementInput.EnableMovement(false); // discards the list of choice strings. disables input
+        _dialogueData.OnChoiceSelected += OnChoiceSelected;
+        _dialogueData.OnUpdateChoices += OnUpdateChoices;
 
-        _dialogueData.OnChoiceSelected += (_) => CameraInput.EnableLook(true); // discards the chosen int index. enables input
-        _dialogueData.OnUpdateChoices += (_) => CameraInput.EnableLook(false); // discards the list of choice strings. disables input
+        if (_debugEnabled)
+        {
+            _debug1.action.started += OnDebug1;
+            _debug2.action.started += OnDebug2;
+        }
     }
     private void OnDisable()
     {
-        _dialogueData.OnChoiceSelected -= (_) => MovementInput.EnableMovement(true); 
-        _dialogueData.OnUpdateChoices -= (_) => MovementInput.EnableMovement(false);
+        _dialogueData.OnChoiceSelected -= OnChoiceSelected;
+        _dialogueData.OnUpdateChoices -= OnUpdateChoices;
 
-        _dialogueData.OnChoiceSelected -= (_) => CameraInput.EnableLook(true); // discards the chosen int index. enables input
-        _dialogueData.OnUpdateChoices -= (_) => CameraInput.EnableLook(false); // discards the list of choice strings. disables input
+        if (_debugEnabled)
+        {
+            _debug1.action.started -= OnDebug1;
+            _debug2.action.started -= OnDebug2;
+        }
 
+    }
+    private void OnDebug1()
+    {
+
+
+    }
+    private void OnDebug2() 
+    {
+
+    }
+    private void OnCombatEntered() 
+    {
+
+    }
+    private void OnCombatExited()
+    {
+        
     }
     #region
     /// <summary>
@@ -47,16 +78,19 @@ public class InputData : ScriptableObject
         MovementInput.SetActive(active);
         CameraInput.SetActive(active);
     }
-    /*
-    public void EnableMovement(bool active)
+
+    private void OnUpdateChoices(List<string> choices) // discards the list of choice strings. disables input
     {
-        MovementInput.EnableMovement(active);
+        MovementInput.EnableMovement(false);
+        CameraInput.EnableLook(false);
     }
-    public void EnableLook(bool active)
+
+    private void OnChoiceSelected(int choicesIndex) // discards the chosen int index. enables input
     {
-        CameraInput.EnableLook(active);
+        MovementInput.EnableMovement(true);
+        CameraInput.EnableLook(true);
     }
-    */
+    
 }
 
 public enum InputMaps

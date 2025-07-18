@@ -22,7 +22,7 @@ public class UserInterface : MonoBehaviour, ISingleton
 
     [Header("Data")]
     //[SerializeField] private List<Data> _data;
-    [SerializeField] private DynamicInventory _dynamicInventory; // the dynamic inventory scriptable object that will be used to manage the inventory
+    [SerializeField] private Inventory _dinventory; // the dynamic inventory scriptable object that will be used to manage the inventory
     [SerializeField] private UserInterfaceData _userInterfaceData;
     [SerializeField] private DataPersistenceData _dataPersistenceData;
     [SerializeField] private DialogueData _dialogueData;
@@ -96,7 +96,7 @@ public class UserInterface : MonoBehaviour, ISingleton
         _uiMainMenu = new UI_MainMenu(_dataPersistenceData, _interfaceToggler);
         _uiSaveSlotsMenu = new UI_SaveSlotsMenu(_dataPersistenceData, _interfaceToggler);
         _uiDialogue = new UI_Dialogue(_userInterfaceData, _dialogueData);
-        _uiInventory = new UI_Inventory(_dynamicInventory, _dynamicInventory.OnInventoryChanged);
+        _uiInventory = new UI_Inventory(_inventory, _inventory.OnInventoryChanged);
 
         _userInterfaces.Add(_uiMainMenu);
         _userInterfaces.Add(_uiSaveSlotsMenu);
@@ -122,12 +122,6 @@ public class UserInterface : MonoBehaviour, ISingleton
             RegisterAllInterfaces();
             
             _root.RegisterCallback<MouseMoveEvent>(OnMouseMove);
-            /*
-            _interfaceToggler.Register(SceneLoadingManager.OnSceneLoaded);
-            _interfaceToggler.Register(_userInterfaceData.OnToggleUserInterface);
-            */
-            
-            
 
             SceneLoadingManager.OnSceneLoaded += _interfaceToggler.ToggleUserInterface;
             _userInterfaceData.OnToggleUserInterface += _interfaceToggler.ToggleUserInterface;
@@ -147,10 +141,7 @@ public class UserInterface : MonoBehaviour, ISingleton
         SceneLoadingManager.OnSceneLoaded -= _interfaceToggler.ToggleUserInterface;
         _userInterfaceData.OnToggleUserInterface -= _interfaceToggler.ToggleUserInterface;
         _dynamicInventory.OnInventoryChanged -= _uiInventory.UpdateInterface;
-        /*
-        _interfaceToggler.Unregister(SceneLoadingManager.OnSceneLoaded);
-        _interfaceToggler.Unregister(_userInterfaceData.OnToggleUserInterface);
-        */
+        
         _root.UnregisterCallback<MouseMoveEvent>(OnMouseMove);
         
         UnregisterAllInterfaces();
@@ -160,37 +151,33 @@ public class UserInterface : MonoBehaviour, ISingleton
         
     }
     
-    private void OnDestroy()
-    {
-
-        
-    }
+    
     private void OnMouseMove(MouseMoveEvent evt)
     {
-        if (_showHoveredOnElement) {
-
-        
-            var newElement = evt.target as VisualElement;
-
-            if (newElement != currentElement)
-            {
-                if (currentElement != null)
-                {
-                    Debug.Log($"Left: {currentElement.name}");
-                }
-                    
-
-                currentElement = newElement;
-
-
-                if (currentElement != null) 
-                {
-                    Debug.Log($"Entered: {currentElement.name}");
-                }
-            }
-
-                    
+        if (_showHoveredOnElement) 
+        {
+            ShowHoveredOnElement(evt);
         }
+    }
+    private void ShowHoveredOnElement(MouseMoveEvent evt) 
+    {
+        var newElement = evt.target as VisualElement;
+
+        if (newElement != currentElement)
+        {
+            if (currentElement != null)
+            {
+                Debug.Log($"Left: {currentElement.name}");
+            }
+            currentElement = newElement;
+
+
+            if (currentElement != null) 
+            {
+                Debug.Log($"Entered: {currentElement.name}");
+            }
+        }
+
     }
 
     private void QueryAllElements()

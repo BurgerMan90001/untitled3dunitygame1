@@ -1,18 +1,15 @@
 using System;
 using UnityEngine;
 /// <summary>
-/// 
+/// <br> Combat events and data. <br>
 /// </summary>
 [CreateAssetMenu(menuName = "Data/CombatData")]
 public class CombatData : Data
 {
-    public Action OnEnterCombat;
-
-    public Action OnExitCombat;
-
-    public Action OnTurnChanged;
-
-
+    public event Action OnEnterCombat;
+    public event Action OnExitCombat;
+    
+    public event Action OnTurnChanged;
 
 
 
@@ -20,12 +17,9 @@ public class CombatData : Data
     /// <br> Triggers the OnEnterCombat event. </br>
     /// </summary>
     public void EnterCombat()
-    {
-
-        
+    {   
         OnEnterCombat?.Invoke();
-
-        
+      
     }
     /// <summary>
     /// <br> Triggers the OnExitCombat event. </br>

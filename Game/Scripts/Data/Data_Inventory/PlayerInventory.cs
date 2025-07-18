@@ -9,7 +9,7 @@ public class PlayerInventory : MonoBehaviour, IDataPersistence
     [SerializeField] private UserInterfaceData _userInterfaceData;
     [SerializeField] private InputData _inputData;
 
-    public DynamicInventory Inventory;
+    public Inventory Inventory;
 
     [Header("Debug")]
     [SerializeField] private bool _clearOnEnable = false;
