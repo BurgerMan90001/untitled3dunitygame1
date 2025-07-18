@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Input Data
   m_EditorClassIdentifier: 
   _dialogueData: {fileID: 11400000, guid: b7057052d12597d459bf37d69cac44f3, type: 2}
-  _movementInput: {fileID: 11400000, guid: 5073dac0742252247848489dfbc58d5d, type: 2}
-  _cameraInput: {fileID: 11400000, guid: a9af73362ae1ead4dad683960fcf65fc, type: 2}
+  <MovementInput>k__BackingField: {fileID: 11400000, guid: 5073dac0742252247848489dfbc58d5d, type: 2}
+  <CameraInput>k__BackingField: {fileID: 11400000, guid: a9af73362ae1ead4dad683960fcf65fc, type: 2}
+  <MenuInput>k__BackingField: {fileID: 11400000, guid: 40ac9e5222a69664b8750e11ab44a282, type: 2}

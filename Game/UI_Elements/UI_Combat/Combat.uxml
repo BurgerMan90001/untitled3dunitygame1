@@ -1,7 +1,7 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/myprojectV1/Game/UI_Elements/UI_HUD/HealthBarStyle.uss?fileID=7433441132597879392&amp;guid=b22b7cdcc182f094780b3192124ee398&amp;type=3#HealthBarStyle" />
-    <ui:VisualElement name="Root" style="flex-grow: 1; flex-direction: row;">
-        <ui:ProgressBar value="22" name="HealthBar" style="background-color: rgba(0, 0, 0, 0); color: rgb(0, 0, 0); width: auto; flex-grow: 1; flex-shrink: 1; height: auto;" />
-        <ui:VisualElement style="flex-grow: 5;" />
+    <ui:VisualElement name="Root" picking-mode="Ignore" style="flex-grow: 1; flex-direction: row;">
+        <ui:ProgressBar value="22" name="HealthBar" picking-mode="Ignore" style="background-color: rgba(0, 0, 0, 0); color: rgb(0, 0, 0); width: auto; flex-grow: 1; flex-shrink: 1; height: auto;" />
+        <ui:VisualElement picking-mode="Ignore" style="flex-grow: 5;" />
     </ui:VisualElement>
 </ui:UXML>

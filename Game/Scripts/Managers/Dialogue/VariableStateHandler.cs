@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// <br> For when a variable changes in the ink story. </br>
 /// </summary>
-
+// NOT WORKING TODO
 public class VariableStateHandler
 {
    

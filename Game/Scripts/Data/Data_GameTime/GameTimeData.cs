@@ -43,6 +43,8 @@ public class GameTimeData : ScriptableObject
 
     
     public Day Day;
+    public Month Month;
+
     public float Time;
 
     public int Year; // MAYBE

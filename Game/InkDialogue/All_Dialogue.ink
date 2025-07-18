@@ -10,10 +10,17 @@ VAR myNumber = 5
 // * to NOT show a question again when its picked/
 // ~
 
--> NPC_NonStatic
+-> Rival // testing
 
 === girl1 ===
 fdgjlsdfhggflkhflgmjgdfhjmkdf
+
+
+=== somebody1 === //MAYBE
+t..tha.thank you
+-> END // after, *stares at player* 
+
+== girl2 === // i need a baddie for mass apeal
 
 -> END
 === boy1 ===
@@ -28,20 +35,21 @@ HI IM A DUDE
 
 
 
-=== NPC_NonStatic ===
+=== Rival === // generic rival
+HELLO IM YOUR RIVAL PLAYER.
+HM
 DO YOU WAN'T TO CARD BATTLE?
-~ temp patience = 0
+
     * [yes]
         LETS BATTLE!!
         
         ~ battleEntered = true
-        ~ myNumber = 5
         -> END
     + [no]
         ...
-        ~ patience ++ 
-        -> NPC_NonStatic
-->END
+
+        -> END
+
 
 
 /*

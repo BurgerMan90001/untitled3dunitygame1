@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da28a69878df9c044904249dbacff8ce, type: 3}
+  m_Name: CityPool
+  m_EditorClassIdentifier: 
+  ItemWeightPools:
+  - {fileID: 11400000, guid: 847d6888de663a945ab144aac1167e84, type: 2}
+  - {fileID: 11400000, guid: 1bae7447fea8bc84ba34f66faa93f778, type: 2}
+  - {fileID: 11400000, guid: b00be351c92631242aede0364f8f0d8b, type: 2}
+  Test: 5
+  ShopType: 1

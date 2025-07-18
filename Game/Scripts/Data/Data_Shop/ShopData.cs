@@ -1,5 +1,5 @@
+
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -13,20 +13,26 @@ public enum ShopType
 }
 // pennies
 /// <summary>
-/// <br>Data and events for npc shops.</br>
+/// <br> Universal data and events for npc shops.</br>
 /// </summary>
 [CreateAssetMenu(menuName = "Data/ShopData")]
 public class ShopData : Data
 {
+    /*
     [Header("Item Pools")]
     [SerializeField] private List<ShopItemPool> _shopItemPools;
+    */
     [Header("Data")]
     [SerializeField] private UserInterfaceData _userInterfaceData;
     [SerializeField] private InputData _inputData;
     [SerializeField] private GameTimeData gameTimeData;
+
     public Action<string> OnShopEntered;
 
     public Action OnShopExited;
+
+    public bool InShop { get; private set; } = false;
+   
 
     private void Awake()
     {
@@ -47,17 +53,19 @@ public class ShopData : Data
     /// <summary>
     /// <br> Invokes the OnShopShown event. </br>
     /// </summary>
-    public void EnterShop(string shopGuid, ShopType shopType)
+    public void EnterShop(string shopGuid)
     {
         OnShopEntered?.Invoke(shopGuid);
 
         _userInterfaceData.ToggleUserInterface(UserInterfaceType.Shop, true);
         _userInterfaceData.ToggleUserInterface(UserInterfaceType.Inventory, true);
 
-        _inputData.ToggleInput(false);
+        
+        _inputData.MovementInput.EnableMovement(false);
+        _inputData.CameraInput.EnableLook(false);
 
- 
-        GameCursor.Unlock();
+
+        InShop = true;
 
     }
 
@@ -68,9 +76,10 @@ public class ShopData : Data
         _userInterfaceData.ToggleUserInterface(UserInterfaceType.Shop, false);
         _userInterfaceData.ToggleUserInterface(UserInterfaceType.Inventory, false);
 
-        _inputData.ToggleInput(true);
+        _inputData.MovementInput.EnableMovement(true);
+        _inputData.CameraInput.EnableLook(true);
 
-        GameCursor.Lock();
+        InShop = false;
     }
     // 5 common top 0-2
     public void GenerateShopContents() 
@@ -89,11 +98,5 @@ public class ShopData : Data
     {
 
     }
-
-}
-[CreateAssetMenu(menuName = "Items/Itempool")]
-public class ShopItemPool : ScriptableObject
-{
-    
 
 }

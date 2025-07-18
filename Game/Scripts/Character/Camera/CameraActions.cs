@@ -114,6 +114,7 @@ public class CameraActions : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext ctx)
     {
+
         if (ctx.started)
         {
             
@@ -134,12 +135,14 @@ public class CameraActions : MonoBehaviour
     }
     private void Update()
     {
-        _rotateCamera.Rotate(transform, _orientation, _lookInput, _sensitivityY, _sensitivityX);
-        _positionCamera.MoveCameraPosition(_cameraTransform, _orientation);
+     //   _rotateCamera.Rotate(transform, _orientation, _lookInput, _sensitivityY, _sensitivityX);
+     //   _positionCamera.MoveCameraPosition(_cameraTransform, _orientation);
     }
     private void LateUpdate()
     {
-        //   _rotateCamera.Rotate(transform, _orientation, _lookInput, _sensitivityY, _sensitivityX);
-        //_positionCamera.MoveCameraPosition(_cameraTransform, _orientation);
+        
+       _rotateCamera.Rotate(transform, _orientation, _lookInput, _sensitivityY, _sensitivityX);
+        _positionCamera.MoveCameraPosition(_cameraTransform, _orientation);
+        
     }
 }

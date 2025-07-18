@@ -1,13 +1,11 @@
 using System;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Rendering.HighDefinition;
 
 public class DayNightCycle : MonoBehaviour
 {
     [Header("Sun Settings")]
-    public Light sun;
-//    [SerializeField] Light moon;
+    [SerializeField] private Light _sun;
+    [SerializeField] private Light _moon;
     [SerializeField] private float dayLength = 120f;
     [SerializeField] private Vector3 sunInitialRotation = new Vector3(50f, -30f, 0f);
 
@@ -37,7 +35,7 @@ public class DayNightCycle : MonoBehaviour
 
     private void Start()
     {
-        if (sun == null)
+        if (_sun == null)
         {
             Debug.LogError("Sun Light is not assigned.");
             enabled = false;
@@ -50,13 +48,13 @@ public class DayNightCycle : MonoBehaviour
 
     private void Update()
     {
-        if (sun == null) return;
+        if (_sun == null) return;
 
         currentTime = Mathf.Repeat(currentTime + Time.deltaTime * timeMultiplier, dayLength);
         timeOfDay = currentTime / dayLength * 24f;
 
         float sunRotation = (timeOfDay / 24f) * 360f;
-        sun.transform.rotation = Quaternion.Euler(sunInitialRotation.x + sunRotation, sunInitialRotation.y, sunInitialRotation.z);
+        _sun.transform.rotation = Quaternion.Euler(sunInitialRotation.x + sunRotation, sunInitialRotation.y, sunInitialRotation.z);
         //    sun.intensity
         //     moon.transform.rotation = Quaternion.Euler(sunInitialRotation.x + sunRotation +180f, sunInitialRotation.y, sunInitialRotation.z);
         //   RenderSettings.skybox.
@@ -67,13 +65,13 @@ public class DayNightCycle : MonoBehaviour
     }
     private void UpdateSun()
     {
-        if (sun == null) return;
+        if (_sun == null) return;
 
         currentTime = Mathf.Repeat(currentTime + Time.deltaTime * timeMultiplier, dayLength);
         timeOfDay = currentTime / dayLength * 24f;
 
         float sunRotation = (timeOfDay / 24f) * 360f;
-        sun.transform.rotation = Quaternion.Euler(sunInitialRotation.x + sunRotation, sunInitialRotation.y, sunInitialRotation.z);
+        _sun.transform.rotation = Quaternion.Euler(sunInitialRotation.x + sunRotation, sunInitialRotation.y, sunInitialRotation.z);
         //    sun.intensity
         //     moon.transform.rotation = Quaternion.Euler(sunInitialRotation.x + sunRotation +180f, sunInitialRotation.y, sunInitialRotation.z);
         //   RenderSettings.skybox.
@@ -116,10 +114,10 @@ public class DayNightCycle : MonoBehaviour
     private void OnValidate()
     {
         // Update the sun's rotation in the editor
-        if (sun != null )
+        if (_sun != null )
         {
             float sunRotation = (timeOfDay / 24f) * 360f;
-            sun.transform.rotation = Quaternion.Euler(sunInitialRotation.x + sunRotation, sunInitialRotation.y, sunInitialRotation.z);
+            _sun.transform.rotation = Quaternion.Euler(sunInitialRotation.x + sunRotation, sunInitialRotation.y, sunInitialRotation.z);
             ShowTime();
         //    moon.transform.rotation = Quaternion.Euler(sunInitialRotation.x + sunRotation + 180f, sunInitialRotation.y, sunInitialRotation.z);
 

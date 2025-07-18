@@ -6,7 +6,14 @@ public class ShopNPCManager : NPCManager
     [Header("Dependancies")]
 
     [SerializeField] private ShopData _shopData;
-
+    private void OnEnable()
+    {
+        InitializeNPCS();
+    }
+    private void OnDisable()
+    {
+        
+    }
     protected override void InitializeNPCS()
     {
         foreach (Transform shopNPC in transform)
@@ -15,6 +22,7 @@ public class ShopNPCManager : NPCManager
             {
                 string guid = GenerateGUID();
                 component.Initialize(_shopData, guid);
+                component.GenerateContents();
                 shopNPC.gameObject.SetActive(true);
             }
             else

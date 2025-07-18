@@ -11,9 +11,6 @@ public class PlayerInventory : MonoBehaviour, IDataPersistence
 
     public DynamicInventory Inventory;
 
-    [Header("InputActionReferences")]
-    [SerializeField] private InputActionReference _inventoryOpenAction;
-
     [Header("Debug")]
     [SerializeField] private bool _clearOnEnable = false;
 
@@ -22,11 +19,9 @@ public class PlayerInventory : MonoBehaviour, IDataPersistence
 
     private void OnEnable()
     {
-        _inventoryOpenAction.action.Enable();
 
-
-        _inventoryOpenAction.action.started += OnOpenInventory;
-
+        _inputData.MenuInput.RegisterInputEvent(_inputData.MenuInput.InventoryToggleAction, OnOpenInventory);
+        
 
         ClearInventory(_clearOnEnable);
 
@@ -35,15 +30,10 @@ public class PlayerInventory : MonoBehaviour, IDataPersistence
 
     private void OnDisable()
     {
-        _inventoryOpenAction.action.started -= OnOpenInventory;
-
-        _inventoryOpenAction.action.Disable();
+        _inputData.MenuInput.UnregisterInputEvent(_inputData.MenuInput.InventoryToggleAction, OnOpenInventory);
 
     }
-    private void OnDestroy()
-    {
-        
-    }
+
     private void OnOpenInventory(InputAction.CallbackContext ctx)
     {
         if (_interfaceEnabled)
@@ -51,13 +41,16 @@ public class PlayerInventory : MonoBehaviour, IDataPersistence
             _userInterfaceData.ToggleUserInterface(UserInterfaceType.Inventory, false);
             _interfaceEnabled = false;
 
-            _inputData.ToggleInput(true);
+            _inputData.MovementInput.EnableMovement(true);
+            _inputData.CameraInput.EnableLook(true);
         } else
         {
             _userInterfaceData.ToggleUserInterface(UserInterfaceType.Inventory, true);
             _interfaceEnabled = true;
 
-            _inputData.ToggleInput(false);
+            _inputData.MovementInput.EnableMovement(false);
+            _inputData.CameraInput.EnableLook(false);
+                
         }
         
     }

@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99f0a64001d3e8b4785056745cd4fa2a, type: 3}
-  m_Name: Interact
+  m_Script: {fileID: 11500000, guid: 55f00de2d84a78b4086e2347ed605bd4, type: 3}
+  m_Name: CityCommon
   m_EditorClassIdentifier: 
-  InputActionReference: {fileID: -3393959859071047672, guid: 1571a21ec2f1ba545a70d97ed9b5b4ab, type: 3}
-  Enabled: 1
+  Items:
+  - {fileID: 11400000, guid: ba77d4e4dc3a983409a5036eed355f19, type: 2}
+  RarityType: 0
+  Weight: 80

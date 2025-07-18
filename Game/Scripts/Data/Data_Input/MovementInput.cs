@@ -1,5 +1,4 @@
 
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,15 +12,12 @@ public enum MovementInputType // MABYE
 }
 // TODO MAKE CONSISTENT WITH CAMERAINPUT
 [CreateAssetMenu(menuName = "Input/MovementInput")]
-public class MovementInput : ScriptableObject, IInputEvent
+public class MovementInput : InputEvent
 {
     public bool MoveEnabled { get; private set; }
     public bool SprintEnabled { get; private set; }
     public bool CrouchEnabled { get; private set; }
     public bool JumpEnabled { get; private set; }
-    public bool Enabled { get; private set; }
-
-    [field: SerializeField] public InputType InputType { get; private set; }
 
 
     [Header("InputActionReferences")]
@@ -35,7 +31,7 @@ public class MovementInput : ScriptableObject, IInputEvent
         InputType = InputType.Movement;
     }
     
-    public void SetActive(bool active)
+    public override void SetActive(bool active)
     {
         
         EnableMovement(active);
@@ -46,36 +42,7 @@ public class MovementInput : ScriptableObject, IInputEvent
         Enabled = active;
     }
     
-    public void RegisterInputEvent(InputActionReference inputActionReference, Action<InputAction.CallbackContext> inputAction)
-    {
-        SetActive(true);
-
-        inputActionReference.action.started += inputAction;
-        inputActionReference.action.performed += inputAction;
-        inputActionReference.action.canceled += inputAction;
- 
-
-    }
-    public void UnregisterInputEvent(InputActionReference inputActionReference, Action<InputAction.CallbackContext> inputAction)
-    {
-        inputActionReference.action.started -= inputAction;
-        inputActionReference.action.performed -= inputAction;
-        inputActionReference.action.canceled -= inputAction;
-
-        SetActive(false);
-
-    }
-    public void EnableInputAction(bool enabled, InputActionReference inputAction)
-    {
-        if (enabled)
-        {
-            inputAction.action.Enable();
-        }
-        else
-        {
-            inputAction.action.Disable();
-        }
-    }
+            
     public void EnableMovement(bool enabled)
     {
         MoveEnabled = enabled;

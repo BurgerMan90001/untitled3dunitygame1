@@ -62,6 +62,15 @@ public class DialogueManager : MonoBehaviour, ISingleton
         _story.variablesState.variableChangedEvent += OnVariableChanged;
         
     }
+    private void OnDisable()
+    {
+        _dialogueData.OnEnterDialogue -= EnterDialogue;
+        _dialogueData.OnContinueDialogue -= ContinueOrExitStory;
+        _dialogueData.OnChoiceSelected -= SelectChoice;
+
+        _story.variablesState.variableChangedEvent -= _variableStateHandler.OnVariableChanged;
+    }
+
     private void Test(string variableName, Ink.Runtime.Object newValue)
     {
         Debug.Log(variableName);
@@ -135,18 +144,9 @@ public class DialogueManager : MonoBehaviour, ISingleton
     }
 
 
-    private void OnDisable()
-    {
-        _dialogueData.OnEnterDialogue -= EnterDialogue;
-        _dialogueData.OnContinueDialogue -= ContinueOrExitStory;
-        _dialogueData.OnChoiceSelected -= SelectChoice;
-
-        _story.variablesState.variableChangedEvent -= _variableStateHandler.OnVariableChanged;
-    }
-
+    
     private void EnterDialogue(string knotName) // begins or continues dialogue
     {
-        Debug.Log("ASDASDASDASDASDASD");
         if (!knotName.Equals(""))
         {
             _story.ChoosePathString(knotName); // jump to the knotname in the ink file

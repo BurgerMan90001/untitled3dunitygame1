@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _userInterfaceData: {fileID: 11400000, guid: 1c7fbd88d5738b74087a9f4ddfe1e972, type: 2}
   _inputData: {fileID: 11400000, guid: ad90d15a45aacc6478ff302fd813f986, type: 2}
+  gameTimeData: {fileID: 11400000, guid: f3223eda7f7083746af792cf6c2215fa, type: 2}

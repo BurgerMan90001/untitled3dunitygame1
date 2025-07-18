@@ -19,6 +19,8 @@ public class Item : ScriptableObject
     [field: SerializeField] public int MinQuality { get; protected set; } // quality
     [field: SerializeField] public int MaxQuality { get; protected set; } // quality
 
+    [field: SerializeField] public RarityType RarityType { get; protected set; }
+
     public Item() // when creating a new item SO, these are the default values
     {
         Description = "This is a placehodler for an item please remove.";
@@ -30,6 +32,7 @@ public class Item : ScriptableObject
         MinQuality = 0;
         MaxQuality = 5;
 
+        RarityType = RarityType.Common;
     }
     
 }

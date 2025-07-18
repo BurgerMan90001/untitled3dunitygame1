@@ -12,6 +12,7 @@ public class NPCInteraction : MonoBehaviour
 
     private DialogueData _dialogueData;
 
+    private int _interactionStage = 0;
     
     private bool _initialized = false;
 

@@ -3,51 +3,69 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public interface IInputEvent 
-{
-    /*
-    public List<InputActionReference> InputActionReferences { get; }
-    */
-    public InputType InputType { get; }
-    public bool Enabled { get; }
-    public void SetActive(bool active);
 
-    void EnableInputAction(bool enabled, InputActionReference inputAction);
-
-    void RegisterInputEvent( InputActionReference inputActionReference, Action<InputAction.CallbackContext> inputAction);
-    void UnregisterInputEvent(InputActionReference inputActionReference, Action<InputAction.CallbackContext> inputAction);
-
-}
 public enum InputType
 {
     Movement,
     Camera,
+    Menu,
 }
 
 
-// MAYBE
 public class InputEvent : ScriptableObject
 {
-    public List<InputActionReference> InputActionReferences { get; protected set; }
-    public InputType InputType { get; protected set; }
+    protected List<InputActionReference> _inputActionReferences = new();
+    [field: SerializeField] public InputType InputType { get; protected set; }
     public bool Enabled { get; protected set; }
-    public void SetActive(bool active)
+    public virtual void SetActive(bool active)
     {
-        if (active)
+        foreach (var reference in _inputActionReferences)
         {
-            foreach (var input in InputActionReferences)
+            if (active)
             {
-                input.action.Enable();
+                reference.action.Enable();
+            } else
+            {
+                reference.action.Disable();
             }
+            
+        }
+        Enabled = active;
+    }
+    public virtual void EnableInputAction(bool enabled, InputActionReference inputAction)
+    {
+        if (enabled)
+        {
+            inputAction.action.Enable();
 
-        } 
+        }
         else
-
         {
-            foreach (var input in InputActionReferences)
-            {
-                input.action.Disable();
-            }
+            inputAction.action.Disable();
         }
     }
+    public virtual void RegisterInputEvent(InputActionReference inputActionReference, Action<InputAction.CallbackContext> inputAction)
+    {
+        SetActive(true);
+
+        inputActionReference.action.started += inputAction;
+        inputActionReference.action.performed += inputAction;
+        inputActionReference.action.canceled += inputAction;
+
+        _inputActionReferences.Add(inputActionReference);
+    }
+
+
+    public virtual void UnregisterInputEvent(InputActionReference inputActionReference, Action<InputAction.CallbackContext> inputAction)
+    {
+        inputActionReference.action.started -= inputAction;
+        inputActionReference.action.performed -= inputAction;
+        inputActionReference.action.canceled -= inputAction;
+
+        SetActive(false);
+
+        _inputActionReferences.Clear();
+
+    }
+
 }
