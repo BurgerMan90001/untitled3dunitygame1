@@ -1,6 +1,15 @@
 using UnityEngine;
 using UnityEngine.UIElements;
-// TODO ANIMETOION MAYBE NOT DO SOM MAKE FEEL GOOD
+
+// PRESS ONCE TO PREPARE, PRESS AGAIN TO CONFIRM MAYBE
+
+// TODO ANIMETOION MAYBE NOT DO SOM MAKE FEEL GOOD\
+
+// BottomPanel_HUD
+
+// W : ATTACK
+// D: BLOCK
+
 public class UI_Combat : IUserInterface
 {
     public void QueryElements(VisualElement root)

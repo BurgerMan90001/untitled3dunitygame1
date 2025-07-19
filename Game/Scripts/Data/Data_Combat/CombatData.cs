@@ -3,6 +3,7 @@ using UnityEngine;
 
 public enum CombatStates
 {
+    None,
     Start,
     PlayerTurn,
     EnemyTurn,
@@ -24,6 +25,7 @@ public enum BlockType
 }
 /// <summary>
 /// <br> Combat events and data. <br>
+/// <br> Initiates the combat. </br>
 /// </summary>
 [CreateAssetMenu(menuName = "Data/CombatData")]
 public class CombatData : Data
@@ -44,7 +46,7 @@ public class CombatData : Data
     
  //   public event Action OnTurnChanged;
 
-    public CombatStates CombatState;
+    [field: SerializeField] public CombatStates CombatState { get ; private set; }
 
 
     private void OnEnable()
@@ -65,8 +67,16 @@ public class CombatData : Data
         }
         
     }
-
-    
+    #region
+    /// <summary>
+    /// <br> Switches the combat state. </br>
+    /// </summary>
+    /// <param name="combatState"></param>
+    #endregion
+    public void SwitchCombatState(CombatStates combatState)
+    {
+        CombatState = combatState;
+    }
     
     #region
     /// <summary>

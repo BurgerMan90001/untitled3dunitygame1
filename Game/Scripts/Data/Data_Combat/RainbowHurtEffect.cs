@@ -5,9 +5,9 @@ using UnityEngine;
 public class RainbowHurtEffect : HurtEffect
 {
     public float HealPercent = 0.25f; // one quarter
-    public override void ApplyEffect(CombatStats target, CombatStats attacker, float damage)
+    public override void ApplyEffect(CombatUnit target, CombatUnit attacker, float damage)
     {
-        target.Hurt(damage);
+     //   target.CombatStats.Hurt(damage);
 
 
     }

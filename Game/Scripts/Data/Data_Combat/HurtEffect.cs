@@ -40,7 +40,7 @@ public enum HurtType
 public abstract class HurtEffect : ScriptableObject
 {
     public HurtType Type;
-    public abstract void ApplyEffect(CombatStats target, CombatStats attacker, float damage);
+    public abstract void ApplyEffect(CombatUnit target, CombatUnit attacker, float damage);
 }
 
 

@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "PlayerInputActions",
     "maps": [
         {
@@ -430,37 +431,24 @@
         {
             "name": "Inventory",
             "id": "1473eff1-97db-4bba-8124-0300aff86240",
-            "actions": [
-                {
-                    "name": "CloseInventory",
-                    "type": "Button",
-                    "id": "0d570d11-3b78-4d81-aed7-64e0299f7835",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "49af03c8-8734-4eb5-be9b-eca8e04c49c2",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CloseInventory",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
+            "actions": [],
+            "bindings": []
         },
         {
             "name": "Combat",
             "id": "e519ce7c-048d-47d5-8cff-fc154b291dc7",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "8f2a685c-0df6-4b1b-8a0c-be348e0ac701",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Block",
                     "type": "Button",
                     "id": "f39c677c-ac82-4ad4-9b2a-42a8afd4e902",
                     "expectedControlType": "",
@@ -473,11 +461,22 @@
                 {
                     "name": "",
                     "id": "56a25c55-7332-4f05-b6c5-7a4e1e8d571b",
-                    "path": "",
+                    "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Block",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7c021887-56c8-403c-9a29-ce2088c50fb8",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

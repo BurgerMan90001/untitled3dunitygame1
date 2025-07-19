@@ -1,7 +1,13 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 //TODO MAKE COMBAT SYSTEM BETTER
+//TODO MAKE BETTER ENEMY AI WITH ENEMY TURN.
+/// <summary>
+/// <br> Manages in-game combat. </br>
+/// <br> Used in the combat scene. </br>
+/// </summary>
 public class CombatManager : MonoBehaviour, ISingleton
 {
 
@@ -72,31 +78,59 @@ public class CombatManager : MonoBehaviour, ISingleton
     }
     private void OnEnable()
     {
-        _combatData.OnEnterCombat += EnterCombat;
-     //   _combatData.OnExitCombat += ExitCombat;
+        _combatData.OnEnterCombat += EnterCombat; // only needs to subscribe to on enter combat because this class will do the exit combat
+
     }
 
     private void OnDisable()
     {
         _combatData.OnEnterCombat -= EnterCombat;
-   //     _combatData.OnExitCombat -= ExitCombat;
+
     }
-    private void PlayerAction()
+    private void PlayerTurn()
     {
         if (_combatData.CombatState != CombatStates.PlayerTurn) return;
 
         bool isDead = _enemyUnit.CombatStats.Hurt(_playerUnit.CombatStats.Damage);
 
-        Debug.Log(_enemyUnit.CombatStats.Health);
+        Debug.Log(_enemyUnit.CombatStats.Health); // UPDATE HUD
 
 
         if (isDead)
         {
-            _combatData.CombatState = CombatStates.Won;
-            _combatData.ExitCombat();
+            _combatData.SwitchCombatState(CombatStates.Won);
+            EndBattle();
         } else
         {
-            _combatData.CombatState = CombatStates.EnemyTurn;
+            _combatData.SwitchCombatState(CombatStates.EnemyTurn);
+            EnemyTurn();
+        }
+
+    }
+    
+    /// <summary>
+    /// <br> COULD MAKE BETTER AI.</br>
+    /// </summary>
+    IEnumerator EnemyTurn()
+    {
+        Debug.Log("THE ENEMY ATTACKS!");
+
+        yield return new WaitForSeconds(1f);
+
+
+        bool isDead = _playerUnit.CombatStats.Hurt(_enemyUnit.CombatStats.Damage);
+
+        Debug.Log(_playerUnit.CombatStats.Health);
+
+        yield return new WaitForSeconds(1f);
+
+        if (isDead)
+        {
+            _combatData.SwitchCombatState(CombatStates.Lost);
+        } else
+        {
+            _combatData.SwitchCombatState(CombatStates.PlayerTurn);
+            PlayerTurn();
         }
 
     }
@@ -104,11 +138,26 @@ public class CombatManager : MonoBehaviour, ISingleton
     {
         SetupBattle(enemy);
 
-        _combatData.CombatState = CombatStates.Start;
+        _combatData.SwitchCombatState(CombatStates.Start);
+
 
     }
+    private void EndBattle()
+    {
+        if (_combatData.CombatState == CombatStates.Won)
+        {
+            Debug.Log("WINNER");
+        }
+        else if (_combatData.CombatState == CombatStates.Lost)
+        {
+            Debug.Log("DEFEAT");
+        }
+        _combatData.ExitCombat();
+    }
+
     
-    public bool ApplyHurt(HurtType type, CombatStats target, CombatStats attacker, float damageAmount)
+    
+    public bool ApplyHurt(HurtType type, CombatUnit target, CombatUnit attacker, float damageAmount)
     {
         foreach (var kvp in _hurtEffects)
         {
@@ -120,15 +169,9 @@ public class CombatManager : MonoBehaviour, ISingleton
 
         }
         return false;
-        /*
-        else
-        {
-            Debug.LogError("There is no valid hurt type with that hurt effect.");
-
-        }
-        */
+        
     }
-
+    
 
     public void ApplyBlock(GameObject target, float blockAmount) 
     {

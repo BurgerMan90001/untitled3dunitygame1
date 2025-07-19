@@ -10,11 +10,11 @@ using UnityEngine;
 public class LoveHurtEffect : HurtEffect
 {
     [SerializeField] private float HealPercent = 0.25f; // one quarter
-    public override void ApplyEffect(CombatStats target, CombatStats attacker, float damage)
+    public override void ApplyEffect(CombatUnit target, CombatUnit attacker, float damage)
     {
-        target.Hurt(damage);
+    //    target.Hurt(damage);
 
 
-        attacker.Heal(damage * HealPercent);
+        attacker.CombatStats.Heal(damage * HealPercent);
     }
 }

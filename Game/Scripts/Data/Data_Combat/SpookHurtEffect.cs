@@ -9,14 +9,12 @@ using UnityEngine; //TODO IMPLEMENT
 [CreateAssetMenu(menuName = "Combat/HurtEffect/SpookHurtEffect")]
 public class SpookHurtEffect : HurtEffect
 {
-    [SerializeField] private float WeaknessPercent = 0.25f; // one quarter
+    [SerializeField] private float _weaknessPercent = 0.25f; // one quarter
 
 
-    public override void ApplyEffect(CombatStats target, CombatStats attacker, float damage)
+    public override void ApplyEffect(CombatUnit target, CombatUnit attacker, float damage)
     {
-
-     //   target.Hurt(damage);
-    //    target.AttackPercent -= WeaknessPercent;
+        
 
     }
 }
