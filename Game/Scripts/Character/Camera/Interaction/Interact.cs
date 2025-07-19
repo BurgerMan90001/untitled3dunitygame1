@@ -16,16 +16,15 @@ public class Interact
     
     private HitDetect _hitDetect;
 
-    private Inventory _inventory;
-
     private LayerMask _mask;
+    private GameObject _interactor;
     public bool ButtonHeld { get; private set; }
 
     
-    public Interact(HitDetect hitDetect, Inventory Inventory, LayerMask mask)
+    public Interact(HitDetect hitDetect, GameObject interactor, LayerMask mask)
     {
         _hitDetect = hitDetect;
-        _inventory = Inventory;
+        _interactor = interactor;
         _mask = mask;
 
     }
@@ -37,16 +36,21 @@ public class Interact
         _hitDetect.ShootRayCastFromCamera(showDebugRayCast, interactDistance, _mask);
 
         if (!_hitDetect.HitSomething) return; // if it didn't hit anything do nothing
-
+        
         GameObject hitGameObject = _hitDetect.HitInfo.transform.gameObject;
 
-        FindObjectType(hitGameObject); 
+        if (hitGameObject.TryGetComponent(out IInteractable interactable))
+        {
+            interactable.Interact(_interactor);
+        }
+
 
     }
     public void StartPickup()
     {
 
     }
+    /*
     private void FindObjectType(GameObject hitGameObject)
     {
         if (hitGameObject.CompareTag("NPC"))
@@ -62,6 +66,9 @@ public class Interact
         {
             CardInteraction(hitGameObject);
         }
+
+
+        // MAYBE NOT
         else if (hitGameObject.CompareTag("Door"))
         {
             DoorInteraction(hitGameObject);
@@ -76,6 +83,7 @@ public class Interact
             // hit nothing
         }
     }
+    
     #region //interactions with game objects
     private void NPCInteraction(GameObject hitGameObject)
     {
@@ -123,21 +131,12 @@ public class Interact
         
         Debug.Log("Interacting with door: " + gameObject.name);
     }
+    
     #endregion
+    */
     public void CancelInteract()
     {
         ButtonHeld = false;
     }
-
-}
-
-public enum IInteractable
-{
-
-}
-
-public class Interactable 
-
-{ 
 
 }

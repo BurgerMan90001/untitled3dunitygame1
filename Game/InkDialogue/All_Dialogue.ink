@@ -3,7 +3,17 @@ VAR yourVariable = true
 VAR battleEntered = true
 
 VAR myNumber = 5
+/*
+	Quick random function for varying choices
 
+	Usage: 
+
+		*	{maybe()} [Ask about apples]
+		*	{maybe()} [Ask about oranges]
+		*	{maybe()} [Ask about bananas]
+		
+
+*/
 //-> question
 // [] to hide choice when chosen
 // + to show a question again when its picked/
@@ -48,33 +58,24 @@ HI IM A DUDE
 
 
 === Rival === // generic rival
-HELLO IM YOUR RIVAL PLAYER.
+
+HELLO IM YOUR RIVAL, PLAYER.
 HM
 DO YOU WAN'T TO CARD BATTLE?
 
-    * [yes]
+    * [ok]
         LETS BATTLE!!
         
         ~ battleEntered = true
         -> END
     + [no]
         ...
-
+        ~ battleEntered = false
         -> END
 
 
 
-/*
-	Quick random function for varying choices
 
-	Usage: 
-
-		*	{maybe()} [Ask about apples]
-		*	{maybe()} [Ask about oranges]
-		*	{maybe()} [Ask about bananas]
-		
-
-*/
 
 
 
@@ -85,17 +86,20 @@ DO YOU WAN'T TO CARD BATTLE?
       ~ return x
 }
 
+=== Perry ===
+YES YES MORE MORE!!
+-> END 
 
 
-=== NPC_Static ===
+=== City_Shop_LineWaiter ===
 I CANT MOVE
 
 ->END
-=== NPC_Shop ===
+=== City_Shop ===
     ~ temp pickedBanana = false
     
     /*
-    The shopkeeper brings out a banana and a strawberry in either hand.
+    The shopkeeper brings out a banana  and a strawberry in either hand.
     */
     
     The shopkeeper brings out a banana in one hand and a strawberry in the other.

@@ -4,7 +4,7 @@ using UnityEngine;
 /// <br> A class with a dialogueKnotName field. </br>
 /// <br> Each NPC can have their own unique dialogueKnotName.</br>
 /// </summary>
-public class NPCInteraction : MonoBehaviour
+public class NPCInteraction : MonoBehaviour, IInteractable
 {
 
     [Header("Dialogue Knot Name")]
@@ -24,23 +24,23 @@ public class NPCInteraction : MonoBehaviour
 
         _initialized = true;
     }
-    public void NPCDialogue() // enters into a dialogue event
+    public void Interact(GameObject interactor)
     {
         if (!_initialized)
         {
             Debug.LogWarning("This npc has not been initialized yet!");
             return;
         }
-        
+
         if (_dialogueData.InDialogue)
         {
-            
+
             _dialogueData.ContinueDialogue();
         }
-        
+
         else if (!_dialogueKnotName.Equals("")) // if the knot name is not empty
         {
-            
+
             _dialogueData.EnterDialogue(_dialogueKnotName, gameObject);// begins the NPC's dialgoue at their knotName
 
         }
@@ -48,8 +48,8 @@ public class NPCInteraction : MonoBehaviour
         {
             _dialogueData.EnterDialogue("silentDialogue", gameObject);
         }
-
     }
+    
 
     public void EnterCombat()
     {
@@ -57,4 +57,6 @@ public class NPCInteraction : MonoBehaviour
         
 
     }
+
+    
 }

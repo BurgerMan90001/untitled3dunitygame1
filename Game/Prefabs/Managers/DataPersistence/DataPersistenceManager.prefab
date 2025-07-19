@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dataPersistenceData: {fileID: 11400000, guid: 721e3fea6cf2b2c40a65ae5e4f51be8a, type: 2}
   _fileName: data
+  _loadDataDebug: 1
   _loadNewGameIFDataIfNull: 0
   _disableDataPersistence: 0
   _overrideSelectedProfileID: 0

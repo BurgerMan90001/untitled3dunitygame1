@@ -114,7 +114,10 @@ public class DialogueManager : MonoBehaviour, ISingleton
 
     }
 
-
+    private void test()
+    {
+        Debug.Log(_story.variablesState["battleEntered"].ToString());
+    }
     private void BoolValueChanged(string variableName, bool newValue)
     {
         switch (variableName, newValue)
@@ -188,6 +191,8 @@ public class DialogueManager : MonoBehaviour, ISingleton
         _story.ResetState();
 
         _dialogueData.ExitDialogue();
+
+        test();
 
     }
     private void UpdateChoices()
