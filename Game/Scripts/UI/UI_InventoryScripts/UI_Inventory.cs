@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 public class UI_Inventory : IUserInterface // animation and stuff
 {
 
-    private DynamicInventory _dynamicInventory;
+    private Inventory _inventory;
 
     private List<VisualElement> _itemVisualElements;
 
@@ -20,9 +20,9 @@ public class UI_Inventory : IUserInterface // animation and stuff
     private VisualElement _ghostImage; // the ghost image that will be used to show the item being dragged
 
     private Action _onInventoryChanged;
-    public UI_Inventory(DynamicInventory dynamicInventory, Action onInventoryChanged)
+    public UI_Inventory(Inventory inventory, Action onInventoryChanged)
     {
-        _dynamicInventory = dynamicInventory; // the dynamic inventory that this UI_Inventory will use
+        _inventory = inventory; // the dynamic inventory that this UI_Inventory will use
 
         _onInventoryChanged = onInventoryChanged;
         
@@ -48,16 +48,16 @@ public class UI_Inventory : IUserInterface // animation and stuff
 
             _itemVisualElements.Add(child);
 
-            _dragAndDropManipulator = new DragAndDropManipulator(child, _ghostImage, _inventoryBackingPanel, root, _dynamicInventory);
+            _dragAndDropManipulator = new DragAndDropManipulator(child, _ghostImage, _inventoryBackingPanel, root, _inventory);
             _tooltipManipulator = new TooltipManipulator(root, _inventoryBackingPanel); // tooltip manipulator will be used to show the tooltip
            
             
             child.AddManipulator(_tooltipManipulator);
             child.AddManipulator(_dragAndDropManipulator);
 
-            if (i < _dynamicInventory.Items.Count && _dynamicInventory.Items[i] != null)
+            if (i < _inventory.Items.Count && _inventory.Items[i] != null)
             {
-                child.userData = _dynamicInventory.Items[i]; // Store directly in the element
+                child.userData = _inventory.Items[i]; // Store directly in the element
             }
         }
 
@@ -89,11 +89,11 @@ public class UI_Inventory : IUserInterface // animation and stuff
     public void UpdateInterface() // O(n)
     {
 
-        for (int i = 0; i < _dynamicInventory.Items.Count; i++)
+        for (int i = 0; i < _inventory.Items.Count; i++)
         {
             VisualElement child = _itemVisualElements[i];
             
-            ItemInstance itemInstance = _dynamicInventory.Items[i]; // get the item instance from the dynamic inventory
+            ItemInstance itemInstance = _inventory.Items[i]; // get the item instance from the dynamic inventory
 
             if (child == null || itemInstance == null)
             {

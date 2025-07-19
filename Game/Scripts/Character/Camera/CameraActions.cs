@@ -19,7 +19,7 @@ public class CameraActions : MonoBehaviour
     private Transform _cameraTransform;
 
     [Header("Dependencies")]
-    [SerializeField] private DynamicInventory _dynamicInventory;
+    [SerializeField] private Inventory _inventory;
 
     [SerializeField] private CameraInput _input;
 
@@ -70,7 +70,7 @@ public class CameraActions : MonoBehaviour
         // the camera transform is this script's transform because it will be on the cinemachine camera gameobject
 
         _hitDetect = new HitDetect(_cameraTransform);
-        _interact = new Interact(_hitDetect, _dynamicInventory, _interactMask);
+        _interact = new Interact(_hitDetect, _inventory, _interactMask);
         _rotateCamera = new RotateCamera(_verticalRotationLimit);
         _mouseClick = new MouseClick(_cameraTransform, _hitDetect, _leftClickMask);
         _positionCamera = new PositionCamera();

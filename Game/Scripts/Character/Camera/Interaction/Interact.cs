@@ -16,16 +16,16 @@ public class Interact
     
     private HitDetect _hitDetect;
 
-    private DynamicInventory _dynamicInventory;
+    private Inventory _inventory;
 
     private LayerMask _mask;
     public bool ButtonHeld { get; private set; }
 
     
-    public Interact(HitDetect hitDetect, DynamicInventory dynamicInventory, LayerMask mask)
+    public Interact(HitDetect hitDetect, Inventory Inventory, LayerMask mask)
     {
         _hitDetect = hitDetect;
-        _dynamicInventory = dynamicInventory;
+        _inventory = Inventory;
         _mask = mask;
 
     }
@@ -107,7 +107,7 @@ public class Interact
             
             ItemInstance item = component.TakeItem();
             
-            if (_dynamicInventory.AddItem(item)) // if the item was added to the inventory successfully
+            if (_inventory.AddItem(item)) // if the item was added to the inventory successfully
             {
                 component.DestroyGameObject(); // destroy the game object after taking the item
             }

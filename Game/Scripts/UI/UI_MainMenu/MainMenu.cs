@@ -1,4 +1,6 @@
 
+using Palmmedia.ReportGenerator.Core.Parser.Analysis;
+using System.ComponentModel;
 using UnityEngine.UIElements;
 // TODO FIX CONTIUME AND DATA PERSISTENCE
 
@@ -41,7 +43,9 @@ public class UI_MainMenu : IUserInterface
    
         _dataPersistenceData = dataPersistenceData; 
         _userInterfaceToggler = userInterfaceToggler;
-
+        var container = new Container();
+        
+        
     }
 
     public void Register(VisualElement root) // called in on enable in userinterface

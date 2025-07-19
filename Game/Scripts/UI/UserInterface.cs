@@ -3,9 +3,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
-
+// TODO SHORTEN
 #region
 /// <summary>
 /// <br> All user interfaces are children of this class' game object. </br>
@@ -21,13 +20,13 @@ public class UserInterface : MonoBehaviour, ISingleton
 
 
     [Header("Data")]
-    //[SerializeField] private List<Data> _data;
-    [SerializeField] private Inventory _dinventory; // the dynamic inventory scriptable object that will be used to manage the inventory
+    [SerializeField] private Inventory _inventory; // the dynamic inventory scriptable object that will be used to manage the inventory
     [SerializeField] private UserInterfaceData _userInterfaceData;
     [SerializeField] private DataPersistenceData _dataPersistenceData;
     [SerializeField] private DialogueData _dialogueData;
     [SerializeField] private InputData _inputData;
 
+    [SerializeField] private CombatData _combatData;
 
     [Header("Inventory Settings")]
     [SerializeField] private bool _pauseOnInventory = true; // pause when the inventory is opened
@@ -67,8 +66,6 @@ public class UserInterface : MonoBehaviour, ISingleton
 
     private void Awake()
     {
-
-        
         if (Instance == null)
         {
             Instance = this;
@@ -125,7 +122,7 @@ public class UserInterface : MonoBehaviour, ISingleton
 
             SceneLoadingManager.OnSceneLoaded += _interfaceToggler.ToggleUserInterface;
             _userInterfaceData.OnToggleUserInterface += _interfaceToggler.ToggleUserInterface;
-            _dynamicInventory.OnInventoryChanged += _uiInventory.UpdateInterface; // whenever the inventory changes, update the inventory ui
+            _inventory.OnInventoryChanged += _uiInventory.UpdateInterface; // whenever the inventory changes, update the inventory ui
             
             _interfaceToggler.ToggleUserInterface(InitalShownUserInterface, true);
 
@@ -140,7 +137,7 @@ public class UserInterface : MonoBehaviour, ISingleton
         
         SceneLoadingManager.OnSceneLoaded -= _interfaceToggler.ToggleUserInterface;
         _userInterfaceData.OnToggleUserInterface -= _interfaceToggler.ToggleUserInterface;
-        _dynamicInventory.OnInventoryChanged -= _uiInventory.UpdateInterface;
+        _inventory.OnInventoryChanged -= _uiInventory.UpdateInterface;
         
         _root.UnregisterCallback<MouseMoveEvent>(OnMouseMove);
         

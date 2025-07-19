@@ -24,7 +24,7 @@ public class DragAndDropManipulator : PointerManipulator
 
     private VisualElement _selectedFullItemSlot;
 
-    private readonly DynamicInventory _dynamicInventory;
+    private readonly Inventory _inventory;
 
     UQueryBuilder<VisualElement> _allSlots;
 
@@ -37,14 +37,14 @@ public class DragAndDropManipulator : PointerManipulator
     /// <param name="root"></param>
     #endregion
     public DragAndDropManipulator(VisualElement target, VisualElement ghostImage, 
-        VisualElement inventoryBackingPanel, VisualElement root, DynamicInventory dynamicInventory)
+        VisualElement inventoryBackingPanel, VisualElement root, Inventory inventory)
     {
 
         this.target = target; // an item slot visual element
         _root = root; // the backing panel or parent of item slots
         _inventoryBackingPanel = inventoryBackingPanel;
         _ghostImage = ghostImage;
-        _dynamicInventory = dynamicInventory;
+        _inventory = inventory;
         
 
     }
@@ -230,13 +230,13 @@ public class DragAndDropManipulator : PointerManipulator
     }
     private void SwapSlotItems(ItemInstance itemInstance, ItemInstance overlappingSlotItemInstance, VisualElement closestOverlappingSlot)
     {
-        _dynamicInventory.SwapItems(itemInstance, overlappingSlotItemInstance);
+        _inventory.SwapItems(itemInstance, overlappingSlotItemInstance);
         closestOverlappingSlot.style.backgroundImage = Background.FromSprite(itemInstance.Icon);
 
         closestOverlappingSlot.userData = itemInstance;
         _selectedFullItemSlot.userData = null;
 
-        _dynamicInventory.OnInventoryChanged?.Invoke();
+        _inventory.OnInventoryChanged?.Invoke();
     }
     private bool OverlapsTarget(VisualElement slot)
     {

@@ -44,6 +44,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e8b3a07d6974fd4ea340a196ff6b9b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnPoint: {x: 0, y: 4.27, z: 0}
+  CombatState: 0
+  _playerPrefab: {fileID: 0}
+  _enemyPrefab: {fileID: 0}
+  _playerCombatStats: {fileID: 0}
+  _enemyCombatStats: {fileID: 0}
+  _playerSpawnPoint: {x: 0, y: 0, z: 0}
+  _enemySpawnPoint: {x: 0, y: 0, z: 0}
   _combatData: {fileID: 11400000, guid: e99ab9cb863476f46ae38c8aee2da7b4, type: 2}
-  _debug: 1
+  _inputData: {fileID: 11400000, guid: ad90d15a45aacc6478ff302fd813f986, type: 2}
+  userInterfaceData: {fileID: 11400000, guid: 1c7fbd88d5738b74087a9f4ddfe1e972, type: 2}
+  _hurtEffects: []
+  _debugMode: 1

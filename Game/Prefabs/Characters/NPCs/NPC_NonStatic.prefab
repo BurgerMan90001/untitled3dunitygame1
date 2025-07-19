@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7750482781073880046}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: trafficcone1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,16 +46,13 @@ GameObject:
   - component: {fileID: 6620086373011630950}
   - component: {fileID: 6468139801906343321}
   - component: {fileID: 8314786452955239208}
-  - component: {fileID: 7869662424804253149}
-  - component: {fileID: 7454751185504206497}
-  - component: {fileID: 5551920730502716715}
   m_Layer: 9
   m_Name: NPC_NonStatic
   m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &399195524025708289
 Transform:
   m_ObjectHideFlags: 0
@@ -103,7 +100,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: d7f6f0df915d30b479c7920451577398, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -175,55 +172,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &7869662424804253149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3589159676945201763}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0279ff01230eadf4e8ce4baa6e4de223, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerRigidBody: {fileID: 0}
-  movementEnabled: 0
---- !u!195 &7454751185504206497
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3589159676945201763}
-  m_Enabled: 0
-  m_AgentTypeID: 0
-  m_Radius: 0.49999997
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: -0.75
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!114 &5551920730502716715
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3589159676945201763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef04ca5eb89dd104d977113c503f4109, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dialogueKnotName: NPC_NonStatic
 --- !u!1 &5003940789161230038
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,7 +184,7 @@ GameObject:
   - component: {fileID: 8197775398664201706}
   - component: {fileID: 917976533877304992}
   - component: {fileID: 7979162889747098071}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Cylinder.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -265,7 +213,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5003940789161230038}
-  m_Mesh: {fileID: -7387706064836869012, guid: d51ccebcfa3226b42b0f7c14afc0a9b3, type: 3}
+  m_Mesh: {fileID: 0}
 --- !u!23 &917976533877304992
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -345,7 +293,7 @@ GameObject:
   - component: {fileID: 6529088966231192420}
   - component: {fileID: 7153308917340046908}
   - component: {fileID: 9218912224607617434}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
