@@ -8,42 +8,49 @@ using UnityEngine;
 public class CombatStats : ScriptableObject, IDataPersistence
 {
     [Header("Data")]
-    [SerializeField] private CombatData _combatData;
+ //   [SerializeField] private CombatData _combatData;
     [SerializeField] private Inventory _inventory;
 
     public float MaxHealth {get; private set;}
     public float Health {get; private set;} // used in battle
 
-    public float AttackValue = 1;
-    public float AttackPercent; // e.g. 1 is 100% and 0.5 is 50%
 
+    public float Damage = 1; 
+    /*
+    public float AttackValue = 1; //MAYBE
+    public float AttackPercent; // e.g. 1 is 100% and 0.5 is 50%
+    */
 
     public float BlockValue; // MAYBE
-
-
-    public void Hurt(float value) 
+    #region
+    /// <summary>
+    /// <br> Reduces the target's health. </br>
+    /// <br> Returns true if its a kill, false if not. </br>
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    #endregion
+    public bool Hurt(float damage) 
     {
-        float newHealthValue = Health -= value;
-        if (newHealthValue <= 0) 
+        Health -= damage;
+        if (Health <= 0)
         {
-            Health = 0;
-            _combatData.ExitCombat();
-
-        }
-        Health = newHealthValue;
-
+            return true;
+        }    
+        return false;
+        
     }
 
     public void Heal(float value)
     {
         Health += value;
     }
-
+    /*
     public float GetFinalAttackValue()
     {
         return AttackValue * AttackPercent;
     }
-    
+    */
     public void LoadData(GameData data)
     {
         MaxHealth = data.MaxHealth;

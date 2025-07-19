@@ -1,4 +1,5 @@
 
+using Ink.Runtime;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,36 +12,68 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Data/DialogueData")]
 public class DialogueData : Data
 {
-    [Header("Data")]
-    [SerializeField] private CombatData _combatData;
+    [Header("Ink Story")]
+    [SerializeField] private TextAsset _inkJson;
 
+    [Header("Settings")]
+    [SerializeField] private bool _resetStoryAfterExit = true;
+    
+    [Header("Data")]
+    
+    [Header("Debug")]
+    [SerializeField] private bool _debugMode = false;
+ 
     public bool InDialogue { get; private set; }
 
+    
+    public Story Story { get; private set; }
+
+
     public event Action<string> OnEnterDialogue;
-
     public event Action OnContinueDialogue;
+    public event Action<GameObject> OnExitDialogue;
 
-    
-
-    public event Action OnExitDialogue;
-    public string DialogueLine;
-    
-    public StringBuilder ChoiceText = new StringBuilder();
-   
     public Action<List<string>> OnUpdateChoices;
-
     public Action<int> OnChoiceSelected;
+
+    public Action OnVariableChanged;
+
+    public string DialogueLine;
+
+    public StringBuilder ChoiceText;
+   
+    
 
     private GameObject _interactedWithNpc;
 
+
+    private DialogueManager _dialogueManager;
+
     private void OnEnable()
     {
+        ChoiceText = new StringBuilder();
+        Story = new Story(_inkJson.text);
         InDialogue = false;
+
+        if (_debugMode)
+        {
+            _dialogueManager.ShowVariables();
+        }
+        
+        _dialogueManager = new DialogueManager(Story, this);
+
+        _dialogueManager.RegisterEvents();
+
+
+
     }
     private void OnDisable()
     {
         InDialogue = false;
+
+        _dialogueManager?.UnregisterEvents();
     }
+    
     #region
     /// <summary>
     /// <br> Triggers the OnEnterDialogue event. </br>
@@ -78,12 +111,18 @@ public class DialogueData : Data
     public void ExitDialogue()
     {
         
-        OnExitDialogue?.Invoke();
+        OnExitDialogue?.Invoke(_interactedWithNpc);
+
+        DialogueLine = "";
 
         ChoiceText?.Clear();
 
         InDialogue = false;
 
+        if (_resetStoryAfterExit)
+        {
+            Story.ResetState();
+        }
         
 
     }
@@ -99,24 +138,23 @@ public class DialogueData : Data
     {
         OnChoiceSelected?.Invoke(choiceIndex);
 
-        
 
         ContinueDialogue(); // automatically continue dialogue
     }
     #region
     /// <summary>
+    /// <br> Happens when there are choices in the ink story. </br>
     /// <br> Triggers the OnUpdateChoices event. </br>
     /// </summary>
     /// <param name="choiceIndex"></param>
     #endregion
     public void UpdateStoryChoices(List<string> choicesText)
     {
+        
         OnUpdateChoices?.Invoke(choicesText);
+
+
     }
+
     
-
-    public void OnVariableChanged()
-    {
-
-    }
 }

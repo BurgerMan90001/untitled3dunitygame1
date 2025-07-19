@@ -20,7 +20,7 @@ public static class SceneLoadingManager
     private static SceneLoader _sceneLoader = new SceneLoader();
 
     
-
+    
     private static void LoadLoadingScene()
     {
         _sceneLoader.LoadScene(LoadingSceneName);

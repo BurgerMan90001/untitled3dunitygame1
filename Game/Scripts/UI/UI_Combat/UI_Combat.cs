@@ -1,16 +1,33 @@
 using UnityEngine;
-
-public class UI_Combat : MonoBehaviour
+using UnityEngine.UIElements;
+// TODO ANIMETOION MAYBE NOT DO SOM MAKE FEEL GOOD
+public class UI_Combat : IUserInterface
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void QueryElements(VisualElement root)
     {
-        
+        throw new System.NotImplementedException();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Register(VisualElement root)
     {
-        
+        throw new System.NotImplementedException();
     }
+
+    public void Unregister()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    private void OnAttackSelected()
+    {
+        // PLAY READY ATTACK ANIMATION
+    }
+
+    private void OnBlockSelected()
+    {
+        // PLAY READY BLOCK ANIMATION
+    }
+
+    
+
 }

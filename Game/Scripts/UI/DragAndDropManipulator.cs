@@ -236,7 +236,7 @@ public class DragAndDropManipulator : PointerManipulator
         closestOverlappingSlot.userData = itemInstance;
         _selectedFullItemSlot.userData = null;
 
-        _inventory.OnInventoryChanged?.Invoke();
+
     }
     private bool OverlapsTarget(VisualElement slot)
     {

@@ -61,16 +61,18 @@ public class VariableStateHandler
 
     private void BoolValueChanged(string variableName, bool newValue)
     {
-        switch (variableName, newValue)
+        /*
+        switch (variableNamee)
         {
-            case ("battleEntered", true): // if battleEntered variable state has changed and is true
-                _combatData.EnterCombat();
+            case ("battleEntered"): // if battleEntered variable state has changed and is true
+                _combatData.EnterCombat(newValue);
                 
                 break;
             default:
                 Debug.LogError("Could not find matching variable name.");
                 break;
         }
+        */
 
     }
     private void IntValueChanged(string variableName, int newValue)

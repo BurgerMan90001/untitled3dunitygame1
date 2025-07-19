@@ -1,8 +1,8 @@
 VAR yourVariable = true
 
-VAR battleEntered = true
+VAR battleEntered = false
 
-VAR myNumber = 5
+VAR myNumber = 1
 /*
 	Quick random function for varying choices
 
@@ -27,7 +27,7 @@ fdgjlsdfhggflkhflgmjgdfhjmkdf
 
 -> END
 === somebody1 === //MAYBE
-t..tha.thank you
+//t..tha.thank you NO
 -> END // after, *stares at player* 
 
 == PayPhone ===
@@ -67,10 +67,12 @@ DO YOU WAN'T TO CARD BATTLE?
         LETS BATTLE!!
         
         ~ battleEntered = true
+        ~ myNumber = 5
         -> END
     + [no]
         ...
         ~ battleEntered = false
+        ~ myNumber = 3
         -> END
 
 

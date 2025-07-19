@@ -93,7 +93,7 @@ public class UserInterface : MonoBehaviour, ISingleton
         _uiMainMenu = new UI_MainMenu(_dataPersistenceData, _interfaceToggler);
         _uiSaveSlotsMenu = new UI_SaveSlotsMenu(_dataPersistenceData, _interfaceToggler);
         _uiDialogue = new UI_Dialogue(_userInterfaceData, _dialogueData);
-        _uiInventory = new UI_Inventory(_inventory, _inventory.OnInventoryChanged);
+        _uiInventory = new UI_Inventory(_inventory);
 
         _userInterfaces.Add(_uiMainMenu);
         _userInterfaces.Add(_uiSaveSlotsMenu);
@@ -120,10 +120,13 @@ public class UserInterface : MonoBehaviour, ISingleton
             
             _root.RegisterCallback<MouseMoveEvent>(OnMouseMove);
 
+            _uiInventory.UpdateInterface(_inventory.Items);
+
             SceneLoadingManager.OnSceneLoaded += _interfaceToggler.ToggleUserInterface;
             _userInterfaceData.OnToggleUserInterface += _interfaceToggler.ToggleUserInterface;
-            _inventory.OnInventoryChanged += _uiInventory.UpdateInterface; // whenever the inventory changes, update the inventory ui
+
             
+            _inventory.OnInventoryChanged += _uiInventory.UpdateInterface; // whenever the inventory changes, update the inventory ui
             _interfaceToggler.ToggleUserInterface(InitalShownUserInterface, true);
 
         } catch (Exception e)

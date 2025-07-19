@@ -14,5 +14,6 @@ public class HurtItem : Item
         HurtType = HurtType.Physical;
 
         HurtValue = 0;
+
     }
 }

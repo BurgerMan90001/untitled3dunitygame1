@@ -1,25 +1,95 @@
 using System;
 using UnityEngine;
+
+public enum CombatStates
+{
+    Start,
+    PlayerTurn,
+    EnemyTurn,
+    Won,
+    Lost,
+
+}
+
+public enum CombatAction
+{
+    Attack,
+    Block,
+    Flee,
+}
+public enum BlockType
+{
+    Normal,
+    Damage, // damages the attacker back
+}
 /// <summary>
 /// <br> Combat events and data. <br>
 /// </summary>
 [CreateAssetMenu(menuName = "Data/CombatData")]
 public class CombatData : Data
 {
-    public event Action OnEnterCombat;
+    [Header("Data")]
+    [SerializeField] private DialogueData _dialogueData;
+  //  [SerializeField] private InputData _inputData;
+    [Header("Settings")]
+
+
+    [Header("Spawn Points")]
+    [field: SerializeField] public Vector3 PlayerSpawnPoint { get; private set; } = new Vector3(3f, 4f, 0);
+    [field: SerializeField] public Vector3 EnemySpawnPoint { get; private set; } = new Vector3(-3f, 4f, 0);
+    [SerializeField] private bool _debug = true;
+
+    public event Action<GameObject> OnEnterCombat;
     public event Action OnExitCombat;
     
-    public event Action OnTurnChanged;
+ //   public event Action OnTurnChanged;
+
+    public CombatStates CombatState;
 
 
+    private void OnEnable()
+    {
+        _dialogueData.OnExitDialogue += CheckIfBattleEntered;
+       
+    }
+    private void OnDisable()
+    {
+        _dialogueData.OnExitDialogue -= CheckIfBattleEntered;
+    }
+    private void CheckIfBattleEntered(GameObject npc)
+    {
+        bool battleEntered = (bool) _dialogueData.Story.variablesState["battleEntered"];
+        if (battleEntered)
+        {
+            EnterCombat(npc);
+        }
+        
+    }
 
+    
+    
+    #region
     /// <summary>
+    ///  <br> Doesn't do anything if enteredCombat is false. </br>
     /// <br> Triggers the OnEnterCombat event. </br>
     /// </summary>
-    public void EnterCombat()
-    {   
-        OnEnterCombat?.Invoke();
-      
+    #endregion
+    public void EnterCombat(GameObject enemy)
+    {
+
+
+        OnEnterCombat?.Invoke(enemy);
+
+        if (_debug)
+        {
+            Debug.Log("ENTERED COMBAT");
+        }
+
+        SceneLoadingManager.LoadScene("Combat", UserInterfaceType.Combat);
+        SceneLoadingManager.SetSpawnPoint(PlayerSpawnPoint);
+
+        
+
     }
     /// <summary>
     /// <br> Triggers the OnExitCombat event. </br>
@@ -27,8 +97,16 @@ public class CombatData : Data
     public void ExitCombat()
     {
         OnExitCombat?.Invoke();
+
+        if (_debug)
+        {
+            Debug.Log("EXITED COMBAT");
+        }
+
+        SceneLoadingManager.LoadScene("Main Game", UserInterfaceType.HUD);
     }
 
+    /*
     /// <summary>
     /// <br> Triggers the OnTurnChanged  event. </br>
     /// </summary>
@@ -36,5 +114,11 @@ public class CombatData : Data
     {
         OnTurnChanged?.Invoke();
 
+        if (_debug)
+        {
+            Debug.Log("CHANGED TURNS");
+        }
+
     }
+    */
 }

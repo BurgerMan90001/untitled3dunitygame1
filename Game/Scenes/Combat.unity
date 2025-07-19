@@ -132,6 +132,10 @@ PrefabInstance:
       value: CombatManager
       objectReference: {fileID: 0}
     - target: {fileID: 2309645640552493600, guid: 29d0da05cd858234b94b1afee26ae887, type: 3}
+      propertyPath: _debugMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2309645640552493600, guid: 29d0da05cd858234b94b1afee26ae887, type: 3}
       propertyPath: _enemyPrefab
       value: 
       objectReference: {fileID: 2435433878202072624, guid: 20b27595f2473564687fb7ca86cfd9fc, type: 3}

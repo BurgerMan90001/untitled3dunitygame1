@@ -85,12 +85,14 @@ public class InputData : ScriptableObject
     {
         MovementInput.EnableMovement(false);
         CameraInput.EnableLook(false);
+        CameraInput.EnableInteract(false);
     }
 
     private void OnChoiceSelected(int choicesIndex) // discards the chosen int index. enables input
     {
         MovementInput.EnableMovement(true);
         CameraInput.EnableLook(true);
+        CameraInput.EnableInteract(true);
     }
     
 }

@@ -19,5 +19,6 @@ MonoBehaviour:
   <OriginalValue>k__BackingField: 20
   <MinQuality>k__BackingField: 5
   <MaxQuality>k__BackingField: 5
+  <RarityType>k__BackingField: 2
   <HurtValue>k__BackingField: 20
   <HurtType>k__BackingField: 2

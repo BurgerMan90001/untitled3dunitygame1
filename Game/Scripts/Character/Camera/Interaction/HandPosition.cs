@@ -5,24 +5,28 @@ using UnityEngine;
 public class HandPosition : MonoBehaviour
 {
     
-    [SerializeField] private float xOffset = 0f;
-    [SerializeField] private float yOffset = 0f;
-    [SerializeField] private float zOffset = 1f;
-    [SerializeField] private float followSpeed = 10f;
+    [SerializeField] private float _xOffset = 0f;
+    [SerializeField] private float _yOffset = 0f;
+    [SerializeField] private float _zOffset = 1f;
+    [SerializeField] private float _followSpeed = 10f;
 
-    [SerializeField] private Transform cam;
+    [SerializeField] private Transform _orientation;
 
     private Vector3 totalOffset;
 
     private Vector3 cameraEndPoint;
     
-    private void LateUpdate()
+    
+    private void MoveHand()
     {
-        totalOffset = new Vector3(xOffset, yOffset, zOffset);
+        totalOffset = new Vector3(_xOffset, _yOffset, _zOffset);
 
-        cameraEndPoint = cam.position;
-        transform.rotation = cam.rotation;
-        transform.position = Vector3.Lerp(transform.position, cameraEndPoint + cam.rotation * totalOffset, Time.deltaTime * followSpeed);
+        cameraEndPoint = _orientation.position;
+        transform.rotation = _orientation.rotation;
+        transform.position = Vector3.Lerp(transform.position, cameraEndPoint + _orientation.rotation * totalOffset, Time.deltaTime * _followSpeed);
+    }
+    private void Update()
+    {
         
     }
 }

@@ -25,6 +25,7 @@ public class NPCManager : MonoBehaviour
 
     /// <summary>
     /// <br> Injects all npcs with depndancies. </br>
+    /// <br> Called in onEnable. </br>
     /// </summary>
     protected virtual void InitializeNPCS() 
     {
@@ -35,7 +36,7 @@ public class NPCManager : MonoBehaviour
         }
         foreach (Transform npc in transform)
         {
-            if (npc.gameObject.TryGetComponent(out NPCInteraction component))
+            if (npc.gameObject.TryGetComponent(out NPC component))
             {
                 component.Initialize(_dialogueData);
                 npc.gameObject.SetActive(true);

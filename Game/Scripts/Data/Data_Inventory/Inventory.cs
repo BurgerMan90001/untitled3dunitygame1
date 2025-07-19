@@ -14,8 +14,8 @@ public class Inventory : ScriptableObject
     public int MaxItems = 28;
     public List<ItemInstance> Items;
 
-    public Action OnInventoryChanged; 
-    
+    public event Action<List<ItemInstance>> OnInventoryChanged;
+
     private void AddToInventory(ItemInstance itemToAdd)
     {
         if (IsThereEmptySlot(out int firstEmptySlotIndex))
@@ -24,7 +24,16 @@ public class Inventory : ScriptableObject
         }
 
     }
-    
+    #region
+    /// <summary>
+    /// <br> Happens whenever the inventory data is modified in any way. </br>
+    /// <br> Invokes the OnInventoryChanged event. </br>
+    /// </summary>
+    #endregion
+    public void InventoryChange()
+    {
+        OnInventoryChanged?.Invoke(Items);
+    }
     
    
     private void AddOrStackItem(ItemInstance itemToAdd)
@@ -57,8 +66,9 @@ public class Inventory : ScriptableObject
             AddOrStackItem(item);
 
         }
-        OnInventoryChanged?.Invoke();
-        
+        InventoryChange();
+
+
     }
     public virtual bool AddItem(ItemInstance itemToAdd)
     {
@@ -74,7 +84,7 @@ public class Inventory : ScriptableObject
         else if (!IsInventoryFull()) // if its a normal item and the inventory is not full
         {
             AddOrStackItem(itemToAdd);
-            OnInventoryChanged?.Invoke();
+            InventoryChange();
 
             return true; 
 
@@ -90,7 +100,7 @@ public class Inventory : ScriptableObject
         if (Items[itemIndex].Quantity > 1)
         {
             Items[itemIndex].Quantity -= 1; // Just ecrease quantity if item is stackable
-            OnInventoryChanged?.Invoke();
+            InventoryChange();
 
         } else
         {
@@ -183,7 +193,7 @@ public class Inventory : ScriptableObject
     {
         
         SwapIndexes(indexA, indexB);
-        OnInventoryChanged?.Invoke();
+        InventoryChange();
         return true;
     }
     public bool SwapItems(ItemInstance itemA, ItemInstance itemB)
@@ -195,6 +205,7 @@ public class Inventory : ScriptableObject
             return false; // One or both items not found
 
         SwapIndexes(indexA, indexB);
+        InventoryChange();
         return true;
     }
     private void SwapIndexes(int indexA, int indexB) 

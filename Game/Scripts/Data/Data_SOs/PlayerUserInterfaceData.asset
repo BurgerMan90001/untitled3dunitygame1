@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae7f35cb96e1fd44ac13c78c7eb1891, type: 3}
   m_Name: PlayerUserInterfaceData
   m_EditorClassIdentifier: 
+  _inventory: {fileID: 11400000, guid: 429beb422e6f2764ab242e6b1ace72b8, type: 2}

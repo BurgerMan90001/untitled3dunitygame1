@@ -1,4 +1,4 @@
-using UnityEngine;
+using UnityEngine; //TODO IMPLEMENT
 #region 
 /// <summary>
 /// <br> Weakness effect. </br>
@@ -15,8 +15,8 @@ public class SpookHurtEffect : HurtEffect
     public override void ApplyEffect(CombatStats target, CombatStats attacker, float damage)
     {
 
-        target.Hurt(damage);
-        target.AttackPercent -= WeaknessPercent;
+     //   target.Hurt(damage);
+    //    target.AttackPercent -= WeaknessPercent;
 
     }
 }

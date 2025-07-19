@@ -44,11 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65d1c1ce76d17ab45a51604311857892, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 4556210685214512358, guid: 1edf35564d1358847b42187fe6112893, type: 3}
   _userInterfaceData: {fileID: 11400000, guid: 1c7fbd88d5738b74087a9f4ddfe1e972, type: 2}
   _debugScene: 1
-  _lockCursor: 0
-  _loadedInterface: 7
+  _lockCursor: 1
+  _loadedInterface: 1
   _showInterface: 1
   _instantiatedPrefabs: 1
   _setPrefabsActive: 1

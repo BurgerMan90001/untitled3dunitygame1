@@ -1,9 +1,10 @@
 
-using System;
 using System.Collections.Generic;
 using UnityEngine.UIElements;
-
-
+using UnityEngine;
+using System;
+//TODO MAYBE OPTIMIZE INVENTORY UPDATES TO ONLY UPDATE CHANGED ELEMENTS
+// TODO MAYBE USE BINDINGS TO OPTIMIZE
 public class UI_Inventory : IUserInterface // animation and stuff
 {
 
@@ -19,13 +20,10 @@ public class UI_Inventory : IUserInterface // animation and stuff
 
     private VisualElement _ghostImage; // the ghost image that will be used to show the item being dragged
 
-    private Action _onInventoryChanged;
-    public UI_Inventory(Inventory inventory, Action onInventoryChanged)
+    public UI_Inventory(Inventory inventory)
     {
         _inventory = inventory; // the dynamic inventory that this UI_Inventory will use
 
-        _onInventoryChanged = onInventoryChanged;
-        
         _itemVisualElements = new List<VisualElement>();
 
     }
@@ -38,9 +36,8 @@ public class UI_Inventory : IUserInterface // animation and stuff
     
     public void Register(VisualElement root)
     {
-        _onInventoryChanged += UpdateInterface;
 
-    //   _itemVisualElements = (List<VisualElement>)_inventoryBackingPanel.Children();
+        
         for (int i = 0; i < _inventoryBackingPanel.childCount; i++)
         {
 
@@ -59,14 +56,14 @@ public class UI_Inventory : IUserInterface // animation and stuff
             {
                 child.userData = _inventory.Items[i]; // Store directly in the element
             }
-        }
 
-        UpdateInterface(); // assign the item instances to the visual elements in the inventory
+
+        }
+        
 
     }
     public void Unregister()
     {
-        _onInventoryChanged -= UpdateInterface;
 
 
         for (int i = 0; i < _inventoryBackingPanel.childCount; i++)
@@ -81,34 +78,31 @@ public class UI_Inventory : IUserInterface // animation and stuff
 
 
     }
+    
     #region
     /// <summary>
     /// Updates the ItemSlots dictionary with the current items in the dynamic inventory. 
     /// </summary>
     #endregion
-    public void UpdateInterface() // O(n)
+    public void UpdateInterface(List<ItemInstance> items) // O(n)
     {
-
-        for (int i = 0; i < _inventory.Items.Count; i++)
+        for (int i = 0; i < items.Count; i++)
         {
             VisualElement child = _itemVisualElements[i];
             
-            ItemInstance itemInstance = _inventory.Items[i]; // get the item instance from the dynamic inventory
+            ItemInstance itemInstance = items[i]; // get the item instance from the dynamic inventory
 
             if (child == null || itemInstance == null)
             {
+                Debug.LogWarning("A child or itemInstance is null");
                 continue; // skip if the child is null
+                
             }
-            
-            
-
-
             child.userData = itemInstance;
-
+    
             child.style.backgroundImage = Background.FromSprite(itemInstance.Icon);
          
 
-            
         }
     }
 

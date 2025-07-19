@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c3211a2e793fb94bb5bac785ff485cb, type: 3}
   m_Name: Combat Data
   m_EditorClassIdentifier: 
+  _dialogueData: {fileID: 11400000, guid: b7057052d12597d459bf37d69cac44f3, type: 2}
+  <PlayerSpawnPoint>k__BackingField: {x: 3, y: 4, z: 0}
+  <EnemySpawnPoint>k__BackingField: {x: -3, y: 4, z: 0}
+  _debug: 1
+  CombatState: 0

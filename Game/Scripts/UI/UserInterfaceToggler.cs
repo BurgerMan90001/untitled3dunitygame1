@@ -11,12 +11,12 @@ public class UserInterfaceToggler
 
     public Action InterfaceChanged;
 
-    private UserInterfaceType _previousInterface; 
+    private UserInterfaceType _shownInterface; 
     public UserInterfaceToggler(UXMLFileHandler uxmlFileHandler)
     {
         _uxmlFileHandler = uxmlFileHandler;
     }
-    /*
+    
     public void Register(Action<UserInterfaceType,bool> onUserInterfaceToggled) 
     {
         onUserInterfaceToggled += ToggleUserInterface;
@@ -26,7 +26,7 @@ public class UserInterfaceToggler
     {
         onUserInterfaceToggled -= ToggleUserInterface;
     }
-    */
+    
     #region
     /// <summary>
     /// <br> Toggles a user interface on or off based on the UserInterfaceType value. </br>
@@ -38,7 +38,7 @@ public class UserInterfaceToggler
     public void ToggleUserInterface(UserInterfaceType userInterface, bool active)
     {
         VisualElement elementToBeShown = GetUserInterfaceElement(userInterface);
-
+        _shownInterface = userInterface;
         if (elementToBeShown == null)
         {
             Debug.LogError("The elementToBeShown is null.");
@@ -64,7 +64,7 @@ public class UserInterfaceToggler
     public void ToggleUserInterface(UserInterfaceType userInterface) 
     {
         VisualElement elementToBeShown = GetUserInterfaceElement(userInterface);
-
+        
         if (elementToBeShown == null)
         {
             Debug.LogError("The elementToBeShown is null.");
@@ -115,26 +115,25 @@ public class UserInterfaceToggler
     /// <br> Loops through the entire UserInterfaceElements dictionary and disables each element. </br>
     /// </summary>
     /// <param name="userInterface"></param>
-    public void SwitchUserInterface(UserInterfaceType userInterface, bool _)
+    public void SwitchUserInterface(UserInterfaceType userInterface)
     {
-
-        // Hide all UI elements
-        foreach (var element in _uxmlFileHandler.UserInterfaceElements.Values)
+        VisualElement elementToBeShown = GetUserInterfaceElement(userInterface);
+        if (_shownInterface == UserInterfaceType.None)
         {
-            element.style.display = DisplayStyle.None;
+            ToggleUserInterface(userInterface, true);
         }
-
-        // Show the selected interface
-        if (_uxmlFileHandler.UserInterfaceElements.ContainsKey(userInterface))
+        else
         {
-            _uxmlFileHandler.UserInterfaceElements[userInterface].style.display = DisplayStyle.Flex;
-
-        } else
-        {
-            Debug.LogError("The switched to user interface has not been found!");
+            elementToBeShown.style.display = DisplayStyle.Flex;
+            _shownInterface = userInterface;
         }
+        
     }
-
+    /// <summary>
+    /// <br> Returns a visual element from the UserInterfaceType key in the UserInterfaceElements dictionary. </br>
+    /// </summary>
+    /// <param name="userInterface"></param>
+    /// <returns></returns>
     private VisualElement GetUserInterfaceElement(UserInterfaceType userInterface) 
     {
 

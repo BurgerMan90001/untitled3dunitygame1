@@ -1,29 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CombatStates
-{
-    Start,
-    PlayerTurn,
-    EnemyTurn,
-    Won,
-    Lost,
-
-}
-
-public enum BlockType
-{
-    Normal,
-    Damage, // damages the attacker back
-}
-
-
-
-
 //TODO MAKE COMBAT SYSTEM BETTER
 public class CombatManager : MonoBehaviour, ISingleton
 {
-    public CombatStates CombatState;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject _playerPrefab;
@@ -33,14 +13,9 @@ public class CombatManager : MonoBehaviour, ISingleton
     [SerializeField] private CombatStats _playerCombatStats;
     [SerializeField] private CombatStats _enemyCombatStats;
 
-
-    [Header("Spawn Points")]
-    [SerializeField] private Vector3 _playerSpawnPoint;
-    [SerializeField] private Vector3 _enemySpawnPoint;
-
     [Header("Data")]
     [SerializeField] private CombatData _combatData;
-    [SerializeField] private InputData _inputData;
+
     [SerializeField] private UserInterfaceData userInterfaceData;
 
     [Header("HurtEffects")]
@@ -75,47 +50,64 @@ public class CombatManager : MonoBehaviour, ISingleton
         if (_debugMode)
         {
             Debug.Log("IN COMBAT DEBUG MODE");
-            SetupBattle();
+       //     SetupBattle();
         }
     }
-    private void SetupBattle()
+    private void SetupBattle(GameObject enemy)
     {
+        
+        if (_debugMode) // if there is no player prefab
+        {
+            GameObject playerGO = Instantiate(_playerPrefab, _combatData.PlayerSpawnPoint, Quaternion.identity); // GO is gameobject
 
-        GameObject playerGO = Instantiate(_playerPrefab, _playerSpawnPoint, Quaternion.identity);
+            _playerUnit = playerGO.GetComponent<CombatUnit>();
+        }
+        if (enemy == null || _debugMode)
 
-        _playerUnit = playerGO.GetComponent<CombatUnit>();
-
-        GameObject enemyGO = Instantiate(_enemyPrefab, _enemySpawnPoint, Quaternion.identity);
-
-        _enemyUnit = enemyGO.GetComponent<CombatUnit>(); 
+        {
+            GameObject enemyGO = Instantiate(_enemyPrefab, _combatData.EnemySpawnPoint, Quaternion.identity);
+            _enemyUnit = enemyGO.GetComponent<CombatUnit>();
+        }
+        
     }
     private void OnEnable()
     {
         _combatData.OnEnterCombat += EnterCombat;
-        _combatData.OnExitCombat += ExitCombat;
+     //   _combatData.OnExitCombat += ExitCombat;
     }
 
     private void OnDisable()
     {
         _combatData.OnEnterCombat -= EnterCombat;
-        _combatData.OnExitCombat -= ExitCombat;
+   //     _combatData.OnExitCombat -= ExitCombat;
+    }
+    private void PlayerAction()
+    {
+        if (_combatData.CombatState != CombatStates.PlayerTurn) return;
+
+        bool isDead = _enemyUnit.CombatStats.Hurt(_playerUnit.CombatStats.Damage);
+
+        Debug.Log(_enemyUnit.CombatStats.Health);
+
+
+        if (isDead)
+        {
+            _combatData.CombatState = CombatStates.Won;
+            _combatData.ExitCombat();
+        } else
+        {
+            _combatData.CombatState = CombatStates.EnemyTurn;
+        }
+
+    }
+    private void EnterCombat(GameObject enemy)
+    {
+        SetupBattle(enemy);
+
+        _combatData.CombatState = CombatStates.Start;
+
     }
     
-    private void EnterCombat()
-    {
-        Debug.Log("COMBAT ENTERED");
-        SceneLoadingManager.LoadScene("Combat",UserInterfaceType.Combat);
-        SceneLoadingManager.SetSpawnPoint(_playerSpawnPoint);
-
-        CombatState = CombatStates.Start;
-
-
-    }
-    private void ExitCombat()
-    {
-        Debug.Log("COMBAT EXITED");
-        SceneLoadingManager.LoadScene("Main Game",UserInterfaceType.HUD);
-    }
     public bool ApplyHurt(HurtType type, CombatStats target, CombatStats attacker, float damageAmount)
     {
         foreach (var kvp in _hurtEffects)

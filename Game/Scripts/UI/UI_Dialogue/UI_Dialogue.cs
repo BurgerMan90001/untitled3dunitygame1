@@ -100,7 +100,7 @@ public class UI_Dialogue : IUserInterface
     {
         _dialogueLabel.text = _dialogueData.DialogueLine;
     }
-    private void HideDialogue()
+    private void HideDialogue(GameObject npc)
     {
         _userInterfaceData.ToggleUserInterface(UserInterfaceType.Dialogue, false);
     }
