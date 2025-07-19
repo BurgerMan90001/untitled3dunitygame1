@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInventory : MonoBehaviour, IDataPersistence
+public class PlayerData : MonoBehaviour, IDataPersistence
 {
     [Header("Dependancies")]
     

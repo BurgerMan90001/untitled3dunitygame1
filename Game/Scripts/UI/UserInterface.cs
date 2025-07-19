@@ -29,7 +29,7 @@ public class UserInterface : MonoBehaviour, ISingleton
     [SerializeField] private CombatData _combatData;
 
     [Header("Inventory Settings")]
-    [SerializeField] private bool _pauseOnInventory = true; // pause when the inventory is opened
+ 
 
     [Header("UXML Loader Settings")]
     [SerializeField] private AssetLabelReference _uxmlAssetLabelReference;

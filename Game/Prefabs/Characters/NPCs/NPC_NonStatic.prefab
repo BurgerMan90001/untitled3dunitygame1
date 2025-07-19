@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 6620086373011630950}
   - component: {fileID: 6468139801906343321}
   - component: {fileID: 8314786452955239208}
+  - component: {fileID: 3113350624775158176}
   m_Layer: 9
   m_Name: NPC_NonStatic
   m_TagString: NPC
@@ -172,6 +173,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &3113350624775158176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3589159676945201763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a3d06e508871c5478bd93dc69da0a1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CombatStats: {fileID: 11400000, guid: 0e64a6bdeadbc19439adc27be700aaba, type: 2}
 --- !u!1 &5003940789161230038
 GameObject:
   m_ObjectHideFlags: 0

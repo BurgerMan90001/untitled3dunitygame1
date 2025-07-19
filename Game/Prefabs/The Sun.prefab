@@ -11,14 +11,13 @@ GameObject:
   - component: {fileID: 5687435604236100945}
   - component: {fileID: 6106511725019629283}
   - component: {fileID: 5396568588656467690}
-  - component: {fileID: 2736403727358724211}
   m_Layer: 0
   m_Name: The Sun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5687435604236100945
 Transform:
   m_ObjectHideFlags: 0
@@ -241,20 +240,3 @@ MonoBehaviour:
   m_ObsoleteUseShadowQualitySettings: 0
   m_ObsoleteCustomShadowResolution: 512
   m_ObsoleteContactShadows: 0
---- !u!114 &2736403727358724211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6003236033322512858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cca14252e57ca4741a2adcbb26a46683, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sun: {fileID: 6106511725019629283}
-  dayLength: 120
-  sunInitialRotation: {x: 0, y: -30, z: 0}
-  timeOfDay: 21.37
-  twelveHourTime: 9 PM

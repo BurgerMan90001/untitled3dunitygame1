@@ -5,7 +5,9 @@
         "Unity.InputSystem",
         "Ink-Libraries",
         "Utilities",
-        "Unity.RenderPipelines.HighDefinition.Editor"
+        "Unity.RenderPipelines.HighDefinition.Editor",
+        "Unity.Addressables",
+        "Unity.ResourceManager"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

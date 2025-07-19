@@ -11,7 +11,6 @@ public class CameraActions : MonoBehaviour
     private RotateCamera _rotateCamera;
     private MouseClick _mouseClick;
     private HitDetect _hitDetect;
-    
 
     private Vector2 _lookInput;
     private Vector2 _mousePosition;
@@ -26,7 +25,7 @@ public class CameraActions : MonoBehaviour
 
     [Header("Positions")]
     [SerializeField] private Transform _orientation;
-    [SerializeField] private Transform _rainPosition;
+   // [SerializeField] private Transform _rainPosition;
 
     [Header("Hit Detect Settings")]
     [SerializeField] private LayerMask _mask;

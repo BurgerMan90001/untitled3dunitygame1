@@ -9,15 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cef4a8af46a9c60499fa71b7a6d36617, type: 3}
-  m_Name: Game Time Data
+  m_Script: {fileID: 11500000, guid: 9ab0dfd69460e5142976280d7fa6f636, type: 3}
+  m_Name: Rival Combat Stats
   m_EditorClassIdentifier: 
-  _sun: {fileID: 0}
-  _moon: {fileID: 0}
-  dayLength: 120
-  _gameTimeData: {fileID: 11400000}
-  timeOfDay: 0
-  Day: 0
-  Month: 0
-  Hour: 0
-  Year: 0
+  _combatData: {fileID: 11400000, guid: e99ab9cb863476f46ae38c8aee2da7b4, type: 2}
+  _inventory: {fileID: 0}
+  AttackValue: 1
+  AttackPercent: 0
+  BlockValue: 0

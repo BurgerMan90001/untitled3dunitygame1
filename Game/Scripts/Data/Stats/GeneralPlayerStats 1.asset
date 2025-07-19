@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83e69e01d51b4934f83e622ebb558e41, type: 3}
-  m_Name: NPC1Stats
+  m_Name: GeneralPlayerStats 1
   m_EditorClassIdentifier: 
-  CurrentStamina: 0
-  MaxStamina: 0
+  CurrentStamina: 10
+  MaxStamina: 10
   Money: 0
-  CurrentHealth: 0
-  MaxHealth: 0
+  CurrentEnergy: 100
+  MaxEnergy: 100
+  MaxHealth: 20
+  Health: 20
   Experience: 0
   Level: 0

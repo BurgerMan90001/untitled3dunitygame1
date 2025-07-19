@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 // profileIDs are directories which store a json save file
 public class DataPersistenceManager : MonoBehaviour, ISingleton
 {
@@ -48,9 +48,8 @@ public class DataPersistenceManager : MonoBehaviour, ISingleton
     
     private void OnEnable()
     {
-        
-        SceneManager.sceneLoaded += OnSceneLoaded;
-
+        SceneLoadingManager.OnSceneLoaded += OnSceneLoaded;
+   
         _dataPersistenceData.OnStartNewGame += NewGame;
 
         _dataPersistenceData.OnLoadGame += LoadGame;
@@ -63,8 +62,8 @@ public class DataPersistenceManager : MonoBehaviour, ISingleton
 
     private void OnDisable()
     {
-     //   Scene
-        SceneManager.sceneLoaded -= OnSceneLoaded;
+
+        SceneLoadingManager.OnSceneLoaded += OnSceneLoaded;
 
         _dataPersistenceData.OnStartNewGame -= NewGame;
         //    _dataPersistenceData.OnLoadSaveData += 
@@ -83,7 +82,7 @@ public class DataPersistenceManager : MonoBehaviour, ISingleton
     /// <param name="scene"></param>
     /// <param name="mode"></param>
     #endregion
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    private void OnSceneLoaded(UserInterfaceType _, bool _1)
     {
         _dataPersistenceObjects = FindAllDistancePersistenceObjects();
         LoadGame();

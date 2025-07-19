@@ -9,15 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83e69e01d51b4934f83e622ebb558e41, type: 3}
-  m_Name: PlayerStats 1
+  m_Script: {fileID: 11500000, guid: 9cfeeeb3126788742bfd2d7d9e0f9df1, type: 3}
+  m_Name: NPC1 Inventory
   m_EditorClassIdentifier: 
-  CurrentStamina: 10
-  MaxStamina: 10
-  Money: 0
-  CurrentEnergy: 100
-  MaxEnergy: 100
-  MaxHealth: 20
-  Health: 20
-  Experience: 0
-  Level: 0
+  MaxItems: 28
+  Items: []

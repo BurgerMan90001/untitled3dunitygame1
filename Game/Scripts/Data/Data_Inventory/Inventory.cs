@@ -7,10 +7,9 @@ using UnityEngine;
 /// <summary>
 /// <br> </br>
 /// </summary>
-[CreateAssetMenu(menuName = "Character/Inventory/Inventory")]
+[CreateAssetMenu(menuName = "Items/Inventory")]
 public class Inventory : ScriptableObject
 {
-    [SerializeField] private GeneralStats _stats; // the stats 
 
     public int MaxItems = 28;
     public List<ItemInstance> Items;
@@ -61,7 +60,7 @@ public class Inventory : ScriptableObject
         OnInventoryChanged?.Invoke();
         
     }
-    public bool AddItem(ItemInstance itemToAdd)
+    public virtual bool AddItem(ItemInstance itemToAdd)
     {
         
         
@@ -100,11 +99,7 @@ public class Inventory : ScriptableObject
 
     }
 
-    public void SellItem(int index)
-    {
-        _stats.Money += Items[index].SellPrice; 
-        RemoveItem(index);
-    }
+    
     #region
     /// <summary>
     /// <br> Clears the inventory and adds empty items the items list. </br>

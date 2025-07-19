@@ -4,13 +4,12 @@ using UnityEngine;
 /// <summary>
 /// <br> Stats that are used during combat. </br>
 /// </summary>
-[CreateAssetMenu(menuName = "Character/Stats/CombatStats")]
+[CreateAssetMenu(menuName = "Stats/CombatStats")]
 public class CombatStats : ScriptableObject, IDataPersistence
 {
     [Header("Data")]
     [SerializeField] private CombatData _combatData;
-
-    public Inventory Inventory;
+    [SerializeField] private Inventory _inventory;
 
     public float MaxHealth {get; private set;}
     public float Health {get; private set;} // used in battle

@@ -9,14 +9,7 @@ public class DebugInput : MonoBehaviour, ISingleton
     [Header("Data")]
     [SerializeField] private UserInterfaceData _userInterfaceData;
 
-    /*
-    [Header("UserInteface Settings")]
     
-
-    [Header("Settings")]
-    */
-
-
     [Header("Debug Scene")]
     [SerializeField] private bool _debugScene = true;
 

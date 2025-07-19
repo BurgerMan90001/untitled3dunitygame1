@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // data that will persist
-[CreateAssetMenu(menuName = "Character/Stats/GeneralStats")]
+[CreateAssetMenu(menuName = "Stats/GeneralStats")]
 public class GeneralStats : ScriptableObject, IDataPersistence
 {
  //   public List<ItemInstance> Items;
