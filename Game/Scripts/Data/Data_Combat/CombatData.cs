@@ -30,6 +30,12 @@ public enum BlockType
 [CreateAssetMenu(menuName = "Data/CombatData")]
 public class CombatData : Data
 {
+
+    [Header("Prefabs For Debuging")]
+    [SerializeField] private GameObject _playerPrefab;
+    [SerializeField] private GameObject _enemyPrefab;
+
+
     [Header("Data")]
     [SerializeField] private DialogueData _dialogueData;
   //  [SerializeField] private InputData _inputData;

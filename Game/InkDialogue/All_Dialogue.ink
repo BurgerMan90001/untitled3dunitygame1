@@ -94,7 +94,7 @@ YES YES MORE MORE!!
 
 
 === City_Shop_LineWaiter ===
-I CANT MOVE
+IM WAITING
 
 ->END
 === City_Shop ===

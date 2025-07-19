@@ -11,10 +11,6 @@ using UnityEngine;
 public class CombatManager : MonoBehaviour, ISingleton
 {
 
-    [Header("Prefabs")]
-    [SerializeField] private GameObject _playerPrefab;
-    [SerializeField] private GameObject _enemyPrefab;
-
     [Header("CombatStats")]
     [SerializeField] private CombatStats _playerCombatStats;
     [SerializeField] private CombatStats _enemyCombatStats;
@@ -48,8 +44,6 @@ public class CombatManager : MonoBehaviour, ISingleton
             Destroy(gameObject);
         }
         DontDestroyOnLoad(this);
-
-        
     }
     private void Start()
     {
@@ -61,7 +55,7 @@ public class CombatManager : MonoBehaviour, ISingleton
     }
     private void SetupBattle(GameObject enemy)
     {
-        
+        /*
         if (_debugMode) // if there is no player prefab
         {
             GameObject playerGO = Instantiate(_playerPrefab, _combatData.PlayerSpawnPoint, Quaternion.identity); // GO is gameobject
@@ -74,6 +68,7 @@ public class CombatManager : MonoBehaviour, ISingleton
             GameObject enemyGO = Instantiate(_enemyPrefab, _combatData.EnemySpawnPoint, Quaternion.identity);
             _enemyUnit = enemyGO.GetComponent<CombatUnit>();
         }
+        */
         
     }
     private void OnEnable()
@@ -87,14 +82,14 @@ public class CombatManager : MonoBehaviour, ISingleton
         _combatData.OnEnterCombat -= EnterCombat;
 
     }
-    private void PlayerTurn()
+    private IEnumerator PlayerAttack()
     {
-        if (_combatData.CombatState != CombatStates.PlayerTurn) return;
 
         bool isDead = _enemyUnit.CombatStats.Hurt(_playerUnit.CombatStats.Damage);
 
         Debug.Log(_enemyUnit.CombatStats.Health); // UPDATE HUD
 
+        yield return new WaitForSeconds(2f);
 
         if (isDead)
         {
@@ -107,11 +102,28 @@ public class CombatManager : MonoBehaviour, ISingleton
         }
 
     }
-    
+    private IEnumerator PlayerBlock()
+    {
+        Debug.Log("BLOCK");
+        yield return new WaitForSeconds(2f);
+    }
+    public void OnAttackButton()
+    {
+        if (_combatData.CombatState != CombatStates.PlayerTurn) return;
+
+        StartCoroutine(PlayerAttack());
+    }
+    public void OnBlockButton()
+    {
+        if (_combatData.CombatState != CombatStates.PlayerTurn) return;
+        
+        StartCoroutine(PlayerBlock());
+
+    }
     /// <summary>
     /// <br> COULD MAKE BETTER AI.</br>
     /// </summary>
-    IEnumerator EnemyTurn()
+    private IEnumerator EnemyTurn()
     {
         Debug.Log("THE ENEMY ATTACKS!");
 
@@ -130,7 +142,7 @@ public class CombatManager : MonoBehaviour, ISingleton
         } else
         {
             _combatData.SwitchCombatState(CombatStates.PlayerTurn);
-            PlayerTurn();
+            StartCoroutine(PlayerTurn());
         }
 
     }

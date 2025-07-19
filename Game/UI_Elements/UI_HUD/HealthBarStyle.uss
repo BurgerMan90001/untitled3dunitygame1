@@ -1,7 +1,7 @@
 :root {
 }
 
-#HealthBar > #unity-progress-bar > .unity-progress-bar__background > .unity-progress-bar__progress {
+#ProgressBar_Health > #unity-progress-bar > .unity-progress-bar__background > .unity-progress-bar__progress {
     -unity-background-image-tint-color: rgba(255, 255, 255, 0);
     background-color: rgb(125, 54, 48);
     overflow: hidden;
@@ -21,7 +21,7 @@
 #MoneyField > .unity-integer-field__label {
 }
 
-#HealthBar > #unity-progress-bar > .unity-progress-bar__background {
+#ProgressBar_Health > #unity-progress-bar > .unity-progress-bar__background {
     -unity-background-image-tint-color: rgba(138, 214, 255, 0.43);
     background-image: none;
     background-color: rgba(32, 56, 74, 0.45);

@@ -48,13 +48,13 @@ public class TooltipManipulator : PointerManipulator
     protected override void UnregisterCallbacksFromTarget()
     {
 
-        target.UnregisterCallback<PointerEnterEvent>(PointerEnter); // move
+        target.UnregisterCallback<PointerEnterEvent>(PointerEnter);
         target.UnregisterCallback<PointerOutEvent>(PointerOut);
 
         target.UnregisterCallback<PointerCaptureOutEvent>(PointerCaptureOut);
     }
 
-    private void PointerEnter(PointerEnterEvent evt) // mouse enter
+    private void PointerEnter(PointerEnterEvent evt) 
     {
         if (evt.currentTarget is VisualElement hoveredElement) {
 
