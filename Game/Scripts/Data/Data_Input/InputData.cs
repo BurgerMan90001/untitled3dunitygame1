@@ -1,6 +1,8 @@
 
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [CreateAssetMenu(menuName = "Input/InputData")]
 public class InputData : ScriptableObject 
@@ -50,12 +52,12 @@ public class InputData : ScriptableObject
         }
 
     }
-    private void OnDebug1()
+    private void OnDebug1(InputAction.CallbackContext ctx)
     {
 
 
     }
-    private void OnDebug2() 
+    private void OnDebug2(InputAction.CallbackContext ctx) 
     {
 
     }

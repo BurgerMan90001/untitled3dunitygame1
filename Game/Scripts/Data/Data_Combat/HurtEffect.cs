@@ -17,9 +17,10 @@ public class LoveHurtEffect : HurtEffect
     [SerializeField] private float HealPercent = 0.25f; // one quarter
     public override void ApplyEffect(GameObject target, GameObject attacker, float damage)
     {
-        target.GetComponent<CombatStats>().Health -= damage;
+        target.GetComponent<CombatStats>().Hurt(damage);
 
-        attacker.GetComponent<CombatStats>().Health += (damage * HealPercent);
+        
+        attacker.GetComponent<CombatStats>().Heal(damage * HealPercent);
     }
 }
 #region 
@@ -36,7 +37,8 @@ public class SpookHurtEffect : HurtEffect
 
     public override void ApplyEffect(GameObject target, GameObject attacker, float damage)
     {
-        target.GetComponent<CombatStats>().Health -= damage;
+        
+        target.GetComponent<CombatStats>().Hurt(damage);
         target.GetComponent<CombatStats>().AttackPercent -= WeaknessPercent;
 
     }

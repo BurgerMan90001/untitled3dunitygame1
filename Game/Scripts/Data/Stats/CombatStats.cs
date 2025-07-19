@@ -27,10 +27,17 @@ public class CombatStats : ScriptableObject, IDataPersistence
         float newHealthValue = Health -= value;
         if (newHealthValue <= 0) 
         {
+            Health = 0;
             _combatData.ExitCombat();
 
         }
+        Health = newHealthValue;
 
+    }
+
+    public void Heal(float value)
+    {
+        Health += value;
     }
 
     public float GetFinalAttackValue()

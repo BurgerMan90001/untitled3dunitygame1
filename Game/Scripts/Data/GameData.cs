@@ -6,7 +6,7 @@ public class GameData // game data is the data that will be serialized and saved
 {
     public long LastUpdated;
 
-    public DynamicInventory Inventory;
+    public Inventory Inventory;
     
 
     // a list of the class' properties like MaxStamina and Level
