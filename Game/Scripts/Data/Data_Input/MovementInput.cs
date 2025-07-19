@@ -10,7 +10,7 @@ public enum MovementInputType // MABYE
     Crouch,
     Jump,
 }
-// TODO MAKE CONSISTENT WITH CAMERAINPUT
+
 [CreateAssetMenu(menuName = "Input/MovementInput")]
 public class MovementInput : InputEvent
 {
