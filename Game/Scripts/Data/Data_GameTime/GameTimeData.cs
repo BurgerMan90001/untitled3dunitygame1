@@ -31,18 +31,21 @@ public enum Month
 /// </summary>
 #endregion
 [CreateAssetMenu (menuName = "Time/GameTimeData")]
-public class GameTimeData : Data
+public class GameTimeData : ScriptableObject, IDataPersistence
 {
     [Header("Settings")]
-    [SerializeField] private Transform _sun;
-    [SerializeField] private Transform _moon;
+   
     [SerializeField] private float dayLength = 120f;
   //  [SerializeField] private Vector3 sunInitialRotation = new Vector3(50f, -30f, 0f);
 
     [Header("Data")]
    
     [Header("Debug")]
-    [Range(0, 24)] public int timeOfDay;
+
+
+    private Light _sun;
+    private Light _moon;
+
     //   public Volume volume;
     //    public HDRPVolumeProfileSettings volumeProfileSettings;
 
@@ -50,15 +53,22 @@ public class GameTimeData : Data
     public GameTimeEvents Events { get; private set; } = new GameTimeEvents();
 
     public Day Day;
-    public Month Month; //MAYBE
-
+    public Month Month;
     [Range(0f, 24f)] public int Hour;
 
-
     public int Year; // MAYBE
+    /*
+    public void Initilize(Light sun, Light moon)
+    {
+        _sun = sun;
+        _moon = moon;
+
+        _initilized = true;
+    }
+    */
     private void OnEnable()
     {
-
+        
         Events.OnDayChanged += OnDayChanged;
         Events.OnMonthChanged += OnMonthChanged;
     }
@@ -68,29 +78,18 @@ public class GameTimeData : Data
         Events.OnDayChanged -= OnDayChanged;
         Events.OnMonthChanged -= OnMonthChanged;
     }
-    private void OnValidate()
-    {
-        /*
-        if (_dayNightCycle == null)
-        {
-            _dayNightCycle = new DayNightCycle(_sun, _moon);
-            Debug.LogWarning("The dayNightCycle class is null. Creating new. ");
-            return;
-        }
-
-        _dayNightCycle.UpdateSun(_sun, Hour);
-        */
-    }
+    
+    
     public void IncrementHour(int value)
     {
-        int newTimeOfDay = timeOfDay + value;
+        int newTimeOfDay = Hour + value;
         if (newTimeOfDay >= 24)
         {
-            timeOfDay = 0;
+            Hour = 0;
         }
         else
         {
-            timeOfDay = newTimeOfDay;
+            Hour = newTimeOfDay;
         }
         Hour += value;
     }
@@ -103,8 +102,15 @@ public class GameTimeData : Data
 
     }
 
-    
+    public void LoadData(GameData data)
+    {
+        throw new NotImplementedException();
+    }
 
+    public void SaveData(GameData data)
+    {
+        throw new NotImplementedException();
+    }
 }
 
 

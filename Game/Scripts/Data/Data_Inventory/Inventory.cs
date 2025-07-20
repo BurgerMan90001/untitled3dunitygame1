@@ -56,7 +56,7 @@ public class Inventory : ScriptableObject
         
 
     }
-    private void OpenPack(ItemPackInstance itemPackInstance)
+    public void OpenPack(ItemPackInstance itemPackInstance)
     {
         Debug.Log("ITS A PACK");
         itemPackInstance.PreviewContents();

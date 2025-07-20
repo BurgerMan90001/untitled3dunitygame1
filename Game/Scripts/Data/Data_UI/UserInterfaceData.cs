@@ -34,8 +34,6 @@ public enum UserInterfaceType
 [CreateAssetMenu(menuName = "Data/UserInterfaceData")]
 public class UserInterfaceData : Data
 {
-
-
     [Header("Data")]
     [SerializeField] private Inventory _inventory;
    // [SerializeField] private ShopData 
@@ -64,7 +62,16 @@ public class UserInterfaceData : Data
     {
         OnToggleUserInterface?.Invoke(userInterfaceType, active);
     }
-    
+
+    public override void LoadData(GameData data)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void SaveData(GameData data)
+    {
+        throw new NotImplementedException();
+    }
 }
 
 public class UserInterfaceEvents : IEvent

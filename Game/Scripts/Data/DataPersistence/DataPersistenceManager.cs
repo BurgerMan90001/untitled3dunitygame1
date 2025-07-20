@@ -38,7 +38,7 @@ public class DataPersistenceManager : MonoBehaviour, ISingleton
         
 
         _fileDataHandler = new FileDataHandler(Application.persistentDataPath, _fileName);
-
+        Debug.Log(Application.persistentDataPath + _fileName);
         selectedProfileID = _fileDataHandler.GetMostRecentlyUpdatedProfileID();
 
         if (_overrideSelectedProfileID) // for testing and debugging
@@ -54,8 +54,8 @@ public class DataPersistenceManager : MonoBehaviour, ISingleton
         if (_loadDataDebug)
         {
             FindAllDistancePersistenceObjects();
-         //   OnSceneLoaded(UserInterfaceType.HUD, true);
         }
+
     }
 
     private void OnEnable()
@@ -66,7 +66,6 @@ public class DataPersistenceManager : MonoBehaviour, ISingleton
 
         _dataPersistenceData.OnLoadGame += LoadGame;
 
-
         _dataPersistenceData.OnGetAllProfilesGameData += GetAllProfilesGameData;
 
     }
@@ -76,21 +75,20 @@ public class DataPersistenceManager : MonoBehaviour, ISingleton
     private void OnDisable()
     {
 
-
         SceneLoadingManager.OnSceneLoaded -= OnSceneLoaded;
 
         _dataPersistenceData.OnStartNewGame -= NewGame;
-        //    _dataPersistenceData.OnLoadSaveData += 
 
         _dataPersistenceData.OnLoadGame -= LoadGame;
-
-
 
         _dataPersistenceData.OnGetAllProfilesGameData -= GetAllProfilesGameData;
 
     }
+    private void OnApplicationQuit()
+    {
+        SaveGame();
+    }
 
-    
     #region
     /// <summary>
     /// <br> When a scene loads, finds all objects that implement IDataPersistence. </br>
@@ -101,6 +99,7 @@ public class DataPersistenceManager : MonoBehaviour, ISingleton
     private void OnSceneLoaded(UserInterfaceType _, bool _1)
     {
         _dataPersistenceObjects = FindAllDistancePersistenceObjects();
+        Debug.Log("ASDASDASD");
         LoadGame();
     }
     public void ChangeSelectedProfileID(string newProfileID)
@@ -157,17 +156,14 @@ public class DataPersistenceManager : MonoBehaviour, ISingleton
         _fileDataHandler.Save(_dataPersistenceData.GameData, selectedProfileID);
     }
     
-    private void OnApplicationQuit() 
-    {
-       SaveGame();
-    }
+    
     private List<IDataPersistence> FindAllDistancePersistenceObjects() 
     {
         IEnumerable<IDataPersistence> dataPersistenceObjects = 
-            FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include,FindObjectsSortMode.None)
+            FindObjectsByType<ScriptableObject>(FindObjectsInactive.Include,FindObjectsSortMode.None)
             .OfType<IDataPersistence>();
         var listOfDataPersistenceObjects = new List<IDataPersistence>();
-        Debug.Log(listOfDataPersistenceObjects.Count );
+        Debug.Log(listOfDataPersistenceObjects.Count);
         return listOfDataPersistenceObjects;
     }
     

@@ -57,11 +57,11 @@ public class DayNightCycle
     
     
 
-    public void UpdateSun(Transform sun, int time)
+    public void UpdateSun(Light sun, int time)
     {
        
         float sunRotation = (time / 24f) * 360f;
-        sun.rotation = Quaternion.Euler(sunInitialRotation.x + sunRotation, sunInitialRotation.y, sunInitialRotation.z);
+        sun.transform.rotation = Quaternion.Euler(sunInitialRotation.x + sunRotation, sunInitialRotation.y, sunInitialRotation.z);
 
 
         //    moon.transform.rotation = Quaternion.Euler(sunInitialRotation.x + sunRotation + 180f, sunInitialRotation.y, sunInitialRotation.z);

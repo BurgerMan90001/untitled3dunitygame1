@@ -12,10 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cef4a8af46a9c60499fa71b7a6d36617, type: 3}
   m_Name: Game Time Data
   m_EditorClassIdentifier: 
-  _sun: {fileID: 0}
-  _moon: {fileID: 0}
   dayLength: 120
-  timeOfDay: 0
   Day: 0
   Month: 0
   Hour: 0

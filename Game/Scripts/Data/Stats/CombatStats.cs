@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 /// <summary>
 /// <br> Stats that are used during combat. </br>
 /// </summary>

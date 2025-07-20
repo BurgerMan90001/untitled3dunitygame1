@@ -49,10 +49,11 @@ public class ShopData : Data
         
     }
 
-    
+    #region
     /// <summary>
     /// <br> Invokes the OnShopShown event. </br>
     /// </summary>
+    #endregion
     public void EnterShop(string shopGuid)
     {
         OnShopEntered?.Invoke(shopGuid);
@@ -99,4 +100,13 @@ public class ShopData : Data
 
     }
 
+    public override void LoadData(GameData data)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void SaveData(GameData data)
+    {
+        throw new NotImplementedException();
+    }
 }

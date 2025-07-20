@@ -1,30 +1,9 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
-public enum CombatStates
-{
-    None,
-    Start,
-    PlayerTurn,
-    EnemyTurn,
-    Won,
-    Lost,
 
-}
 
-public enum CombatAction
-{
-    Attack,
-    Block,
-    Flee,
-}
-public enum BlockType
-{
-    Normal,
-    Damage, // damages the attacker back
-}
 /// <summary>
 /// <br> Combat events and data. <br>
 /// <br> Initiates the combat. </br>
@@ -108,67 +87,16 @@ public class CombatData : Data
         }
 
     }
-}
 
-
-public class CombatEvents : IEvent
-{
-    public event Action<CombatUnit> OnEnterCombat;
-    public event Action OnExitCombat;
-    public event Action<CombatStates> OnCombatStateSwitched;
-
-    #region
-    /// <summary>
-    /// <br> Switches the combat state. </br>
-    /// </summary>
-    /// <param name="combatState"></param>
-    #endregion
-    public void SwitchCombatState(CombatStates combatState)
+    public override void LoadData(GameData data)
     {
-        OnCombatStateSwitched?.Invoke(combatState);
-
+        throw new NotImplementedException();
     }
 
-    #region
-    /// <summary>
-    /// <br> Loads the Combat scene with a combat interface. </br>
-    ///  <br> Doesn't do anything if enteredCombat is false. </br>
-    /// <br> Triggers the OnEnterCombat event. </br>
-    /// </summary>
-    #endregion
-    public void EnterCombat(CombatUnit enemyUnit)
+    public override void SaveData(GameData data)
     {
-
-
-        OnEnterCombat?.Invoke(enemyUnit);
-
-
-    }
-    #region
-    /// <summary>
-    /// <br> Triggers the OnExitCombat event. </br>
-    /// <br> Loads the previous scene. </br>
-    /// </summary>
-    #endregion
-    public void ExitCombat()
-    {
-        OnExitCombat?.Invoke();
+        throw new NotImplementedException();
     }
 }
 
 
-/*
-    /// <summary>
-    /// <br> Triggers the OnTurnChanged  event. </br>
-    /// </summary>
-    public void ChangeTurn() 
-    {
-        OnTurnChanged?.Invoke();
-
-        if (_debug)
-        {
-            Debug.Log("CHANGED TURNS");
-        }
-
-    }
-    */

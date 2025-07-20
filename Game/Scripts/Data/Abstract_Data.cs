@@ -2,15 +2,9 @@ using UnityEngine;
 // TODO ADD UNIVERSAL DATA PROPERTIES !!!
 public abstract class Data : ScriptableObject, IDataPersistence
 {
-    public void LoadData(GameData data)
-    {
-        throw new System.NotImplementedException();
-    }
+    public abstract void LoadData(GameData data);
 
-    public void SaveData(GameData data)
-    {
-        throw new System.NotImplementedException();
-    }
+    public abstract void SaveData(GameData data);
 }
 
 public interface IData

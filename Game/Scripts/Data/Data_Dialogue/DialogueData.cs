@@ -100,7 +100,14 @@ public class DialogueData : Data
         return false;
     }
 
+    public override void LoadData(GameData data)
+    {
+        throw new System.NotImplementedException();
+    }
 
-    
+    public override void SaveData(GameData data)
+    {
+        throw new System.NotImplementedException();
+    }
 }
 
