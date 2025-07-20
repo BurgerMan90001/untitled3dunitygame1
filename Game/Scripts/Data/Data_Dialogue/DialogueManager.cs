@@ -42,7 +42,7 @@ public class DialogueManager
     }
     
     
-    private void EnterDialogue(string knotName, GameObject _) // begins or continues dialogue
+    private void EnterDialogue(string knotName) // begins or continues dialogue
     {
         if (!knotName.Equals(""))
         {

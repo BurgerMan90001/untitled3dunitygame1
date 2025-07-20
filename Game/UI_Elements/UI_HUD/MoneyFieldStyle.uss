@@ -1,6 +1,9 @@
 :root {
 }
 
+#MoneyField > #unity-text-input > .unity-text-element--inner-input-field-component {
+}
+
 .moneytext {
     align-items: center;
     align-content: flex-start;

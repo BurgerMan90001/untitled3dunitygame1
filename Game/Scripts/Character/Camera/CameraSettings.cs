@@ -35,13 +35,13 @@ public class CameraSettings : MonoBehaviour
             _dialogueData.Events.OnExitDialogue -= HideBlur;
         }
     }
-    private void ShowBlur(string _, GameObject _1)
+    private void ShowBlur(string _)
     {
         
         targetCamera.cullingMask = ~(1 << cullingMask);
         _fullScreenBlur.gameObject.SetActive(true);
     }
-    private void HideBlur()
+    private void HideBlur(GameObject _)
     {
         _fullScreenBlur.gameObject.SetActive(false);
         targetCamera.cullingMask = -1;

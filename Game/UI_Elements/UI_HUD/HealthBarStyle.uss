@@ -1,65 +1,15 @@
 :root {
 }
 
-#ProgressBar_Health > #unity-progress-bar > .unity-progress-bar__background > .unity-progress-bar__progress {
-    -unity-background-image-tint-color: rgba(255, 255, 255, 0);
-    background-color: rgb(125, 54, 48);
-    overflow: hidden;
-    visibility: visible;
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    flex-grow: 1;
-    align-items: auto;
-    justify-content: center;
-    align-self: auto;
-    align-content: flex-start;
-    height: 429%;
-}
-
 #MoneyField > .unity-integer-field__label {
 }
 
-#ProgressBar_Health > #unity-progress-bar > .unity-progress-bar__background {
-    -unity-background-image-tint-color: rgba(138, 214, 255, 0.43);
-    background-image: none;
-    background-color: rgba(32, 56, 74, 0.45);
+.unity-progress-bar__progress {
     opacity: 1;
-    width: auto;
-    height: 96%;
-    overflow: hidden;
-    visibility: visible;
-    min-width: 17px;
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    margin-top: -1px;
-    margin-right: -1px;
-    margin-bottom: -1px;
-    margin-left: -1px;
     flex-grow: 1;
-    align-content: auto;
-    align-self: auto;
-    justify-content: flex-end;
-    align-items: flex-end;
+    background-color: rgba(156, 20, 20, 0.77);
 }
 
-.unity-health-bar {
-    height: auto;
-    -unity-background-image-tint-color: rgba(255, 255, 255, 0);
-    width: auto;
-    opacity: 1;
-    margin-top: 4px;
-    margin-right: 4px;
-    margin-bottom: 4px;
-    margin-left: 4px;
-    overflow: hidden;
-    background-color: rgba(0, 0, 0, 0);
-    flex-grow: 1;
-    flex-direction: column;
-}
-
-.test {
+.unity-progress-bar__background {
+    background-color: rgba(0, 0, 0, 0.15);
 }

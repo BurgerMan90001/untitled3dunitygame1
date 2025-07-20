@@ -12,6 +12,7 @@ public class InputData : ScriptableObject
     [SerializeField] private CombatData _combatData;
 
     [Header("InputEvents")]
+    [SerializeField] private bool asd;
     [field: SerializeField] public MovementInput MovementInput { get; private set; }
     [field: SerializeField] public CameraInput CameraInput { get; private set; }
     [field: SerializeField] public MenuInput MenuInput { get; private set; }

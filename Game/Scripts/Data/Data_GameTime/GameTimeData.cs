@@ -58,13 +58,13 @@ public class GameTimeData : Data
     public int Year; // MAYBE
     private void OnEnable()
     {
-        Debug.Log("ENABLE");
+
         Events.OnDayChanged += OnDayChanged;
         Events.OnMonthChanged += OnMonthChanged;
     }
     private void OnDisable()
     {
-        Debug.Log("DISABLE");
+
         Events.OnDayChanged -= OnDayChanged;
         Events.OnMonthChanged -= OnMonthChanged;
     }

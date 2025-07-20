@@ -1,9 +1,6 @@
 :root {
 }
 
-#MoneyField > #unity-text-input > .unity-text-element--inner-input-field-component {
-}
-
 .unity-progress-bar__container {
     background-size: 100% 100%;
     min-height: auto;
@@ -34,6 +31,18 @@
     word-spacing: 0;
     -unity-paragraph-spacing: 0;
     -unity-text-outline-width: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 .root_hud {
@@ -45,5 +54,5 @@
     background-image: url("project://database/Assets/myprojectV1/Game/Graphics/2D_Textures&Mats/2D_UI_Sprites/100x100cross.png?fileID=2800000&guid=de599eab15cc8484c91f9c94cfc7458f&type=3#100x100cross");
     background-size: 3% 5%;
     background-color: rgba(255, 255, 255, 0);
-    -unity-background-image-tint-color: rgba(0, 0, 0, 0.25);
+    -unity-background-image-tint-color: rgba(0, 0, 0, 0.55);
 }

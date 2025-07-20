@@ -89,7 +89,7 @@ public class UI_Dialogue : IUserInterface
         }
     }
 
-    private void DisplayDialogue(string _ , GameObject _1)
+    private void DisplayDialogue(string _ )
     {
         _userInterfaceData.ToggleUserInterface(UserInterfaceType.Dialogue, true);
         _dialogueLabel.text = _dialogueData.DialogueLine;
@@ -100,7 +100,7 @@ public class UI_Dialogue : IUserInterface
     {
         _dialogueLabel.text = _dialogueData.DialogueLine;
     }
-    private void HideDialogue()
+    private void HideDialogue(GameObject _)
     {
         _userInterfaceData.ToggleUserInterface(UserInterfaceType.Dialogue, false);
     }

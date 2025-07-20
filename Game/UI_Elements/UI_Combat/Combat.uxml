@@ -3,9 +3,9 @@
     <Style src="project://database/Assets/myprojectV1/Game/UI_Elements/UI_Combat/Combat.uss?fileID=7433441132597879392&amp;guid=33c493d7c1a52514d93e380c15db2476&amp;type=3#Combat" />
     <ui:VisualElement name="root_combat" picking-mode="Ignore" style="flex-grow: 1; flex-direction: column;">
         <ui:VisualElement picking-mode="Ignore" style="flex-grow: 5;" />
-        <ui:VisualElement name="Bottom_Panel_HUD" style="flex-grow: 1; flex-direction: row;">
+        <ui:VisualElement name="Bottom_Panel_HUD" style="flex-grow: 1; flex-direction: row-reverse;">
             <ui:ProgressBar value="22" name="ProgressBar_Health" picking-mode="Ignore" style="background-color: rgba(0, 0, 0, 0); color: rgb(0, 0, 0); width: auto; flex-grow: 1; flex-shrink: 1; height: auto;" />
-            <ui:VisualElement picking-mode="Ignore" style="flex-grow: 2;">
+            <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; flex-direction: row;">
                 <ui:Button text="Attack" name="Button_Attack" />
                 <ui:Button text="Block" name="Button_Block" />
             </ui:VisualElement>

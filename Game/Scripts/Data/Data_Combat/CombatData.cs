@@ -38,11 +38,11 @@ public class CombatData : Data
     [Header("Prefabs")]
     public CombatUnit PlayerUnit;
     public CombatUnit EnemyUnit;
-    
+
 
     [Header("Data")]
     [SerializeField] private DialogueData _dialogueData;
-  //  [SerializeField] private InputData _inputData;
+    //  [SerializeField] private InputData _inputData;
     [Header("Settings")]
 
 
@@ -57,9 +57,9 @@ public class CombatData : Data
 
     public CombatEvents Events { get; private set; } = new CombatEvents();
 
-    [field: SerializeField] public CombatStates CombatState { get ; private set; }
+    [field: SerializeField] public CombatStates CombatState { get; private set; }
 
-    
+
     private void OnEnable()
     {
         _dialogueData.Events.OnExitDialogue += CheckIfCombatEntered;
@@ -90,32 +90,24 @@ public class CombatData : Data
         CombatState = combatState;
         Events.SwitchCombatState(CombatState);
     }
-    private void CheckIfCombatEntered()
+    private void CheckIfCombatEntered(GameObject npc)
     {
-        bool combatEntered = (bool) _dialogueData.Story.variablesState["combatEntered"];
+        bool combatEntered = (bool)_dialogueData.Story.variablesState["combatEntered"];
         if (combatEntered)
         {
-       //     EnterCombat(npc);
-        }
-        
-    }
-    
+            if (npc.TryGetComponent(out CombatUnit combatUnit))
+            {
+                Events.EnterCombat(combatUnit);
+            }
+            else
+            {
+                Debug.LogWarning("The story's combatEntered value is true, but the npc does not have a CombatUnit component! ");
+                return;
+            }
 
-    /*
-    /// <summary>
-    /// <br> Triggers the OnTurnChanged  event. </br>
-    /// </summary>
-    public void ChangeTurn() 
-    {
-        OnTurnChanged?.Invoke();
-
-        if (_debug)
-        {
-            Debug.Log("CHANGED TURNS");
         }
 
     }
-    */
 }
 
 
@@ -163,3 +155,20 @@ public class CombatEvents : IEvent
         OnExitCombat?.Invoke();
     }
 }
+
+
+/*
+    /// <summary>
+    /// <br> Triggers the OnTurnChanged  event. </br>
+    /// </summary>
+    public void ChangeTurn() 
+    {
+        OnTurnChanged?.Invoke();
+
+        if (_debug)
+        {
+            Debug.Log("CHANGED TURNS");
+        }
+
+    }
+    */
