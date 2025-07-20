@@ -13,12 +13,6 @@ using UnityEngine.UIElements;
 #endregion
 public class UserInterface : MonoBehaviour, ISingleton
 {
-    [Header("Dependencies")]
- 
-
-    private VisualElement currentElement;
-
-
     [Header("Data")]
     [SerializeField] private Inventory _inventory; // the dynamic inventory scriptable object that will be used to manage the inventory
     [SerializeField] private UserInterfaceData _userInterfaceData;
@@ -44,8 +38,10 @@ public class UserInterface : MonoBehaviour, ISingleton
     [SerializeField] private bool _showHoveredOnElement = false;
 
 
+    private VisualElement _currentElement;
+
     private UIDocument _uiDocument;
-    private VisualElement _root; // the base that will uxmls be added on to
+    private VisualElement _root; // the base visual element that will uxmls be added on to
 
 
     private UXMLFileHandler _uxmlFileHandler;
@@ -108,31 +104,25 @@ public class UserInterface : MonoBehaviour, ISingleton
 
     private async void OnEnable() // the userinterface game object will be enabled by the main manager
     {
-        try
-        {
-            await _uxmlFileHandler.LoadInterfacesAsync(); // load the user interfaces asynchronously. visual element configuration is done after this.
+    
+        await _uxmlFileHandler.LoadInterfacesAsync(); // load the user interfaces asynchronously. visual element configuration is done after this.
 
 
-            QueryAllElements();
-
-
-            RegisterAllInterfaces();
+        QueryAllElements();
+        RegisterAllInterfaces();
             
-            _root.RegisterCallback<MouseMoveEvent>(OnMouseMove);
+        _root.RegisterCallback<MouseMoveEvent>(OnMouseMove);
 
-            _uiInventory.UpdateInterface(_inventory.Items);
+        _uiInventory.UpdateInterface();
 
-            SceneLoadingManager.OnSceneLoaded += _interfaceToggler.ToggleUserInterface;
-            _userInterfaceData.OnToggleUserInterface += _interfaceToggler.ToggleUserInterface;
+        SceneLoadingManager.OnSceneLoaded += _interfaceToggler.ToggleUserInterface;
+        _userInterfaceData.OnToggleUserInterface += _interfaceToggler.ToggleUserInterface;
 
             
-            _inventory.OnInventoryChanged += _uiInventory.UpdateInterface; // whenever the inventory changes, update the inventory ui
-            _interfaceToggler.ToggleUserInterface(InitalShownUserInterface, true);
+        _inventory.OnInventoryChanged += _uiInventory.UpdateInterface; // whenever the inventory changes, update the inventory ui
+        _interfaceToggler.ToggleUserInterface(InitalShownUserInterface, true);
 
-        } catch (Exception e)
-        {
-            Debug.LogError($"UI initialization failed: {e.Message}");
-        }
+        
         
     }
     private void OnDisable()
@@ -163,18 +153,18 @@ public class UserInterface : MonoBehaviour, ISingleton
     {
         var newElement = evt.target as VisualElement;
 
-        if (newElement != currentElement)
+        if (newElement != _currentElement)
         {
-            if (currentElement != null)
+            if (_currentElement != null)
             {
-                Debug.Log($"Left: {currentElement.name}");
+                Debug.Log($"Left: {_currentElement.name}");
             }
-            currentElement = newElement;
+            _currentElement = newElement;
 
 
-            if (currentElement != null) 
+            if (_currentElement != null) 
             {
-                Debug.Log($"Entered: {currentElement.name}");
+                Debug.Log($"Entered: {_currentElement.name}");
             }
         }
 

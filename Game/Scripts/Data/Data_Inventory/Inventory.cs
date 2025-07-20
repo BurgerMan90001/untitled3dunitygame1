@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-// TODO REDUCE CODE
+// TODO REDUCE CODE INVENTORY CHANGE IS LAGGY
 /// <summary>
 /// <br> </br>
 /// </summary>
@@ -14,7 +14,7 @@ public class Inventory : ScriptableObject
     public int MaxItems = 28;
     public List<ItemInstance> Items;
 
-    public event Action<List<ItemInstance>> OnInventoryChanged;
+    public event Action OnInventoryChanged;
 
     private void AddToInventory(ItemInstance itemToAdd)
     {
@@ -32,7 +32,7 @@ public class Inventory : ScriptableObject
     #endregion
     public void InventoryChange()
     {
-        OnInventoryChanged?.Invoke(Items);
+        OnInventoryChanged?.Invoke();
     }
     
    

@@ -5,6 +5,7 @@ using UnityEngine;
 using System;
 //TODO MAYBE OPTIMIZE INVENTORY UPDATES TO ONLY UPDATE CHANGED ELEMENTS
 // TODO MAYBE USE BINDINGS TO OPTIMIZE
+
 public class UI_Inventory : IUserInterface // animation and stuff
 {
 
@@ -46,13 +47,13 @@ public class UI_Inventory : IUserInterface // animation and stuff
             _itemVisualElements.Add(child);
 
             _dragAndDropManipulator = new DragAndDropManipulator(child, _ghostImage, _inventoryBackingPanel, root, _inventory);
-            _tooltipManipulator = new TooltipManipulator(root, _inventoryBackingPanel); // tooltip manipulator will be used to show the tooltip
+            _tooltipManipulator = new TooltipManipulator(child,root); // tooltip manipulator will be used to show the tooltip
            
             
             child.AddManipulator(_tooltipManipulator);
             child.AddManipulator(_dragAndDropManipulator);
 
-            if (i < _inventory.Items.Count && _inventory.Items[i] != null)
+            if (i < _inventory.Items.Count && _inventory.Items[i] != null) // set the user data
             {
                 child.userData = _inventory.Items[i]; // Store directly in the element
             }
@@ -62,6 +63,7 @@ public class UI_Inventory : IUserInterface // animation and stuff
         
 
     }
+    
     public void Unregister()
     {
 
@@ -84,13 +86,14 @@ public class UI_Inventory : IUserInterface // animation and stuff
     /// Updates the ItemSlots dictionary with the current items in the dynamic inventory. 
     /// </summary>
     #endregion
-    public void UpdateInterface(List<ItemInstance> items) // O(n)
+    public void UpdateInterface() // O(n)
     {
-        for (int i = 0; i < items.Count; i++)
+        
+        for (int i = 0; i < _inventory.Items.Count; i++)
         {
             VisualElement child = _itemVisualElements[i];
             
-            ItemInstance itemInstance = items[i]; // get the item instance from the dynamic inventory
+            ItemInstance itemInstance = _inventory.Items[i]; // get the item instance from the dynamic inventory
 
             if (child == null || itemInstance == null)
             {
@@ -101,9 +104,9 @@ public class UI_Inventory : IUserInterface // animation and stuff
             child.userData = itemInstance;
     
             child.style.backgroundImage = Background.FromSprite(itemInstance.Icon);
-         
 
         }
+        
     }
 
     

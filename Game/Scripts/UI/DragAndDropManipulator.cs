@@ -230,11 +230,12 @@ public class DragAndDropManipulator : PointerManipulator
     }
     private void SwapSlotItems(ItemInstance itemInstance, ItemInstance overlappingSlotItemInstance, VisualElement closestOverlappingSlot)
     {
-        _inventory.SwapItems(itemInstance, overlappingSlotItemInstance);
+       
         closestOverlappingSlot.style.backgroundImage = Background.FromSprite(itemInstance.Icon);
 
         closestOverlappingSlot.userData = itemInstance;
         _selectedFullItemSlot.userData = null;
+        _inventory.SwapItems(itemInstance, overlappingSlotItemInstance);
 
 
     }
@@ -250,8 +251,7 @@ public class DragAndDropManipulator : PointerManipulator
         VisualElement closest = null;
         foreach (VisualElement slot in slotsList)
         {
-            Vector3 displacement =
-                RootSpaceOfSlot(slot) - _ghostImage.transform.position;
+            Vector3 displacement = RootSpaceOfSlot(slot) - _ghostImage.transform.position;
             float distanceSq = displacement.sqrMagnitude;
             if (distanceSq < bestDistanceSq)
             {

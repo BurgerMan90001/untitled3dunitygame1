@@ -23,19 +23,21 @@ public class TooltipManipulator : PointerManipulator
 
     private VisualElement _inventoryBackingPanel;
 
-    public TooltipManipulator(VisualElement target, VisualElement inventoryBackingPanel)
+    public TooltipManipulator(VisualElement target, VisualElement root)
     {
-        this.target = target;
-        _inventoryBackingPanel = inventoryBackingPanel;
-        
-
-        _tooltipLabel = _inventoryBackingPanel.parent.parent.Q<Label>("Tooltip");
-
-        _tooltipLabel.style.display = DisplayStyle.None;
+        this.target = target;   
 
         _tooltipString = new StringBuilder();
+
+        QueryElements(root);
+
+        _tooltipLabel.style.display = DisplayStyle.None;
     }
-   
+    private void QueryElements(VisualElement root)
+    {
+        _inventoryBackingPanel = root.Q<VisualElement>("Panel_Inventory");
+        _tooltipLabel = root.Q<Label>("Tooltip");
+    }
     
     protected override void RegisterCallbacksOnTarget()
     {
