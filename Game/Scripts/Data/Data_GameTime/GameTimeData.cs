@@ -10,8 +10,6 @@ public enum Day
     Saturday,
     Sunday,
 }
-
-
 public enum Month
 {
     January,
@@ -27,11 +25,11 @@ public enum Month
     November,
     December,
 }
-
+#region
 /// <summary>
 /// <br> Months and days and in game time stuff.</br>
 /// </summary>
-
+#endregion
 [CreateAssetMenu (menuName = "Time/GameTimeData")]
 public class GameTimeData : Data
 {
@@ -48,26 +46,28 @@ public class GameTimeData : Data
     //   public Volume volume;
     //    public HDRPVolumeProfileSettings volumeProfileSettings;
 
-    public DayNightCycle DayNightCycle { get; private set; }
+    public DayNightCycle DayNightCycle { get; private set; } = new DayNightCycle();
+    public GameTimeEvents Events { get; private set; } = new GameTimeEvents();
 
     public Day Day;
-    public Month Month;
+    public Month Month; //MAYBE
 
     [Range(0f, 24f)] public int Hour;
 
 
     public int Year; // MAYBE
-
-    public Action<Day> OnDayChanged;
-    public Action<Month> OnMonthChanged;
-
-    public Action<int> OnYearChanged;
-
-    private void Awake()
+    private void OnEnable()
     {
-        DayNightCycle = new DayNightCycle();
+        Debug.Log("ENABLE");
+        Events.OnDayChanged += OnDayChanged;
+        Events.OnMonthChanged += OnMonthChanged;
     }
-    
+    private void OnDisable()
+    {
+        Debug.Log("DISABLE");
+        Events.OnDayChanged -= OnDayChanged;
+        Events.OnMonthChanged -= OnMonthChanged;
+    }
     private void OnValidate()
     {
         /*
@@ -94,9 +94,29 @@ public class GameTimeData : Data
         }
         Hour += value;
     }
-
-    public void ChangeDay(Day newDay) 
+    private void OnDayChanged(Day day)
     {
+
+    }
+    private void OnMonthChanged(Month month)
+    {
+
+    }
+
+    
+
+}
+
+
+
+public class GameTimeEvents : IEvent
+{
+    public Action<Day> OnDayChanged;
+    public Action<Month> OnMonthChanged;
+    public Action<int> OnYearChanged;
+    public void ChangeDay(Day newDay)
+    {
+        
         OnDayChanged?.Invoke(newDay);
 
     }
@@ -106,19 +126,18 @@ public class GameTimeData : Data
         OnMonthChanged?.Invoke(newMonth);
 
     }
+    /*
+    #region
     /// <summary>
     /// <br> Adds +1 to the Year count. <br> 
     /// <br> Not implemented yet. MAYBE. </br>
     /// </summary>
-    public void ChangeYear() 
+    #endregion
+    public void ChangeYear(int )
     {
-        Year++;
+        
         OnYearChanged?.Invoke(Year);
 
     }
-
-
+    */
 }
-
-
-

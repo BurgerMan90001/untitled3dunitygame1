@@ -9,7 +9,7 @@ public class InputData : ScriptableObject
 {
     [Header("Data")]
     [SerializeField] private DialogueData _dialogueData;
-
+    [SerializeField] private CombatData _combatData;
 
     [Header("InputEvents")]
     [field: SerializeField] public MovementInput MovementInput { get; private set; }
@@ -22,7 +22,7 @@ public class InputData : ScriptableObject
     [SerializeField] private InputActionReference _debug1;
     [SerializeField] private InputActionReference _debug2;
 
-    [SerializeField] private CombatData _combatData;
+    
    // [field: SerializeField] public DebugInput DebugInput { get; private set; }
 
 
@@ -31,9 +31,12 @@ public class InputData : ScriptableObject
     
     private void OnEnable()
     {
-        _dialogueData.OnChoiceSelected += OnChoiceSelected;
-        _dialogueData.OnUpdateChoices += OnUpdateChoices;
+        _dialogueData.Events.OnChoiceSelected += OnChoiceSelected;
+        _dialogueData.Events.OnUpdateChoices += OnUpdateChoices;
 
+        _combatData.Events.OnEnterCombat += OnEnterCombat;
+        _combatData.Events.OnExitCombat += OnExitCombat;
+        
         if (_debugEnabled)
         {
             _debug1.action.started += OnDebug1;
@@ -42,14 +45,26 @@ public class InputData : ScriptableObject
     }
     private void OnDisable()
     {
-        _dialogueData.OnChoiceSelected -= OnChoiceSelected;
-        _dialogueData.OnUpdateChoices -= OnUpdateChoices;
+        _combatData.Events.OnEnterCombat -= OnEnterCombat;
+        _combatData.Events.OnExitCombat -= OnExitCombat;
+
+        _dialogueData.Events.OnChoiceSelected -= OnChoiceSelected;
+        _dialogueData.Events.OnUpdateChoices -= OnUpdateChoices;
 
         if (_debugEnabled)
         {
             _debug1.action.started -= OnDebug1;
             _debug2.action.started -= OnDebug2;
         }
+
+    }
+
+    private void OnEnterCombat(CombatUnit enemy) 
+    {
+        
+    }
+    private void OnExitCombat()
+    {
 
     }
     private void OnDebug1(InputAction.CallbackContext ctx)
@@ -61,14 +76,8 @@ public class InputData : ScriptableObject
     {
 
     }
-    private void OnCombatEntered() 
-    {
-
-    }
-    private void OnCombatExited()
-    {
-        
-    }
+    
+    
     #region
     /// <summary>
     /// <br> Toggle all inputs on or off. </br>

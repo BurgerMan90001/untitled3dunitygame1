@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1cc1eaf7968ac0a498fa581bef7254c8, type: 3}
-  m_Name: Mouse Camera Input
+  m_Name: Camera Input
   m_EditorClassIdentifier: 
   <InputType>k__BackingField: 1
   <LookAction>k__BackingField: {fileID: 3708735494957354713, guid: 1571a21ec2f1ba545a70d97ed9b5b4ab, type: 3}

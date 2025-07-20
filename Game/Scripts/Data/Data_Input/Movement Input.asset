@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c2d189345501b847ae7dc1368738337, type: 3}
-  m_Name: KeyboardMovement Input
+  m_Name: Movement Input
   m_EditorClassIdentifier: 
   <InputType>k__BackingField: 0
   <MoveAction>k__BackingField: {fileID: 695006976769473254, guid: 1571a21ec2f1ba545a70d97ed9b5b4ab, type: 3}

@@ -11,21 +11,8 @@ using UnityEngine;
 public class CombatManager : MonoBehaviour, ISingleton
 {
 
-    [Header("CombatStats")]
-    [SerializeField] private CombatStats _playerCombatStats;
-    [SerializeField] private CombatStats _enemyCombatStats;
-
     [Header("Data")]
     [SerializeField] private CombatData _combatData;
-
-    [SerializeField] private UserInterfaceData userInterfaceData;
-
-    [Header("HurtEffects")]
-    [SerializeField] private List<HurtEffect> _hurtEffects;
-    
-
-    [Header("Debug")]
-    [SerializeField] private bool _debugMode;
 
 
     private CombatUnit _playerUnit;
@@ -47,39 +34,23 @@ public class CombatManager : MonoBehaviour, ISingleton
     }
     private void Start()
     {
-        if (_debugMode)
+        if (_combatData.DebugMode)
         {
             Debug.Log("IN COMBAT DEBUG MODE");
+            _combatData.Events.EnterCombat(_combatData.EnemyUnit);
        //     SetupBattle();
         }
     }
-    private void SetupBattle(GameObject enemy)
-    {
-        /*
-        if (_debugMode) // if there is no player prefab
-        {
-            GameObject playerGO = Instantiate(_playerPrefab, _combatData.PlayerSpawnPoint, Quaternion.identity); // GO is gameobject
-
-            _playerUnit = playerGO.GetComponent<CombatUnit>();
-        }
-        if (enemy == null || _debugMode)
-
-        {
-            GameObject enemyGO = Instantiate(_enemyPrefab, _combatData.EnemySpawnPoint, Quaternion.identity);
-            _enemyUnit = enemyGO.GetComponent<CombatUnit>();
-        }
-        */
-        
-    }
+    
     private void OnEnable()
     {
-        _combatData.OnEnterCombat += EnterCombat; // only needs to subscribe to on enter combat because this class will do the exit combat
+        _combatData.Events.OnEnterCombat += EnterCombat; // only needs to subscribe to on enter combat because this class will do the exit combat
 
     }
 
     private void OnDisable()
     {
-        _combatData.OnEnterCombat -= EnterCombat;
+        _combatData.Events.OnEnterCombat -= EnterCombat;
 
     }
     private IEnumerator PlayerAttack()
@@ -120,9 +91,17 @@ public class CombatManager : MonoBehaviour, ISingleton
         StartCoroutine(PlayerBlock());
 
     }
+
+    private void PlayerTurn()
+    {
+        _combatData.SwitchCombatState(CombatStates.PlayerTurn);
+        Debug.Log("YOUR TURN");
+    }
+    #region
     /// <summary>
     /// <br> COULD MAKE BETTER AI.</br>
     /// </summary>
+    #endregion
     private IEnumerator EnemyTurn()
     {
         Debug.Log("THE ENEMY ATTACKS!");
@@ -141,18 +120,22 @@ public class CombatManager : MonoBehaviour, ISingleton
             _combatData.SwitchCombatState(CombatStates.Lost);
         } else
         {
-            _combatData.SwitchCombatState(CombatStates.PlayerTurn);
-            StartCoroutine(PlayerTurn());
+            
+            PlayerTurn();
         }
 
     }
-    private void EnterCombat(GameObject enemy)
+
+    private void EnterCombat(CombatUnit enemy)
     {
-        SetupBattle(enemy);
+    //    SetupBattle(enemy);
 
         _combatData.SwitchCombatState(CombatStates.Start);
 
+        _enemyUnit = _combatData.EnemyUnit;
+        _playerUnit = _combatData.EnemyUnit;
 
+        PlayerTurn();
     }
     private void EndBattle()
     {
@@ -164,11 +147,28 @@ public class CombatManager : MonoBehaviour, ISingleton
         {
             Debug.Log("DEFEAT");
         }
-        _combatData.ExitCombat();
+        _combatData.Events.ExitCombat();
+    }
+    private void SetupBattle(GameObject enemy)
+    {
+        /*
+        if (_debugMode) // if there is no player prefab
+        {
+            GameObject playerGO = Instantiate(_playerPrefab, _combatData.PlayerSpawnPoint, Quaternion.identity); // GO is gameobject
+
+            _playerUnit = playerGO.GetComponent<CombatUnit>();
+        }
+        if (enemy == null || _debugMode)
+
+        {
+            GameObject enemyGO = Instantiate(_enemyPrefab, _combatData.EnemySpawnPoint, Quaternion.identity);
+            _enemyUnit = enemyGO.GetComponent<CombatUnit>();
+        }
+        */
+
     }
 
-    
-    
+    /*
     public bool ApplyHurt(HurtType type, CombatUnit target, CombatUnit attacker, float damageAmount)
     {
         foreach (var kvp in _hurtEffects)
@@ -191,5 +191,7 @@ public class CombatManager : MonoBehaviour, ISingleton
         
 
     }
+    */
 }
+
 

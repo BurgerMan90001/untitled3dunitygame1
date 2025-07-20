@@ -41,12 +41,12 @@ public class UI_Dialogue : IUserInterface
     }
     public void Register(VisualElement root)
     {
-        _dialogueData.OnEnterDialogue += DisplayDialogue;
-        _dialogueData.OnContinueDialogue += UpdateText;
-        _dialogueData.OnExitDialogue += HideDialogue;
+        _dialogueData.Events.OnEnterDialogue += DisplayDialogue;
+        _dialogueData.Events.OnContinueDialogue += UpdateText;
+        _dialogueData.Events.OnExitDialogue += HideDialogue;
         
 
-        _dialogueData.OnUpdateChoices += UpdateChoices;
+        _dialogueData.Events.OnUpdateChoices += UpdateChoices;
 
         
         SetupChoiceButtons();
@@ -55,13 +55,13 @@ public class UI_Dialogue : IUserInterface
     }
     public void Unregister()
     {
-        _dialogueData.OnEnterDialogue -= DisplayDialogue;
-        _dialogueData.OnContinueDialogue -= UpdateText;
-        _dialogueData.OnExitDialogue -= HideDialogue;
+        _dialogueData.Events.OnEnterDialogue -= DisplayDialogue;
+        _dialogueData.Events.OnContinueDialogue -= UpdateText;
+        _dialogueData.Events.OnExitDialogue -= HideDialogue;
 
         
 
-        _dialogueData.OnUpdateChoices -= UpdateChoices;
+        _dialogueData.Events.OnUpdateChoices -= UpdateChoices;
 
 
         
@@ -89,7 +89,7 @@ public class UI_Dialogue : IUserInterface
         }
     }
 
-    private void DisplayDialogue(string _)
+    private void DisplayDialogue(string _ , GameObject _1)
     {
         _userInterfaceData.ToggleUserInterface(UserInterfaceType.Dialogue, true);
         _dialogueLabel.text = _dialogueData.DialogueLine;
@@ -100,7 +100,7 @@ public class UI_Dialogue : IUserInterface
     {
         _dialogueLabel.text = _dialogueData.DialogueLine;
     }
-    private void HideDialogue(GameObject npc)
+    private void HideDialogue()
     {
         _userInterfaceData.ToggleUserInterface(UserInterfaceType.Dialogue, false);
     }
@@ -140,7 +140,7 @@ public class UI_Dialogue : IUserInterface
     private void ChoiceSelected(int choiceIndex) 
     {
 
-        _dialogueData.SelectChoice(choiceIndex);
+        _dialogueData.Events.SelectChoice(choiceIndex);
 
         GameCursor.Lock();
 

@@ -21,7 +21,7 @@ public static class AutoMarkAllAddressables
     [MenuItem("Tools/Addressables/Mark All Assets In Assets Folder")]
     public static void MarkAllAssets()
     {
-        string targetFolder = "Assets/Game"; // Change to any folder
+        string targetFolder = "Assets/myprojectV1/Game"; // Change to any folder
         string groupName = "GeneralAssets"; // Create or reuse this Addressables Group
 
         var settings = AddressableAssetSettingsDefaultObject.Settings;

@@ -3,7 +3,9 @@ using Ink.Runtime;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using UnityEngine;
+using UnityEngine; 
+
+//TODO IMPROVE
 #region
 /// <summary>
 /// Dialogue events and data.
@@ -25,18 +27,9 @@ public class DialogueData : Data
  
     public bool InDialogue { get; private set; }
 
-    
+    public DialogueEvents Events { get; private set; } = new DialogueEvents();
+
     public Story Story { get; private set; }
-
-
-    public event Action<string> OnEnterDialogue;
-    public event Action OnContinueDialogue;
-    public event Action<GameObject> OnExitDialogue;
-
-    public Action<List<string>> OnUpdateChoices;
-    public Action<int> OnChoiceSelected;
-
-    public Action OnVariableChanged;
 
     public string DialogueLine;
 
@@ -48,32 +41,93 @@ public class DialogueData : Data
 
 
     private DialogueManager _dialogueManager;
-
+    
     private void OnEnable()
     {
         ChoiceText = new StringBuilder();
         Story = new Story(_inkJson.text);
         InDialogue = false;
 
+        
+        
         if (_debugMode)
         {
             _dialogueManager.ShowVariables();
         }
+
         
         _dialogueManager = new DialogueManager(Story, this);
 
         _dialogueManager.RegisterEvents();
 
+        Events.OnEnterDialogue += OnEnterDialogue;
 
-
+        Events.OnExitDialogue += OnExitDialogue;
     }
     private void OnDisable()
     {
         InDialogue = false;
 
+        Events.OnEnterDialogue -= OnEnterDialogue;
+
+        Events.OnExitDialogue -= OnExitDialogue;
+
         _dialogueManager?.UnregisterEvents();
     }
     
+
+    private void OnEnterDialogue(string knotName, GameObject npc)
+    {
+        InDialogue = true;
+
+       _interactedWithNpc = npc;
+    }
+    private void OnExitDialogue()
+    {
+        DialogueLine = "";
+
+        ChoiceText?.Clear();
+
+        InDialogue = false;
+
+        if (_resetStoryAfterExit)
+        {
+            Story.ResetState();
+        }
+
+    }
+    public bool TryGetVariable(string variableName, out object variable)
+    {
+        variable = Story.variablesState.TryGetDefaultVariableValue(variableName);
+        if (variable != null)
+        {
+            return true;
+        }                
+        return false;
+    }
+
+
+    
+}
+
+public class DialogueEvents : IEvent
+{
+    #region
+    /// <summary>
+    /// <br> The string knotName and the gameobeject npc that was interacted with. </br>
+    /// </summary>
+    #endregion
+    public event Action<string,GameObject> OnEnterDialogue;
+    public event Action OnContinueDialogue;
+    public event Action OnExitDialogue;
+
+    public event Action<List<string>> OnUpdateChoices;
+    public event Action<int> OnChoiceSelected;
+
+    public DialogueEvents()
+    {
+
+    }
     #region
     /// <summary>
     /// <br> Triggers the OnEnterDialogue event. </br>
@@ -83,11 +137,9 @@ public class DialogueData : Data
     #endregion
     public void EnterDialogue(string knotName, GameObject npc)
     {
-        InDialogue = true;
+        OnEnterDialogue?.Invoke(knotName, npc); // null check
 
-        OnEnterDialogue?.Invoke(knotName); // null check
-
-        _interactedWithNpc = npc;
+        
 
     }
     #region
@@ -99,7 +151,7 @@ public class DialogueData : Data
     public void ContinueDialogue()
     {
         OnContinueDialogue?.Invoke();
-        
+
     }
     #region
     /// <summary>
@@ -110,19 +162,9 @@ public class DialogueData : Data
     #endregion
     public void ExitDialogue()
     {
-        
-        OnExitDialogue?.Invoke(_interactedWithNpc);
 
-        DialogueLine = "";
+        OnExitDialogue?.Invoke();
 
-        ChoiceText?.Clear();
-
-        InDialogue = false;
-
-        if (_resetStoryAfterExit)
-        {
-            Story.ResetState();
-        }
         
 
     }
@@ -150,11 +192,9 @@ public class DialogueData : Data
     #endregion
     public void UpdateStoryChoices(List<string> choicesText)
     {
-        
+
         OnUpdateChoices?.Invoke(choicesText);
 
 
     }
-
-    
 }

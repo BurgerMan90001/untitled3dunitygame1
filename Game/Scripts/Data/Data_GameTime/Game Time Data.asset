@@ -15,7 +15,6 @@ MonoBehaviour:
   _sun: {fileID: 0}
   _moon: {fileID: 0}
   dayLength: 120
-  _gameTimeData: {fileID: 11400000}
   timeOfDay: 0
   Day: 0
   Month: 0

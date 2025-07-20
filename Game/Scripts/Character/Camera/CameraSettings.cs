@@ -24,24 +24,24 @@ public class CameraSettings : MonoBehaviour
     {
         if (_blurScreen)
         {
-            _dialogueData.OnEnterDialogue += ShowBlur;
-            _dialogueData.OnExitDialogue += HideBlur;
+            _dialogueData.Events.OnEnterDialogue += ShowBlur;
+            _dialogueData.Events.OnExitDialogue += HideBlur;
         }
     }
     public void OnDisable()
     {
         if (_blurScreen) { 
-            _dialogueData.OnEnterDialogue -= ShowBlur;
-            _dialogueData.OnExitDialogue -= HideBlur;
+            _dialogueData.Events.OnEnterDialogue -= ShowBlur;
+            _dialogueData.Events.OnExitDialogue -= HideBlur;
         }
     }
-    private void ShowBlur(string knotName)
+    private void ShowBlur(string _, GameObject _1)
     {
         
         targetCamera.cullingMask = ~(1 << cullingMask);
         _fullScreenBlur.gameObject.SetActive(true);
     }
-    private void HideBlur(GameObject npc)
+    private void HideBlur()
     {
         _fullScreenBlur.gameObject.SetActive(false);
         targetCamera.cullingMask = -1;

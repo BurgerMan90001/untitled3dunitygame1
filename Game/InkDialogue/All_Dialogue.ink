@@ -1,6 +1,6 @@
 VAR yourVariable = true
 
-VAR battleEntered = false
+VAR combatEntered = false
 
 VAR myNumber = 1
 /*
@@ -66,12 +66,12 @@ DO YOU WAN'T TO CARD BATTLE?
     * [ok]
         LETS BATTLE!!
         
-        ~ battleEntered = true
+        ~ combatEntered = true
         ~ myNumber = 5
         -> END
     + [no]
         ...
-        ~ battleEntered = false
+        ~ combatEntered = false
         ~ myNumber = 3
         -> END
 

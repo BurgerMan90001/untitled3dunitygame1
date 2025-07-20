@@ -34,13 +34,15 @@ public class UI_Combat : IUserInterface
     {
 
         _attackButton.AddManipulator(new AttackButtonManipulator(_attackButton));
+
+        
        // _attackButton.d
 
     }
 
     public void Unregister()
     {
-        _attackButton.RemoveManipulator(new AttackButtonManipulator(_attackButton));
+        
     }
     /*
     private void OnAttackSelected()
@@ -60,34 +62,45 @@ public class UI_Combat : IUserInterface
 /// <summary>
 /// <br> Plays some animations. </br>
 /// </summary>
-public class AttackButtonManipulator : PointerManipulator
+public class AttackButtonManipulator : Manipulator
 {
 
     public AttackButtonManipulator(VisualElement target) 
     {
         this.target = target;
     }
+
     protected override void RegisterCallbacksOnTarget()
     {
-        target.RegisterCallback<PointerEnterEvent>(PointerEnter);
-        target.RegisterCallback<PointerOutEvent>(PointerOut);
-        
+        target.RegisterCallback<FocusInEvent>(FocusIn);
+        target.RegisterCallback<FocusOutEvent>(FocusOut);
+
+
+        target.RegisterCallback<ClickEvent>(Click);
     }
 
     protected override void UnregisterCallbacksFromTarget()
     {
-        target.UnregisterCallback<PointerEnterEvent>(PointerEnter);
-        target.UnregisterCallback<PointerOutEvent>(PointerOut);
+        target.UnregisterCallback<FocusInEvent>(FocusIn);
+        target.UnregisterCallback<FocusOutEvent>(FocusOut);
+
+        target.UnregisterCallback<ClickEvent>(Click);
+    }
+    private void Click(ClickEvent evt)
+    {
+        Debug.Log("CLICK");
+    }
+    private void FocusOut(FocusOutEvent evt)
+    {
+
+
+        // PLAY SUM ELSE
     }
 
-    private void PointerEnter(PointerEnterEvent evt)
+    private void FocusIn(FocusInEvent evt) // when the button is selected
     {
         // PLAY ATTACK READY ANIMATION
-        throw new NotImplementedException();
     }
 
-    private void PointerOut(PointerOutEvent evt)
-    {
-        throw new NotImplementedException();
-    }
+    
 }

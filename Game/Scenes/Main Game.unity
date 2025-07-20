@@ -29736,7 +29736,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameTimeData: {fileID: 11400000, guid: f3223eda7f7083746af792cf6c2215fa, type: 2}
   _sun: {fileID: 6106511725019629283, guid: 4d6111ec0f8dab042bb69c613708eba3, type: 3}
-  _moon: {fileID: 0}
+  _moon: {fileID: 1413944719}
 --- !u!43 &1029359446
 Mesh:
   m_ObjectHideFlags: 0
@@ -42044,6 +42044,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1430972556386924821, guid: 2f4d65e04f62cb443a938935f78ab271, type: 3}
   m_PrefabInstance: {fileID: 7114674531100783201}
   m_PrefabAsset: {fileID: 0}
+--- !u!108 &1413944719 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 670017211424283011, guid: 2f4d65e04f62cb443a938935f78ab271, type: 3}
+  m_PrefabInstance: {fileID: 7114674531100783201}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1419003368
 Mesh:
   m_ObjectHideFlags: 0
@@ -43211,7 +43216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1460452345
 Transform:
   m_ObjectHideFlags: 0

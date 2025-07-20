@@ -69,8 +69,6 @@ public class DataPersistenceManager : MonoBehaviour, ISingleton
 
         _dataPersistenceData.OnGetAllProfilesGameData += GetAllProfilesGameData;
 
-
-        SceneManager.sceneLoaded += test;
     }
 
     
@@ -78,7 +76,6 @@ public class DataPersistenceManager : MonoBehaviour, ISingleton
     private void OnDisable()
     {
 
-        SceneManager.sceneLoaded -= test;
 
         SceneLoadingManager.OnSceneLoaded -= OnSceneLoaded;
 
@@ -93,10 +90,7 @@ public class DataPersistenceManager : MonoBehaviour, ISingleton
 
     }
 
-    private void test(Scene _, LoadSceneMode _1)
-    {
-        Debug.Log("!@#@#!#");
-    }
+    
     #region
     /// <summary>
     /// <br> When a scene loads, finds all objects that implement IDataPersistence. </br>

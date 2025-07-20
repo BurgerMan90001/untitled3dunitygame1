@@ -24,9 +24,9 @@ public class DialogueManager
         _story.onError += OnError;
         // trigger this class' EnterDialogue when the game dialogue event is triggered
         
-        _dialogueData.OnEnterDialogue += EnterDialogue;
-        _dialogueData.OnContinueDialogue += ContinueOrExitStory;
-        _dialogueData.OnChoiceSelected += SelectChoice;
+        _dialogueData.Events.OnEnterDialogue += EnterDialogue;
+        _dialogueData.Events.OnContinueDialogue += ContinueOrExitStory;
+        _dialogueData.Events.OnChoiceSelected += SelectChoice;
         
 
     }
@@ -35,14 +35,14 @@ public class DialogueManager
         _story.onError -= OnError;
 
         
-        _dialogueData.OnEnterDialogue -= EnterDialogue;
-        _dialogueData.OnContinueDialogue -= ContinueOrExitStory;
-        _dialogueData.OnChoiceSelected -= SelectChoice;
+        _dialogueData.Events.OnEnterDialogue -= EnterDialogue;
+        _dialogueData.Events.OnContinueDialogue -= ContinueOrExitStory;
+        _dialogueData.Events.OnChoiceSelected -= SelectChoice;
         
     }
     
     
-    public void EnterDialogue(string knotName) // begins or continues dialogue
+    private void EnterDialogue(string knotName, GameObject _) // begins or continues dialogue
     {
         if (!knotName.Equals(""))
         {
@@ -56,7 +56,7 @@ public class DialogueManager
         ContinueOrExitStory();
     }
 
-    public void ContinueOrExitStory() // updates the dialogue lines
+    private void ContinueOrExitStory() // updates the dialogue lines
     {
         if (_story.canContinue)
         {
@@ -74,13 +74,13 @@ public class DialogueManager
         }
         else // when there is no more dialogue lines in the story, exit
         {
-            _dialogueData.ExitDialogue();
+            _dialogueData.Events.ExitDialogue();
 
 
         }
     }
    
-    public void UpdateChoices()
+    private void UpdateChoices()
     {
         if (IsThereStoryChoices())
         {
@@ -89,7 +89,7 @@ public class DialogueManager
             
         //    updateStoryChoices(choicesText);
             
-            _dialogueData.UpdateStoryChoices(choicesText);
+            _dialogueData.Events.UpdateStoryChoices(choicesText);
             _dialogueData.ChoiceText.Clear();
             
 

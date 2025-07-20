@@ -20,7 +20,7 @@ public class CameraInput : InputEvent
     public bool LookEnabled {  get; private set; }
     public bool InteractEnabled { get; private set; }
     public bool LeftClickEnabled { get; private set; }
-    public bool RightClickEnabled { get; private set; }
+    public bool RightClickEnabled { get; private set; } //NOT IMPLEMENTED YET
     public bool PickupEnabled { get; private set; }
   
 

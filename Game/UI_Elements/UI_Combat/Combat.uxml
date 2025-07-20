@@ -6,8 +6,8 @@
         <ui:VisualElement name="Bottom_Panel_HUD" style="flex-grow: 1; flex-direction: row;">
             <ui:ProgressBar value="22" name="ProgressBar_Health" picking-mode="Ignore" style="background-color: rgba(0, 0, 0, 0); color: rgb(0, 0, 0); width: auto; flex-grow: 1; flex-shrink: 1; height: auto;" />
             <ui:VisualElement picking-mode="Ignore" style="flex-grow: 2;">
-                <ui:Button text="Button" name="Button_Attack" />
-                <ui:Button text="Button" name="Button_Block" />
+                <ui:Button text="Attack" name="Button_Attack" />
+                <ui:Button text="Block" name="Button_Block" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

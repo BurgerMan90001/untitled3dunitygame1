@@ -26,19 +26,19 @@ public class NPCInteraction
         if (_dialogueData.InDialogue)
         {
 
-            _dialogueData.ContinueDialogue();
+            _dialogueData.Events.ContinueDialogue();
 
         }
 
         else if (!_dialogueKnotName.Equals("")) // if the knot name is not empty
         {
 
-            _dialogueData.EnterDialogue(_dialogueKnotName, npc);// begins the NPC's dialgoue at their knotName
+            _dialogueData.Events.EnterDialogue(_dialogueKnotName, npc);// begins the NPC's dialgoue at their knotName
 
         }
         else // the npc will default to ... if there is no dialogue knot 
         {
-            _dialogueData.EnterDialogue("silentDialogue", npc);
+            _dialogueData.Events.EnterDialogue("silentDialogue", npc);
         }
     }
     

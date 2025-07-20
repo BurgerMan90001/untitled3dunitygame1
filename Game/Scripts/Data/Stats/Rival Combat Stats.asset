@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ab0dfd69460e5142976280d7fa6f636, type: 3}
   m_Name: Rival Combat Stats
   m_EditorClassIdentifier: 
-  _combatData: {fileID: 11400000, guid: e99ab9cb863476f46ae38c8aee2da7b4, type: 2}
-  _inventory: {fileID: 0}
-  AttackValue: 1
-  AttackPercent: 0
+  _inventory: {fileID: 11400000, guid: 083eb4bf6200f724791a892d482b4d80, type: 2}
+  Damage: 1
   BlockValue: 0

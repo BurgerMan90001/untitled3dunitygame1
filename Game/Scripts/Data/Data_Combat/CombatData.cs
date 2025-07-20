@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public enum CombatStates
@@ -30,11 +32,13 @@ public enum BlockType
 [CreateAssetMenu(menuName = "Data/CombatData")]
 public class CombatData : Data
 {
+    [Header("HurtEffects")]
+    public List<HurtEffect> HurtEffects;
 
-    [Header("Prefabs For Debuging")]
-    [SerializeField] private GameObject _playerPrefab;
-    [SerializeField] private GameObject _enemyPrefab;
-
+    [Header("Prefabs")]
+    public CombatUnit PlayerUnit;
+    public CombatUnit EnemyUnit;
+    
 
     [Header("Data")]
     [SerializeField] private DialogueData _dialogueData;
@@ -45,82 +49,57 @@ public class CombatData : Data
     [Header("Spawn Points")]
     [field: SerializeField] public Vector3 PlayerSpawnPoint { get; private set; } = new Vector3(3f, 4f, 0);
     [field: SerializeField] public Vector3 EnemySpawnPoint { get; private set; } = new Vector3(-3f, 4f, 0);
-    [SerializeField] private bool _debug = true;
 
-    public event Action<GameObject> OnEnterCombat;
-    public event Action OnExitCombat;
-    
- //   public event Action OnTurnChanged;
+
+    [Header("Debugging")]
+    [SerializeField] public bool DebugMode = true;
+
+
+    public CombatEvents Events { get; private set; } = new CombatEvents();
 
     [field: SerializeField] public CombatStates CombatState { get ; private set; }
 
-
+    
     private void OnEnable()
     {
-        _dialogueData.OnExitDialogue += CheckIfBattleEntered;
-       
+        _dialogueData.Events.OnExitDialogue += CheckIfCombatEntered;
+
+        Events.OnEnterCombat += OnEnterCombat;
+        Events.OnExitCombat += OnExitCombat;
+
     }
     private void OnDisable()
     {
-        _dialogueData.OnExitDialogue -= CheckIfBattleEntered;
+        _dialogueData.Events.OnExitDialogue -= CheckIfCombatEntered;
+
+        Events.OnEnterCombat -= OnEnterCombat;
+        Events.OnExitCombat -= OnExitCombat;
     }
-    private void CheckIfBattleEntered(GameObject npc)
+
+    private void OnEnterCombat(CombatUnit npc)
     {
-        bool battleEntered = (bool) _dialogueData.Story.variablesState["battleEntered"];
-        if (battleEntered)
-        {
-            EnterCombat(npc);
-        }
-        
+        SceneLoadingManager.LoadScene("Combat", UserInterfaceType.Combat);
+        SceneLoadingManager.SetSpawnPoint(PlayerSpawnPoint);
     }
-    #region
-    /// <summary>
-    /// <br> Switches the combat state. </br>
-    /// </summary>
-    /// <param name="combatState"></param>
-    #endregion
+    private void OnExitCombat()
+    {
+        SceneLoadingManager.LoadScene("Main Game", UserInterfaceType.HUD);
+    }
     public void SwitchCombatState(CombatStates combatState)
     {
         CombatState = combatState;
+        Events.SwitchCombatState(CombatState);
+    }
+    private void CheckIfCombatEntered()
+    {
+        bool combatEntered = (bool) _dialogueData.Story.variablesState["combatEntered"];
+        if (combatEntered)
+        {
+       //     EnterCombat(npc);
+        }
+        
     }
     
-    #region
-    /// <summary>
-    ///  <br> Doesn't do anything if enteredCombat is false. </br>
-    /// <br> Triggers the OnEnterCombat event. </br>
-    /// </summary>
-    #endregion
-    public void EnterCombat(GameObject enemy)
-    {
-
-
-        OnEnterCombat?.Invoke(enemy);
-
-        if (_debug)
-        {
-            Debug.Log("ENTERED COMBAT");
-        }
-
-        SceneLoadingManager.LoadScene("Combat", UserInterfaceType.Combat);
-        SceneLoadingManager.SetSpawnPoint(PlayerSpawnPoint);
-
-        
-
-    }
-    /// <summary>
-    /// <br> Triggers the OnExitCombat event. </br>
-    /// </summary>
-    public void ExitCombat()
-    {
-        OnExitCombat?.Invoke();
-
-        if (_debug)
-        {
-            Debug.Log("EXITED COMBAT");
-        }
-
-        SceneLoadingManager.LoadScene("Main Game", UserInterfaceType.HUD);
-    }
 
     /*
     /// <summary>
@@ -137,4 +116,50 @@ public class CombatData : Data
 
     }
     */
+}
+
+
+public class CombatEvents : IEvent
+{
+    public event Action<CombatUnit> OnEnterCombat;
+    public event Action OnExitCombat;
+    public event Action<CombatStates> OnCombatStateSwitched;
+
+    #region
+    /// <summary>
+    /// <br> Switches the combat state. </br>
+    /// </summary>
+    /// <param name="combatState"></param>
+    #endregion
+    public void SwitchCombatState(CombatStates combatState)
+    {
+        OnCombatStateSwitched?.Invoke(combatState);
+
+    }
+
+    #region
+    /// <summary>
+    /// <br> Loads the Combat scene with a combat interface. </br>
+    ///  <br> Doesn't do anything if enteredCombat is false. </br>
+    /// <br> Triggers the OnEnterCombat event. </br>
+    /// </summary>
+    #endregion
+    public void EnterCombat(CombatUnit enemyUnit)
+    {
+
+
+        OnEnterCombat?.Invoke(enemyUnit);
+
+
+    }
+    #region
+    /// <summary>
+    /// <br> Triggers the OnExitCombat event. </br>
+    /// <br> Loads the previous scene. </br>
+    /// </summary>
+    #endregion
+    public void ExitCombat()
+    {
+        OnExitCombat?.Invoke();
+    }
 }

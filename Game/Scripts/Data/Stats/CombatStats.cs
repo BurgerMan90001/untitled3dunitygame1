@@ -5,7 +5,7 @@ using UnityEngine;
 /// <br> Stats that are used during combat. </br>
 /// </summary>
 [CreateAssetMenu(menuName = "Stats/CombatStats")]
-public class CombatStats : ScriptableObject, IDataPersistence
+public class CombatStats : Stats
 {
     [Header("Data")]
  //   [SerializeField] private CombatData _combatData;
@@ -51,12 +51,12 @@ public class CombatStats : ScriptableObject, IDataPersistence
         return AttackValue * AttackPercent;
     }
     */
-    public void LoadData(GameData data)
+    public override void LoadData(GameData data)
     {
         MaxHealth = data.MaxHealth;
     }
 
-    public void SaveData(GameData data)
+    public override void SaveData(GameData data)
     {
         data.MaxHealth = MaxHealth;
     }
