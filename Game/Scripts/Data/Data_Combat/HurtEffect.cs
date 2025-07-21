@@ -3,25 +3,30 @@ using UnityEngine;
 
 
 /// <summary>
-/// <br> MICKEY OVERPOWERD </br>
+/// <br> POWER </br>
 /// </summary>
 public enum HurtType
 {
 
     Physical,
-    Stun,
 
+    Love, // lifesteal, ROMANCE 
+    // Love's Hammer
+    // 
 
-    /*
-    Cold,
-    Fire, 
-    Electric,
-    Magic,
-    */
+    Spook, // weakness MAYBE 
+    // Spook's Staff
+    // 
+    
 
-    Love, // lifesteal
-    Spook, // weakness
-    Bubble, // bubble
+    Bubble, // bubble BUBBLE WRAP, hugs SPEACH BUBBLES, LIVING IN A BUBBLE, 
+    // Bubble's Wand
+    // Wrap  #HUGGING
+    // Pop
+    // Pressure
+    // Gum
+    // Bubble Bath
+    // Soap Bubbles
 
 
     // MAYBE
@@ -29,8 +34,18 @@ public enum HurtType
     Rainbow, // damage over time
     Sleep,
 
-    Heat,
-    Cool,
+    Glass, // 
+    // Glass' Prism
+    // ITEMS
+    // Shatter
+    // Magnifying Glass
+    // Fracture
+    // Break
+    // Temper
+    // Quake
+
+    Heat, // MAYBE
+    Cool, //MAYBE
 
     Rust,
 
@@ -42,5 +57,3 @@ public abstract class HurtEffect : ScriptableObject
     public HurtType Type;
     public abstract void ApplyEffect(CombatUnit target, CombatUnit attacker, float damage);
 }
-
-
