@@ -41,8 +41,4 @@ public class NPCInteraction
             _dialogueData.Events.EnterDialogue("silentDialogue", npc);
         }
     }
-    
-
-
-    
 }

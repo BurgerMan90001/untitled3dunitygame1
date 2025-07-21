@@ -1,10 +1,8 @@
-
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UIElements;
-// TODO SHORTEN
+// TODO SHORTEN AND OPTIMIZE EVERYTHING
 #region
 /// <summary>
 /// <br> All user interfaces are children of this class' game object. </br>
@@ -23,11 +21,11 @@ public class UserInterface : MonoBehaviour, ISingleton
     [SerializeField] private CombatData _combatData;
 
     [Header("Inventory Settings")]
- 
+
 
     [Header("UXML Loader Settings")]
     [SerializeField] private AssetLabelReference _uxmlAssetLabelReference;
-    
+
     [Header("First Shown Interface")]
     public UserInterfaceType InitalShownUserInterface;
 
@@ -74,14 +72,14 @@ public class UserInterface : MonoBehaviour, ISingleton
 
             Destroy(gameObject);
         }
-        
+
 
         _uiDocument = GetComponent<UIDocument>();
 
         _root = _uiDocument.rootVisualElement;
         _root.style.flexGrow = 1;
-        
-        
+
+
 
         _uxmlFileHandler = new UXMLFileHandler(_root, _uxmlAssetLabelReference);
         _interfaceToggler = new UserInterfaceToggler(_uxmlFileHandler);
@@ -99,57 +97,57 @@ public class UserInterface : MonoBehaviour, ISingleton
         DontDestroyOnLoad(this);
 
     }
-    
+
 
 
     private async void OnEnable() // the userinterface game object will be enabled by the main manager
     {
-    
+
         await _uxmlFileHandler.LoadInterfacesAsync(); // load the user interfaces asynchronously. visual element configuration is done after this.
 
 
         QueryAllElements();
         RegisterAllInterfaces();
-            
+
         _root.RegisterCallback<MouseMoveEvent>(OnMouseMove);
 
         _uiInventory.UpdateInterface();
 
-        SceneLoadingManager.OnSceneLoaded += _interfaceToggler.ToggleUserInterface;
-        _userInterfaceData.OnToggleUserInterface += _interfaceToggler.ToggleUserInterface;
+        SceneLoader.OnSceneLoaded += _interfaceToggler.SwitchToUserInterface;
+        _userInterfaceData.OnToggleUserInterface += _interfaceToggler.SwitchToUserInterface;
 
-            
+
         _inventory.OnInventoryChanged += _uiInventory.UpdateInterface; // whenever the inventory changes, update the inventory ui
-        _interfaceToggler.ToggleUserInterface(InitalShownUserInterface, true);
+        _interfaceToggler.SwtichToUserInterface(InitalShownUserInterface);
 
-        
-        
+
+
     }
     private void OnDisable()
     {
-        
-        SceneLoadingManager.OnSceneLoaded -= _interfaceToggler.ToggleUserInterface;
-        _userInterfaceData.OnToggleUserInterface -= _interfaceToggler.ToggleUserInterface;
+
+        SceneLoader.OnSceneLoaded -= _interfaceToggler.SwitchToUserInterface;
+        _userInterfaceData.OnToggleUserInterface -= _interfaceToggler.SwitchToUserInterface;
         _inventory.OnInventoryChanged -= _uiInventory.UpdateInterface;
-        
+
         _root.UnregisterCallback<MouseMoveEvent>(OnMouseMove);
-        
+
         UnregisterAllInterfaces();
 
 
         _uxmlFileHandler?.ReleaseInterfaces();
-        
+
     }
-    
-    
+
+
     private void OnMouseMove(MouseMoveEvent evt)
     {
-        if (_showHoveredOnElement) 
+        if (_showHoveredOnElement)
         {
             ShowHoveredOnElement(evt);
         }
     }
-    private void ShowHoveredOnElement(MouseMoveEvent evt) 
+    private void ShowHoveredOnElement(MouseMoveEvent evt)
     {
         var newElement = evt.target as VisualElement;
 
@@ -162,7 +160,7 @@ public class UserInterface : MonoBehaviour, ISingleton
             _currentElement = newElement;
 
 
-            if (_currentElement != null) 
+            if (_currentElement != null)
             {
                 Debug.Log($"Entered: {_currentElement.name}");
             }
@@ -177,13 +175,13 @@ public class UserInterface : MonoBehaviour, ISingleton
     private void RegisterAllInterfaces()
     {
         _userInterfaces.ForEach(ui => ui.Register(_root));
-        
+
     }
     private void UnregisterAllInterfaces()
     {
         _userInterfaces.ForEach(ui => ui?.Unregister());
     }
-    
+
 
 }
 

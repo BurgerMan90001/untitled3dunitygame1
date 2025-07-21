@@ -22,18 +22,12 @@ public class CombatEvents : IEvent
 
     #region
     /// <summary>
-    /// <br> Loads the Combat scene with a combat interface. </br>
-    ///  <br> Doesn't do anything if enteredCombat is false. </br>
     /// <br> Triggers the OnEnterCombat event. </br>
     /// </summary>
     #endregion
     public void EnterCombat(CombatUnit enemyUnit)
     {
-
-
         OnEnterCombat?.Invoke(enemyUnit);
-
-
     }
     #region
     /// <summary>

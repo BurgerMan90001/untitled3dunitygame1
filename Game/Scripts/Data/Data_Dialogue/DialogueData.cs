@@ -17,7 +17,7 @@ public class DialogueData : Data
     [SerializeField] private TextAsset _inkJson;
 
     [Header("Settings")]
-    [SerializeField] private bool _resetStoryAfterExit = true;
+    [SerializeField] private bool _resetStoryOnEnter = true;
     
     [Header("Data")]
     
@@ -73,6 +73,11 @@ public class DialogueData : Data
 
     private void OnEnterDialogue(string _)
     {
+        if (_resetStoryOnEnter)
+        {
+            Story.ResetState();
+        }
+
         InDialogue = true;
 
     }
@@ -83,11 +88,6 @@ public class DialogueData : Data
         ChoiceText?.Clear();
 
         InDialogue = false;
-
-        if (_resetStoryAfterExit)
-        {
-            Story.ResetState();
-        }
 
     }
     public bool TryGetVariable(string variableName, out object variable)

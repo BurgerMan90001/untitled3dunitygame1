@@ -69,7 +69,7 @@ public class CameraActions : MonoBehaviour
         // the camera transform is this script's transform because it will be on the cinemachine camera gameobject
 
         _hitDetect = new HitDetect(_cameraTransform);
-        _interact = new Interact(_hitDetect, gameObject, _interactMask);
+        _interact = new Interact(_hitDetect, _interactMask);
         _rotateCamera = new RotateCamera(_verticalRotationLimit);
         _mouseClick = new MouseClick(_cameraTransform, _hitDetect, _leftClickMask);
         _positionCamera = new PositionCamera();

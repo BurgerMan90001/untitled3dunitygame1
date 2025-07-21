@@ -60,7 +60,7 @@ public class DataPersistenceManager : MonoBehaviour, ISingleton
 
     private void OnEnable()
     {
-        SceneLoadingManager.OnSceneLoaded += OnSceneLoaded;
+     //   SceneLoadingManager.OnSceneLoaded += OnSceneLoaded;
    
         _dataPersistenceData.OnStartNewGame += NewGame;
 
@@ -75,7 +75,7 @@ public class DataPersistenceManager : MonoBehaviour, ISingleton
     private void OnDisable()
     {
 
-        SceneLoadingManager.OnSceneLoaded -= OnSceneLoaded;
+    //    SceneLoadingManager.OnSceneLoaded -= OnSceneLoaded;
 
         _dataPersistenceData.OnStartNewGame -= NewGame;
 
@@ -98,9 +98,10 @@ public class DataPersistenceManager : MonoBehaviour, ISingleton
     #endregion
     private void OnSceneLoaded(UserInterfaceType _, bool _1)
     {
+
         _dataPersistenceObjects = FindAllDistancePersistenceObjects();
-        Debug.Log("ASDASDASD");
-        LoadGame();
+        Debug.Log(_dataPersistenceObjects.Count);
+    //    LoadGame();
     }
     public void ChangeSelectedProfileID(string newProfileID)
     {

@@ -35,7 +35,9 @@ public class GameData // game data is the data that will be serialized and saved
     
     public GameData() // new game stats
     {
-        PlayerPosition = Vector3.zero; // area where player will spawn at in newgame
+        Debug.Log("NEW GAME STARTED");
+
+        PlayerPosition = new Vector3(-21.9972f, 54.65f, -37.326f); // area where player will spawn at in newgame
 
         Energy = 10f; // default values
         MaxEnergy = 10f;

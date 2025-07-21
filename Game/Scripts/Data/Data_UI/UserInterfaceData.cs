@@ -36,11 +36,11 @@ public class UserInterfaceData : Data
 {
     [Header("Data")]
     [SerializeField] private Inventory _inventory;
-   // [SerializeField] private ShopData 
-    
+    // [SerializeField] private ShopData 
+
     public Dictionary<UserInterfaceType, VisualElement> UserInterfaceElements;
 
-    public Action<UserInterfaceType, bool> OnToggleUserInterface;
+    public Action<UserInterfaceType> OnSwitchToUserInterface;
 
     private void OnEnable()
     {
@@ -51,16 +51,16 @@ public class UserInterfaceData : Data
     {
         _inventory.OnInventoryChanged -= OnInventoryChanged;
     }
-    
+
     private void OnInventoryChanged()
     {
 
     }
-    
-    
-    public void ToggleUserInterface(UserInterfaceType userInterfaceType, bool active)
+
+
+    public void SwitchToUserInterface(UserInterfaceType userInterfaceType)
     {
-        OnToggleUserInterface?.Invoke(userInterfaceType, active);
+        OnSwitchToUserInterface?.Invoke(userInterfaceType);
     }
 
     public override void LoadData(GameData data)
@@ -78,11 +78,11 @@ public class UserInterfaceEvents : IEvent
 {
     public UserInterfaceEvents() { }
 
-    public void Register() 
-    { 
+    public void Register()
+    {
 
     }
-    public void Unregister() 
+    public void Unregister()
     {
 
     }

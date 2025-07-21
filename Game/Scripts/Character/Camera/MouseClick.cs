@@ -43,15 +43,13 @@ public class MouseClick
         if (hitGameObject.CompareTag("NPC") &&
             hitGameObject.GetComponent<Rigidbody>() != null)
         {
-            Debug.Log("HIT NPC");
-            //hit npc
+
         //    hitGameObject.GetComponent<Rigidbody>().AddForce(cam.forward *hitForce, ForceMode.Impulse);
             
 
         } else if (hitGameObject.layer == 10) // ground layer
         {
             //hit ground
-            Debug.Log("HIT GROUND");
         }
 
     }

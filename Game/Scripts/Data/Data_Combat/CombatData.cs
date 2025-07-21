@@ -57,12 +57,12 @@ public class CombatData : Data
 
     private void OnEnterCombat(CombatUnit npc)
     {
-        SceneLoadingManager.LoadScene("Combat", UserInterfaceType.Combat);
-        SceneLoadingManager.SetSpawnPoint(PlayerSpawnPoint);
+        SceneLoader.LoadScene(SceneLoadingSettings.Combat);
+
     }
     private void OnExitCombat()
     {
-        SceneLoadingManager.LoadScene("Main Game", UserInterfaceType.HUD);
+        SceneLoader.LoadScene(SceneLoadingSettings.MainGame);
     }
     public void SwitchCombatState(CombatStates combatState)
     {
@@ -74,6 +74,7 @@ public class CombatData : Data
         bool combatEntered = (bool)_dialogueData.Story.variablesState["combatEntered"];
         if (combatEntered)
         {
+
             if (npc.TryGetComponent(out CombatUnit combatUnit))
             {
                 Events.EnterCombat(combatUnit);

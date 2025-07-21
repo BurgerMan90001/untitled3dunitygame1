@@ -39,12 +39,12 @@ public class UI_MainMenu : IUserInterface
     #endregion
     public UI_MainMenu(DataPersistenceData dataPersistenceData, UserInterfaceToggler userInterfaceToggler)
     {
-   
-        _dataPersistenceData = dataPersistenceData; 
+
+        _dataPersistenceData = dataPersistenceData;
         _userInterfaceToggler = userInterfaceToggler;
         var container = new Container();
-        
-        
+
+
     }
 
     public void Register(VisualElement root) // called in on enable in userinterface
@@ -72,21 +72,16 @@ public class UI_MainMenu : IUserInterface
 
     }
 
-    
-    private void OnNewGameClicked()
+
+    private void OnNewGameClicked() // is loading = false 
     {
-        _userInterfaceToggler.ToggleUserInterface(UserInterfaceType.SaveSlotsMenu, true); // is loading = false 
-
-        _userInterfaceToggler.ToggleUserInterface(UserInterfaceType.MainMenu, false);
-
+        _userInterfaceToggler.SwitchToUserInterface(UserInterfaceType.SaveSlotsMenu);
 
     }
-    private void OnLoadGameClicked()
+    private void OnLoadGameClicked() // is loading = true 
     {
-        _userInterfaceToggler.ToggleUserInterface(UserInterfaceType.SaveSlotsMenu, true); // is loading = true
 
-
-        _userInterfaceToggler.ToggleUserInterface(UserInterfaceType.MainMenu, false);
+        _userInterfaceToggler.SwitchToUserInterface(UserInterfaceType.SaveSlotsMenu);
 
     }
     public void OnContinueGameClicked()
@@ -99,7 +94,7 @@ public class UI_MainMenu : IUserInterface
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         UnityEngine.Cursor.visible = false;
         */
-        
+
     }
 
     private void DisableMenuButtons()
@@ -122,6 +117,6 @@ public class UI_MainMenu : IUserInterface
             _buttonContinueGame.style.opacity = 0.5f;
         }
     }
-   
-    
+
+
 }

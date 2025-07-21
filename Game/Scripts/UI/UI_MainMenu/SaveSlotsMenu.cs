@@ -14,7 +14,7 @@ public class UI_SaveSlotsMenu : IUserInterface
 
 
     private Button _buttonBack;
-  
+
     #region
     /*
     NewGameButton
@@ -47,16 +47,16 @@ public class UI_SaveSlotsMenu : IUserInterface
         _userInterfaceToggler = userInterfaceToggler;
     }
     public void QueryElements(VisualElement root)
-    { 
+    {
         _panelSaveSlots = root.Q<VisualElement>("Panel_SaveSlots");
 
-        _saveSlotButtons = _panelSaveSlots.Query<Button>( className: "button_saveSlot").ToList(); // without the dot
-        
+        _saveSlotButtons = _panelSaveSlots.Query<Button>(className: "button_saveSlot").ToList(); // without the dot
+
         _buttonBack = _panelSaveSlots.Query<Button>(className: "button_back");
 
     }
-   
-    
+
+
     public void Register(VisualElement root)
     {
         _buttonBack.clicked += OnBackClicked;
@@ -95,8 +95,7 @@ public class UI_SaveSlotsMenu : IUserInterface
     }
     private void OnBackClicked()
     {
-        _userInterfaceToggler.ToggleUserInterface(UserInterfaceType.MainMenu, true);
-        _userInterfaceToggler.ToggleUserInterface(UserInterfaceType.SaveSlotsMenu, false);
+        _userInterfaceToggler.SwitchToUserInterface(UserInterfaceType.MainMenu);
     }
     public void OnSaveSlotClicked(object userData)
     {
@@ -104,16 +103,17 @@ public class UI_SaveSlotsMenu : IUserInterface
         {
             LoadGame(saveSlotData);
 
-        } else
+        }
+        else
         {
             Debug.LogError("The userData in the save slot is not a save slot!");
         }
-        
+
     }
     private void LoadGame(SaveSlotData saveSlotData)
     {
         _panelSaveSlots.style.display = DisplayStyle.None;
-    //    DisableSaveSlotButtons();
+        //    DisableSaveSlotButtons();
 
         _dataPersistenceData.ChangeSelectedProfileID(saveSlotData.ProfileID);
 
@@ -124,15 +124,15 @@ public class UI_SaveSlotsMenu : IUserInterface
 
         _dataPersistenceData.SaveGameData();
 
-        SceneLoadingManager.LoadScene("Main Game", UserInterfaceType.HUD, true);
+        SceneLoader.LoadScene(SceneLoadingSettings.MainGame);
 
 
 
         GameCursor.Lock();
     }
-    
 
-    
+
+
     public void ActivateMenu(bool isLoadingGame)
     {
         _panelSaveSlots.style.display = DisplayStyle.Flex;
@@ -155,12 +155,12 @@ public class UI_SaveSlotsMenu : IUserInterface
         for (int i = 0; i < _saveSlotButtons.Count; i++)
         {
             Button saveSlotButton = _saveSlotButtons[i];
-            
+
             if (saveSlotButton.userData is SaveSlotData saveSlotData)
             {
                 // tries to get the profile data from the profile id
                 profilesGameData.TryGetValue(saveSlotData.ProfileID, out GameData profileData);
-                
+
                 saveSlotData.SetData(profileData);
 
                 if (profileData != null && _isLoadingGame) // when there is no data
@@ -179,9 +179,9 @@ public class UI_SaveSlotsMenu : IUserInterface
             }
 
         }
-        
+
     }
-    
+
     /*
     public void DeactivateMenu()
     {
@@ -200,5 +200,5 @@ public class UI_SaveSlotsMenu : IUserInterface
         }
     }
 
-    
+
 }

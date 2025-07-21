@@ -1,32 +1,42 @@
 using System;
-using UnityEngine;
 using UnityEngine.UIElements;
+// TODOO MAKE OVERLOADS CLEANER AND STUFF
+
+#region
 /// <summary>
 /// <br> A helper class that toggles user interfaces. </br>
 /// </summary>
-public class UserInterfaceToggler 
+#endregion
+public class UserInterfaceToggler
 {
     private UXMLFileHandler _uxmlFileHandler;
     private InputManager _inputManager;
 
     public Action InterfaceChanged;
 
-    private UserInterfaceType _shownInterface; 
+    private UserInterfaceType _shownInterface; // the currently shown interface. is set to none if there is no interfaces
+
     public UserInterfaceToggler(UXMLFileHandler uxmlFileHandler)
     {
         _uxmlFileHandler = uxmlFileHandler;
-    }
-    
-    public void Register(Action<UserInterfaceType,bool> onUserInterfaceToggled) 
-    {
-        onUserInterfaceToggled += ToggleUserInterface;
+
+        _shownInterface = UserInterfaceType.None;
     }
 
-    public void Unregister(Action<UserInterfaceType,bool> onUserInterfaceToggled) 
+
+    private void ShowInterface(UserInterfaceType userInterface)
     {
-        onUserInterfaceToggled -= ToggleUserInterface;
+        _shownInterface = userInterface;
+        VisualElement elementToBeShown = GetUserInterfaceElement(userInterface);
+        elementToBeShown.style.display = DisplayStyle.Flex;
     }
-    
+    private void HideInterface(UserInterfaceType userInterface)
+    {
+        VisualElement elementToBeHiden = GetUserInterfaceElement(userInterface);
+        elementToBeHiden.style.display = DisplayStyle.None;
+    }
+
+    /*
     #region
     /// <summary>
     /// <br> Toggles a user interface on or off based on the UserInterfaceType value. </br>
@@ -37,106 +47,58 @@ public class UserInterfaceToggler
     #endregion
     public void ToggleUserInterface(UserInterfaceType userInterface, bool active)
     {
-        VisualElement elementToBeShown = GetUserInterfaceElement(userInterface);
+
         _shownInterface = userInterface;
-        if (elementToBeShown == null)
-        {
-            Debug.LogError("The elementToBeShown is null.");
-            return;
-        }
+
         if (active)
         {
-            elementToBeShown.style.display = DisplayStyle.Flex;
-        } else
-        {
-            elementToBeShown.style.display = DisplayStyle.None;
-        }
-        
-    }
-    #region
-    /// <summary>
-    /// <br> Toggles a user interface on or off based on the visual elements DisplayStyle value. </br>
-    /// </summary>
-    /// <param name="userInterface"></param>
-    /// <param name="inputActionMap"> Set as null to leave the action map unchanged </param>
-    /// Set as null to leave the action map unchanged
-    #endregion
-    public void ToggleUserInterface(UserInterfaceType userInterface) 
-    {
-        VisualElement elementToBeShown = GetUserInterfaceElement(userInterface);
-        
-        if (elementToBeShown == null)
-        {
-            Debug.LogError("The elementToBeShown is null.");
-            return;
-        }
-        
-        if (elementToBeShown.style.display == DisplayStyle.Flex)
-        {
-            elementToBeShown.style.display = DisplayStyle.None;
-
+            ShowInterface(userInterface);
         }
         else
         {
-            elementToBeShown.style.display = DisplayStyle.Flex;
+            HideInterface(userInterface);
         }
-        
+
     }
+    */
 
     #region
     /// <summary>
-    /// <br> Toggles a user interface on or off based on the UserInterfaceType value.</br>
-    /// <br> Also switches to the inputActionMap set. </br>
-    /// <br>NotImplementedException();</br>
+    /// <br> Switches to the UserInterfaceType userInterface. </br>
     /// </summary>
     /// <param name="userInterface"></param>
-    /// <param name="inputActionMap"></param>
     #endregion
-    public void ToggleUserInterface(UserInterfaceType userInterface, bool active, string inputActionMap)
+    public void SwitchToUserInterface(UserInterfaceType userInterface)
     {
 
-        ToggleUserInterface(userInterface, active);
-        throw new NotImplementedException();
-        /*
-        if (inputActionMap != null)
-        {
-            
-            _inputManager.SwitchToActionMap(inputActionMap);
-
-        }
-        else
-        {
-            Debug.LogWarning("The switched to inputActionMap is null.");
-        }
-        */
-
-    }
-    /// <summary>
-    /// <br> Loops through the entire UserInterfaceElements dictionary and disables each element. </br>
-    /// </summary>
-    /// <param name="userInterface"></param>
-    public void SwitchUserInterface(UserInterfaceType userInterface)
-    {
-        VisualElement elementToBeShown = GetUserInterfaceElement(userInterface);
         if (_shownInterface == UserInterfaceType.None)
         {
-            ToggleUserInterface(userInterface, true);
+            ShowInterface(userInterface);
         }
         else
         {
-            elementToBeShown.style.display = DisplayStyle.Flex;
+            HideInterface(_shownInterface);
+            ShowInterface(userInterface);
             _shownInterface = userInterface;
         }
-        
+
     }
+
+    public void SwitchToUserInterface(SceneLoadingSettings sceneLoadingSettings)
+    {
+        SwitchToUserInterface(sceneLoadingSettings.UserInterface);
+    }
+    #region
     /// <summary>
     /// <br> Returns a visual element from the UserInterfaceType key in the UserInterfaceElements dictionary. </br>
     /// </summary>
     /// <param name="userInterface"></param>
     /// <returns></returns>
-    private VisualElement GetUserInterfaceElement(UserInterfaceType userInterface) 
+    #endregion
+    private VisualElement GetUserInterfaceElement(UserInterfaceType userInterface)
     {
 
         return _uxmlFileHandler.UserInterfaceElements[userInterface];
     }
 }
+

@@ -41,17 +41,17 @@ public class Player : MonoBehaviour, ISingleton
     }
     private void OnEnable()
     {
-        SceneLoadingManager.OnSceneLoaded += SetupPlayer;
+    //    SceneLoadingManager.OnSceneLoaded += SetupPlayer;
     }
 
   
     private void OnDisable()
     {
-        SceneLoadingManager.OnSceneLoaded -= SetupPlayer;
+     //   SceneLoadingManager.OnSceneLoaded -= SetupPlayer;
     }
 
 
-
+    /*
     private void SetupPlayer(UserInterfaceType _, bool _1)
     {
         gameObject.transform.position = SceneLoadingManager.SpawnPoint;
@@ -61,8 +61,9 @@ public class Player : MonoBehaviour, ISingleton
         {
             gameObject.SetActive(true);
         }
-       */
+       
     }
+    */
 
     
     private void OnTriggerStay(Collider other)

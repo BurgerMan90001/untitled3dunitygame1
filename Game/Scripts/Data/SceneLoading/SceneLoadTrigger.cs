@@ -13,53 +13,67 @@ public class SceneLoadTrigger : MonoBehaviour
 
 
     [Header("Initilize Settings")]
-    [SerializeField] private bool _initilize;
-    [SerializeField] private string _sceneAfterInitilize;
-    [SerializeField] private UserInterfaceType _initilizeUserInterface;
+    [SerializeField] private bool _showSettings = true;
+    [SerializeField] private string _loadedScene;
+    [SerializeField] private UserInterfaceType _loadedUserInterface;
 
 
     [Header("Debug")]
+
+    /*
     [SerializeField] private bool _debugLoadingScreen = false;
+    
     [SerializeField] private string _defaultSceneToLoad = "Main Game";
     [SerializeField] private string _debugSceneToLoad = "Main Game";
+    */
+    private SceneLoadingSettings _loadingSettings; // unable to serilize structs in editor
 
-    private SceneLoader _sceneLoader;
-
-
-    
     private void Awake()
     {
-        _sceneLoader = new SceneLoader();
-        
+        _loadingSettings = new SceneLoadingSettings(_loadedScene, _loadedUserInterface);
+
+
     }
     private void Start()
     {
-        if (_initilize)
+        if (_showSettings)
         {
-            SceneLoadingManager.LoadScene(_sceneAfterInitilize, _initilizeUserInterface, true);
-            
+            Debug.Log(_loadingSettings.PlayerSpawnPoint);
+            Debug.Log(_loadingSettings.UserInterface);
+            Debug.Log(_loadingSettings.SceneName);
         }
-
-        else if (_debugLoadingScreen)
+        if (_loadingSettings.SceneName != null)
         {
-            _sceneLoader.LoadScene(_debugSceneToLoad);
-            Debug.LogWarning("Loading debug scene");
+            SceneLoader.LoadScene(_loadingSettings);
 
-        } else if (SceneLoadingManager.SceneToLoad == null)
-        {
-            _sceneLoader.LoadScene(_defaultSceneToLoad);
-            Debug.LogWarning("Loading default scene");
         }
-        
         else
         {
-            _sceneLoader.LoadScene(SceneLoadingManager.SceneToLoad, SceneLoadingManager.UserInterfaceToLoad);
+            Debug.LogError("The loading settings' scene name is null. ");
+            return;
+        }
+        //  SceneLoadingManager.LoadScene();
+
+        /*
+        if (_initilize)
+        {
+            //    SceneLoadingManager.LoadScene();
 
         }
-            
+        */
+        /*
+        if (_debugLoadingScreen)
+        {
+            //   _sceneLoader.LoadScene(_debugSceneToLoad);
+            Debug.LogWarning("Loading debug scene");
+
+        }
+        else
+        {
+            //    _sceneLoader.LoadScene(SceneLoadingManager.SceneToLoad, SceneLoadingManager.UserInterfaceToLoad);
+
+        }
+        */
     }
-    private void OnDestroy()
-    {
-        _sceneLoader.UnloadScene();
-    }
+
 }

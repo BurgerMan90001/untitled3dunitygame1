@@ -15,16 +15,14 @@ public class Interact
 {
     
     private HitDetect _hitDetect;
-
     private LayerMask _mask;
-    private GameObject _interactor;
     public bool ButtonHeld { get; private set; }
 
+    private bool _debugMode;
     
-    public Interact(HitDetect hitDetect, GameObject interactor, LayerMask mask)
+    public Interact(HitDetect hitDetect, LayerMask mask)
     {
         _hitDetect = hitDetect;
-        _interactor = interactor;
         _mask = mask;
 
     }
@@ -41,7 +39,11 @@ public class Interact
 
         if (hitGameObject.TryGetComponent(out IInteractable interactable))
         {
-            interactable.Interact(_interactor);
+            interactable.Interact(hitGameObject);
+        }
+        else
+        {
+            Debug.LogWarning("This game object does not have implement the IInteractable interface.");
         }
 
 

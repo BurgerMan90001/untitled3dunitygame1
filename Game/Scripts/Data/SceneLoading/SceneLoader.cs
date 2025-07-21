@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -9,44 +10,18 @@ using UnityEngine.ResourceManagement.ResourceProviders;
 // TODO PLAY SUM FADE ANIMATION
 #region
 /// <summary>
-/// <br> Handles the scene loading logic. Uses addressables to load and unload scenes. </br>
+/// <br> Loads and unloads scenes. Uses addressables to load and unload scenes. </br>
 /// </summary>
 #endregion
-public class SceneLoader
+public static class SceneLoader
 {
-    private AsyncOperationHandle<SceneInstance> _loadedSceneHandle;
+    public static AsyncOperationHandle<SceneInstance> LoadedSceneHandle { get; private set; }
 
-    private readonly bool _showDebugLoadingLogs = false;
-    
-    #region
-    /// <summary>
-    /// <br> Loads a single scene. </br>
-    /// </summary>
-    /// <param name="sceneName"></param>
-    #endregion
-    public async void LoadScene(string sceneName)
-    {
-        var handle = Addressables.LoadSceneAsync(sceneName);
+    public static event Action<SceneLoadingSettings> OnSceneLoaded;
 
-        await handle.Task;
+    private static readonly bool _showDebugLoadingLogs = true;
 
-        if (handle.Status == AsyncOperationStatus.Succeeded)
-        {
-            if (!_loadedSceneHandle.IsValid())
-            {
-                _loadedSceneHandle = handle;
-                
-                Debug.Log("LOADED SUCCESSFULLY");
-            }
-            else
-            {
-                UnloadScene();
-                Debug.LogError("UNLOADING BECAUSE THE HANDLE IS INVALID.");
-            }
 
-                
-        }
-    }
     #region
     /// <summary>
     /// <br> Load scene with interface. </br>
@@ -54,26 +29,28 @@ public class SceneLoader
     /// <param name="sceneName"></param>
     /// <param name="userInterface"></param>
     #endregion
-    public async void LoadScene(string sceneName, UserInterfaceType userInterfaceToBeLoaded)
+    public static async void LoadScene(SceneLoadingSettings sceneLoadingSettings)
     {
-        var handle = Addressables.LoadSceneAsync(sceneName);
+        var handle = Addressables.LoadSceneAsync(sceneLoadingSettings.SceneName);
 
         await handle.Task;
 
-        
+
         if (handle.Status == AsyncOperationStatus.Succeeded)
         {
-            if (!_loadedSceneHandle.IsValid())
-            {
-                _loadedSceneHandle = handle;
 
-                SceneLoadingManager.SceneLoaded(userInterfaceToBeLoaded);
+            if (!LoadedSceneHandle.IsValid())
+            {
+                LoadedSceneHandle = handle;
+
+                OnSceneLoaded?.Invoke(sceneLoadingSettings);
+                //    SceneLoadingManager.SceneLoaded(userInterfaceToBeLoaded);
                 if (_showDebugLoadingLogs)
                 {
-                    Debug.Log(userInterfaceToBeLoaded.ToString());
+                    Debug.Log(sceneLoadingSettings.UserInterface.ToString());
                     Debug.Log("LOADED SUCCESSFULLY");
                 }
-                
+
             }
             else
             {
@@ -89,16 +66,16 @@ public class SceneLoader
     /// <br> Unloads the currently loaded scene with addressables. </br>
     /// </summary>
     #endregion
-    public void UnloadScene()
+    public static void UnloadScene()
     {
-        if (_loadedSceneHandle.IsValid())
+        if (LoadedSceneHandle.IsValid())
         {
-            Addressables.UnloadSceneAsync(_loadedSceneHandle);
+            Addressables.UnloadSceneAsync(LoadedSceneHandle);
             if (_showDebugLoadingLogs)
             {
                 Debug.Log("UNLOADING");
             }
-            
+
         }
     }
 }
