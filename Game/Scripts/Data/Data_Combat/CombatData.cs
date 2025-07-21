@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
 /// <summary>
 /// <br> Combat events and data. <br>
 /// <br> Initiates the combat. </br>
@@ -20,8 +19,7 @@ public class CombatData : Data
 
 
     [Header("Data")]
-    [SerializeField] private DialogueData _dialogueData;
-    //  [SerializeField] private InputData _inputData;
+
     [Header("Settings")]
 
 
@@ -36,42 +34,18 @@ public class CombatData : Data
 
     public CombatEvents Events { get; private set; } = new CombatEvents();
 
+
     [field: SerializeField] public CombatStates CombatState { get; private set; }
 
 
-    private void OnEnable()
-    {
-        _dialogueData.Events.OnExitDialogue += CheckIfCombatEntered;
-
-        Events.OnEnterCombat += OnEnterCombat;
-        Events.OnExitCombat += OnExitCombat;
-
-    }
-    private void OnDisable()
-    {
-        _dialogueData.Events.OnExitDialogue -= CheckIfCombatEntered;
-
-        Events.OnEnterCombat -= OnEnterCombat;
-        Events.OnExitCombat -= OnExitCombat;
-    }
-
-    private void OnEnterCombat(CombatUnit npc)
-    {
-        SceneLoader.LoadScene(SceneLoadingSettings.Combat);
-
-    }
-    private void OnExitCombat()
-    {
-        SceneLoader.LoadScene(SceneLoadingSettings.MainGame);
-    }
     public void SwitchCombatState(CombatStates combatState)
     {
         CombatState = combatState;
         Events.SwitchCombatState(CombatState);
     }
-    private void CheckIfCombatEntered(GameObject npc)
+
+    public void CheckIfCombatEntered(GameObject npc, bool combatEntered)
     {
-        bool combatEntered = (bool)_dialogueData.Story.variablesState["combatEntered"];
         if (combatEntered)
         {
 

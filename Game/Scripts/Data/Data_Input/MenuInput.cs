@@ -1,6 +1,11 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+#region
+/// <summary>
+/// <br> Input for menus. e.g. inventory toggles. </br>
+/// </summary>
+#endregion
 [CreateAssetMenu(menuName = "Input/MenuInput")]
 public class MenuInput : InputEvent
 {

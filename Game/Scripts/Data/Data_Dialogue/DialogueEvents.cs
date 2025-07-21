@@ -89,4 +89,9 @@ public class DialogueEvents : IEvent
 
 
     }
+
+    public void ObservVariable(string variableName)
+    {
+
+    }
 }

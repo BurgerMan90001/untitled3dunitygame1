@@ -1,8 +1,9 @@
 using UnityEngine;
+#region
 /// <summary>
 /// <br> Settings and data that can be set for scene loading. </br>
 /// </summary>
-
+#endregion
 public struct SceneLoadingSettings
 {
     private static readonly Vector3 _mainGameSpawnPoint = new Vector3(-21.9972f, 54.65f, -37.326f);
@@ -14,8 +15,6 @@ public struct SceneLoadingSettings
     public UserInterfaceType UserInterface;
 
     public Vector3 PlayerSpawnPoint;
-
-
 
     #region
     /// <summary>

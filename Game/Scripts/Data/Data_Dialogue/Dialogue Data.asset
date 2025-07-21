@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233c124a520763e448b16c0aea422f7f, type: 3}
   m_Name: Dialogue Data
   m_EditorClassIdentifier: 
-  _inkJson: {fileID: 4900000, guid: 7e2d4f69c8461424da28133ec1ce413d, type: 3}
-  _resetStoryAfterExit: 1
-  _debugMode: 0
+  <InkJson>k__BackingField: {fileID: 4900000, guid: 7e2d4f69c8461424da28133ec1ce413d, type: 3}
+  <DebugMode>k__BackingField: 0
   DialogueLine: 
