@@ -11,7 +11,6 @@ public class InputData : Data
     [SerializeField] private CombatData _combatData;
 
     [Header("InputEvents")]
-    [SerializeField] private bool asd;
     [field: SerializeField] public MovementInput MovementInput { get; private set; }
     [field: SerializeField] public CameraInput CameraInput { get; private set; }
     [field: SerializeField] public MenuInput MenuInput { get; private set; }
@@ -101,6 +100,7 @@ public class InputData : Data
         MovementInput.EnableMovement(true);
         CameraInput.EnableLook(true);
         CameraInput.EnableInteract(true);
+        MenuInput.EnableInventoryToggle(true);
     }
 
     public override void LoadData(GameData data)
@@ -114,6 +114,12 @@ public class InputData : Data
     }
 }
 
+
+
+public struct InputSettings
+{
+
+}
 public enum InputMaps
 {
 

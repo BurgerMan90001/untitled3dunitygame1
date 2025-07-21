@@ -17,6 +17,7 @@ MonoBehaviour:
   <MovementInput>k__BackingField: {fileID: 11400000, guid: 5073dac0742252247848489dfbc58d5d, type: 2}
   <CameraInput>k__BackingField: {fileID: 11400000, guid: a9af73362ae1ead4dad683960fcf65fc, type: 2}
   <MenuInput>k__BackingField: {fileID: 11400000, guid: 40ac9e5222a69664b8750e11ab44a282, type: 2}
+  <DebugInput>k__BackingField: {fileID: 0}
   _debugEnabled: 0
   _debug1: {fileID: 0}
   _debug2: {fileID: 0}

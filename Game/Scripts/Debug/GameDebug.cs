@@ -7,8 +7,6 @@ public class GameDebug : MonoBehaviour, ISingleton
 {
 
     [Header("Data")]
-    [SerializeField] private UserInterfaceData _userInterfaceData;
-
 
     [Header("Debug Scene")]
     [SerializeField] private bool _debugScene = true;
@@ -20,11 +18,14 @@ public class GameDebug : MonoBehaviour, ISingleton
     [SerializeField] private UserInterfaceType _loadedInterface;
     [SerializeField] private bool _showInterface;
 
-
+    /*
     [Header("Managers")]
+    
     [SerializeField] private bool _instantiatedPrefabs;
     [SerializeField] private bool _setPrefabsActive;
+
     [SerializeField] private List<GameObject> _instantiatedPrefabsOnPlaySceneWithoutLoading;
+    */
 
     [Header("Spawn")]
     [SerializeField] private Vector3 spawnPoint = new Vector3(-20.49013f, 71f, -32.76805f);
@@ -62,15 +63,8 @@ public class GameDebug : MonoBehaviour, ISingleton
     {
         if (_debugScene)
         {
-            if (_showInterface)
-            {
-                _userInterfaceData.SwitchToUserInterface(_loadedInterface);
-            }
-            else
-            {
-                Debug.LogWarning("The user inteface will not be toggled. Enable showInterface.");
-            }
-            InstantiatePrefabs(_instantiatedPrefabs, _setPrefabsActive);
+
+
         }
         //    ActivatePrefabs(true);
     }
@@ -82,6 +76,7 @@ public class GameDebug : MonoBehaviour, ISingleton
     {
 
     }
+    /*
 
     private void InstantiatePrefabs(bool active, bool setEnabled)
     {
@@ -109,7 +104,7 @@ public class GameDebug : MonoBehaviour, ISingleton
             prefab.SetActive(true);
         }
     }
-
+    */
     public void DropItem(InputAction.CallbackContext ctx) //int itemIndex
     {
         if (ctx.started)

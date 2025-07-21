@@ -110,22 +110,22 @@ public class UserInterface : MonoBehaviour, ISingleton
 
         _uiInventory.UpdateInterface();
 
-        //    _userInterfaceData.OnToggleUserInterface += _interfaceToggler.SwitchToUserInterface;
+        if (_userInterfaceData.ShownInterface == UserInterfaceType.None)
+        {
+            _userInterfaceData.SwitchToUserInterface(InitalShownUserInterface);
+        }
+        else
+        {
+            Debug.LogWarning("There was already an initally set user interface! Not showing InitalShownUserInterface.");
 
+        }
 
-        //   _inventory.OnInventoryChanged += _uiInventory.UpdateInterface; // whenever the inventory changes, update the inventory ui
-        //    _interfaceToggler.SwtichToUserInterface(InitalShownUserInterface);
 
 
 
     }
     private void OnDisable()
     {
-
-        //   _userInterfaceData.OnToggleUserInterface -= _interfaceToggler.SwitchToUserInterface;
-        _inventory.OnInventoryChanged -= _uiInventory.UpdateInterface;
-
-        //   _root.UnregisterCallback<MouseMoveEvent>(OnMouseMove);
 
         UnregisterAllInterfaces();
 
