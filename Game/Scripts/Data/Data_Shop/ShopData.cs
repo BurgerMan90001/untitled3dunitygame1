@@ -27,26 +27,22 @@ public class ShopData : Data
     [SerializeField] private InputData _inputData;
     [SerializeField] private GameTimeData gameTimeData;
 
-    public Action<string> OnShopEntered;
-
-    public Action OnShopExited;
-
     public bool InShop { get; private set; } = false;
-   
+
 
     private void Awake()
     {
-        
+
     }
 
     private void OnEnable()
     {
-        
+
     }
 
     private void OnDisable()
     {
-        
+
     }
 
     #region
@@ -56,12 +52,11 @@ public class ShopData : Data
     #endregion
     public void EnterShop(string shopGuid)
     {
-        OnShopEntered?.Invoke(shopGuid);
 
-        _userInterfaceData.ToggleUserInterface(UserInterfaceType.Shop, true);
-        _userInterfaceData.ToggleUserInterface(UserInterfaceType.Inventory, true);
 
-        
+
+        _userInterfaceData.SwitchToUserInterface(UserInterfaceType.Shop);
+
         _inputData.MovementInput.EnableMovement(false);
         _inputData.CameraInput.EnableLook(false);
 
@@ -72,10 +67,10 @@ public class ShopData : Data
 
     public void ExitShop()
     {
-        OnShopExited?.Invoke();
 
-        _userInterfaceData.ToggleUserInterface(UserInterfaceType.Shop, false);
-        _userInterfaceData.ToggleUserInterface(UserInterfaceType.Inventory, false);
+
+        _userInterfaceData.SwitchToUserInterface(UserInterfaceType.HUD);
+
 
         _inputData.MovementInput.EnableMovement(true);
         _inputData.CameraInput.EnableLook(true);
@@ -83,9 +78,9 @@ public class ShopData : Data
         InShop = false;
     }
     // 5 common top 0-2
-    public void GenerateShopContents() 
+    public void GenerateShopContents()
     {
-        
+
 
     }
     public void GenerateTopRow()

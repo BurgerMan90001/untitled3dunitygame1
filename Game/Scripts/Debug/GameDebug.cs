@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class DebugInput : MonoBehaviour, ISingleton
+public class GameDebug : MonoBehaviour, ISingleton
 {
 
     [Header("Data")]
     [SerializeField] private UserInterfaceData _userInterfaceData;
 
-    
+
     [Header("Debug Scene")]
     [SerializeField] private bool _debugScene = true;
 
@@ -37,17 +37,18 @@ public class DebugInput : MonoBehaviour, ISingleton
     private bool buttonHeld = false;
     private bool show = false;
 
-    public static DebugInput Instance;
+    public static GameDebug Instance;
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-        } else
+        }
+        else
         {
             gameObject.SetActive(false);
-            
+
             Debug.LogWarning("There is another DebugInput in scene. Destroying duplicate.");
         }
         if (_lockCursor)
@@ -63,7 +64,7 @@ public class DebugInput : MonoBehaviour, ISingleton
         {
             if (_showInterface)
             {
-                _userInterfaceData.ToggleUserInterface(_loadedInterface, true);
+                _userInterfaceData.SwitchToUserInterface(_loadedInterface);
             }
             else
             {
@@ -75,13 +76,13 @@ public class DebugInput : MonoBehaviour, ISingleton
     }
     private void OnEnable()
     {
-        
+
     }
     private void OnDisable()
     {
-        
+
     }
-   
+
     private void InstantiatePrefabs(bool active, bool setEnabled)
     {
         if (active)
@@ -96,7 +97,7 @@ public class DebugInput : MonoBehaviour, ISingleton
 
                 }
                 gameObject.SetActive(setEnabled);
-                
+
                 instantiatedPrefabs.Add(gameObject);
             }
         }
@@ -108,7 +109,7 @@ public class DebugInput : MonoBehaviour, ISingleton
             prefab.SetActive(true);
         }
     }
-    
+
     public void DropItem(InputAction.CallbackContext ctx) //int itemIndex
     {
         if (ctx.started)
@@ -120,7 +121,7 @@ public class DebugInput : MonoBehaviour, ISingleton
             buttonHeld = false;
         }
 
-     
+
     }
 
     public void Debug2(InputAction.CallbackContext ctx)
@@ -128,14 +129,15 @@ public class DebugInput : MonoBehaviour, ISingleton
         if (show)
         {
 
-        } else
+        }
+        else
         {
 
         }
     }
     private void Update()
     {
-      
+
     }
-    
+
 }

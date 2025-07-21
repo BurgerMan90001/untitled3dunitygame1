@@ -8,5 +8,11 @@ public class MenuInput : InputEvent
 
     [Header("InputActionReferences")]
     [field: SerializeField] public InputActionReference InventoryToggleAction { get; private set; }
+
+    public void EnableInventoryToggle(bool enabled)
+    {
+        InventoryToggleEnabled = enabled;
+        EnableInputAction(enabled, InventoryToggleAction);
+    }
 }
 

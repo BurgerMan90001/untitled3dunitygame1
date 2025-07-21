@@ -36,20 +36,50 @@ public class UserInterfaceData : Data
 {
     [Header("Data")]
     [SerializeField] private Inventory _inventory;
-    // [SerializeField] private ShopData 
 
-    public Dictionary<UserInterfaceType, VisualElement> UserInterfaceElements;
+    [Header("Settings")]
+    //   [SerializeField] private bool
 
-    public Action<UserInterfaceType> OnSwitchToUserInterface;
+    public UserInterfaceType ShownInterface = UserInterfaceType.None;
+
+    public Dictionary<UserInterfaceType, VisualElement> UserInterfaceElements { get; private set; } = new Dictionary<UserInterfaceType, VisualElement>();
+
+    public event Action<UserInterfaceType> OnSwitchToUserInterface;
+
+    public UserInterfaceEvents Events { get; private set; }
+
+    private UserInterfaceToggler _interfaceToggler;
+
+
+
+
+    private void Awake()
+    {
+
+    }
 
     private void OnEnable()
     {
+
+
+
+
+        _interfaceToggler = new UserInterfaceToggler(this);
+
         _inventory.OnInventoryChanged += OnInventoryChanged;
+
+        SceneLoader.OnSceneLoaded += _interfaceToggler.SwitchToUserInterface;
+
+
     }
 
     private void OnDisable()
     {
         _inventory.OnInventoryChanged -= OnInventoryChanged;
+
+        SceneLoader.OnSceneLoaded -= _interfaceToggler.SwitchToUserInterface;
+
+
     }
 
     private void OnInventoryChanged()
@@ -60,9 +90,13 @@ public class UserInterfaceData : Data
 
     public void SwitchToUserInterface(UserInterfaceType userInterfaceType)
     {
-        OnSwitchToUserInterface?.Invoke(userInterfaceType);
+        _interfaceToggler.SwitchToUserInterface(userInterfaceType);
     }
 
+    public void SetInterfaceActive(UserInterfaceType userInterfaceType, bool active)
+    {
+        _interfaceToggler.SetInterfaceActive(userInterfaceType, active);
+    }
     public override void LoadData(GameData data)
     {
         throw new NotImplementedException();
@@ -78,13 +112,6 @@ public class UserInterfaceEvents : IEvent
 {
     public UserInterfaceEvents() { }
 
-    public void Register()
-    {
 
-    }
-    public void Unregister()
-    {
-
-    }
 
 }

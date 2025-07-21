@@ -20,17 +20,12 @@ public class UserInterface : MonoBehaviour, ISingleton
 
     [SerializeField] private CombatData _combatData;
 
-    [Header("Inventory Settings")]
-
-
-    [Header("UXML Loader Settings")]
-    [SerializeField] private AssetLabelReference _uxmlAssetLabelReference;
 
     [Header("First Shown Interface")]
     public UserInterfaceType InitalShownUserInterface;
 
-    [Header("Settings")]
-    [SerializeField] private AssetLabelReference _sceneLabelReference;
+    [Header("UXML Loader Settings")]
+    [SerializeField] private AssetLabelReference _uxmlAssetLabelReference;
 
     [Header("Debug")]
     [SerializeField] private bool _showHoveredOnElement = false;
@@ -39,12 +34,12 @@ public class UserInterface : MonoBehaviour, ISingleton
     private VisualElement _currentElement;
 
     private UIDocument _uiDocument;
-    private VisualElement _root; // the base visual element that will uxmls be added on to
+    public VisualElement Root { get; private set; }// the base visual element that will uxmls be added on to
 
 
-    private UXMLFileHandler _uxmlFileHandler;
+    //  private UXMLFileHandler _uxmlFileHandler;
 
-    private UserInterfaceToggler _interfaceToggler;
+    // private UserInterfaceToggler _interfaceToggler;
 
     private UI_Dialogue _uiDialogue; // handles dialogue related user interface functionality
     private UI_Inventory _uiInventory; // handles inventory related user interface functionality
@@ -57,6 +52,8 @@ public class UserInterface : MonoBehaviour, ISingleton
 
 
     public static UserInterface Instance;
+
+    private UxmlFileHandler _uxmlFileHandler;
 
     private void Awake()
     {
@@ -76,16 +73,16 @@ public class UserInterface : MonoBehaviour, ISingleton
 
         _uiDocument = GetComponent<UIDocument>();
 
-        _root = _uiDocument.rootVisualElement;
-        _root.style.flexGrow = 1;
+        Root = _uiDocument.rootVisualElement;
+        Root.style.flexGrow = 1;
 
 
 
-        _uxmlFileHandler = new UXMLFileHandler(_root, _uxmlAssetLabelReference);
-        _interfaceToggler = new UserInterfaceToggler(_uxmlFileHandler);
+        _uxmlFileHandler = new UxmlFileHandler(Root, _uxmlAssetLabelReference, _userInterfaceData);
+        //    _interfaceToggler = new UserInterfaceToggler(_uxmlFileHandler);
 
-        _uiMainMenu = new UI_MainMenu(_dataPersistenceData, _interfaceToggler);
-        _uiSaveSlotsMenu = new UI_SaveSlotsMenu(_dataPersistenceData, _interfaceToggler);
+        _uiMainMenu = new UI_MainMenu(_dataPersistenceData, _userInterfaceData);
+        _uiSaveSlotsMenu = new UI_SaveSlotsMenu(_dataPersistenceData, _userInterfaceData);
         _uiDialogue = new UI_Dialogue(_userInterfaceData, _dialogueData);
         _uiInventory = new UI_Inventory(_inventory);
 
@@ -109,16 +106,15 @@ public class UserInterface : MonoBehaviour, ISingleton
         QueryAllElements();
         RegisterAllInterfaces();
 
-        _root.RegisterCallback<MouseMoveEvent>(OnMouseMove);
+        //    _root.RegisterCallback<MouseMoveEvent>(OnMouseMove);
 
         _uiInventory.UpdateInterface();
 
-        SceneLoader.OnSceneLoaded += _interfaceToggler.SwitchToUserInterface;
-        _userInterfaceData.OnToggleUserInterface += _interfaceToggler.SwitchToUserInterface;
+        //    _userInterfaceData.OnToggleUserInterface += _interfaceToggler.SwitchToUserInterface;
 
 
-        _inventory.OnInventoryChanged += _uiInventory.UpdateInterface; // whenever the inventory changes, update the inventory ui
-        _interfaceToggler.SwtichToUserInterface(InitalShownUserInterface);
+        //   _inventory.OnInventoryChanged += _uiInventory.UpdateInterface; // whenever the inventory changes, update the inventory ui
+        //    _interfaceToggler.SwtichToUserInterface(InitalShownUserInterface);
 
 
 
@@ -126,11 +122,10 @@ public class UserInterface : MonoBehaviour, ISingleton
     private void OnDisable()
     {
 
-        SceneLoader.OnSceneLoaded -= _interfaceToggler.SwitchToUserInterface;
-        _userInterfaceData.OnToggleUserInterface -= _interfaceToggler.SwitchToUserInterface;
+        //   _userInterfaceData.OnToggleUserInterface -= _interfaceToggler.SwitchToUserInterface;
         _inventory.OnInventoryChanged -= _uiInventory.UpdateInterface;
 
-        _root.UnregisterCallback<MouseMoveEvent>(OnMouseMove);
+        //   _root.UnregisterCallback<MouseMoveEvent>(OnMouseMove);
 
         UnregisterAllInterfaces();
 
@@ -170,11 +165,11 @@ public class UserInterface : MonoBehaviour, ISingleton
 
     private void QueryAllElements()
     {
-        _userInterfaces.ForEach(ui => ui.QueryElements(_root));
+        _userInterfaces.ForEach(ui => ui.QueryElements(Root));
     }
     private void RegisterAllInterfaces()
     {
-        _userInterfaces.ForEach(ui => ui.Register(_root));
+        _userInterfaces.ForEach(ui => ui.Register(Root));
 
     }
     private void UnregisterAllInterfaces()

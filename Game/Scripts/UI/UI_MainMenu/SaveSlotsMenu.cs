@@ -38,13 +38,15 @@ public class UI_SaveSlotsMenu : IUserInterface
     private bool _isLoadingGame = false;
 
     private DataPersistenceData _dataPersistenceData;
-    private UserInterfaceToggler _userInterfaceToggler;
 
-    public UI_SaveSlotsMenu(DataPersistenceData dataPersistenceData, UserInterfaceToggler userInterfaceToggler)
+    private UserInterfaceData _userInterfaceData;
+
+
+    public UI_SaveSlotsMenu(DataPersistenceData dataPersistenceData, UserInterfaceData userInterfaceData)
     {
 
         _dataPersistenceData = dataPersistenceData;
-        _userInterfaceToggler = userInterfaceToggler;
+        _userInterfaceData = userInterfaceData;
     }
     public void QueryElements(VisualElement root)
     {
@@ -95,7 +97,7 @@ public class UI_SaveSlotsMenu : IUserInterface
     }
     private void OnBackClicked()
     {
-        _userInterfaceToggler.SwitchToUserInterface(UserInterfaceType.MainMenu);
+        _userInterfaceData.SwitchToUserInterface(UserInterfaceType.MainMenu);
     }
     public void OnSaveSlotClicked(object userData)
     {

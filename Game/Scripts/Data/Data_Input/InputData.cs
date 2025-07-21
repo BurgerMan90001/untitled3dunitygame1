@@ -1,11 +1,10 @@
 
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [CreateAssetMenu(menuName = "Input/InputData")]
-public class InputData : ScriptableObject 
+public class InputData : Data
 {
     [Header("Data")]
     [SerializeField] private DialogueData _dialogueData;
@@ -16,20 +15,18 @@ public class InputData : ScriptableObject
     [field: SerializeField] public MovementInput MovementInput { get; private set; }
     [field: SerializeField] public CameraInput CameraInput { get; private set; }
     [field: SerializeField] public MenuInput MenuInput { get; private set; }
-
+    [field: SerializeField] public DebugInput DebugInput { get; private set; }
 
     [Header("Debug")]
     [SerializeField] private bool _debugEnabled = false;
     [SerializeField] private InputActionReference _debug1;
     [SerializeField] private InputActionReference _debug2;
 
-    
-   // [field: SerializeField] public DebugInput DebugInput { get; private set; }
 
 
     public bool InputEnabled { get; private set; }
 
-    
+
     private void OnEnable()
     {
         _dialogueData.Events.OnChoiceSelected += OnChoiceSelected;
@@ -37,7 +34,7 @@ public class InputData : ScriptableObject
 
         _combatData.Events.OnEnterCombat += OnEnterCombat;
         _combatData.Events.OnExitCombat += OnExitCombat;
-        
+
         if (_debugEnabled)
         {
             _debug1.action.started += OnDebug1;
@@ -60,25 +57,25 @@ public class InputData : ScriptableObject
 
     }
 
-    private void OnEnterCombat(CombatUnit enemy) 
+    private void OnEnterCombat(CombatUnit _)
     {
-        
+        MovementInput.EnableMovement(false);
     }
     private void OnExitCombat()
     {
-
+        MovementInput.EnableMovement(true);
     }
     private void OnDebug1(InputAction.CallbackContext ctx)
     {
 
 
     }
-    private void OnDebug2(InputAction.CallbackContext ctx) 
+    private void OnDebug2(InputAction.CallbackContext ctx)
     {
 
     }
-    
-    
+
+
     #region
     /// <summary>
     /// <br> Toggle all inputs on or off. </br>
@@ -96,6 +93,7 @@ public class InputData : ScriptableObject
         MovementInput.EnableMovement(false);
         CameraInput.EnableLook(false);
         CameraInput.EnableInteract(false);
+        MenuInput.EnableInventoryToggle(false);
     }
 
     private void OnChoiceSelected(int choicesIndex) // discards the chosen int index. enables input
@@ -104,7 +102,16 @@ public class InputData : ScriptableObject
         CameraInput.EnableLook(true);
         CameraInput.EnableInteract(true);
     }
-    
+
+    public override void LoadData(GameData data)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void SaveData(GameData data)
+    {
+        throw new System.NotImplementedException();
+    }
 }
 
 public enum InputMaps

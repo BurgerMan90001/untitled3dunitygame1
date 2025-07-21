@@ -1,5 +1,3 @@
-
-using System.ComponentModel;
 using UnityEngine.UIElements;
 // TODO FIX CONTIUME AND DATA PERSISTENCE
 
@@ -13,7 +11,8 @@ public class UI_MainMenu : IUserInterface
     private VisualElement _panelMainMenu;
 
     private DataPersistenceData _dataPersistenceData;
-    private UserInterfaceToggler _userInterfaceToggler;
+
+    private UserInterfaceData _userInterfaceData;
 
     // menuButton
     // mainMenuBackingPanel
@@ -37,12 +36,13 @@ public class UI_MainMenu : IUserInterface
     .button_secondary
     */
     #endregion
-    public UI_MainMenu(DataPersistenceData dataPersistenceData, UserInterfaceToggler userInterfaceToggler)
+    public UI_MainMenu(DataPersistenceData dataPersistenceData, UserInterfaceData userInterfaceData)
     {
 
         _dataPersistenceData = dataPersistenceData;
-        _userInterfaceToggler = userInterfaceToggler;
-        var container = new Container();
+
+        _userInterfaceData = userInterfaceData;
+
 
 
     }
@@ -75,13 +75,13 @@ public class UI_MainMenu : IUserInterface
 
     private void OnNewGameClicked() // is loading = false 
     {
-        _userInterfaceToggler.SwitchToUserInterface(UserInterfaceType.SaveSlotsMenu);
+        _userInterfaceData.SwitchToUserInterface(UserInterfaceType.SaveSlotsMenu);
 
     }
     private void OnLoadGameClicked() // is loading = true 
     {
 
-        _userInterfaceToggler.SwitchToUserInterface(UserInterfaceType.SaveSlotsMenu);
+        _userInterfaceData.SwitchToUserInterface(UserInterfaceType.SaveSlotsMenu);
 
     }
     public void OnContinueGameClicked()

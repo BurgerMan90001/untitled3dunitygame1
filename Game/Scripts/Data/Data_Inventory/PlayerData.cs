@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerData : MonoBehaviour, IDataPersistence
 {
     [Header("Dependancies")]
-    
+
     [SerializeField] private UserInterfaceData _userInterfaceData;
     [SerializeField] private InputData _inputData;
 
@@ -21,7 +21,7 @@ public class PlayerData : MonoBehaviour, IDataPersistence
     {
 
         _inputData.MenuInput.RegisterInputEvent(_inputData.MenuInput.InventoryToggleAction, OnOpenInventory);
-        
+
 
         ClearInventory(_clearOnEnable);
 
@@ -38,23 +38,24 @@ public class PlayerData : MonoBehaviour, IDataPersistence
     {
         if (_interfaceEnabled)
         {
-            _userInterfaceData.ToggleUserInterface(UserInterfaceType.Inventory, false);
+            _userInterfaceData.SwitchToUserInterface(UserInterfaceType.HUD);
             _interfaceEnabled = false;
 
             _inputData.MovementInput.EnableMovement(true);
             _inputData.CameraInput.EnableLook(true);
-        } else
+        }
+        else
         {
-            _userInterfaceData.ToggleUserInterface(UserInterfaceType.Inventory, true);
+            _userInterfaceData.SwitchToUserInterface(UserInterfaceType.Inventory);
             _interfaceEnabled = true;
 
             _inputData.MovementInput.EnableMovement(false);
             _inputData.CameraInput.EnableLook(false);
-                
+
         }
-        
+
     }
-    
+
     private void ClearInventory(bool active)
     {
         if (active)
@@ -65,12 +66,12 @@ public class PlayerData : MonoBehaviour, IDataPersistence
     }
     public void LoadData(GameData data)
     {
-    //    Inventory.Items = data.Items;
-        
+        //    Inventory.Items = data.Items;
+
     }
 
     public void SaveData(GameData data)
     {
-   //     data.Items = Inventory.Items;
+        //     data.Items = Inventory.Items;
     }
 }

@@ -8,26 +8,28 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UIElements;
 
 // TODO OPTIMIZE 
-public class UXMLFileHandler
+public class UxmlFileHandler
 {
+    private VisualElement _root;
+
     private AssetLabelReference _labelReference;
+    private AsyncOperationHandle _loadedUserInterfaces;
+
 
     private readonly bool _showLoadingResults = false;
 
-    private VisualElement _root;
 
-    private AsyncOperationHandle _loadedUserInterfaces;
+    private Dictionary<UserInterfaceType, VisualElement> _userInterfaceElements;
 
-    public Dictionary<UserInterfaceType, VisualElement> UserInterfaceElements { get; private set; }
+    private UserInterfaceData _userInterfaceData;
 
-
-    public UXMLFileHandler(VisualElement root, AssetLabelReference uxmlAssetLabelReference)
+    public UxmlFileHandler(VisualElement root, AssetLabelReference uxmlAssetLabelReference, UserInterfaceData userInterfaceData)
     {
         _root = root;
 
         _labelReference = uxmlAssetLabelReference;
 
-        UserInterfaceElements = new Dictionary<UserInterfaceType, VisualElement>();
+        _userInterfaceData = userInterfaceData;
     }
 
     private void ShowLoadingResults(VisualTreeAsset visualTreeAsset, bool showLoadingResults)
@@ -123,7 +125,7 @@ public class UXMLFileHandler
         }
         else
         {
-            UserInterfaceElements.Add(userInterface, addedUserInterfaceElement);
+            _userInterfaceData.UserInterfaceElements.Add(userInterface, addedUserInterfaceElement);
 
 
         }
