@@ -6,18 +6,17 @@ public class NPC : MonoBehaviour, IInteractable
     [SerializeField] private string _dialogueKnotName;
 
 
-    private NPCInteraction _npcInteraction;
+    //  private NPCInteraction _npcInteraction;
     private DialogueData _dialogueData;
 
     private bool _initialized = false;
 
 
-    private bool _debugMode = true;
+    private readonly bool _debugMode = false;
     public void Initialize(DialogueData dialogueData)
     {
 
         _dialogueData = dialogueData;
-        //    _npcInteraction = new NPCInteraction(_dialogueKnotName, dialogueData);
 
         _initialized = true;
     }

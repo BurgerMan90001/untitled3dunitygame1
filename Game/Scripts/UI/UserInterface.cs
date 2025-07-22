@@ -28,6 +28,7 @@ public class UserInterface : MonoBehaviour, ISingleton
     [SerializeField] private AssetLabelReference _uxmlAssetLabelReference;
 
     [Header("Debug")]
+    [SerializeField] private bool _debugMode;
     [SerializeField] private bool _showHoveredOnElement = false;
 
 
@@ -92,6 +93,7 @@ public class UserInterface : MonoBehaviour, ISingleton
 
     private async void Start()
     {
+        Debug.Log("START");
         _userInterfaceData.UserInterfaceElements = await _uxmlFileHandler.LoadInterfacesAsync(_uxmlAssetLabelReference); // load the user interfaces asynchronously. visual element configuration is done after this.
 
         QueryAllElements();
@@ -106,7 +108,9 @@ public class UserInterface : MonoBehaviour, ISingleton
     {
         _inventory.OnInventoryChanged += OnInventoryChanged;
 
-        SceneLoader.OnSceneLoaded += OnSceneLoaded;
+
+        SceneLoader.OnSceneLoadComplete += OnSceneLoadComplete;
+
 
     }
 
@@ -119,31 +123,29 @@ public class UserInterface : MonoBehaviour, ISingleton
     {
         _inventory.OnInventoryChanged -= OnInventoryChanged;
 
-        SceneLoader.OnSceneLoaded -= OnSceneLoaded;
+        SceneLoader.OnSceneLoadComplete -= OnSceneLoadComplete;
 
         UnregisterAllInterfaces();
 
         _uxmlFileHandler?.ReleaseInterfaces();
+
+
     }
-    private void OnSceneLoaded(SceneLoadingSettings settings)
+
+    private void OnSceneLoadComplete(SceneLoadingSettings settings)
     {
         _userInterfaceData.SwitchToUserInterface(settings.UserInterface);
+
     }
+
     private void OnInventoryChanged()
     {
         _uiInventory.UpdateInterface();
     }
     private void ShowInitialInterface()
     {
-        if (_userInterfaceData.ShownInterface == UserInterfaceType.None)
-        {
-            _userInterfaceData.SwitchToUserInterface(InitalShownUserInterface);
-        }
-        else
-        {
-            Debug.LogWarning("There was already an initally set user interface! Not showing InitalShownUserInterface.");
+        _userInterfaceData.SwitchToUserInterface(InitalShownUserInterface);
 
-        }
     }
     private void OnMouseMove(MouseMoveEvent evt)
     {
@@ -175,19 +177,30 @@ public class UserInterface : MonoBehaviour, ISingleton
 
     private void QueryAllElements()
     {
-        Debug.Log("QUERAY");
+        if (_debugMode)
+        {
+            Debug.Log("QUERAY");
+        }
+
         _userInterfaces.ForEach(ui => ui.QueryElements(Root));
     }
     private void RegisterAllInterfaces()
     {
-        Debug.Log("REGISTER");
+        if (_debugMode)
+        {
+            Debug.Log("REGISTER");
+        }
+
         _userInterfaces.ForEach(ui => ui.Register(Root));
 
     }
     private void UnregisterAllInterfaces()
     {
+        if (_debugMode)
+        {
+            Debug.Log("UNREGISTER");
+        }
 
-        Debug.Log("UNREGISTER");
         _userInterfaces.ForEach(ui => ui?.Unregister());
     }
 

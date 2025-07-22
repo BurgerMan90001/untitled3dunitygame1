@@ -1,5 +1,7 @@
+using MyBox;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -34,14 +36,17 @@ public class CombatData : Data
 
     public CombatEvents Events { get; private set; } = new CombatEvents();
 
+    public Stack<CombatStates> CombatState { get; private set; } = new Stack<CombatStates>();
+    [ReadOnly][SerializeField] private List<CombatStates> CombatStateStack;
 
-    [field: SerializeField] public CombatStates CombatState { get; private set; }
+
+    //   [field: SerializeField] public CombatStates CombatState { get; private set; }
 
 
-    public void SwitchCombatState(CombatStates combatState)
+    public void PushCombatState(CombatStates combatState)
     {
-        CombatState = combatState;
-        Events.SwitchCombatState(CombatState);
+        CombatState.Push(combatState);
+        CombatStateStack = CombatState.ToList();
     }
 
     public void CheckIfCombatEntered(GameObject npc, bool combatEntered)
@@ -62,7 +67,39 @@ public class CombatData : Data
         }
 
     }
+    public bool IsPlayerTurn()
+    {
+        if (CombatState.TryPeek(out CombatStates combatState))
+        {
+            if (combatState == CombatStates.PlayerTurn)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    public bool DidWin()
+    {
+        if (CombatState.TryPeek(out CombatStates combatState))
+        {
+            if (combatState == CombatStates.Won)
+            {
+                return true;
+            }
+            else if (combatState == CombatStates.Lost)
+            {
+                return false;
+            }
+            else
+            {
+                Debug.LogWarning($" Found a combat state of : {combatState}, instead of a win condition.");
+            }
+        }
+
+        Debug.LogError("Could not find the most recent combat state.");
+        return false;
+    }
     public override void LoadData(GameData data)
     {
         throw new NotImplementedException();

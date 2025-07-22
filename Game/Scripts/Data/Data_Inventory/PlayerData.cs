@@ -36,23 +36,27 @@ public class PlayerData : MonoBehaviour, IDataPersistence
 
     private void OnOpenInventory(InputAction.CallbackContext ctx)
     {
-        if (_interfaceEnabled)
+        if (ctx.started)
         {
-            _userInterfaceData.SwitchToUserInterface(UserInterfaceType.HUD);
-            _interfaceEnabled = false;
+            if (_interfaceEnabled)
+            {
+                _userInterfaceData.SwitchToUserInterface(UserInterfaceType.HUD);
+                _interfaceEnabled = false;
 
-            _inputData.MovementInput.EnableMovement(true);
-            _inputData.CameraInput.EnableLook(true);
+                _inputData.MovementInput.EnableMovement(true);
+                _inputData.CameraInput.EnableLook(true);
+            }
+            else
+            {
+                _userInterfaceData.SwitchToUserInterface(UserInterfaceType.Inventory);
+                _interfaceEnabled = true;
+
+                _inputData.MovementInput.EnableMovement(false);
+                _inputData.CameraInput.EnableLook(false);
+
+            }
         }
-        else
-        {
-            _userInterfaceData.SwitchToUserInterface(UserInterfaceType.Inventory);
-            _interfaceEnabled = true;
 
-            _inputData.MovementInput.EnableMovement(false);
-            _inputData.CameraInput.EnableLook(false);
-
-        }
 
     }
 

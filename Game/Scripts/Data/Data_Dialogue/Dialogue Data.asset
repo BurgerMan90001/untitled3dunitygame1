@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Dialogue Data
   m_EditorClassIdentifier: 
   <InkJson>k__BackingField: {fileID: 4900000, guid: 7e2d4f69c8461424da28133ec1ce413d, type: 3}
-  <DebugMode>k__BackingField: 0
+  <ResetStoryOnExit>k__BackingField: 0
+  <DebugMode>k__BackingField: 1
   DialogueLine: 

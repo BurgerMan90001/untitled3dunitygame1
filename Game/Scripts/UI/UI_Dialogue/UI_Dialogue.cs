@@ -41,7 +41,7 @@ public class UI_Dialogue : IUserInterface
     public void Register(VisualElement root)
     {
         _dialogueData.Events.OnEnterDialogue += DisplayDialoguePanel;
-        _dialogueData.Events.OnContinueDialogue += UpdateText;
+        _dialogueData.OnUpdateDialogueLine += UpdateText;
         _dialogueData.Events.OnExitDialogue += HideDialogue;
 
 
@@ -55,7 +55,7 @@ public class UI_Dialogue : IUserInterface
     public void Unregister()
     {
         _dialogueData.Events.OnEnterDialogue -= DisplayDialoguePanel;
-        _dialogueData.Events.OnContinueDialogue -= UpdateText;
+        _dialogueData.OnUpdateDialogueLine -= UpdateText;
         _dialogueData.Events.OnExitDialogue -= HideDialogue;
 
 
@@ -90,18 +90,20 @@ public class UI_Dialogue : IUserInterface
 
     private void DisplayDialoguePanel(string _)
     {
-        _userInterfaceData.SetInterfaceActive(UserInterfaceType.Dialogue, true);
-        UpdateText();
+
+        _userInterfaceData.ShowInterface(UserInterfaceType.Dialogue);
 
 
     }
-    private void UpdateText()
+    private void UpdateText(string newText)
     {
-        _dialogueLabel.text = _dialogueData.DialogueLine;
+
+        _dialogueLabel.text = newText;
     }
     private void HideDialogue(GameObject _)
     {
-        _userInterfaceData.SetInterfaceActive(UserInterfaceType.Dialogue, false);
+        _userInterfaceData.HideRecentInterface();
+        _dialogueLabel.text = "";
     }
 
     private void UpdateChoices(List<string> choiceText)

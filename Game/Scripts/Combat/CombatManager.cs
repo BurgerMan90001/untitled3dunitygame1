@@ -1,6 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+
+
 
 //TODO MAKE COMBAT SYSTEM BETTER
 //TODO MAKE BETTER ENEMY AI WITH ENEMY TURN.
@@ -12,6 +14,7 @@ public class CombatManager : MonoBehaviour, ISingleton
 {
 
     [Header("Data")]
+    [SerializeField] private DialogueData _dialogueData;
     [SerializeField] private CombatData _combatData;
 
 
@@ -25,7 +28,8 @@ public class CombatManager : MonoBehaviour, ISingleton
         {
             Instance = this;
 
-        } else
+        }
+        else
         {
             Debug.LogWarning("There is a duplicate CombatManager in the scene. Destroying duplicate. ");
             Destroy(gameObject);
@@ -38,21 +42,39 @@ public class CombatManager : MonoBehaviour, ISingleton
         {
             Debug.Log("IN COMBAT DEBUG MODE");
             _combatData.Events.EnterCombat(_combatData.EnemyUnit);
-       //     SetupBattle();
         }
     }
-    
+
     private void OnEnable()
     {
-        _combatData.Events.OnEnterCombat += EnterCombat; // only needs to subscribe to on enter combat because this class will do the exit combat
+        _dialogueData.Events.OnExitDialogue += CheckIfEnteredCombat;
 
     }
-
     private void OnDisable()
     {
-        _combatData.Events.OnEnterCombat -= EnterCombat;
+
+        _dialogueData.Events.OnExitDialogue -= CheckIfEnteredCombat;
 
     }
+    private void CheckIfEnteredCombat(GameObject npc)
+    {
+        if (_dialogueData.CombatEntered)
+        {
+            if (npc.TryGetComponent(out CombatUnit combatUnit))
+            {
+                EnterCombat(combatUnit);
+            }
+            else
+            {
+                Debug.LogError("Combat was entered, but the npc does not have a CombatUnit monobehaviour.");
+            }
+
+        }
+    }
+
+
+
+
     private IEnumerator PlayerAttack()
     {
 
@@ -64,12 +86,13 @@ public class CombatManager : MonoBehaviour, ISingleton
 
         if (isDead)
         {
-            _combatData.SwitchCombatState(CombatStates.Won);
+            _combatData.PushCombatState(CombatStates.Won);
             EndBattle();
-        } else
+        }
+        else
         {
-            _combatData.SwitchCombatState(CombatStates.EnemyTurn);
-            EnemyTurn();
+            _combatData.PushCombatState(CombatStates.EnemyTurn);
+            StartCoroutine(EnemyTurn());
         }
 
     }
@@ -80,21 +103,21 @@ public class CombatManager : MonoBehaviour, ISingleton
     }
     public void OnAttackButton()
     {
-        if (_combatData.CombatState != CombatStates.PlayerTurn) return;
+        if (!_combatData.IsPlayerTurn()) return;
 
         StartCoroutine(PlayerAttack());
     }
     public void OnBlockButton()
     {
-        if (_combatData.CombatState != CombatStates.PlayerTurn) return;
-        
+        if (!_combatData.IsPlayerTurn()) return;
+
         StartCoroutine(PlayerBlock());
 
     }
 
     private void PlayerTurn()
     {
-        _combatData.SwitchCombatState(CombatStates.PlayerTurn);
+        _combatData.PushCombatState(CombatStates.PlayerTurn);
         Debug.Log("YOUR TURN");
     }
     #region
@@ -117,10 +140,11 @@ public class CombatManager : MonoBehaviour, ISingleton
 
         if (isDead)
         {
-            _combatData.SwitchCombatState(CombatStates.Lost);
-        } else
+            _combatData.PushCombatState(CombatStates.Lost);
+        }
+        else
         {
-            
+
             PlayerTurn();
         }
 
@@ -128,9 +152,13 @@ public class CombatManager : MonoBehaviour, ISingleton
 
     private void EnterCombat(CombatUnit enemy)
     {
-    //    SetupBattle(enemy);
 
-        _combatData.SwitchCombatState(CombatStates.Start);
+        DontDestroyOnLoad(enemy.gameObject);
+
+        _combatData.Events.EnterCombat(enemy);
+
+
+        _combatData.PushCombatState(CombatStates.Start);
 
         _enemyUnit = _combatData.EnemyUnit;
         _playerUnit = _combatData.EnemyUnit;
@@ -139,34 +167,17 @@ public class CombatManager : MonoBehaviour, ISingleton
     }
     private void EndBattle()
     {
-        if (_combatData.CombatState == CombatStates.Won)
+        if (_combatData.DidWin())
         {
             Debug.Log("WINNER");
         }
-        else if (_combatData.CombatState == CombatStates.Lost)
+        else
         {
             Debug.Log("DEFEAT");
         }
         _combatData.Events.ExitCombat();
     }
-    private void SetupBattle(GameObject enemy)
-    {
-        /*
-        if (_debugMode) // if there is no player prefab
-        {
-            GameObject playerGO = Instantiate(_playerPrefab, _combatData.PlayerSpawnPoint, Quaternion.identity); // GO is gameobject
 
-            _playerUnit = playerGO.GetComponent<CombatUnit>();
-        }
-        if (enemy == null || _debugMode)
-
-        {
-            GameObject enemyGO = Instantiate(_enemyPrefab, _combatData.EnemySpawnPoint, Quaternion.identity);
-            _enemyUnit = enemyGO.GetComponent<CombatUnit>();
-        }
-        */
-
-    }
 
     /*
     public bool ApplyHurt(HurtType type, CombatUnit target, CombatUnit attacker, float damageAmount)

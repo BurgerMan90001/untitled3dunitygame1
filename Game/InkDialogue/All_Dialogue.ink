@@ -3,6 +3,9 @@ VAR yourVariable = true
 VAR combatEntered = false
 
 VAR myNumber = 1
+
+
+-> Rival // testing
 /*
 	Quick random function for varying choices
 
@@ -20,7 +23,8 @@ VAR myNumber = 1
 // * to NOT show a question again when its picked/
 // ~
 
--> Rival // testing
+
+
 
 === girl1 ===
 fdgjlsdfhggflkhflgmjgdfhjmkdf
@@ -40,8 +44,9 @@ Hello? Is your refrigerator running?
         -> END
     * [No]
         Sounds like you need to call a repairman!
-        BWAHAHAHAHAHA!!!
+        HAHAHAHAHA!!!
         -> END
+        
 == girl2 === // i need a baddie for mass apeal
 
 -> END
@@ -62,37 +67,24 @@ HI IM A DUDE
 HELLO IM YOUR RIVAL, PLAYER.
 HM
 DO YOU WAN'T TO CARD BATTLE?
-
-    * [Why?]
+-> Rival_Q1
+    
+    === Rival_Q1 ===
+    * [Who are you?]
         AHAHAHAH
+        I'M YOUR RIVAL.
         -> END
     * [Ok]
         LETS BATTLE!!
         
         ~ combatEntered = true
-        ~ myNumber = 5
         -> END
     + [No]
         ...
         ~ combatEntered = false
-        ~ myNumber = 3
+        
         -> END
-
-
-
-
-
-
-
-=== function abs(x)
-{ x < 0:
-      ~ return -1 * x
-  - else: 
-      ~ return x
-}
-
-
-
+    
 
 === City_Shop_LineWaiter ===
 IM WAITING
@@ -138,3 +130,12 @@ IM WAITING
         Otherwise this is written
     }
 -> END
+
+
+
+=== function abs(x)
+{ x < 0:
+      ~ return -1 * x
+  - else: 
+      ~ return x
+}

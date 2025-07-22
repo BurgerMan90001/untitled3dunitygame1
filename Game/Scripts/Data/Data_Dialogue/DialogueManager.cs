@@ -11,8 +11,13 @@ public class DialogueManager : MonoBehaviour
 
     private void Awake()
     {
-        _dialogueData.Story = new Story(_dialogueData.InkJson.text);
-        if (_dialogueData.DebugMode)
+        if (_dialogueData.Story == null)
+        {
+            _dialogueData.Story = new Story(_dialogueData.InkJson.text);
+            Debug.Log("Created a new ink story because it didn't exsist.");
+        }
+
+        if (_dialogueData.ShowVariables)
         {
             ShowVariables();
         }
@@ -41,21 +46,25 @@ public class DialogueManager : MonoBehaviour
     {
         _dialogueData.Story.onError -= OnError;
 
-
         _dialogueData.Events.OnEnterDialogue -= EnterDialogue;
         _dialogueData.Events.OnContinueDialogue -= ContinueOrExitStory;
         _dialogueData.Events.OnChoiceSelected -= SelectChoice;
+
+        ExitDialogue();
+
 
     }
 
 
     private void EnterDialogue(string knotName) // begins or continues dialogue
     {
+
         if (!knotName.Equals(""))
         {
             _dialogueData.SetInDialogue(true);
             _dialogueData.Story.ChoosePathString(knotName); // jump to the knotname in the ink file
 
+            ContinueOrExitStory();
         }
         else
         {
@@ -71,9 +80,8 @@ public class DialogueManager : MonoBehaviour
 
             string dialogueLine = _dialogueData.Story.Continue();
 
-            _dialogueData.DialogueLine = dialogueLine; // update the scriptable object's line
 
-
+            _dialogueData.UpdateDialogueLine(dialogueLine);
             if (IsThereStoryChoices())
             {
                 UpdateChoices();
@@ -83,24 +91,24 @@ public class DialogueManager : MonoBehaviour
         }
         else // when there is no more dialogue lines in the story, exit
         {
-            _dialogueData.Events.ExitDialogue();
-
-            _dialogueData.DialogueLine = "";
-
-            _dialogueData.ChoiceText?.Clear();
-
-            _dialogueData.SetInDialogue(false);
-
-            if (_dialogueData.ResetStoryOnExit)
-            {
-                _dialogueData.Story.ResetState();
-            }
+            ExitDialogue();
 
         }
     }
-    private void OnExitDialogue(GameObject _)
+    private void ExitDialogue()
     {
+        _dialogueData.Events.ExitDialogue();
 
+        _dialogueData.UpdateDialogueLine("");
+
+        _dialogueData.ChoiceText?.Clear();
+
+        _dialogueData.SetInDialogue(false);
+
+        if (_dialogueData.ResetStoryOnExit)
+        {
+            _dialogueData.Story.ResetState();
+        }
 
     }
     private void UpdateChoices()
@@ -110,7 +118,6 @@ public class DialogueManager : MonoBehaviour
 
             List<string> choicesText = _dialogueData.Story.currentChoices.Select(choice => choice.text).ToList();
 
-            //    updateStoryChoices(choicesText);
 
             _dialogueData.Events.UpdateStoryChoices(choicesText);
             _dialogueData.ChoiceText.Clear();

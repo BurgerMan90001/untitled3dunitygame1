@@ -171,6 +171,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6452167509510429296, guid: e241dca1dde457047a072e37bcdc3f4d, type: 3}
+      propertyPath: _triggerOnStartInterface
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -185,8 +189,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3432003003172095732, guid: d6feb5d8cd767c84e8e3871800c2a327, type: 3}
+      propertyPath: _debugMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3432003003172095732, guid: d6feb5d8cd767c84e8e3871800c2a327, type: 3}
       propertyPath: InitalShownUserInterface
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3480076296380487864, guid: d6feb5d8cd767c84e8e3871800c2a327, type: 3}
       propertyPath: m_LocalPosition.x

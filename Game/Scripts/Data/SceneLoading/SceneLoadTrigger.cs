@@ -1,3 +1,4 @@
+using MyBox;
 using UnityEngine;
 /// <summary>
 /// <br> Triggers a scene load on start. </br>
@@ -5,12 +6,10 @@ using UnityEngine;
 public class SceneLoadTrigger : MonoBehaviour
 {
 
-
-    [Header("Trigger On Start")]
     [SerializeField] private bool _triggerOnStart = false;
-    [SerializeField] private string _loadedScene;
-    [SerializeField] private UserInterfaceType _loadedUserInterface;
-    [SerializeField] private Vector3 _loadedPosition = Vector3.zero;
+    [ConditionalField(nameof(_triggerOnStart))][SerializeField] private SceneType _triggerOnStartScene;
+    [ConditionalField(nameof(_triggerOnStart))][SerializeField] private UserInterfaceType _triggerOnStartInterface;
+    [ConditionalField(nameof(_triggerOnStart))][SerializeField] private Vector3 _triggerOnStartPosition = Vector3.zero;
 
     [Header("Data")]
     [SerializeField] private DialogueData _dialogueData;
@@ -19,11 +18,14 @@ public class SceneLoadTrigger : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool _showDebugLoadingLogs = true;
 
+
+    //private Vector3 _spawnPoint;
+
     private void Start()
     {
         if (_triggerOnStart)
         {
-            SceneLoader.LoadScene(new(_loadedScene, _loadedUserInterface, _loadedPosition));
+            SceneLoader.LoadScene(new(_triggerOnStartScene, _triggerOnStartInterface, _triggerOnStartPosition));
         }
     }
 
@@ -31,38 +33,29 @@ public class SceneLoadTrigger : MonoBehaviour
     {
         if (_triggerOnStart) return;
 
-        SceneLoader.OnSceneLoaded += test;
-        /*
-        _dialogueData.Events.OnExitDialogue += OnExitDialogue;
+        SceneLoader.OnSceneLoadComplete += OnSceneLoadComplete;
 
-        _combatData.Events.OnEnterCombat += OnEnterCombat;
-        _combatData.Events.OnExitCombat += OnExitCombat;
-        */
+        //    _dialogueData.Events.OnExitDialogue += OnExitDialogue;
+
+
     }
-
-    private void test(SceneLoadingSettings sceneLoadingSettings)
-    {
-        if (_showDebugLoadingLogs)
-        {
-            Debug.Log($" Scene : {sceneLoadingSettings.SceneName}");
-            Debug.Log($" Loaded scene interface : {sceneLoadingSettings.UserInterface}");
-            Debug.Log($" Spawned at : {sceneLoadingSettings.PlayerSpawnPoint}");
-            Debug.Log("LOADED SUCCESSFULLY");
-
-        }
-    }
-
     private void OnDisable()
     {
         if (_triggerOnStart) return;
 
-        /*
-        _dialogueData.Events.OnExitDialogue -= OnExitDialogue;
+        SceneLoader.OnSceneLoadComplete -= OnSceneLoadComplete;
 
-        _combatData.Events.OnEnterCombat -= OnEnterCombat;
-        _combatData.Events.OnExitCombat -= OnExitCombat;
-        */
+        //   _dialogueData.Events.OnExitDialogue -= OnExitDialogue;
+
+
+
     }
+    private void OnSceneLoadComplete(SceneLoadingSettings sceneLoadingSettings)
+    {
+
+    }
+
+
     private void OnExitDialogue(GameObject npc)
     {
         bool combatEntered = (bool)CheckVariableState("combatEntered");
@@ -76,12 +69,12 @@ public class SceneLoadTrigger : MonoBehaviour
 
     private void OnEnterCombat(CombatUnit npc)
     {
-        //    LoadScene(SceneLoadingSettings.Combat);
+        SceneLoader.LoadScene(SceneLoadingSettings.Combat);
 
     }
     private void OnExitCombat()
     {
-        //    LoadScene(SceneLoadingSettings.MainGame);
+        SceneLoader.LoadScene(SceneLoadingSettings.MainGame);
     }
 
     /*

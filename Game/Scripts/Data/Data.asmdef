@@ -7,7 +7,8 @@
         "Utilities",
         "Unity.RenderPipelines.HighDefinition.Editor",
         "Unity.Addressables",
-        "Unity.ResourceManager"
+        "Unity.ResourceManager",
+        "MyBox"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

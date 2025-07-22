@@ -31,20 +31,24 @@ public class InputData : Data
         _dialogueData.Events.OnChoiceSelected += OnChoiceSelected;
         _dialogueData.Events.OnUpdateChoices += OnUpdateChoices;
 
+        /*
         _combatData.Events.OnEnterCombat += OnEnterCombat;
         _combatData.Events.OnExitCombat += OnExitCombat;
+        */
 
         if (_debugEnabled)
         {
+
             _debug1.action.started += OnDebug1;
             _debug2.action.started += OnDebug2;
         }
     }
     private void OnDisable()
     {
+        /*
         _combatData.Events.OnEnterCombat -= OnEnterCombat;
         _combatData.Events.OnExitCombat -= OnExitCombat;
-
+        */
         _dialogueData.Events.OnChoiceSelected -= OnChoiceSelected;
         _dialogueData.Events.OnUpdateChoices -= OnUpdateChoices;
 
@@ -59,10 +63,12 @@ public class InputData : Data
     private void OnEnterCombat(CombatUnit _)
     {
         MovementInput.EnableMovement(false);
+        MenuInput.EnableInventoryToggle(false);
     }
     private void OnExitCombat()
     {
         MovementInput.EnableMovement(true);
+        MenuInput.EnableInventoryToggle(true);
     }
     private void OnDebug1(InputAction.CallbackContext ctx)
     {

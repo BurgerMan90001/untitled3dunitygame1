@@ -1,8 +1,9 @@
 using Ink.Runtime;
+using System;
 using System.Text;
 using UnityEngine;
 
-//TODO IMPROVE
+//TODO IMPROVE AND SIMPLIFY
 #region
 /// <summary>
 /// Dialogue events and data.
@@ -16,20 +17,20 @@ public class DialogueData : Data
     public Story Story;
 
     [Header("Settings")]
-    [SerializeField] public bool ResetStoryOnExit { get; private set; } = true;
-
-    [Header("Data")]
+    [field: SerializeField] public bool ResetStoryOnExit { get; private set; } = true;
 
     [Header("Debug")]
-    [field: SerializeField] public bool DebugMode { get; private set; }
+    public bool DebugMode = false;
+    public bool ShowVariables = false;
 
     public bool InDialogue { get; private set; }
 
     public DialogueEvents Events { get; private set; } = new DialogueEvents();
 
-    public string DialogueLine;
+    public string DialogueLine { get; private set; }
+    public event Action<string> OnUpdateDialogueLine;
 
-    public StringBuilder ChoiceText;
+    public StringBuilder ChoiceText = new StringBuilder();
 
     public bool CombatEntered => (bool)Story.variablesState["combatEntered"];
 
@@ -38,7 +39,11 @@ public class DialogueData : Data
     {
         InDialogue = inDialogue;
     }
-
+    public void UpdateDialogueLine(string newDialogueLine)
+    {
+        DialogueLine = newDialogueLine;
+        OnUpdateDialogueLine?.Invoke(newDialogueLine);
+    }
     public override void LoadData(GameData data)
     {
         throw new System.NotImplementedException();

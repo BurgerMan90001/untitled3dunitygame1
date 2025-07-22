@@ -1,6 +1,7 @@
 
 using UnityEngine;
 /// <summary>
+/// <br> TODO ADD MORE FEATURES. </br>
 /// <br> Jumps to the dialogueKnotName in the ink story. </br>
 /// <br> Each NPC can have their own unique dialogueKnotName.</br>
 /// </summary>
@@ -13,16 +14,16 @@ public class NPCInteraction
 
     private int _interactionStage = 0;
 
-    private string _silentDialogueKnotName;
+    private const string _silentDialogueKnotName = "silentDialogue";
     public NPCInteraction(string dialogueKnotName, DialogueData dialogueData)
     {
         _dialogueKnotName = dialogueKnotName;
         _dialogueData = dialogueData;
     }
-    
+
     public void Interact(GameObject npc)
     {
-        
+
         if (_dialogueData.InDialogue)
         {
 
@@ -38,7 +39,7 @@ public class NPCInteraction
         }
         else // the npc will default to ... if there is no dialogue knot 
         {
-            _dialogueData.Events.EnterDialogue("silentDialogue", npc);
+            _dialogueData.Events.EnterDialogue(_silentDialogueKnotName, npc);
         }
     }
 }

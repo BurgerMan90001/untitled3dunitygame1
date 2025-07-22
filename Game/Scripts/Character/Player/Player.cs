@@ -1,11 +1,16 @@
 
 using UnityEngine;
-using UnityEngine.SceneManagement;
-
+// TODO POSSIBLY NOT MAKE SINGLE TON FOR MULTIPLE PEAOPLE
 public class Player : MonoBehaviour, ISingleton
 {
     [Header("Dependancies")]
     [SerializeField] private MovementStateManager _movementStateManager;
+
+    [Header("Settings")]
+    [SerializeField] private bool _enableRigidbodyTrigger;
+
+    [Header("Debug")]
+    [SerializeField] private bool _debugMode;
 
     private RigidbodyTrigger _rigidbodyTrigger;
 
@@ -19,12 +24,13 @@ public class Player : MonoBehaviour, ISingleton
         {
             Instance = this;
 
-        } else
+        }
+        else
         {
             Debug.LogWarning("There was another player instance, destroying duplicate.");
             Destroy(gameObject);
         }
-        
+
         _rigidBody = GetComponent<Rigidbody>();
 
 
@@ -34,38 +40,33 @@ public class Player : MonoBehaviour, ISingleton
     }
     private void Start()
     {
-        if (!SceneManager.GetActiveScene().name.Equals("Main Game"))
+        if (!_enableRigidbodyTrigger)
         {
-            gameObject.SetActive(false);
+
         }
     }
     private void OnEnable()
     {
-    //    SceneLoadingManager.OnSceneLoaded += SetupPlayer;
+        SceneLoader.OnSceneLoadComplete += OnSceneLoadComplete;
     }
 
-  
+
     private void OnDisable()
     {
-     //   SceneLoadingManager.OnSceneLoaded -= SetupPlayer;
+        SceneLoader.OnSceneLoadComplete -= OnSceneLoadComplete;
     }
 
-
-    /*
-    private void SetupPlayer(UserInterfaceType _, bool _1)
+    private void OnSceneLoadComplete(SceneLoadingSettings settings)
     {
-        gameObject.transform.position = SceneLoadingManager.SpawnPoint;
-        Debug.Log(gameObject.transform.position);
-        /*
-        if (scene.name == "Main Game")
+        transform.position = settings.PlayerSpawnPoint;
+        if (_debugMode)
         {
-            gameObject.SetActive(true);
-        }
-       
-    }
-    */
 
-    
+            Debug.Log($" Spawned at : {settings.PlayerSpawnPoint}");
+
+        }
+    }
+
     private void OnTriggerStay(Collider other)
     {
         _rigidbodyTrigger.OnTriggerStay(other);

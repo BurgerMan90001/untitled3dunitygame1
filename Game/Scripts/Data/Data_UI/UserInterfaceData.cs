@@ -1,6 +1,7 @@
-
+using MyBox;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -37,14 +38,16 @@ public class UserInterfaceData : Data
     [Header("Data")]
     [SerializeField] private Inventory _inventory;
 
-    [Header("Settings")]
 
-    public UserInterfaceType ShownInterface = UserInterfaceType.None;
+    [Header("Debug")]
+    [SerializeField] private bool _debugMode = true;
 
     public Dictionary<UserInterfaceType, VisualElement> UserInterfaceElements;
 
-    public event Action<UserInterfaceType> OnSwitchToUserInterface;
+
     public UserInterfaceEvents Events { get; private set; }
+    public Stack<UserInterfaceType> ShownInterfaces { get; private set; } = new Stack<UserInterfaceType>();
+    [ReadOnly][SerializeField] private List<UserInterfaceType> ShownInterfacesStack;
 
     #region
     /// <summary>
@@ -55,42 +58,88 @@ public class UserInterfaceData : Data
     public void SwitchToUserInterface(UserInterfaceType userInterface)
     {
 
-        if (ShownInterface == UserInterfaceType.None)
-        {
-            ShowInterface(userInterface);
-        }
-        else
-        {
 
-            HideInterface(ShownInterface);
-            ShowInterface(userInterface);
-            ShownInterface = userInterface;
-        }
+        HideRecentInterface();
+        ShowInterface(userInterface);
+
+
+
 
     }
 
-    public void SetInterfaceActive(UserInterfaceType userInterfaceType, bool active)
-    {
-        if (active)
-        {
-            ShowInterface(userInterfaceType);
-        }
-        else
-        {
-            HideInterface(userInterfaceType);
-        }
-    }
 
-    private void ShowInterface(UserInterfaceType userInterface)
+
+    public void ShowInterface(UserInterfaceType userInterface)
     {
-        ShownInterface = userInterface;
+        if (userInterface == UserInterfaceType.None)
+        {
+            Debug.LogWarning($"Can't show {UserInterfaceType.None}");
+            return;
+        }
+
+        ShownInterfaces.Push(userInterface);
         VisualElement elementToBeShown = UserInterfaceElements[userInterface];
         elementToBeShown.style.display = DisplayStyle.Flex;
+
+        ShownInterfacesStack = ShownInterfaces.ToList<UserInterfaceType>();
+
+
     }
-    private void HideInterface(UserInterfaceType userInterface)
+    /// <summary>
+    /// <br> Hides the most recently shown interface. Does nothing if there is none. </br>
+    /// </summary>
+    public void HideRecentInterface()
     {
-        VisualElement elementToBeHiden = UserInterfaceElements[userInterface];
-        elementToBeHiden.style.display = DisplayStyle.None;
+
+        if (ShownInterfaces.TryPop(out UserInterfaceType userInterface))
+        {
+            VisualElement elementToBeHiden = UserInterfaceElements[userInterface];
+            elementToBeHiden.style.display = DisplayStyle.None;
+
+            ShownInterfacesStack = ShownInterfaces.ToList<UserInterfaceType>();
+        }
+
+    }
+    /// <summary>
+    /// Gets the most recently added user interface in the shown interfaces stack.
+    /// </summary>
+    /// <returns></returns>
+    public UserInterfaceType GetRecentInterface()
+    {
+        if (ShownInterfaces.TryPeek(out UserInterfaceType userInterface))
+        {
+            return userInterface;
+        }
+        else
+        {
+            if (_debugMode)
+            {
+                Debug.LogWarning("There is no interfaces in _shownInterfaces. ");
+            }
+            return UserInterfaceType.None;
+        }
+    }
+
+    public void ClearInterfaces()
+    {
+        foreach (var ui in ShownInterfaces)
+        {
+            HideRecentInterface();
+        }
+    }
+    private void ShowStack()
+    {
+        if (_debugMode)
+        {
+            Debug.Log(ShownInterfaces.Count);
+            /*
+            foreach (var ui in ShownInterfaces)
+            {
+                Debug.Log(ui.ToString());
+            }
+            */
+
+        }
     }
     public override void LoadData(GameData data)
     {

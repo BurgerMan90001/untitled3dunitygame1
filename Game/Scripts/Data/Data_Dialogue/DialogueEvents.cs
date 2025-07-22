@@ -13,6 +13,7 @@ public class DialogueEvents : IEvent
     public event Action OnContinueDialogue;
     public event Action<GameObject> OnExitDialogue;
 
+
     public event Action<List<string>> OnUpdateChoices;
     public event Action<int> OnChoiceSelected;
 
@@ -55,11 +56,13 @@ public class DialogueEvents : IEvent
     public void ExitDialogue()
     {
 
+
+
         OnExitDialogue?.Invoke(_npc);
 
-
-
     }
+
+
     #region
     /// <summary>
     /// <br> Triggers the OnChoiceSelected event. </br>

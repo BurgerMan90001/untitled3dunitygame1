@@ -146,22 +146,30 @@ public class UxmlFileHandler
     }
 }
 
-/*
+
 
 
 public struct UserInterfaceStyle
 {
-    public VisualElement VisualElement;
+    public VisualElement Target;
     public UserInterfaceType UserInterfaceType;
 
-    public StyleEnum<Position> Position { get; set; }
-    public static readonly UserInterfaceStyle StyleOverlay = new UserInterfaceStyle();
+    public float FlexGrow;
+    public float FlexShrink;
 
-    public UserInterfaceStyle()
+    public Position Position;
+    public Align Align;
+
+    public Length Width;
+    public Length Height;
+
+    public static readonly UserInterfaceStyle Overlay = new();
+    /*
+    public UserInterfaceStyle(VisualElement target)
     {
-        VisualElement = visualElement;
+        Target = target;
     }
- //   public string 
+    */
+    //   public string 
 
 }
-*/

@@ -18,26 +18,31 @@ public class CameraSettings : MonoBehaviour
 
     private void Awake()
     {
-        
+
     }
     public void OnEnable()
     {
         if (_blurScreen)
         {
+            /*
             _dialogueData.Events.OnEnterDialogue += ShowBlur;
             _dialogueData.Events.OnExitDialogue += HideBlur;
+            */
         }
     }
     public void OnDisable()
     {
-        if (_blurScreen) { 
+        if (_blurScreen)
+        {
+            /*
             _dialogueData.Events.OnEnterDialogue -= ShowBlur;
             _dialogueData.Events.OnExitDialogue -= HideBlur;
+            */
         }
     }
     private void ShowBlur(string _)
     {
-        
+
         targetCamera.cullingMask = ~(1 << cullingMask);
         _fullScreenBlur.gameObject.SetActive(true);
     }

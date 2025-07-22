@@ -4,30 +4,25 @@ public class CombatEvents : IEvent
 {
     public event Action<CombatUnit> OnEnterCombat;
     public event Action OnExitCombat;
-    public event Action<CombatStates> OnCombatStateSwitched;
 
-    
 
     #region
     /// <summary>
-    /// <br> Switches the combat state. </br>
-    /// </summary>
-    /// <param name="combatState"></param>
-    #endregion
-    public void SwitchCombatState(CombatStates combatState)
-    {
-        OnCombatStateSwitched?.Invoke(combatState);
-
-    }
-
-    #region
-    /// <summary>
-    /// <br> Triggers the OnEnterCombat event. </br>
+    /// <br> It first triggers the OnEnterCombat event. </br>
+    /// <br> Then it loads the combat scene </br>
     /// </summary>
     #endregion
     public void EnterCombat(CombatUnit enemyUnit)
     {
+
+
+
+
+
+
         OnEnterCombat?.Invoke(enemyUnit);
+
+        SceneLoader.LoadScene(SceneLoadingSettings.Combat);
     }
     #region
     /// <summary>
@@ -37,6 +32,8 @@ public class CombatEvents : IEvent
     #endregion
     public void ExitCombat()
     {
+        SceneLoader.LoadScene(SceneLoadingSettings.MainGame);
+
         OnExitCombat?.Invoke();
     }
 }
