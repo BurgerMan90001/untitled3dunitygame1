@@ -63,13 +63,16 @@ HELLO IM YOUR RIVAL, PLAYER.
 HM
 DO YOU WAN'T TO CARD BATTLE?
 
-    * [ok]
+    * [Why?]
+        AHAHAHAH
+        -> END
+    * [Ok]
         LETS BATTLE!!
         
         ~ combatEntered = true
         ~ myNumber = 5
         -> END
-    + [no]
+    + [No]
         ...
         ~ combatEntered = false
         ~ myNumber = 3
@@ -88,9 +91,7 @@ DO YOU WAN'T TO CARD BATTLE?
       ~ return x
 }
 
-=== Perry ===
-YES YES MORE MORE!!
--> END 
+
 
 
 === City_Shop_LineWaiter ===
@@ -99,10 +100,6 @@ IM WAITING
 ->END
 === City_Shop ===
     ~ temp pickedBanana = false
-    
-    /*
-    The shopkeeper brings out a banana  and a strawberry in either hand.
-    */
     
     The shopkeeper brings out a banana in one hand and a strawberry in the other.
     They stare at me.

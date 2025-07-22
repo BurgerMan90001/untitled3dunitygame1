@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1244833187445147015}
-  - component: {fileID: 35771566124511427}
+  - component: {fileID: 6452167509510429296}
   m_Layer: 0
   m_Name: Scene Load Trigger
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &35771566124511427
+--- !u!114 &6452167509510429296
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,6 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b221497f73e1afd478787d7343bdb81f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _showSettings: 1
+  _triggerOnStart: 1
   _loadedScene: Main Menu
   _loadedUserInterface: 7
+  _loadedPosition: {x: 0, y: 0, z: 0}
+  _dialogueData: {fileID: 11400000, guid: b7057052d12597d459bf37d69cac44f3, type: 2}
+  _combatData: {fileID: 11400000, guid: e99ab9cb863476f46ae38c8aee2da7b4, type: 2}
+  _debugMode: 1

@@ -12,24 +12,17 @@ public class UxmlFileHandler
 {
     private VisualElement _root;
 
-    private AssetLabelReference _labelReference;
-    private AsyncOperationHandle _loadedUserInterfaces;
-
+    private AsyncOperationHandle _loadedInterfaces;
 
     private readonly bool _showLoadingResults = false;
 
+    private Dictionary<UserInterfaceType, VisualElement> _userInterfaces = new Dictionary<UserInterfaceType, VisualElement>();
 
-    private Dictionary<UserInterfaceType, VisualElement> _userInterfaceElements;
-
-    private UserInterfaceData _userInterfaceData;
-
-    public UxmlFileHandler(VisualElement root, AssetLabelReference uxmlAssetLabelReference, UserInterfaceData userInterfaceData)
+    public UxmlFileHandler(VisualElement root)
     {
         _root = root;
 
-        _labelReference = uxmlAssetLabelReference;
 
-        _userInterfaceData = userInterfaceData;
     }
 
     private void ShowLoadingResults(VisualTreeAsset visualTreeAsset, bool showLoadingResults)
@@ -40,7 +33,7 @@ public class UxmlFileHandler
 
         }
     }
-    public async Task LoadInterfacesAsync()
+    public async Task<Dictionary<UserInterfaceType, VisualElement>> LoadInterfacesAsync(AssetLabelReference _labelReference)
     {
         var uxmlLabelHandle = Addressables.LoadAssetsAsync<Object>(_labelReference.labelString);
 
@@ -48,14 +41,16 @@ public class UxmlFileHandler
 
         if (uxmlLabelHandle.Status == AsyncOperationStatus.Succeeded)
         {
-            _loadedUserInterfaces = uxmlLabelHandle;
+            _loadedInterfaces = uxmlLabelHandle;
 
             SetupIntefaces(uxmlLabelHandle);
 
-
+            return _userInterfaces;
         }
 
+        return null;
     }
+
     private void SetupIntefaces(AsyncOperationHandle<IList<Object>> uxmlLabelHandle)
     {
         foreach (object result in uxmlLabelHandle.Result)
@@ -63,15 +58,16 @@ public class UxmlFileHandler
             if (result is VisualTreeAsset visualTree)
             {
                 ShowLoadingResults(visualTree, _showLoadingResults);
-                SetUserInterfaceElementStyle(visualTree);
-
+                var element = SetupInterface(visualTree);
+                UpdateInterfaceDictionary(element);
             }
             else
             {
-                Debug.LogError("The loaded asset is not a VisualTreeAsset!");
+                Debug.LogError("The loaded asset is not a VisualTreeAsset! Unable to add to userinterfaces.");
             }
 
         }
+
     }
     #region
     /// <summary>
@@ -81,9 +77,9 @@ public class UxmlFileHandler
     public void ReleaseInterfaces() // callded in ondestroy 
     {
 
-        if (_loadedUserInterfaces.IsValid())
+        if (_loadedInterfaces.IsValid())
         {
-            Addressables.Release(_loadedUserInterfaces);
+            Addressables.Release(_loadedInterfaces);
         }
         else
         {
@@ -95,39 +91,37 @@ public class UxmlFileHandler
 
 
 
-    private void SetUserInterfaceElementStyle(VisualTreeAsset visualTree)
+    private VisualElement SetupInterface(VisualTreeAsset visualTree)
     {
-        VisualElement addedUserInterfaceElement = visualTree.CloneTree();
+        VisualElement interfaceElement = visualTree.CloneTree();
 
-        addedUserInterfaceElement.style.position = Position.Absolute;
-        addedUserInterfaceElement.style.flexGrow = 1;
-        addedUserInterfaceElement.style.flexShrink = 1;
-        addedUserInterfaceElement.style.alignSelf = Align.Stretch;
-        addedUserInterfaceElement.style.width = Length.Percent(100);
-        addedUserInterfaceElement.style.height = Length.Percent(100);
+        interfaceElement.style.position = Position.Absolute;
+        interfaceElement.style.flexGrow = 1;
+        interfaceElement.style.flexShrink = 1;
+        interfaceElement.style.alignSelf = Align.Stretch;
+        interfaceElement.style.width = Length.Percent(100);
+        interfaceElement.style.height = Length.Percent(100);
 
-        addedUserInterfaceElement.name = visualTree.name;
-        addedUserInterfaceElement.style.display = DisplayStyle.None;
+        interfaceElement.name = visualTree.name;
+        interfaceElement.style.display = DisplayStyle.None;
 
-        addedUserInterfaceElement.pickingMode = PickingMode.Ignore;
+        interfaceElement.pickingMode = PickingMode.Ignore;
 
-        _root.Add(addedUserInterfaceElement);
+        _root.Add(interfaceElement);
+        return interfaceElement;
 
-        UpdateUserInterfaceData(visualTree, addedUserInterfaceElement);
     }
-    private void UpdateUserInterfaceData(VisualTreeAsset visualTree, VisualElement addedUserInterfaceElement)
+    private void UpdateInterfaceDictionary(VisualElement interfaceElement)
     {
-        UserInterfaceType userInterface = FindMatchingInterfaceType(visualTree.name);
+        UserInterfaceType userInterface = FindMatchingInterfaceType(interfaceElement.name);
         if (userInterface == UserInterfaceType.None)
         {
-            Debug.LogWarning($"Can't find a user interface type from the visual tree name : {visualTree.name}");
+            Debug.LogWarning($"Can't find a user interface type from the visual tree name : {interfaceElement.name}");
             return;
         }
         else
         {
-            _userInterfaceData.UserInterfaceElements.Add(userInterface, addedUserInterfaceElement);
-
-
+            _userInterfaces.Add(userInterface, interfaceElement);
         }
     }
 

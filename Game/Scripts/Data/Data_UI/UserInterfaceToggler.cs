@@ -1,13 +1,12 @@
-using System;
-using UnityEngine.UIElements;
-
 #region
 /// <summary>
 /// <br> A helper class that toggles user interfaces. </br>
 /// </summary>
 #endregion
 
+// TODO MAKE HELPER CLASS
 
+/*
 public class UserInterfaceToggler
 {
     public event Action OnInterfaceChanged;
@@ -73,3 +72,5 @@ public class UserInterfaceToggler
 
 }
 
+
+*/

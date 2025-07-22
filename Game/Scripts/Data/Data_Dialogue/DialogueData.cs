@@ -32,11 +32,7 @@ public class DialogueData : Data
     public StringBuilder ChoiceText;
 
     public bool CombatEntered => (bool)Story.variablesState["combatEntered"];
-    private void OnEnable()
-    {
 
-
-    }
 
     public void SetInDialogue(bool inDialogue)
     {

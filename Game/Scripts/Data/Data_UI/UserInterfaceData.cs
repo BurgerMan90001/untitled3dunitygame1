@@ -38,64 +38,59 @@ public class UserInterfaceData : Data
     [SerializeField] private Inventory _inventory;
 
     [Header("Settings")]
-    //   [SerializeField] private bool
 
     public UserInterfaceType ShownInterface = UserInterfaceType.None;
 
-    public Dictionary<UserInterfaceType, VisualElement> UserInterfaceElements { get; private set; } = new Dictionary<UserInterfaceType, VisualElement>();
+    public Dictionary<UserInterfaceType, VisualElement> UserInterfaceElements;
 
     public event Action<UserInterfaceType> OnSwitchToUserInterface;
-
     public UserInterfaceEvents Events { get; private set; }
 
-    private UserInterfaceToggler _interfaceToggler;
-
-
-
-
-    private void Awake()
+    #region
+    /// <summary>
+    /// <br> Switches to the UserInterfaceType userInterface. </br>
+    /// </summary>
+    /// <param name="userInterface"></param>
+    #endregion
+    public void SwitchToUserInterface(UserInterfaceType userInterface)
     {
 
-    }
+        if (ShownInterface == UserInterfaceType.None)
+        {
+            ShowInterface(userInterface);
+        }
+        else
+        {
 
-    private void OnEnable()
-    {
+            HideInterface(ShownInterface);
+            ShowInterface(userInterface);
+            ShownInterface = userInterface;
+        }
 
-
-
-
-        _interfaceToggler = new UserInterfaceToggler(this);
-
-        _inventory.OnInventoryChanged += OnInventoryChanged;
-
-        SceneLoader.OnSceneLoaded += _interfaceToggler.SwitchToUserInterface;
-
-
-    }
-
-    private void OnDisable()
-    {
-        _inventory.OnInventoryChanged -= OnInventoryChanged;
-
-        SceneLoader.OnSceneLoaded -= _interfaceToggler.SwitchToUserInterface;
-
-
-    }
-
-    private void OnInventoryChanged()
-    {
-
-    }
-
-
-    public void SwitchToUserInterface(UserInterfaceType userInterfaceType)
-    {
-        _interfaceToggler.SwitchToUserInterface(userInterfaceType);
     }
 
     public void SetInterfaceActive(UserInterfaceType userInterfaceType, bool active)
     {
-        _interfaceToggler.SetInterfaceActive(userInterfaceType, active);
+        if (active)
+        {
+            ShowInterface(userInterfaceType);
+        }
+        else
+        {
+            HideInterface(userInterfaceType);
+        }
+    }
+
+    private void ShowInterface(UserInterfaceType userInterface)
+    {
+        ShownInterface = userInterface;
+        VisualElement elementToBeShown = UserInterfaceElements[userInterface];
+        elementToBeShown.style.display = DisplayStyle.Flex;
+    }
+    private void HideInterface(UserInterfaceType userInterface)
+    {
+        VisualElement elementToBeHiden = UserInterfaceElements[userInterface];
+        elementToBeHiden.style.display = DisplayStyle.None;
     }
     public override void LoadData(GameData data)
     {
@@ -106,6 +101,7 @@ public class UserInterfaceData : Data
     {
         throw new NotImplementedException();
     }
+
 }
 
 public class UserInterfaceEvents : IEvent

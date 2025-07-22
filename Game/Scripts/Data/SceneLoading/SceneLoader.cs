@@ -19,9 +19,9 @@ public static class SceneLoader
 
     public static event Action<SceneLoadingSettings> OnSceneLoaded;
 
-    private static readonly bool _showDebugLoadingLogs = true;
+    private static readonly bool _showDebugLoadingLogs = false;
 
-
+    //    private static 
     #region
     /// <summary>
     /// <br> Load scene with interface. </br>
@@ -38,25 +38,28 @@ public static class SceneLoader
 
         if (handle.Status == AsyncOperationStatus.Succeeded)
         {
-
-            if (!LoadedSceneHandle.IsValid())
+            if (LoadedSceneHandle.IsValid()) // if there is a currently loaded scene
             {
-                LoadedSceneHandle = handle;
+                UnloadScene(); // unload the currently loaded scene
+                Debug.Log("Unloading scene.");
+            }
 
-                OnSceneLoaded?.Invoke(sceneLoadingSettings);
-                //    SceneLoadingManager.SceneLoaded(userInterfaceToBeLoaded);
-                if (_showDebugLoadingLogs)
-                {
-                    Debug.Log(sceneLoadingSettings.UserInterface.ToString());
-                    Debug.Log("LOADED SUCCESSFULLY");
-                }
+            else // if there is no currently loaded scene
+            {
+                Debug.Log("Loading new scene.");
 
             }
-            else
+            if (_showDebugLoadingLogs)
             {
-                UnloadScene();
-                Debug.LogError("UNLOADING BECAUSE THE HANDLE IS INVALID.");
+                Debug.Log($" Scene : {sceneLoadingSettings.SceneName}\n");
+                Debug.Log($" Loaded scene interface : {sceneLoadingSettings.UserInterface}");
+                Debug.Log($" Spawned at : {sceneLoadingSettings.PlayerSpawnPoint}");
+                Debug.Log("LOADED SUCCESSFULLY");
+
             }
+            LoadedSceneHandle = handle;
+            OnSceneLoaded?.Invoke(sceneLoadingSettings);
+
 
 
         }
@@ -68,7 +71,7 @@ public static class SceneLoader
     #endregion
     public static void UnloadScene()
     {
-        if (LoadedSceneHandle.IsValid())
+        if (!LoadedSceneHandle.IsValid())
         {
             Addressables.UnloadSceneAsync(LoadedSceneHandle);
             if (_showDebugLoadingLogs)
@@ -76,6 +79,10 @@ public static class SceneLoader
                 Debug.Log("UNLOADING");
             }
 
+        }
+        else
+        {
+            Debug.LogWarning("There currently is no scene loaded. ");
         }
     }
 }

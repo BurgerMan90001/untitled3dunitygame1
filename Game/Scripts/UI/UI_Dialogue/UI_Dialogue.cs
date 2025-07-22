@@ -40,7 +40,7 @@ public class UI_Dialogue : IUserInterface
     }
     public void Register(VisualElement root)
     {
-        _dialogueData.Events.OnEnterDialogue += DisplayDialogue;
+        _dialogueData.Events.OnEnterDialogue += DisplayDialoguePanel;
         _dialogueData.Events.OnContinueDialogue += UpdateText;
         _dialogueData.Events.OnExitDialogue += HideDialogue;
 
@@ -54,7 +54,7 @@ public class UI_Dialogue : IUserInterface
     }
     public void Unregister()
     {
-        _dialogueData.Events.OnEnterDialogue -= DisplayDialogue;
+        _dialogueData.Events.OnEnterDialogue -= DisplayDialoguePanel;
         _dialogueData.Events.OnContinueDialogue -= UpdateText;
         _dialogueData.Events.OnExitDialogue -= HideDialogue;
 
@@ -88,10 +88,10 @@ public class UI_Dialogue : IUserInterface
         }
     }
 
-    private void DisplayDialogue(string _)
+    private void DisplayDialoguePanel(string _)
     {
         _userInterfaceData.SetInterfaceActive(UserInterfaceType.Dialogue, true);
-        _dialogueLabel.text = _dialogueData.DialogueLine;
+        UpdateText();
 
 
     }

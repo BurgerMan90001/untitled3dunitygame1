@@ -27,8 +27,6 @@ public class DialogueManager : MonoBehaviour
     }
     private void OnEnable()
     {
-
-
         _dialogueData.Story.onError += OnError;
         // trigger this class' EnterDialogue when the game dialogue event is triggered
 
@@ -53,9 +51,9 @@ public class DialogueManager : MonoBehaviour
 
     private void EnterDialogue(string knotName) // begins or continues dialogue
     {
-        _dialogueData.SetInDialogue(true);
         if (!knotName.Equals(""))
         {
+            _dialogueData.SetInDialogue(true);
             _dialogueData.Story.ChoosePathString(knotName); // jump to the knotname in the ink file
 
         }
@@ -63,7 +61,7 @@ public class DialogueManager : MonoBehaviour
         {
             Debug.LogWarning("Knot name was empty when entering dialogue");
         }
-        ContinueOrExitStory();
+
     }
 
     private void ContinueOrExitStory() // updates the dialogue lines
@@ -74,6 +72,7 @@ public class DialogueManager : MonoBehaviour
             string dialogueLine = _dialogueData.Story.Continue();
 
             _dialogueData.DialogueLine = dialogueLine; // update the scriptable object's line
+
 
             if (IsThereStoryChoices())
             {

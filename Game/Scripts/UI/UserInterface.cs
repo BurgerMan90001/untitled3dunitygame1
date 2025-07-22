@@ -37,10 +37,6 @@ public class UserInterface : MonoBehaviour, ISingleton
     public VisualElement Root { get; private set; }// the base visual element that will uxmls be added on to
 
 
-    //  private UXMLFileHandler _uxmlFileHandler;
-
-    // private UserInterfaceToggler _interfaceToggler;
-
     private UI_Dialogue _uiDialogue; // handles dialogue related user interface functionality
     private UI_Inventory _uiInventory; // handles inventory related user interface functionality
 
@@ -54,6 +50,7 @@ public class UserInterface : MonoBehaviour, ISingleton
     public static UserInterface Instance;
 
     private UxmlFileHandler _uxmlFileHandler;
+
 
     private void Awake()
     {
@@ -77,9 +74,7 @@ public class UserInterface : MonoBehaviour, ISingleton
         Root.style.flexGrow = 1;
 
 
-
-        _uxmlFileHandler = new UxmlFileHandler(Root, _uxmlAssetLabelReference, _userInterfaceData);
-        //    _interfaceToggler = new UserInterfaceToggler(_uxmlFileHandler);
+        _uxmlFileHandler = new UxmlFileHandler(Root);
 
         _uiMainMenu = new UI_MainMenu(_dataPersistenceData, _userInterfaceData);
         _uiSaveSlotsMenu = new UI_SaveSlotsMenu(_dataPersistenceData, _userInterfaceData);
@@ -95,21 +90,51 @@ public class UserInterface : MonoBehaviour, ISingleton
 
     }
 
-
-
-    private async void OnEnable() // the userinterface game object will be enabled by the main manager
+    private async void Start()
     {
-
-        await _uxmlFileHandler.LoadInterfacesAsync(); // load the user interfaces asynchronously. visual element configuration is done after this.
-
+        _userInterfaceData.UserInterfaceElements = await _uxmlFileHandler.LoadInterfacesAsync(_uxmlAssetLabelReference); // load the user interfaces asynchronously. visual element configuration is done after this.
 
         QueryAllElements();
         RegisterAllInterfaces();
 
-        //    _root.RegisterCallback<MouseMoveEvent>(OnMouseMove);
-
         _uiInventory.UpdateInterface();
 
+        ShowInitialInterface();
+    }
+
+    private void OnEnable() // the userinterface game object will be enabled by the main manager
+    {
+        _inventory.OnInventoryChanged += OnInventoryChanged;
+
+        SceneLoader.OnSceneLoaded += OnSceneLoaded;
+
+    }
+
+    private void OnDisable()
+    {
+
+
+    }
+    private void OnDestroy()
+    {
+        _inventory.OnInventoryChanged -= OnInventoryChanged;
+
+        SceneLoader.OnSceneLoaded -= OnSceneLoaded;
+
+        UnregisterAllInterfaces();
+
+        _uxmlFileHandler?.ReleaseInterfaces();
+    }
+    private void OnSceneLoaded(SceneLoadingSettings settings)
+    {
+        _userInterfaceData.SwitchToUserInterface(settings.UserInterface);
+    }
+    private void OnInventoryChanged()
+    {
+        _uiInventory.UpdateInterface();
+    }
+    private void ShowInitialInterface()
+    {
         if (_userInterfaceData.ShownInterface == UserInterfaceType.None)
         {
             _userInterfaceData.SwitchToUserInterface(InitalShownUserInterface);
@@ -119,22 +144,7 @@ public class UserInterface : MonoBehaviour, ISingleton
             Debug.LogWarning("There was already an initally set user interface! Not showing InitalShownUserInterface.");
 
         }
-
-
-
-
     }
-    private void OnDisable()
-    {
-
-        UnregisterAllInterfaces();
-
-
-        _uxmlFileHandler?.ReleaseInterfaces();
-
-    }
-
-
     private void OnMouseMove(MouseMoveEvent evt)
     {
         if (_showHoveredOnElement)
@@ -165,15 +175,19 @@ public class UserInterface : MonoBehaviour, ISingleton
 
     private void QueryAllElements()
     {
+        Debug.Log("QUERAY");
         _userInterfaces.ForEach(ui => ui.QueryElements(Root));
     }
     private void RegisterAllInterfaces()
     {
+        Debug.Log("REGISTER");
         _userInterfaces.ForEach(ui => ui.Register(Root));
 
     }
     private void UnregisterAllInterfaces()
     {
+
+        Debug.Log("UNREGISTER");
         _userInterfaces.ForEach(ui => ui?.Unregister());
     }
 
