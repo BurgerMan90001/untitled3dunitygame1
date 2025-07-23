@@ -58,12 +58,8 @@ public class UserInterfaceData : Data
     public void SwitchToUserInterface(UserInterfaceType userInterface)
     {
 
-
         HideRecentInterface();
         ShowInterface(userInterface);
-
-
-
 
     }
 
@@ -127,20 +123,7 @@ public class UserInterfaceData : Data
             HideRecentInterface();
         }
     }
-    private void ShowStack()
-    {
-        if (_debugMode)
-        {
-            Debug.Log(ShownInterfaces.Count);
-            /*
-            foreach (var ui in ShownInterfaces)
-            {
-                Debug.Log(ui.ToString());
-            }
-            */
 
-        }
-    }
     public override void LoadData(GameData data)
     {
         throw new NotImplementedException();
@@ -152,8 +135,8 @@ public class UserInterfaceData : Data
     }
 
 }
-
-public class UserInterfaceEvents : IEvent
+[CreateAssetMenu(menuName = "Events/UserInterfaceEvents")]
+public class UserInterfaceEvents : Event
 {
     public UserInterfaceEvents() { }
 

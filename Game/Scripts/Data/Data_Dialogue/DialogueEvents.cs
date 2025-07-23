@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class DialogueEvents : IEvent
+[CreateAssetMenu(menuName = "Events/DialogueEvents")]
+public class DialogueEvents : Event
 {
+    [SerializeField] private DialogueData _dialogueData;
     #region
     /// <summary>
     /// <br> The string knotName and the gameobeject npc that was interacted with. </br>
@@ -11,6 +12,7 @@ public class DialogueEvents : IEvent
     #endregion
     public event Action<string> OnEnterDialogue;
     public event Action OnContinueDialogue;
+    public event Action<string> OnUpdateDialogueLine;
     public event Action<GameObject> OnExitDialogue;
 
 
@@ -19,6 +21,7 @@ public class DialogueEvents : IEvent
 
     private GameObject _npc;
 
+    public bool InDialogue => _dialogueData.InDialogue;
 
     public DialogueEvents() { }
     #region
@@ -55,11 +58,7 @@ public class DialogueEvents : IEvent
     #endregion
     public void ExitDialogue()
     {
-
-
-
         OnExitDialogue?.Invoke(_npc);
-
     }
 
 
@@ -89,10 +88,13 @@ public class DialogueEvents : IEvent
     {
 
         OnUpdateChoices?.Invoke(choicesText);
-
-
     }
 
+    public void UpdateDialogueLine(string newDialogueLine)
+    {
+        _dialogueData.DialogueLine = newDialogueLine;
+        OnUpdateDialogueLine?.Invoke(newDialogueLine);
+    }
     public void ObservVariable(string variableName)
     {
 

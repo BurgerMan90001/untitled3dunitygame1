@@ -1,6 +1,7 @@
 
 using UnityEngine;
 using UnityEngine.InputSystem;
+//TODO MAYBE MAKE NOT SINGLETON FOR MULTI
 /// <summary>
 /// all of the actions that the camera will handle
 /// </summary>
@@ -25,7 +26,7 @@ public class CameraActions : MonoBehaviour
 
     [Header("Positions")]
     [SerializeField] private Transform _orientation;
-   // [SerializeField] private Transform _rainPosition;
+    // [SerializeField] private Transform _rainPosition;
 
     [Header("Hit Detect Settings")]
     [SerializeField] private LayerMask _mask;
@@ -40,7 +41,7 @@ public class CameraActions : MonoBehaviour
     [SerializeField] private bool _showInteractDebugRayCast = true;
     [SerializeField] private LayerMask _interactMask;
 
-    
+
 
     [Header("MouseClick Settings")]
     [SerializeField] private bool _showMouseClickDebugRayCast = true;
@@ -48,19 +49,8 @@ public class CameraActions : MonoBehaviour
     [SerializeField] private LayerMask _leftClickMask;
 
 
-    public CameraActions Instance;
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Debug.LogWarning("There is a duplicate CameraActions in the scene. Destroying duplicate.");
-            Destroy(gameObject);
-        }
 
 
         _cameraTransform = transform;
@@ -107,7 +97,7 @@ public class CameraActions : MonoBehaviour
     {
         _lookInput = ctx.ReadValue<Vector2>(); // the velocity direction and magnitude from a device, such as a mouse or joystick
 
-    //    _mousePosition = Mouse.current.position.ReadValue(); // get the current mouse position
+        //    _mousePosition = Mouse.current.position.ReadValue(); // get the current mouse position
 
     }
 
@@ -116,10 +106,11 @@ public class CameraActions : MonoBehaviour
 
         if (ctx.started)
         {
-            
+
             _interact.StartInteract(_interactDistance, _showInteractDebugRayCast);
 
-        } else if (ctx.canceled)
+        }
+        else if (ctx.canceled)
         {
             _interact.CancelInteract();
         }
@@ -128,20 +119,15 @@ public class CameraActions : MonoBehaviour
     {
         if (ctx.started)
         {
-            
-         //   _cameraInput.EnableLook(true);
+
         }
     }
-    private void Update()
-    {
-     //   _rotateCamera.Rotate(transform, _orientation, _lookInput, _sensitivityY, _sensitivityX);
-     //   _positionCamera.MoveCameraPosition(_cameraTransform, _orientation);
-    }
+
     private void LateUpdate()
     {
-        
-       _rotateCamera.Rotate(transform, _orientation, _lookInput, _sensitivityY, _sensitivityX);
+
+        _rotateCamera.Rotate(transform, _orientation, _lookInput, _sensitivityY, _sensitivityX);
         _positionCamera.MoveCameraPosition(_cameraTransform, _orientation);
-        
+
     }
 }

@@ -1,14 +1,26 @@
-
-using NUnit.Framework.Internal;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 // profileIDs are directories which store a json save file
-public class DataPersistenceManager : MonoBehaviour, ISingleton
+public class DataPersistenceManager : MonoBehaviour
 {
+    private static DataPersistenceManager _Instance;
+    public static DataPersistenceManager Instance
+    {
+        get
+        {
+            if (!_Instance)
+            {
+                _Instance = new GameObject().AddComponent<DataPersistenceManager>();
 
+                _Instance.name = _Instance.GetType().ToString();
+
+                DontDestroyOnLoad(_Instance.gameObject);
+            }
+            return _Instance;
+        }
+    }
     [Header("Dependancies")]
     [SerializeField] private DataPersistenceData _dataPersistenceData;
 
@@ -23,7 +35,7 @@ public class DataPersistenceManager : MonoBehaviour, ISingleton
     [SerializeField] private bool _overrideSelectedProfileID = false;
     [SerializeField] private string _testSelectedProfileID = "test";
 
-    
+
     private List<IDataPersistence> _dataPersistenceObjects;
     private FileDataHandler _fileDataHandler;
 
@@ -35,7 +47,7 @@ public class DataPersistenceManager : MonoBehaviour, ISingleton
         {
             Debug.LogWarning("Data persistence is off!");
         }
-        
+
 
         _fileDataHandler = new FileDataHandler(Application.persistentDataPath, _fileName);
         Debug.Log(Application.persistentDataPath + _fileName);
@@ -44,10 +56,10 @@ public class DataPersistenceManager : MonoBehaviour, ISingleton
         if (_overrideSelectedProfileID) // for testing and debugging
         {
             selectedProfileID = _testSelectedProfileID;
-            Debug.LogWarning("The selected profileID is being overridden with a test ID: "+ _testSelectedProfileID);
+            Debug.LogWarning("The selected profileID is being overridden with a test ID: " + _testSelectedProfileID);
         }
 
-        
+
     }
     private void Start()
     {
@@ -60,8 +72,8 @@ public class DataPersistenceManager : MonoBehaviour, ISingleton
 
     private void OnEnable()
     {
-     //   SceneLoadingManager.OnSceneLoaded += OnSceneLoaded;
-   
+        //   SceneLoadingManager.OnSceneLoaded += OnSceneLoaded;
+
         _dataPersistenceData.OnStartNewGame += NewGame;
 
         _dataPersistenceData.OnLoadGame += LoadGame;
@@ -70,12 +82,12 @@ public class DataPersistenceManager : MonoBehaviour, ISingleton
 
     }
 
-    
+
 
     private void OnDisable()
     {
 
-    //    SceneLoadingManager.OnSceneLoaded -= OnSceneLoaded;
+        //    SceneLoadingManager.OnSceneLoaded -= OnSceneLoaded;
 
         _dataPersistenceData.OnStartNewGame -= NewGame;
 
@@ -101,7 +113,7 @@ public class DataPersistenceManager : MonoBehaviour, ISingleton
 
         _dataPersistenceObjects = FindAllDistancePersistenceObjects();
         Debug.Log(_dataPersistenceObjects.Count);
-    //    LoadGame();
+        //    LoadGame();
     }
     public void ChangeSelectedProfileID(string newProfileID)
     {
@@ -111,8 +123,8 @@ public class DataPersistenceManager : MonoBehaviour, ISingleton
     private void NewGame()
     {
         _dataPersistenceData.SetGameData(new GameData());
-       
- 
+
+
     }
     private void LoadGame()
     {
@@ -134,12 +146,12 @@ public class DataPersistenceManager : MonoBehaviour, ISingleton
         {
             dataPersistenceObj.LoadData(_dataPersistenceData.GameData);
         }
-        
+
     }
     private void SaveGame()
     {
         if (_disableDataPersistence)
-        { 
+        {
             return;
         }
         if (_dataPersistenceData.GameData == null)
@@ -151,23 +163,23 @@ public class DataPersistenceManager : MonoBehaviour, ISingleton
         foreach (IDataPersistence dataPersistenceObj in _dataPersistenceObjects)
         {
             dataPersistenceObj.SaveData(_dataPersistenceData.GameData);
-            
+
         }
         _dataPersistenceData.GameData.LastUpdated = System.DateTime.Now.ToBinary();
         _fileDataHandler.Save(_dataPersistenceData.GameData, selectedProfileID);
     }
-    
-    
-    private List<IDataPersistence> FindAllDistancePersistenceObjects() 
+
+
+    private List<IDataPersistence> FindAllDistancePersistenceObjects()
     {
-        IEnumerable<IDataPersistence> dataPersistenceObjects = 
-            FindObjectsByType<ScriptableObject>(FindObjectsInactive.Include,FindObjectsSortMode.None)
+        IEnumerable<IDataPersistence> dataPersistenceObjects =
+            FindObjectsByType<ScriptableObject>(FindObjectsInactive.Include, FindObjectsSortMode.None)
             .OfType<IDataPersistence>();
         var listOfDataPersistenceObjects = new List<IDataPersistence>();
         Debug.Log(listOfDataPersistenceObjects.Count);
         return listOfDataPersistenceObjects;
     }
-    
+
     private Dictionary<string, GameData> GetAllProfilesGameData()
     {
         return _fileDataHandler.LoadAllProfiles();

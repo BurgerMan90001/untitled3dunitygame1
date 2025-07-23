@@ -1,4 +1,3 @@
-using Ink.Runtime;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,15 +7,17 @@ public class DialogueManager : MonoBehaviour
     [Header("Data")]
     [SerializeField] private DialogueData _dialogueData;
 
-
+    [Header("Events")]
+    [SerializeField] private DialogueEvents _dialogueEvents;
     private void Awake()
     {
+        /*
         if (_dialogueData.Story == null)
         {
             _dialogueData.Story = new Story(_dialogueData.InkJson.text);
             Debug.Log("Created a new ink story because it didn't exsist.");
         }
-
+        */
         if (_dialogueData.ShowVariables)
         {
             ShowVariables();
@@ -35,9 +36,9 @@ public class DialogueManager : MonoBehaviour
         _dialogueData.Story.onError += OnError;
         // trigger this class' EnterDialogue when the game dialogue event is triggered
 
-        _dialogueData.Events.OnEnterDialogue += EnterDialogue;
-        _dialogueData.Events.OnContinueDialogue += ContinueOrExitStory;
-        _dialogueData.Events.OnChoiceSelected += SelectChoice;
+        _dialogueEvents.OnEnterDialogue += EnterDialogue;
+        _dialogueEvents.OnContinueDialogue += ContinueOrExitStory;
+        _dialogueEvents.OnChoiceSelected += SelectChoice;
 
 
 
@@ -46,9 +47,9 @@ public class DialogueManager : MonoBehaviour
     {
         _dialogueData.Story.onError -= OnError;
 
-        _dialogueData.Events.OnEnterDialogue -= EnterDialogue;
-        _dialogueData.Events.OnContinueDialogue -= ContinueOrExitStory;
-        _dialogueData.Events.OnChoiceSelected -= SelectChoice;
+        _dialogueEvents.OnEnterDialogue -= EnterDialogue;
+        _dialogueEvents.OnContinueDialogue -= ContinueOrExitStory;
+        _dialogueEvents.OnChoiceSelected -= SelectChoice;
 
         ExitDialogue();
 
@@ -81,7 +82,7 @@ public class DialogueManager : MonoBehaviour
             string dialogueLine = _dialogueData.Story.Continue();
 
 
-            _dialogueData.UpdateDialogueLine(dialogueLine);
+            _dialogueEvents.UpdateDialogueLine(dialogueLine);
             if (IsThereStoryChoices())
             {
                 UpdateChoices();
@@ -97,9 +98,9 @@ public class DialogueManager : MonoBehaviour
     }
     private void ExitDialogue()
     {
-        _dialogueData.Events.ExitDialogue();
+        _dialogueEvents.ExitDialogue();
 
-        _dialogueData.UpdateDialogueLine("");
+        _dialogueEvents.UpdateDialogueLine("");
 
         _dialogueData.ChoiceText?.Clear();
 
@@ -119,7 +120,7 @@ public class DialogueManager : MonoBehaviour
             List<string> choicesText = _dialogueData.Story.currentChoices.Select(choice => choice.text).ToList();
 
 
-            _dialogueData.Events.UpdateStoryChoices(choicesText);
+            _dialogueEvents.UpdateStoryChoices(choicesText);
             _dialogueData.ChoiceText.Clear();
 
 

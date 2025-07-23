@@ -1,22 +1,22 @@
 using UnityEngine;
-
-public interface ISingleton
+// example singleton
+public class Singleton : MonoBehaviour
 {
-    /*
-    public static Singleton Instance;
-    protected virtual void Awake()
+    private static Singleton _Instance;
+    public static Singleton Instance
     {
-        if (Instance == null)
+        get
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (Instance != this)
-        {
-            Debug.LogWarning($"[Singleton] Instance of {typeof(T)} already exists, destroying duplicate!");
-            Destroy(gameObject);
+            if (!_Instance)
+            {
+                _Instance = new GameObject().AddComponent<Singleton>();
+
+                _Instance.name = _Instance.GetType().ToString();
+
+                DontDestroyOnLoad(_Instance.gameObject);
+            }
+            return _Instance;
         }
     }
-    */
 
 }

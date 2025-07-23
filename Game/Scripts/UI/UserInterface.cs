@@ -9,17 +9,19 @@ using UnityEngine.UIElements;
 /// <br> Enabled by Main Manager. </br>
 /// </summary>
 #endregion
-public class UserInterface : MonoBehaviour, ISingleton
+public class UserInterface : MonoBehaviour
 {
     [Header("Data")]
     [SerializeField] private Inventory _inventory; // the dynamic inventory scriptable object that will be used to manage the inventory
     [SerializeField] private UserInterfaceData _userInterfaceData;
     [SerializeField] private DataPersistenceData _dataPersistenceData;
-    [SerializeField] private DialogueData _dialogueData;
-    [SerializeField] private InputData _inputData;
 
+    [SerializeField] private InputData _inputData;
     [SerializeField] private CombatData _combatData;
 
+
+    [Header("Events")]
+    [SerializeField] private DialogueEvents _dialogueEvents;
 
     [Header("First Shown Interface")]
     public UserInterfaceType InitalShownUserInterface;
@@ -47,26 +49,28 @@ public class UserInterface : MonoBehaviour, ISingleton
 
     private List<IUserInterface> _userInterfaces = new List<IUserInterface>();
 
-
-    public static UserInterface Instance;
-
     private UxmlFileHandler _uxmlFileHandler;
 
+    private static UserInterface _Instance;
+    public static UserInterface Instance
+    {
+        get
+        {
+            if (!_Instance)
+            {
+                _Instance = new GameObject().AddComponent<UserInterface>();
+
+                _Instance.name = _Instance.GetType().ToString();
+
+                DontDestroyOnLoad(_Instance.gameObject);
+            }
+            return _Instance;
+        }
+    }
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
 
-        }
-        else
-        {
-            Debug.LogWarning("There was another UserInterface instance in the scene. Destroying duplicate.");
-
-            Destroy(gameObject);
-        }
 
 
         _uiDocument = GetComponent<UIDocument>();
@@ -79,7 +83,7 @@ public class UserInterface : MonoBehaviour, ISingleton
 
         _uiMainMenu = new UI_MainMenu(_dataPersistenceData, _userInterfaceData);
         _uiSaveSlotsMenu = new UI_SaveSlotsMenu(_dataPersistenceData, _userInterfaceData);
-        _uiDialogue = new UI_Dialogue(_userInterfaceData, _dialogueData);
+        _uiDialogue = new UI_Dialogue(_userInterfaceData, _dialogueEvents);
         _uiInventory = new UI_Inventory(_inventory);
 
         _userInterfaces.Add(_uiMainMenu);
@@ -87,7 +91,6 @@ public class UserInterface : MonoBehaviour, ISingleton
         _userInterfaces.Add(_uiDialogue);
         _userInterfaces.Add(_uiInventory);
 
-        DontDestroyOnLoad(this);
 
     }
 

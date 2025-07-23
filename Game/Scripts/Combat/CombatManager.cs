@@ -10,50 +10,54 @@ using UnityEngine;
 /// <br> Manages in-game combat. </br>
 /// <br> Used in the combat scene. </br>
 /// </summary>
-public class CombatManager : MonoBehaviour, ISingleton
+public class CombatManager : MonoBehaviour
 {
+    private static CombatManager _Instance;
+    public static CombatManager Instance
+    {
+        get
+        {
+            if (!_Instance)
+            {
+                _Instance = new GameObject().AddComponent<CombatManager>();
 
+                _Instance.name = _Instance.GetType().ToString();
+
+                DontDestroyOnLoad(_Instance.gameObject);
+            }
+            return _Instance;
+        }
+    }
     [Header("Data")]
     [SerializeField] private DialogueData _dialogueData;
     [SerializeField] private CombatData _combatData;
 
+    [Header("Events")]
+    [SerializeField] private CombatEvents _combatEvents;
+    [SerializeField] private DialogueEvents _dialogueEvents;
 
-    private CombatUnit _playerUnit;
-    private CombatUnit _enemyUnit;
-
-    public static CombatManager Instance { get; private set; }
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
 
-        }
-        else
-        {
-            Debug.LogWarning("There is a duplicate CombatManager in the scene. Destroying duplicate. ");
-            Destroy(gameObject);
-        }
-        DontDestroyOnLoad(this);
     }
     private void Start()
     {
         if (_combatData.DebugMode)
         {
             Debug.Log("IN COMBAT DEBUG MODE");
-            _combatData.Events.EnterCombat(_combatData.EnemyUnit);
+            _combatEvents.EnterCombat(_combatData.EnemyUnit);
         }
     }
 
     private void OnEnable()
     {
-        _dialogueData.Events.OnExitDialogue += CheckIfEnteredCombat;
+        _dialogueEvents.OnExitDialogue += CheckIfEnteredCombat; // TODO MOVE COMBAT CHECK INTO DIALOGUE EVENTS  
 
     }
     private void OnDisable()
     {
 
-        _dialogueData.Events.OnExitDialogue -= CheckIfEnteredCombat;
+        _dialogueEvents.OnExitDialogue -= CheckIfEnteredCombat;
 
     }
     private void CheckIfEnteredCombat(GameObject npc)
@@ -78,9 +82,9 @@ public class CombatManager : MonoBehaviour, ISingleton
     private IEnumerator PlayerAttack()
     {
 
-        bool isDead = _enemyUnit.CombatStats.Hurt(_playerUnit.CombatStats.Damage);
+        bool isDead = _combatData.EnemyUnit.CombatStats.Hurt(_combatData.PlayerUnit.CombatStats.Damage);
 
-        Debug.Log(_enemyUnit.CombatStats.Health); // UPDATE HUD
+        Debug.Log(_combatData.EnemyUnit.CombatStats.Health); // UPDATE HUD
 
         yield return new WaitForSeconds(2f);
 
@@ -132,9 +136,9 @@ public class CombatManager : MonoBehaviour, ISingleton
         yield return new WaitForSeconds(1f);
 
 
-        bool isDead = _playerUnit.CombatStats.Hurt(_enemyUnit.CombatStats.Damage);
+        bool isDead = _combatData.PlayerUnit.CombatStats.Hurt(_combatData.EnemyUnit.CombatStats.Damage);
 
-        Debug.Log(_playerUnit.CombatStats.Health);
+        Debug.Log(_combatData.PlayerUnit.CombatStats.Health);
 
         yield return new WaitForSeconds(1f);
 
@@ -155,13 +159,11 @@ public class CombatManager : MonoBehaviour, ISingleton
 
         DontDestroyOnLoad(enemy.gameObject);
 
-        _combatData.Events.EnterCombat(enemy);
+        _combatEvents.EnterCombat(enemy);
 
 
         _combatData.PushCombatState(CombatStates.Start);
 
-        _enemyUnit = _combatData.EnemyUnit;
-        _playerUnit = _combatData.EnemyUnit;
 
         PlayerTurn();
     }
@@ -175,7 +177,7 @@ public class CombatManager : MonoBehaviour, ISingleton
         {
             Debug.Log("DEFEAT");
         }
-        _combatData.Events.ExitCombat();
+        _combatEvents.ExitCombat();
     }
 
 

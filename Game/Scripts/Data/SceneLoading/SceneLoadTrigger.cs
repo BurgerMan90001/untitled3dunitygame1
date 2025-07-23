@@ -56,49 +56,5 @@ public class SceneLoadTrigger : MonoBehaviour
     }
 
 
-    private void OnExitDialogue(GameObject npc)
-    {
-        bool combatEntered = (bool)CheckVariableState("combatEntered");
-        _combatData.CheckIfCombatEntered(npc, combatEntered);
-    }
-
-    private object CheckVariableState(string variableName)
-    {
-        return _dialogueData.Story.variablesState[variableName];
-    }
-
-    private void OnEnterCombat(CombatUnit npc)
-    {
-        SceneLoader.LoadScene(SceneLoadingSettings.Combat);
-
-    }
-    private void OnExitCombat()
-    {
-        SceneLoader.LoadScene(SceneLoadingSettings.MainGame);
-    }
-
-    /*
-    private void LoadScene(SceneLoadingSettings sceneLoadingSettings)
-    {
-
-        if (_debugMode)
-        {
-            Debug.Log(sceneLoadingSettings.PlayerSpawnPoint);
-            Debug.Log(sceneLoadingSettings.UserInterface);
-            Debug.Log(sceneLoadingSettings.SceneName);
-        }
-        if (sceneLoadingSettings.SceneName != null)
-        {
-            SceneLoader.LoadScene(sceneLoadingSettings);
-
-        }
-        else
-        {
-            Debug.LogError("The loading settings' scene name is null. ");
-            return;
-        }
-    }
-
-    */
 
 }

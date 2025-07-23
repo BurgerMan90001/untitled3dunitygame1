@@ -1,59 +1,53 @@
-
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 
-public class MainManger : MonoBehaviour, ISingleton
+public class MainManger : MonoBehaviour
 {
+    private static MainManger _Instance;
+    public static MainManger Instance
+    {
+        get
+        {
+            if (!_Instance)
+            {
+                _Instance = new GameObject().AddComponent<MainManger>();
+
+                _Instance.name = _Instance.GetType().ToString();
+
+                DontDestroyOnLoad(_Instance.gameObject);
+            }
+            return _Instance;
+        }
+    }
     [Header("Managers")]
+    /*
     [SerializeField] private List<ManagerSettings> _managerSettings;
     [SerializeField] private PlayerInput PlayerInput;
     [SerializeField] private Transform _userInterface;
     [SerializeField] private Transform _npcs; // the NPCs gameObject is itself
+    */
 
     [SerializeField] private GameObject test;
-    
-    public static MainManger Instance;
 
 
     private Transform _managers; // the Managers gameObject is itself
 
     private void Awake()
     {
-        
-        if (Instance == null)
-        {
-            Instance = this;
-        } else
-        {
-            Debug.LogWarning("There was another Main Manager instance in the scene. Destroying duplicate.");
-            Destroy(gameObject);
-        }
 
-            _managers = GetComponent<Transform>();
-
-        DontDestroyOnLoad(gameObject);
     }
     private void Start()
     {
-        ToggleManagers();
-
-    //    ToggleUserInterface();
-
-     //   _npcs.gameObject.SetActive(true); 
-                                           
 
     }
-    
+
     private void OnDisable()
     {
-    
-    //    Addressables.ReleaseInstance(test);
+
     }
     private void OnDestroy()
     {
-        
+
     }
     #region
     /// <summary>
@@ -62,6 +56,7 @@ public class MainManger : MonoBehaviour, ISingleton
     /// </summary>
     #endregion
 
+    /*
     private void ToggleManagers()
     {
         foreach (ManagerSettings managerSetting in _managerSettings)
@@ -88,7 +83,8 @@ public class MainManger : MonoBehaviour, ISingleton
     {
         _userInterface.gameObject.SetActive(true);
     }
-    
+    */
+
 
 }
 

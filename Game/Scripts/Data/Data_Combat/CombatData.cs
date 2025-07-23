@@ -22,6 +22,9 @@ public class CombatData : Data
 
     [Header("Data")]
 
+
+    [Header("Events")]
+    [SerializeField] private CombatEvents _combatEvents;
     [Header("Settings")]
 
 
@@ -33,8 +36,6 @@ public class CombatData : Data
     [Header("Debugging")]
     [SerializeField] public bool DebugMode = true;
 
-
-    public CombatEvents Events { get; private set; } = new CombatEvents();
 
     public Stack<CombatStates> CombatState { get; private set; } = new Stack<CombatStates>();
     [ReadOnly][SerializeField] private List<CombatStates> CombatStateStack;
@@ -56,7 +57,7 @@ public class CombatData : Data
 
             if (npc.TryGetComponent(out CombatUnit combatUnit))
             {
-                Events.EnterCombat(combatUnit);
+                _combatEvents.EnterCombat(combatUnit);
             }
             else
             {

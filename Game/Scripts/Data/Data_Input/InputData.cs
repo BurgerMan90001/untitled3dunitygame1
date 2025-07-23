@@ -7,8 +7,8 @@ using UnityEngine.InputSystem;
 public class InputData : Data
 {
     [Header("Data")]
-    [SerializeField] private DialogueData _dialogueData;
-    [SerializeField] private CombatData _combatData;
+    [SerializeField] private DialogueEvents _dialogueEvents;
+    [SerializeField] private CombatEvents _combatEvents;
 
     [Header("InputEvents")]
     [field: SerializeField] public MovementInput MovementInput { get; private set; }
@@ -26,15 +26,16 @@ public class InputData : Data
     public bool InputEnabled { get; private set; }
 
 
+    /*
     private void OnEnable()
     {
-        _dialogueData.Events.OnChoiceSelected += OnChoiceSelected;
-        _dialogueData.Events.OnUpdateChoices += OnUpdateChoices;
+        _dialogueEvents.OnChoiceSelected += OnChoiceSelected;
+        _dialogueEvents.OnUpdateChoices += OnUpdateChoices;
 
-        /*
+        
         _combatData.Events.OnEnterCombat += OnEnterCombat;
         _combatData.Events.OnExitCombat += OnExitCombat;
-        */
+        
 
         if (_debugEnabled)
         {
@@ -45,12 +46,12 @@ public class InputData : Data
     }
     private void OnDisable()
     {
-        /*
+        
         _combatData.Events.OnEnterCombat -= OnEnterCombat;
         _combatData.Events.OnExitCombat -= OnExitCombat;
-        */
-        _dialogueData.Events.OnChoiceSelected -= OnChoiceSelected;
-        _dialogueData.Events.OnUpdateChoices -= OnUpdateChoices;
+        
+        _dialogueEvents.OnChoiceSelected -= OnChoiceSelected;
+        _dialogueEvents.OnUpdateChoices -= OnUpdateChoices;
 
         if (_debugEnabled)
         {
@@ -59,6 +60,7 @@ public class InputData : Data
         }
 
     }
+    */
 
     private void OnEnterCombat(CombatUnit _)
     {

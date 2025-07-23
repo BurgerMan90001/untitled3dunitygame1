@@ -1,6 +1,7 @@
 using System;
-
-public class CombatEvents : IEvent
+using UnityEngine;
+[CreateAssetMenu(menuName = "Events/CombatEvents")]
+public class CombatEvents : Event
 {
     public event Action<CombatUnit> OnEnterCombat;
     public event Action OnExitCombat;
@@ -14,12 +15,6 @@ public class CombatEvents : IEvent
     #endregion
     public void EnterCombat(CombatUnit enemyUnit)
     {
-
-
-
-
-
-
         OnEnterCombat?.Invoke(enemyUnit);
 
         SceneLoader.LoadScene(SceneLoadingSettings.Combat);

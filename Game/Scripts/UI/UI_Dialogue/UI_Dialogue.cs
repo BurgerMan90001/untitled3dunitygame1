@@ -11,18 +11,17 @@ public class UI_Dialogue : IUserInterface
     private VisualElement _panelDialogue; // Panel_Dialogue uxml name
     private VisualElement _panelChoices; // Panel_Choices uxml name
 
-    private Label _choiceLabel;
     private Label _dialogueLabel;
 
 
     private List<Button> _choiceButtons;
 
-    private DialogueData _dialogueData;
+    private DialogueEvents _dialogueEvents;
 
-    public UI_Dialogue(UserInterfaceData userInterfaceData, DialogueData dialogueData)
+    public UI_Dialogue(UserInterfaceData userInterfaceData, DialogueEvents dialogueEvents)
     {
         _userInterfaceData = userInterfaceData;
-        _dialogueData = dialogueData;
+        _dialogueEvents = dialogueEvents;
 
     }
     public void QueryElements(VisualElement root)
@@ -32,7 +31,7 @@ public class UI_Dialogue : IUserInterface
         _panelChoices = root.Q<VisualElement>("Panel_Choices");
 
         _dialogueLabel = _panelDialogue.Q<Label>("Label_Dialogue");
-        _choiceLabel = _panelChoices.Q<Label>("Label_Choice");
+
 
         _choiceButtons = _panelChoices.Query<Button>(className: "choiceButton").ToList();
 
@@ -40,12 +39,12 @@ public class UI_Dialogue : IUserInterface
     }
     public void Register(VisualElement root)
     {
-        _dialogueData.Events.OnEnterDialogue += DisplayDialoguePanel;
-        _dialogueData.OnUpdateDialogueLine += UpdateText;
-        _dialogueData.Events.OnExitDialogue += HideDialogue;
+        _dialogueEvents.OnEnterDialogue += DisplayDialoguePanel;
+        _dialogueEvents.OnUpdateDialogueLine += UpdateText;
+        _dialogueEvents.OnExitDialogue += HideDialogue;
 
 
-        _dialogueData.Events.OnUpdateChoices += UpdateChoices;
+        _dialogueEvents.OnUpdateChoices += UpdateChoices;
 
 
         SetupChoiceButtons();
@@ -54,13 +53,13 @@ public class UI_Dialogue : IUserInterface
     }
     public void Unregister()
     {
-        _dialogueData.Events.OnEnterDialogue -= DisplayDialoguePanel;
-        _dialogueData.OnUpdateDialogueLine -= UpdateText;
-        _dialogueData.Events.OnExitDialogue -= HideDialogue;
+        _dialogueEvents.OnEnterDialogue -= DisplayDialoguePanel;
+        _dialogueEvents.OnUpdateDialogueLine -= UpdateText;
+        _dialogueEvents.OnExitDialogue -= HideDialogue;
 
 
 
-        _dialogueData.Events.OnUpdateChoices -= UpdateChoices;
+        _dialogueEvents.OnUpdateChoices -= UpdateChoices;
 
 
 
@@ -142,7 +141,7 @@ public class UI_Dialogue : IUserInterface
     private void ChoiceSelected(int choiceIndex)
     {
 
-        _dialogueData.Events.SelectChoice(choiceIndex);
+        _dialogueEvents.SelectChoice(choiceIndex);
 
         GameCursor.Lock();
 

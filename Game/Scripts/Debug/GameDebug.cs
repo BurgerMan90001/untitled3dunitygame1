@@ -3,10 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class GameDebug : MonoBehaviour, ISingleton
+public class GameDebug : MonoBehaviour
 {
 
-    [Header("Data")]
+    private static GameDebug _Instance;
+    public static GameDebug Instance
+    {
+        get
+        {
+            if (!_Instance)
+            {
+                _Instance = new GameObject().AddComponent<GameDebug>();
+
+                _Instance.name = _Instance.GetType().ToString();
+
+                DontDestroyOnLoad(_Instance.gameObject);
+            }
+            return _Instance;
+        }
+    }
 
     [Header("Debug Scene")]
     [SerializeField] private bool _debugScene = true;
@@ -18,14 +33,7 @@ public class GameDebug : MonoBehaviour, ISingleton
     [SerializeField] private UserInterfaceType _loadedInterface;
     [SerializeField] private bool _showInterface;
 
-    /*
-    [Header("Managers")]
-    
-    [SerializeField] private bool _instantiatedPrefabs;
-    [SerializeField] private bool _setPrefabsActive;
 
-    [SerializeField] private List<GameObject> _instantiatedPrefabsOnPlaySceneWithoutLoading;
-    */
 
     [Header("Spawn")]
     [SerializeField] private Vector3 spawnPoint = new Vector3(-20.49013f, 71f, -32.76805f);
@@ -38,20 +46,10 @@ public class GameDebug : MonoBehaviour, ISingleton
     private bool buttonHeld = false;
     private bool show = false;
 
-    public static GameDebug Instance;
+
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            gameObject.SetActive(false);
 
-            Debug.LogWarning("There is another DebugInput in scene. Destroying duplicate.");
-        }
         if (_lockCursor)
         {
             GameCursor.Lock();

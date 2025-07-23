@@ -1,4 +1,12 @@
 // TODO SEPARATE DATA FROM EVENTS IMPLEMENT THEM WITH EVENT CLASS
+
+using UnityEngine;
+
+
+public class Event : ScriptableObject
+{
+
+}
 /*
 public class Event : ScriptableObject
 {
@@ -22,8 +30,8 @@ public class Event : ScriptableObject
         listeners.Remove(listener);
     }
 }
-
 */
+
 public interface IEvent
 {
 

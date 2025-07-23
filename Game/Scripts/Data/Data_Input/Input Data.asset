@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac943efc18fbbee4098c64faca388cf3, type: 3}
   m_Name: Input Data
   m_EditorClassIdentifier: 
-  _dialogueData: {fileID: 11400000, guid: b7057052d12597d459bf37d69cac44f3, type: 2}
-  _combatData: {fileID: 11400000, guid: e99ab9cb863476f46ae38c8aee2da7b4, type: 2}
+  _dialogueEvents: {fileID: 11400000, guid: 758561cdb6a753b41945355c3ac635c9, type: 2}
+  _combatEvents: {fileID: 11400000, guid: 25e76855a225a9340a439ced081b70c4, type: 2}
   <MovementInput>k__BackingField: {fileID: 11400000, guid: 5073dac0742252247848489dfbc58d5d, type: 2}
   <CameraInput>k__BackingField: {fileID: 11400000, guid: a9af73362ae1ead4dad683960fcf65fc, type: 2}
   <MenuInput>k__BackingField: {fileID: 11400000, guid: 40ac9e5222a69664b8750e11ab44a282, type: 2}

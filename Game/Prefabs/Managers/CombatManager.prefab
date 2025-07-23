@@ -44,9 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e8b3a07d6974fd4ea340a196ff6b9b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerCombatStats: {fileID: 11400000, guid: 0e64a6bdeadbc19439adc27be700aaba, type: 2}
-  _enemyCombatStats: {fileID: 11400000, guid: c815e0d8764809a4e9208c47386ebefd, type: 2}
+  _dialogueData: {fileID: 11400000, guid: b7057052d12597d459bf37d69cac44f3, type: 2}
   _combatData: {fileID: 11400000, guid: e99ab9cb863476f46ae38c8aee2da7b4, type: 2}
-  userInterfaceData: {fileID: 11400000, guid: 1c7fbd88d5738b74087a9f4ddfe1e972, type: 2}
-  _hurtEffects: []
-  _debugMode: 1

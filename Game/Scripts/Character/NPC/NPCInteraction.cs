@@ -10,36 +10,36 @@ public class NPCInteraction
 
     private string _dialogueKnotName;
 
-    private DialogueData _dialogueData;
+    private DialogueEvents _dialogueEvents;
 
     private int _interactionStage = 0;
 
     private const string _silentDialogueKnotName = "silentDialogue";
-    public NPCInteraction(string dialogueKnotName, DialogueData dialogueData)
+    public NPCInteraction(string dialogueKnotName, DialogueEvents dialogueEvents)
     {
         _dialogueKnotName = dialogueKnotName;
-        _dialogueData = dialogueData;
+        _dialogueEvents = dialogueEvents;
     }
 
     public void Interact(GameObject npc)
     {
 
-        if (_dialogueData.InDialogue)
+        if (_dialogueEvents.InDialogue)
         {
 
-            _dialogueData.Events.ContinueDialogue();
+            _dialogueEvents.ContinueDialogue();
 
         }
 
         else if (!_dialogueKnotName.Equals("")) // if the knot name is not empty
         {
 
-            _dialogueData.Events.EnterDialogue(_dialogueKnotName, npc);// begins the NPC's dialgoue at their knotName
+            _dialogueEvents.EnterDialogue(_dialogueKnotName, npc);// begins the NPC's dialgoue at their knotName
 
         }
         else // the npc will default to ... if there is no dialogue knot 
         {
-            _dialogueData.Events.EnterDialogue(_silentDialogueKnotName, npc);
+            _dialogueEvents.EnterDialogue(_silentDialogueKnotName, npc);
         }
     }
 }

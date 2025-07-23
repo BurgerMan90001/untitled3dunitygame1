@@ -2,10 +2,13 @@ VAR yourVariable = true
 
 VAR combatEntered = false
 
+VAR rivalDefeated = false
+
 VAR myNumber = 1
 
+//TODO REPLACE WASHINGTON and Card battler stuff PLACEHOLDERS
 
--> Rival // testing
+ // testing
 /*
 	Quick random function for varying choices
 
@@ -22,7 +25,10 @@ VAR myNumber = 1
 // + to show a question again when its picked/
 // * to NOT show a question again when its picked/
 // ~
-
+-> City_Shop_LineWaiter
+=== function startBattle()
+[ BATTLE START ]
+~ combatEntered = true
 
 
 
@@ -63,8 +69,8 @@ HI IM A DUDE
 
 
 === Rival === // generic rival
-
-HELLO IM YOUR RIVAL, PLAYER.
+HELLO, MY RIVAL
+IT'S ME.
 HM
 DO YOU WAN'T TO CARD BATTLE?
 -> Rival_Q1
@@ -72,22 +78,54 @@ DO YOU WAN'T TO CARD BATTLE?
     === Rival_Q1 ===
     * [Who are you?]
         AHAHAHAH
-        I'M YOUR RIVAL.
-        -> END
-    * [Ok]
-        LETS BATTLE!!
+        OH, I'M JUST THE BEST CARD BATTLER IN WASHINGTON.
+        ENOUGH, I'M HERE TO BEAT YOU.
+        -> Rival_Q1
         
-        ~ combatEntered = true
+    * [Ok]
+        
+        ~ startBattle()
         -> END
     + [No]
         ...
-        ~ combatEntered = false
+        
         
         -> END
     
+=== Rival2 ===
+HELLO, MY RIVAL.
+I'VE MASTERED THE FIVE JUJITSU ARTS.
+THIS TIME, I'M SURE TO BEAT YOU!
+    * [Ok]
+        
+        ~ startBattle()
+        -> END
+    + [No]
+        ...
+        
+        -> END
+        
+=== Rival_Teacher === 
+-> END
 
 === City_Shop_LineWaiter ===
-IM WAITING
+Oh I'm just waiting in line, but you can skip ahead of me.
+
++ [But there is nobody in front of you]
+    I insist, you go first.
+    -> City_Shop_LineWaiter_Q1
++ [Alright, thank you sir]
+    ->END
+    === City_Shop_LineWaiter_Q1 ===
+        
+        + [No you go first]
+            No, I insist, you go first.
+            -> City_Shop_LineWaiter_Q1
+
+        + [Alright, thank you sir]
+            ->END
+    ->END
+//HEY, DID YOU TALK TO THAT WEIRDO POSING OVER THERE?
 
 ->END
 === City_Shop ===

@@ -1,8 +1,26 @@
 
 using UnityEngine;
 // TODO POSSIBLY NOT MAKE SINGLE TON FOR MULTIPLE PEAOPLE
-public class Player : MonoBehaviour, ISingleton
+public class Player : MonoBehaviour
 {
+    /*
+    private static Player _Instance;
+    public static Player Instance
+    {
+        get
+        {
+            if (!_Instance)
+            {
+                _Instance = new GameObject().AddComponent<Player>();
+
+                _Instance.name = _Instance.GetType().ToString();
+
+                DontDestroyOnLoad(_Instance.gameObject);
+            }
+            return _Instance;
+        }
+    }
+    */
     [Header("Dependancies")]
     [SerializeField] private MovementStateManager _movementStateManager;
 
@@ -16,27 +34,16 @@ public class Player : MonoBehaviour, ISingleton
 
     private Rigidbody _rigidBody;
 
-    private static Player Instance;
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
 
-        }
-        else
-        {
-            Debug.LogWarning("There was another player instance, destroying duplicate.");
-            Destroy(gameObject);
-        }
 
         _rigidBody = GetComponent<Rigidbody>();
 
 
         _rigidbodyTrigger = new RigidbodyTrigger(_rigidBody, _movementStateManager);
 
-        DontDestroyOnLoad(gameObject);
     }
     private void Start()
     {
