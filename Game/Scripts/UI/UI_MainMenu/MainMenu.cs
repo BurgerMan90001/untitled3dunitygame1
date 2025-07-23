@@ -10,7 +10,7 @@ public class UI_MainMenu : IUserInterface
 
     private VisualElement _panelMainMenu;
 
-    private DataPersistenceData _dataPersistenceData;
+    private DataPersistenceEvents _dataPersistenceEvents;
 
     private UserInterfaceData _userInterfaceData;
 
@@ -36,10 +36,10 @@ public class UI_MainMenu : IUserInterface
     .button_secondary
     */
     #endregion
-    public UI_MainMenu(DataPersistenceData dataPersistenceData, UserInterfaceData userInterfaceData)
+    public UI_MainMenu(DataPersistenceEvents dataPersistenceEvents, UserInterfaceData userInterfaceData)
     {
 
-        _dataPersistenceData = dataPersistenceData;
+        _dataPersistenceEvents = dataPersistenceEvents;
 
         _userInterfaceData = userInterfaceData;
 
@@ -111,7 +111,7 @@ public class UI_MainMenu : IUserInterface
     #endregion
     private void CheckIfThereIsSaveData() // called in on start in userinterface
     {
-        if (!_dataPersistenceData.SearchForSaveGameData()) // if there is no saved game data
+        if (!_dataPersistenceEvents.SearchForSaveGameData()) // if there is no saved game data
         {
             _buttonContinueGame.SetEnabled(false);
             _buttonContinueGame.style.opacity = 0.5f;

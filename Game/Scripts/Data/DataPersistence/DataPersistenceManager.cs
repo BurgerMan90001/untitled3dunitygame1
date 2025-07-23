@@ -1,6 +1,8 @@
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 // profileIDs are directories which store a json save file
 public class DataPersistenceManager : MonoBehaviour
@@ -21,11 +23,15 @@ public class DataPersistenceManager : MonoBehaviour
             return _Instance;
         }
     }
-    [Header("Dependancies")]
-    [SerializeField] private DataPersistenceData _dataPersistenceData;
+    [Header("LabelReferences")]
+    [SerializeField] private AssetLabelReference _dataLabelReference;
+
+    [Header("Events")]
+    [SerializeField] private DataPersistenceEvents _dataPersistenceEvents;
 
     [Header("File Storage")]
     [SerializeField] private string _fileName;
+    [SerializeField] private string _storyStateFileName;
 
     [Header("Debugging")]
     [SerializeField] private bool _loadDataDebug = false;
@@ -65,20 +71,22 @@ public class DataPersistenceManager : MonoBehaviour
     {
         if (_loadDataDebug)
         {
-            FindAllDistancePersistenceObjects();
+            FindAllDistancePersistenceObjects(_dataLabelReference);
         }
 
+        _dataPersistenceObjects = FindAllDistancePersistenceObjects(_dataLabelReference).Result;
+        Debug.Log(_dataPersistenceObjects.Count);
     }
 
     private void OnEnable()
     {
         //   SceneLoadingManager.OnSceneLoaded += OnSceneLoaded;
 
-        _dataPersistenceData.OnStartNewGame += NewGame;
+        _dataPersistenceEvents.OnStartNewGame += NewGame;
 
-        _dataPersistenceData.OnLoadGame += LoadGame;
+        _dataPersistenceEvents.OnLoadGame += LoadGame;
 
-        _dataPersistenceData.OnGetAllProfilesGameData += GetAllProfilesGameData;
+        _dataPersistenceEvents.OnGetAllProfilesGameData += GetAllProfilesGameData;
 
     }
 
@@ -89,11 +97,11 @@ public class DataPersistenceManager : MonoBehaviour
 
         //    SceneLoadingManager.OnSceneLoaded -= OnSceneLoaded;
 
-        _dataPersistenceData.OnStartNewGame -= NewGame;
+        _dataPersistenceEvents.OnStartNewGame -= NewGame;
 
-        _dataPersistenceData.OnLoadGame -= LoadGame;
+        _dataPersistenceEvents.OnLoadGame -= LoadGame;
 
-        _dataPersistenceData.OnGetAllProfilesGameData -= GetAllProfilesGameData;
+        _dataPersistenceEvents.OnGetAllProfilesGameData -= GetAllProfilesGameData;
 
     }
     private void OnApplicationQuit()
@@ -111,9 +119,9 @@ public class DataPersistenceManager : MonoBehaviour
     private void OnSceneLoaded(UserInterfaceType _, bool _1)
     {
 
-        _dataPersistenceObjects = FindAllDistancePersistenceObjects();
+        _dataPersistenceObjects = FindAllDistancePersistenceObjects(_dataLabelReference).Result;
         Debug.Log(_dataPersistenceObjects.Count);
-        //    LoadGame();
+        LoadGame();
     }
     public void ChangeSelectedProfileID(string newProfileID)
     {
@@ -122,7 +130,7 @@ public class DataPersistenceManager : MonoBehaviour
     }
     private void NewGame()
     {
-        _dataPersistenceData.SetGameData(new GameData());
+        _dataPersistenceEvents.SetGameData(new GameData());
 
 
     }
@@ -132,19 +140,19 @@ public class DataPersistenceManager : MonoBehaviour
         { // if saving and loading is disabled
             return;
         }
-        _dataPersistenceData.SetGameData(_fileDataHandler.Load(selectedProfileID));
-        if (_dataPersistenceData.GameData == null)
+        _dataPersistenceEvents.SetGameData(_fileDataHandler.Load(selectedProfileID));
+        if (_dataPersistenceEvents.GameData == null)
         {
             Debug.Log("No data was found. A new game needs to be started to load");
             return;
         }
-        if (_dataPersistenceData.GameData == null && _loadNewGameIFDataIfNull)
+        if (_dataPersistenceEvents.GameData == null && _loadNewGameIFDataIfNull)
         {
             NewGame();
         }
         foreach (IDataPersistence dataPersistenceObj in _dataPersistenceObjects)
         {
-            dataPersistenceObj.LoadData(_dataPersistenceData.GameData);
+            dataPersistenceObj.LoadData(_dataPersistenceEvents.GameData);
         }
 
     }
@@ -154,7 +162,7 @@ public class DataPersistenceManager : MonoBehaviour
         {
             return;
         }
-        if (_dataPersistenceData.GameData == null)
+        if (_dataPersistenceEvents.GameData == null)
         {
             Debug.LogWarning("No save game data was found. A new game needs to be started to load");
             return;
@@ -162,26 +170,56 @@ public class DataPersistenceManager : MonoBehaviour
 
         foreach (IDataPersistence dataPersistenceObj in _dataPersistenceObjects)
         {
-            dataPersistenceObj.SaveData(_dataPersistenceData.GameData);
+            dataPersistenceObj.SaveData(_dataPersistenceEvents.GameData);
 
         }
-        _dataPersistenceData.GameData.LastUpdated = System.DateTime.Now.ToBinary();
-        _fileDataHandler.Save(_dataPersistenceData.GameData, selectedProfileID);
+        _dataPersistenceEvents.GameData.LastUpdated = System.DateTime.Now.ToBinary();
+        _fileDataHandler.Save(_dataPersistenceEvents.GameData, selectedProfileID);
     }
 
 
-    private List<IDataPersistence> FindAllDistancePersistenceObjects()
+    private async Task<List<IDataPersistence>> FindAllDistancePersistenceObjects(AssetLabelReference labelReference)
     {
-        IEnumerable<IDataPersistence> dataPersistenceObjects =
-            FindObjectsByType<ScriptableObject>(FindObjectsInactive.Include, FindObjectsSortMode.None)
-            .OfType<IDataPersistence>();
-        var listOfDataPersistenceObjects = new List<IDataPersistence>();
-        Debug.Log(listOfDataPersistenceObjects.Count);
-        return listOfDataPersistenceObjects;
-    }
+        var dataLabelHandle = Addressables.LoadAssetsAsync<IDataPersistence>(labelReference.labelString);
 
+        await dataLabelHandle.Task;
+
+        if (dataLabelHandle.Status == AsyncOperationStatus.Succeeded)
+        {
+
+            return (List<IDataPersistence>)dataLabelHandle.Result;
+        }
+        else
+        {
+            Debug.LogError($"Could not load {labelReference}. ");
+            return null;
+        }
+
+    }
     private Dictionary<string, GameData> GetAllProfilesGameData()
     {
         return _fileDataHandler.LoadAllProfiles();
+    }
+}
+
+
+public class DataLoader
+{
+    public async Task<List<IDataPersistence>> FindAllDistancePersistenceObjects(AssetLabelReference labelReference)
+    {
+        var dataLabelHandle = Addressables.LoadAssetsAsync<IDataPersistence>(labelReference.labelString);
+
+        await dataLabelHandle.Task;
+
+        if (dataLabelHandle.Status == AsyncOperationStatus.Succeeded)
+        {
+            return (List<IDataPersistence>)dataLabelHandle.Result;
+        }
+        else
+        {
+            Debug.LogError($"Could not load {labelReference}. ");
+            return null;
+        }
+
     }
 }

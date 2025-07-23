@@ -6,18 +6,13 @@ using UnityEngine;
 [System.Serializable]
 public class GameData // game data is the data that will be serialized and saved into a json file.
 {
-    // INK STORY
-    public StoryState StoryState;
 
 
     public long LastUpdated;
 
-    public Inventory Inventory;
+    public Vector3 PlayerPosition;
 
 
-    // a list of the class' properties like MaxStamina and Level
-    //   private PropertyInfo[] gameDataProperties = typeof(GameData).GetProperties();
-    // game data that will persist
     public float MaxStamina;
 
     public float MaxHealth;
@@ -34,60 +29,75 @@ public class GameData // game data is the data that will be serialized and saved
     public float BaseSpeed;
 
 
+    public Inventory Inventory;
 
-    public Vector3 PlayerPosition;
+    public Story Story; // INK STORY
+
+
 
 
 
     public GameData() // new game stats
     {
-        Debug.Log("NEW GAME STARTED");
 
         PlayerPosition = new Vector3(-21.9972f, 54.65f, -37.326f); // area where player will spawn at in newgame
 
+        MaxStamina = 20f;
+
+
         Energy = 10f; // default values
         MaxEnergy = 10f;
-        MaxStamina = 20f;
 
         Money = 0f;
 
         MaxHealth = 20f;
 
-        var storyText = TextLoader.LoadTextFile("");
+        Experience = 0f;
+        Level = 0f;
 
-        StoryState = new StoryState();
+        BaseSpeed = 7.5f;
+
+
+        // Story = StoryStateSerialization.Deserialize(ref Story);
+
     }
 }
 
 public static class StoryStateSerialization
 {
     // Set a path to save and restore StoryState.
-    private static readonly string fileName = "currentStoryState.json";
-    static string savePath = Application.persistentDataPath + "/currentStoryState.json";
+    private static readonly string _fileName = "StoryState.json";
+    private static readonly string _savePath = Application.persistentDataPath + "/" + _fileName;
 
-    // Convert a StoryState into a JSON string and save file.
-    static public void Serialize(StoryState s)
+    /// <summary>
+    /// Convert a StoryState into a JSON string and save file.
+    /// </summary>
+    public static void Serialize(StoryState storyState)
     {
         // Either create or overwrite an existing story file.
-        File.WriteAllText(savePath, s.ToJson());
+        File.WriteAllText(_savePath, storyState.ToJson());
     }
 
-    // Update referenced Story object based on saved StoryState (if it exists)
-    static public Story Deserialize(ref Story s)
+    /// <summary>
+    /// Update referenced Story object based on saved StoryState (if it exists)
+    /// </summary>
+    /// <param name="story"></param>
+    /// <returns></returns>
+    public static Story Deserialize(ref Story story)
     {
-        // Create internal JSON string.
-        string JSONContents;
 
-        // Does the file exist?
-        if (File.Exists(savePath))
+        string JSONContents; // create internal JSON string.
+
+
+        if (File.Exists(_savePath))
         {
-            // Read the entire file.
-            JSONContents = File.ReadAllText(savePath);
-            // Overwrite current Story based on saved StoryState data.
-            s.state.LoadJson(JSONContents);
+
+            JSONContents = File.ReadAllText(_savePath); // reads the entire json file
+
+            story.state.LoadJson(JSONContents); // overwrite current Story based on saved StoryState data.
         }
 
-        // Return either referenced or restored story.
-        return s;
+
+        return story; // return either referenced or restored story.
     }
 }

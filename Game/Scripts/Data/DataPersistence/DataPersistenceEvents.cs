@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Playables;
 /// <summary>
 /// <br> Unessecary wrappers. </br>
 /// </summary>
-[CreateAssetMenu(menuName = "DataPersistence/DataPersistenceData")]
-public class DataPersistenceData : ScriptableObject 
+[CreateAssetMenu(menuName = "Events/DataPersistenceData")]
+public class DataPersistenceEvents : Event
 {
 
     public event Action OnSaveGame;
@@ -16,10 +15,10 @@ public class DataPersistenceData : ScriptableObject
 
     [Header("Debug")]
     [SerializeField] private bool _debugMode = true;
-    public GameData GameData { get; private set; } 
+    public GameData GameData { get; private set; }
 
     public Action<string> OnChangeDataProfileID;
-    
+
     public Func<Dictionary<string, GameData>> OnGetAllProfilesGameData;
     public void StartNewGame()
     {

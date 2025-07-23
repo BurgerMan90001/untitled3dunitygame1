@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 34ff7ef0ee2b5af4eac72405d9ca5fa7, type: 3}
-  m_Name: Player Data Persistence Data
+  m_Name: Data Persistence Events
   m_EditorClassIdentifier: 

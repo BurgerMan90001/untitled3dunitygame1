@@ -37,15 +37,15 @@ public class UI_SaveSlotsMenu : IUserInterface
     #endregion
     private bool _isLoadingGame = false;
 
-    private DataPersistenceData _dataPersistenceData;
+    private DataPersistenceEvents _dataPersistenceEvents;
 
     private UserInterfaceData _userInterfaceData;
 
 
-    public UI_SaveSlotsMenu(DataPersistenceData dataPersistenceData, UserInterfaceData userInterfaceData)
+    public UI_SaveSlotsMenu(DataPersistenceEvents dataPersistenceEvents, UserInterfaceData userInterfaceData)
     {
 
-        _dataPersistenceData = dataPersistenceData;
+        _dataPersistenceEvents = dataPersistenceEvents;
         _userInterfaceData = userInterfaceData;
     }
     public void QueryElements(VisualElement root)
@@ -117,14 +117,14 @@ public class UI_SaveSlotsMenu : IUserInterface
         _panelSaveSlots.style.display = DisplayStyle.None;
         //    DisableSaveSlotButtons();
 
-        _dataPersistenceData.ChangeSelectedProfileID(saveSlotData.ProfileID);
+        _dataPersistenceEvents.ChangeSelectedProfileID(saveSlotData.ProfileID);
 
         if (!_isLoadingGame) //create a new game 
         {
-            _dataPersistenceData.StartNewGame();
+            _dataPersistenceEvents.StartNewGame();
         }
 
-        _dataPersistenceData.SaveGameData();
+        _dataPersistenceEvents.SaveGameData();
 
         SceneLoader.LoadScene(SceneLoadingSettings.MainGame);
 
@@ -151,7 +151,7 @@ public class UI_SaveSlotsMenu : IUserInterface
 
     private void ActivateSaveSlots()
     {
-        Dictionary<string, GameData> profilesGameData = _dataPersistenceData.GetAllProfilesGameData();
+        Dictionary<string, GameData> profilesGameData = _dataPersistenceEvents.GetAllProfilesGameData();
         Button firstSelectedButton = _buttonBack; // the defualt button that is selected
 
         for (int i = 0; i < _saveSlotButtons.Count; i++)

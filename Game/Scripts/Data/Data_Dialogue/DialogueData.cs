@@ -16,7 +16,7 @@ public class DialogueData : Data
 
     [Header("Settings")]
 
-
+    private StoryState StoryState;
     [Header("Debug")]
     public bool DebugMode = false;
     public bool ShowVariables = false;
@@ -40,6 +40,7 @@ public class DialogueData : Data
 
     public override void LoadData(GameData data)
     {
+
         Story = data.Story;
     }
 

@@ -14,7 +14,7 @@ public class UserInterface : MonoBehaviour
     [Header("Data")]
     [SerializeField] private Inventory _inventory; // the dynamic inventory scriptable object that will be used to manage the inventory
     [SerializeField] private UserInterfaceData _userInterfaceData;
-    [SerializeField] private DataPersistenceData _dataPersistenceData;
+    [SerializeField] private DataPersistenceEvents _dataPersistenceEvents;
 
     [SerializeField] private InputData _inputData;
     [SerializeField] private CombatData _combatData;
@@ -81,8 +81,8 @@ public class UserInterface : MonoBehaviour
 
         _uxmlFileHandler = new UxmlFileHandler(Root);
 
-        _uiMainMenu = new UI_MainMenu(_dataPersistenceData, _userInterfaceData);
-        _uiSaveSlotsMenu = new UI_SaveSlotsMenu(_dataPersistenceData, _userInterfaceData);
+        _uiMainMenu = new UI_MainMenu(_dataPersistenceEvents, _userInterfaceData);
+        _uiSaveSlotsMenu = new UI_SaveSlotsMenu(_dataPersistenceEvents, _userInterfaceData);
         _uiDialogue = new UI_Dialogue(_userInterfaceData, _dialogueEvents);
         _uiInventory = new UI_Inventory(_inventory);
 
@@ -96,7 +96,7 @@ public class UserInterface : MonoBehaviour
 
     private async void Start()
     {
-        Debug.Log("START");
+
         _userInterfaceData.UserInterfaceElements = await _uxmlFileHandler.LoadInterfacesAsync(_uxmlAssetLabelReference); // load the user interfaces asynchronously. visual element configuration is done after this.
 
         QueryAllElements();
