@@ -27,8 +27,6 @@ public static class SceneLoader
 
     private static readonly bool _debugMode = false;
 
-    public static bool InMenu = true;
-
     #region
     /// <summary>
     /// <br> Load scene with interface. </br>
@@ -45,11 +43,7 @@ public static class SceneLoader
 
         var handle = Addressables.LoadSceneAsync(sceneLoadingSettings.Key, LoadSceneMode.Additive);
 
-        if (sceneLoadingSettings.SceneType is SceneType.Game)
-        {
-            Debug.Log("MAIN GAME");
-            InMenu = false;
-        }
+
 
         await handle.Task;
 

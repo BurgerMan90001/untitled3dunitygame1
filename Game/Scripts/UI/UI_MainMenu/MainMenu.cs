@@ -43,8 +43,6 @@ public class UI_MainMenu : IUserInterface
 
         _userInterfaceData = userInterfaceData;
 
-
-
     }
 
     public void Register(VisualElement root) // called in on enable in userinterface

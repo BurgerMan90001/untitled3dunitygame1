@@ -3,7 +3,7 @@ using UnityEditor.AddressableAssets.Settings;
 namespace UnityEditor.AddressableAssets.Build.AnalyzeRules
 {
     [InitializeOnLoad]
-    class RegisterAnalyzeDuplicateAddressableNames
+    internal class RegisterAnalyzeDuplicateAddressableNames
     {
         static RegisterAnalyzeDuplicateAddressableNames()
         {
@@ -11,11 +11,8 @@ namespace UnityEditor.AddressableAssets.Build.AnalyzeRules
         }
     }
 
-    class AnalyzeDuplicateAddressableNames : AnalyzeRule
+    internal class AnalyzeDuplicateAddressableNames : AnalyzeRule
     {
-
-
-        //--------------------------------
 
         public override bool CanFix
         {
@@ -26,7 +23,6 @@ namespace UnityEditor.AddressableAssets.Build.AnalyzeRules
             get { return "Check Duplicate Addressable Names"; }
         }
 
-        //--------------------------------
 
         public override List<AnalyzeResult> RefreshAnalysis(AddressableAssetSettings settings)
         {

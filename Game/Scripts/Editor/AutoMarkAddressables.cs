@@ -8,6 +8,9 @@ using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEditor.AddressableAssets.Settings.GroupSchemas;
 using System.IO;
+
+
+// AI
 public static class AutoMarkAllAddressables
 {
 

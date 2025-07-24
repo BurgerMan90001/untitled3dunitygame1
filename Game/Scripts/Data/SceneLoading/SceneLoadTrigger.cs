@@ -16,7 +16,7 @@ public class SceneLoadTrigger : MonoBehaviour
         SceneLoader.OnSceneLoadComplete -= OnSceneLoadComplete;
     }
     /// <summary>
-    /// Loads a scene.
+    /// <br> Triggers a scene load. </br> 
     /// </summary>
     public void Trigger(SceneLoadingSettings sceneLoadingSettings)
     {

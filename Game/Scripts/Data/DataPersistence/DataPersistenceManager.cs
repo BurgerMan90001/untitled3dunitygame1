@@ -70,8 +70,6 @@ public class DataPersistenceManager : Manager
     }
     private async void Start()
     {
-
-
         _dataPersistenceObjects = await FindAllDistancePersistenceObjects(_dataLabelReference);
 
 
