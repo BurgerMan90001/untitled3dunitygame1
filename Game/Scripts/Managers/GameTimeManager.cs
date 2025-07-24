@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GameTimeManager : MonoBehaviour
+public class GameTimeManager : Manager
 {
     [Header("Data")]
     [SerializeField] private GameTimeData _gameTimeData;
@@ -9,15 +9,15 @@ public class GameTimeManager : MonoBehaviour
     [SerializeField] private Light _moon;
     private void Awake()
     {
-        
+
     }
     private void Start()
     {
-        
+
     }
     private void OnEnable()
     {
-        
+
     }
 
     private void OnValidate()

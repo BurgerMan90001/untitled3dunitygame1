@@ -10,13 +10,13 @@ using UnityEngine.UIElements;
 // TODO OPTIMIZE 
 public class UxmlFileHandler
 {
-    private VisualElement _root;
+    private readonly VisualElement _root;
 
     private AsyncOperationHandle _loadedInterfaces;
 
     private readonly bool _showLoadingResults = false;
 
-    private Dictionary<UserInterfaceType, VisualElement> _userInterfaces = new Dictionary<UserInterfaceType, VisualElement>();
+    private readonly Dictionary<UserInterfaceType, VisualElement> _userInterfaces = new Dictionary<UserInterfaceType, VisualElement>();
 
     public UxmlFileHandler(VisualElement root)
     {
@@ -47,8 +47,12 @@ public class UxmlFileHandler
 
             return _userInterfaces;
         }
+        else
+        {
+            Debug.LogError("The uxml label load has failed.");
+            return null;
+        }
 
-        return null;
     }
 
     private void SetupIntefaces(AsyncOperationHandle<IList<Object>> uxmlLabelHandle)

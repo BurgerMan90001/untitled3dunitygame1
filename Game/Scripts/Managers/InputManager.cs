@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class InputManager : MonoBehaviour
+public class InputManager : Manager
 {
     private static InputManager _Instance;
     public static InputManager Instance

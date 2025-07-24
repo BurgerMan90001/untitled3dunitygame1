@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6677790458067907925
 Transform:
   m_ObjectHideFlags: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dataLabelReference:
-    m_LabelString: 
+    m_LabelString: data
   _dataPersistenceEvents: {fileID: 11400000, guid: 721e3fea6cf2b2c40a65ae5e4f51be8a, type: 2}
   _fileName: data
   _storyStateFileName: story_state

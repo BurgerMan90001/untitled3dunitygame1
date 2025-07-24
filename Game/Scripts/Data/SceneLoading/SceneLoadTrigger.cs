@@ -25,12 +25,13 @@ public class SceneLoadTrigger : MonoBehaviour
     {
         if (_triggerOnStart)
         {
-            SceneLoader.LoadScene(new(_triggerOnStartScene, _triggerOnStartInterface, _triggerOnStartPosition));
+
         }
     }
 
     private void OnEnable()
     {
+
         if (_triggerOnStart) return;
 
         SceneLoader.OnSceneLoadComplete += OnSceneLoadComplete;
@@ -46,9 +47,11 @@ public class SceneLoadTrigger : MonoBehaviour
         SceneLoader.OnSceneLoadComplete -= OnSceneLoadComplete;
 
         //   _dialogueData.Events.OnExitDialogue -= OnExitDialogue;
+    }
 
-
-
+    public void Trigger()
+    {
+        SceneLoader.LoadScene(new(_triggerOnStartScene, _triggerOnStartInterface, _triggerOnStartPosition));
     }
     private void OnSceneLoadComplete(SceneLoadingSettings sceneLoadingSettings)
     {

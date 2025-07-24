@@ -5,8 +5,9 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 // profileIDs are directories which store a json save file
-public class DataPersistenceManager : MonoBehaviour
+public class DataPersistenceManager : Manager
 {
+    /*
     private static DataPersistenceManager _Instance;
     public static DataPersistenceManager Instance
     {
@@ -23,6 +24,7 @@ public class DataPersistenceManager : MonoBehaviour
             return _Instance;
         }
     }
+    */
     [Header("LabelReferences")]
     [SerializeField] private AssetLabelReference _dataLabelReference;
 
@@ -54,7 +56,6 @@ public class DataPersistenceManager : MonoBehaviour
             Debug.LogWarning("Data persistence is off!");
         }
 
-
         _fileDataHandler = new FileDataHandler(Application.persistentDataPath, _fileName);
         Debug.Log(Application.persistentDataPath + _fileName);
         selectedProfileID = _fileDataHandler.GetMostRecentlyUpdatedProfileID();
@@ -67,15 +68,13 @@ public class DataPersistenceManager : MonoBehaviour
 
 
     }
-    private void Start()
+    private async void Start()
     {
-        if (_loadDataDebug)
-        {
-            FindAllDistancePersistenceObjects(_dataLabelReference);
-        }
 
-        _dataPersistenceObjects = FindAllDistancePersistenceObjects(_dataLabelReference).Result;
-        Debug.Log(_dataPersistenceObjects.Count);
+
+        _dataPersistenceObjects = await FindAllDistancePersistenceObjects(_dataLabelReference);
+
+
     }
 
     private void OnEnable()
@@ -116,10 +115,10 @@ public class DataPersistenceManager : MonoBehaviour
     /// <param name="scene"></param>
     /// <param name="mode"></param>
     #endregion
-    private void OnSceneLoaded(UserInterfaceType _, bool _1)
+    private async void OnSceneLoaded(UserInterfaceType _, bool _1)
     {
 
-        _dataPersistenceObjects = FindAllDistancePersistenceObjects(_dataLabelReference).Result;
+        //    _dataPersistenceObjects = await FindAllDistancePersistenceObjects(_dataLabelReference).Result;
         Debug.Log(_dataPersistenceObjects.Count);
         LoadGame();
     }

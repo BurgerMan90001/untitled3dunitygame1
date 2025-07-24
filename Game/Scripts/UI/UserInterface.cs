@@ -9,12 +9,12 @@ using UnityEngine.UIElements;
 /// <br> Enabled by Main Manager. </br>
 /// </summary>
 #endregion
-public class UserInterface : MonoBehaviour
+public class UserInterface : Manager
 {
     [Header("Data")]
     [SerializeField] private Inventory _inventory; // the dynamic inventory scriptable object that will be used to manage the inventory
     [SerializeField] private UserInterfaceData _userInterfaceData;
-    [SerializeField] private DataPersistenceEvents _dataPersistenceEvents;
+
 
     [SerializeField] private InputData _inputData;
     [SerializeField] private CombatData _combatData;
@@ -22,6 +22,7 @@ public class UserInterface : MonoBehaviour
 
     [Header("Events")]
     [SerializeField] private DialogueEvents _dialogueEvents;
+    [SerializeField] private DataPersistenceEvents _dataPersistenceEvents;
 
     [Header("First Shown Interface")]
     public UserInterfaceType InitalShownUserInterface;
@@ -47,10 +48,11 @@ public class UserInterface : MonoBehaviour
     private UI_SaveSlotsMenu _uiSaveSlotsMenu;
 
 
-    private List<IUserInterface> _userInterfaces = new List<IUserInterface>();
+    private readonly List<IUserInterface> _userInterfaces = new List<IUserInterface>();
 
     private UxmlFileHandler _uxmlFileHandler;
 
+    /*
     private static UserInterface _Instance;
     public static UserInterface Instance
     {
@@ -67,12 +69,9 @@ public class UserInterface : MonoBehaviour
             return _Instance;
         }
     }
-
+    */
     private void Awake()
     {
-
-
-
         _uiDocument = GetComponent<UIDocument>();
 
         Root = _uiDocument.rootVisualElement;
@@ -96,7 +95,7 @@ public class UserInterface : MonoBehaviour
 
     private async void Start()
     {
-
+        Debug.Log("START");
         _userInterfaceData.UserInterfaceElements = await _uxmlFileHandler.LoadInterfacesAsync(_uxmlAssetLabelReference); // load the user interfaces asynchronously. visual element configuration is done after this.
 
         QueryAllElements();
@@ -110,7 +109,6 @@ public class UserInterface : MonoBehaviour
     private void OnEnable() // the userinterface game object will be enabled by the main manager
     {
         _inventory.OnInventoryChanged += OnInventoryChanged;
-
 
         SceneLoader.OnSceneLoadComplete += OnSceneLoadComplete;
 

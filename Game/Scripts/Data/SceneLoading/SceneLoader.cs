@@ -1,10 +1,12 @@
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
+using UnityEngine.SceneManagement;
 
 
 
@@ -16,7 +18,8 @@ using UnityEngine.ResourceManagement.ResourceProviders;
 #endregion
 public static class SceneLoader
 {
-    public static AsyncOperationHandle<SceneInstance> LoadedSceneHandle { get; private set; }
+    public static Stack<AsyncOperationHandle<SceneInstance>> LoadedSceneHandles { get; private set; } = new Stack<AsyncOperationHandle<SceneInstance>>();
+
 
 
     /// <summary>
@@ -24,7 +27,7 @@ public static class SceneLoader
     /// </summary>
     public static event Action<SceneLoadingSettings> OnSceneLoadComplete;
 
-    private static readonly bool _showDebugLoadingLogs = false;
+    private static readonly bool _debugMode = true;
 
     #region
     /// <summary>
@@ -40,7 +43,9 @@ public static class SceneLoader
 
         await Task.Delay(1000);
 
-        var handle = Addressables.LoadSceneAsync(sceneLoadingSettings.SceneType.ToString());
+        var handle = Addressables.LoadSceneAsync(sceneLoadingSettings.SceneType.ToString(), LoadSceneMode.Additive);
+
+
 
         await handle.Task;
 
@@ -49,26 +54,8 @@ public static class SceneLoader
 
         if (handle.Status == AsyncOperationStatus.Succeeded)
         {
-            if (LoadedSceneHandle.IsValid()) // if there is a currently loaded scene
-            {
-                UnloadScene(); // unload the currently loaded scene
-                if (_showDebugLoadingLogs)
-                {
-                    Debug.Log("Unloading scene.");
 
-                }
-
-            }
-
-            else // if there is no currently loaded scene
-            {
-                if (_showDebugLoadingLogs)
-                {
-                    Debug.Log("Loading new scene.");
-
-                }
-            }
-            if (_showDebugLoadingLogs)
+            if (_debugMode)
             {
                 Debug.Log($" Scene : {sceneLoadingSettings.SceneType}");
                 Debug.Log($" Loaded scene interface : {sceneLoadingSettings.UserInterface}");
@@ -76,7 +63,11 @@ public static class SceneLoader
                 Debug.Log("LOADED SUCCESSFULLY");
 
             }
-            LoadedSceneHandle = handle;
+            UnloadRecentScene();
+
+            LoadedSceneHandles.Push(handle);
+
+
 
             OnSceneLoadComplete?.Invoke(sceneLoadingSettings);
 
@@ -86,28 +77,39 @@ public static class SceneLoader
     private static async Task LoadLoadingScene()
     {
 
-        var handle = Addressables.LoadSceneAsync(SceneLoadingSettings.Loading.SceneType.ToString());
+        var handle = Addressables.LoadSceneAsync(SceneLoadingSettings.Loading.SceneType.ToString(), LoadSceneMode.Additive);
         await handle.Task;
+
+
+        LoadedSceneHandles.Push(handle); // adds to loaded scenes stack when done loading
+
+
+
     }
     #region
     /// <summary>
-    /// <br> Unloads the currently loaded scene with addressables. </br>
+    /// <br> Unloads the recently loaded scene. </br>
     /// </summary>
     #endregion
-    public static void UnloadScene()
+    public static void UnloadRecentScene()
     {
-        if (!LoadedSceneHandle.IsValid())
-        {
-            Addressables.UnloadSceneAsync(LoadedSceneHandle);
-            if (_showDebugLoadingLogs)
-            {
-                Debug.Log("UNLOADING");
-            }
 
-        }
-        else
+        if (LoadedSceneHandles.TryPop(out AsyncOperationHandle<SceneInstance> sceneHandle))
         {
-            Debug.LogWarning("There currently is no scene loaded. ");
+            if (sceneHandle.IsValid())
+            {
+                Addressables.UnloadSceneAsync(sceneHandle);
+                if (_debugMode)
+                {
+                    Debug.Log("UNLOADING");
+                }
+
+            }
+            else
+            {
+                Debug.LogWarning("The scene handle is not loaded. ");
+            }
         }
+
     }
 }

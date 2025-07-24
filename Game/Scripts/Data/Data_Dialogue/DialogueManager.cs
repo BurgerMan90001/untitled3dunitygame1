@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-public class DialogueManager : MonoBehaviour
+public class DialogueManager : Manager
 {
     [Header("Data")]
     [SerializeField] private DialogueData _dialogueData;

@@ -14,7 +14,7 @@ public class InputData : Data
     [field: SerializeField] public MovementInput MovementInput { get; private set; }
     [field: SerializeField] public CameraInput CameraInput { get; private set; }
     [field: SerializeField] public MenuInput MenuInput { get; private set; }
-    [field: SerializeField] public DebugInput DebugInput { get; private set; }
+    //   [field: SerializeField] public DebugInput DebugInput { get; private set; }
 
     [Header("Debug")]
     [SerializeField] private bool _debugEnabled = false;

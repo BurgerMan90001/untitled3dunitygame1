@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Linq;
-using UnityEngine.AddressableAssets;
 
 
 #if UNITY_EDITOR
@@ -9,15 +8,14 @@ using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEditor.AddressableAssets.Settings.GroupSchemas;
 using System.IO;
-// TODO OPTOMIZE: This script can be optimized further by using AddressableAssetSettings.CreateOrMoveEntry directly with the group name instead of creating a new group every time.
 public static class AutoMarkAllAddressables
 {
-    
+
     private static readonly string[] ValidExtensions = new[]
     {
         ".uxml", ".uss", ".prefab", ".png", ".jpg", ".mp3", ".wav", ".asset", ".mat", ".fbx", ".shader", ".txt"
     };
-    
+
     [MenuItem("Tools/Addressables/Mark All Assets In Assets Folder")]
     public static void MarkAllAssets()
     {
