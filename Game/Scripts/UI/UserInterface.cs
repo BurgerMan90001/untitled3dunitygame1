@@ -74,6 +74,8 @@ public class UserInterface : Manager
     {
         _uiDocument = GetComponent<UIDocument>();
 
+        _userInterfaceData.ShownInterfaces = new Stack<UserInterfaceType>();
+
         Root = _uiDocument.rootVisualElement;
         Root.style.flexGrow = 1;
 

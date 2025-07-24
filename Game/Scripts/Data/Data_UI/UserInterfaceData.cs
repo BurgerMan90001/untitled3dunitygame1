@@ -35,18 +35,18 @@ public enum UserInterfaceType
 [CreateAssetMenu(menuName = "Data/UserInterfaceData")]
 public class UserInterfaceData : Data
 {
+    /*
     [Header("Data")]
     [SerializeField] private Inventory _inventory;
 
-
+    */
     [Header("Debug")]
     [SerializeField] private bool _debugMode = true;
 
     public Dictionary<UserInterfaceType, VisualElement> UserInterfaceElements;
 
 
-    public UserInterfaceEvents Events { get; private set; }
-    public Stack<UserInterfaceType> ShownInterfaces { get; private set; } = new Stack<UserInterfaceType>();
+    public Stack<UserInterfaceType> ShownInterfaces;
     [ReadOnly][SerializeField] private List<UserInterfaceType> ShownInterfacesStack;
 
     #region
@@ -77,7 +77,7 @@ public class UserInterfaceData : Data
         VisualElement elementToBeShown = UserInterfaceElements[userInterface];
         elementToBeShown.style.display = DisplayStyle.Flex;
 
-        ShownInterfacesStack = ShownInterfaces.ToList<UserInterfaceType>();
+        ShownInterfacesStack = ShownInterfaces.ToList();
 
 
     }
