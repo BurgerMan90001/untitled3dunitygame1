@@ -180,6 +180,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6452167509510429296, guid: e241dca1dde457047a072e37bcdc3f4d, type: 3}
+      propertyPath: _initialize
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6452167509510429296, guid: e241dca1dde457047a072e37bcdc3f4d, type: 3}
       propertyPath: _triggerOnStart
       value: 0
       objectReference: {fileID: 0}
@@ -489,10 +493,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5294911401349375754, guid: f40e3f93f2b658041b05e3687907e980, type: 3}
       propertyPath: m_Name
-      value: GO_ManagersInstaniator
+      value: Initialize
       objectReference: {fileID: 0}
-    - target: {fileID: 5294911401349375754, guid: f40e3f93f2b658041b05e3687907e980, type: 3}
-      propertyPath: m_IsActive
+    - target: {fileID: 6963751255385419254, guid: f40e3f93f2b658041b05e3687907e980, type: 3}
+      propertyPath: _active
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6963751255385419254, guid: f40e3f93f2b658041b05e3687907e980, type: 3}

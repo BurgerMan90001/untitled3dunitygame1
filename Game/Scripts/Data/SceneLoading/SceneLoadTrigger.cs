@@ -1,61 +1,34 @@
-using MyBox;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 /// <summary>
 /// <br> Triggers a scene load on start. </br>
 /// </summary>
 public class SceneLoadTrigger : MonoBehaviour
 {
 
-    [SerializeField] private bool _triggerOnStart = false;
-    [ConditionalField(nameof(_triggerOnStart))][SerializeField] private SceneType _triggerOnStartScene;
-    [ConditionalField(nameof(_triggerOnStart))][SerializeField] private UserInterfaceType _triggerOnStartInterface;
-    [ConditionalField(nameof(_triggerOnStart))][SerializeField] private Vector3 _triggerOnStartPosition = Vector3.zero;
-
-    [Header("Data")]
-    [SerializeField] private DialogueData _dialogueData;
-    [SerializeField] private CombatData _combatData;
-
-    [Header("Debug")]
-    [SerializeField] private bool _showDebugLoadingLogs = true;
-
-
-    //private Vector3 _spawnPoint;
-
-    private void Start()
-    {
-        if (_triggerOnStart)
-        {
-
-        }
-    }
-
     private void OnEnable()
     {
-
-        if (_triggerOnStart) return;
-
         SceneLoader.OnSceneLoadComplete += OnSceneLoadComplete;
-
-        //    _dialogueData.Events.OnExitDialogue += OnExitDialogue;
-
-
     }
-    private void OnDisable()
-    {
-        if (_triggerOnStart) return;
 
+    private void OnDestroy()
+    {
         SceneLoader.OnSceneLoadComplete -= OnSceneLoadComplete;
-
-        //   _dialogueData.Events.OnExitDialogue -= OnExitDialogue;
     }
-
-    public void Trigger()
+    /// <summary>
+    /// Loads a scene.
+    /// </summary>
+    public void Trigger(SceneLoadingSettings sceneLoadingSettings)
     {
-        SceneLoader.LoadScene(new(_triggerOnStartScene, _triggerOnStartInterface, _triggerOnStartPosition));
+        SceneLoader.LoadScene(sceneLoadingSettings);
+
     }
     private void OnSceneLoadComplete(SceneLoadingSettings sceneLoadingSettings)
     {
-
+        if (sceneLoadingSettings.SceneType is SceneType.Game)
+        {
+            SceneManager.UnloadSceneAsync(0); // unloads itself when in game and not in menu.
+        }
     }
 
 

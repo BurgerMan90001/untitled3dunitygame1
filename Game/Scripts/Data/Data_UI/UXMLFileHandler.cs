@@ -13,15 +13,13 @@ public class UxmlFileHandler
 
     private AsyncOperationHandle _loadedInterfaces;
 
-    private readonly bool _showLoadingResults = true;
+    private readonly bool _showLoadingResults = false;
 
     private readonly Dictionary<UserInterfaceType, VisualElement> _userInterfaces = new Dictionary<UserInterfaceType, VisualElement>();
 
     public UxmlFileHandler(VisualElement root)
     {
         _root = root;
-
-
     }
 
     private void ShowLoadingResults(VisualTreeAsset visualTreeAsset, bool showLoadingResults)
@@ -137,17 +135,14 @@ public class UxmlFileHandler
         var firstMatch = System.Enum.GetValues(typeof(UserInterfaceType))
                 .Cast<UserInterfaceType>()
                 .FirstOrDefault(g => g.ToString().Contains(name));
-        if (_showLoadingResults)
-        {
-            Debug.Log(firstMatch);
-        }
+
         return firstMatch;
     }
 }
 
 
 
-
+// MAYBE
 public struct UserInterfaceStyle
 {
     public VisualElement Target;

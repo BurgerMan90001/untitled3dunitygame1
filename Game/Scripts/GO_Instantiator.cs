@@ -3,25 +3,26 @@ using UnityEngine;
 
 
 
-public class GO_Instantiator : MonoBehaviour
+public class Initialize : MonoBehaviour
 {
-    [SerializeField] private bool _instantiate;
+    [SerializeField] private bool _active;
     [SerializeField] private SceneLoadTrigger _sceneTrigger;
 
-    [Header("Pool")]
+    [Header("Initilize Pool")]
     [DisplayInspector]
-    [ConditionalField(nameof(_instantiate))]
+    [ConditionalField(nameof(_active))]
     [SerializeField]
     private ObjectPool _pool;
 
 
     private void Start()
     {
-        if (_instantiate)
+        if (_active)
         {
             _pool.CreatePool();
             _pool.InstantiatePoolObjects();
-            _sceneTrigger.Trigger(); // trigger scene load after it's done loading the pool objects
+
+            _sceneTrigger.Trigger(SceneLoadingSettings.MainMenu); // trigger scene load after it's done loading the pool objects
 
         }
         else

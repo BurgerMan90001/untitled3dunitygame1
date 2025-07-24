@@ -3,10 +3,8 @@ using UnityEngine;
 
 public enum SceneType
 {
-    Loading,
-    MainMenu,
-    MainGame,
-    Combat,
+    Menu,
+    Game,
     Debug,
 }
 
@@ -28,6 +26,7 @@ public struct SceneLoadingSettings
 
     public Vector3 PlayerSpawnPoint;
 
+    public string Key;
 
     #region
     /// <summary>
@@ -35,33 +34,33 @@ public struct SceneLoadingSettings
     /// </summary>
     #endregion
 
-    public static readonly SceneLoadingSettings Loading = new SceneLoadingSettings(SceneType.Loading, UserInterfaceType.Loading, Vector3.zero);
+    public static readonly SceneLoadingSettings Loading = new SceneLoadingSettings("Loading", SceneType.Menu, UserInterfaceType.Loading, Vector3.zero);
     #region
     /// <summary>
     /// <br> Loads the main menu interface and scene. Spawns the player at (0,0,0).</br>
     /// </summary>
     #endregion
-    public static readonly SceneLoadingSettings MainMenu = new SceneLoadingSettings(SceneType.MainMenu, UserInterfaceType.MainMenu, Vector3.zero);
+    public static readonly SceneLoadingSettings MainMenu = new SceneLoadingSettings("MainMenu", SceneType.Menu, UserInterfaceType.MainMenu, Vector3.zero);
 
     #region
     /// <summary>
     /// <br> Loads the debug scene without an interface. Spawns the player at (0,0,0).</br>
     /// </summary>
     #endregion
-    public static readonly SceneLoadingSettings Debug = new SceneLoadingSettings(SceneType.Debug, UserInterfaceType.None, Vector3.zero);
+    public static readonly SceneLoadingSettings Debug = new SceneLoadingSettings("Debug", SceneType.Debug, UserInterfaceType.None, Vector3.zero);
 
     #region
     /// <summary>
     /// <br> Loads the main game scene with the HUD interface. Spawns the player at (-21.9972f, 54.65f, -37.326f).</br>
     /// </summary>
     #endregion
-    public static readonly SceneLoadingSettings MainGame = new SceneLoadingSettings(SceneType.MainGame, UserInterfaceType.HUD, _mainGameSpawnPoint);
+    public static readonly SceneLoadingSettings MainGame = new SceneLoadingSettings("MainGame", SceneType.Game, UserInterfaceType.HUD, _mainGameSpawnPoint);
     #region
     /// <summary>
     /// <br> Loads the combat scene with the combat interface. Spawns the player at (-3f, 4f, 0f).</br>
     /// </summary>
     #endregion
-    public static readonly SceneLoadingSettings Combat = new SceneLoadingSettings(SceneType.Combat, UserInterfaceType.Combat, _combatSpawnPoint);
+    public static readonly SceneLoadingSettings Combat = new SceneLoadingSettings("Combat", SceneType.Game, UserInterfaceType.Combat, _combatSpawnPoint);
     #region
     /// <summary>
     /// <br> Creates a new scene loading setting. </br>
@@ -70,8 +69,9 @@ public struct SceneLoadingSettings
     /// <param name="userInterface"></param>
     #endregion
 
-    public SceneLoadingSettings(SceneType sceneType, UserInterfaceType userInterface, Vector3 playerSpawnPoint)
+    public SceneLoadingSettings(string key, SceneType sceneType, UserInterfaceType userInterface, Vector3 playerSpawnPoint)
     {
+        Key = key;
         SceneType = sceneType;
         UserInterface = userInterface;
         PlayerSpawnPoint = playerSpawnPoint;
@@ -84,8 +84,9 @@ public struct SceneLoadingSettings
     /// <param name="sceneName"></param>
     /// <param name="userInterface"></param>
     #endregion
-    public SceneLoadingSettings(SceneType sceneType, UserInterfaceType userInterface)
+    public SceneLoadingSettings(string key, SceneType sceneType, UserInterfaceType userInterface)
     {
+        Key = key;
         SceneType = sceneType;
         UserInterface = userInterface;
         PlayerSpawnPoint = Vector3.zero;

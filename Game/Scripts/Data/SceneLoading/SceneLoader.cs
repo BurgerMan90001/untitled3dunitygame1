@@ -20,14 +20,14 @@ public static class SceneLoader
 {
     public static Stack<AsyncOperationHandle<SceneInstance>> LoadedSceneHandles { get; private set; } = new Stack<AsyncOperationHandle<SceneInstance>>();
 
-
-
     /// <summary>
     /// <br> Is invoked when the async scene load is completed.</br>
     /// </summary>
     public static event Action<SceneLoadingSettings> OnSceneLoadComplete;
 
     private static readonly bool _debugMode = false;
+
+    public static bool InMenu = true;
 
     #region
     /// <summary>
@@ -41,11 +41,15 @@ public static class SceneLoader
 
         await LoadLoadingScene();
 
-        await Task.Delay(1000);
+        //   await Task.Delay(1000);
 
-        var handle = Addressables.LoadSceneAsync(sceneLoadingSettings.SceneType.ToString(), LoadSceneMode.Additive);
+        var handle = Addressables.LoadSceneAsync(sceneLoadingSettings.Key, LoadSceneMode.Additive);
 
-
+        if (sceneLoadingSettings.SceneType is SceneType.Game)
+        {
+            Debug.Log("MAIN GAME");
+            InMenu = false;
+        }
 
         await handle.Task;
 
@@ -67,8 +71,6 @@ public static class SceneLoader
 
             LoadedSceneHandles.Push(handle);
 
-
-
             OnSceneLoadComplete?.Invoke(sceneLoadingSettings);
 
 
@@ -77,7 +79,7 @@ public static class SceneLoader
     private static async Task LoadLoadingScene()
     {
 
-        var handle = Addressables.LoadSceneAsync(SceneLoadingSettings.Loading.SceneType.ToString(), LoadSceneMode.Additive);
+        var handle = Addressables.LoadSceneAsync(SceneLoadingSettings.Loading.Key, LoadSceneMode.Additive);
         await handle.Task;
         if (handle.Status == AsyncOperationStatus.Succeeded)
         {
