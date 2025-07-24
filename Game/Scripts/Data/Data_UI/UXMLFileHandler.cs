@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,7 +13,7 @@ public class UxmlFileHandler
 
     private AsyncOperationHandle _loadedInterfaces;
 
-    private readonly bool _showLoadingResults = false;
+    private readonly bool _showLoadingResults = true;
 
     private readonly Dictionary<UserInterfaceType, VisualElement> _userInterfaces = new Dictionary<UserInterfaceType, VisualElement>();
 
@@ -33,17 +32,21 @@ public class UxmlFileHandler
 
         }
     }
-    public async Task<Dictionary<UserInterfaceType, VisualElement>> LoadInterfacesAsync(AssetLabelReference _labelReference)
+    public async Task<Dictionary<UserInterfaceType, VisualElement>> LoadInterfacesAsync(AssetLabelReference labelReference)
     {
-        var uxmlLabelHandle = Addressables.LoadAssetsAsync<Object>(_labelReference.labelString);
+
+        List<string> keys = new List<string>() { labelReference.labelString };
+        var uxmlLabelHandle = Addressables.LoadAssetsAsync<VisualTreeAsset>(keys, visualeTreeAsset =>
+        {
+            CreateInterface(visualeTreeAsset);
+
+        }, Addressables.MergeMode.Intersection);
 
         await uxmlLabelHandle.Task;
 
         if (uxmlLabelHandle.Status == AsyncOperationStatus.Succeeded)
         {
             _loadedInterfaces = uxmlLabelHandle;
-
-            SetupIntefaces(uxmlLabelHandle);
 
             return _userInterfaces;
         }
@@ -55,23 +58,15 @@ public class UxmlFileHandler
 
     }
 
-    private void SetupIntefaces(AsyncOperationHandle<IList<Object>> uxmlLabelHandle)
+
+
+    private void CreateInterface(VisualTreeAsset visualeTreeAsset)
     {
-        foreach (object result in uxmlLabelHandle.Result)
-        {
-            if (result is VisualTreeAsset visualTree)
-            {
-                ShowLoadingResults(visualTree, _showLoadingResults);
-                var element = SetupInterface(visualTree);
-                UpdateInterfaceDictionary(element);
-            }
-            else
-            {
-                Debug.LogError("The loaded asset is not a VisualTreeAsset! Unable to add to userinterfaces.");
-            }
+        ShowLoadingResults(visualeTreeAsset, _showLoadingResults);
 
-        }
+        var element = SetupInterface(visualeTreeAsset);
 
+        UpdateInterfaceDictionary(element);
     }
     #region
     /// <summary>

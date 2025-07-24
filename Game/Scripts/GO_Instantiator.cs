@@ -21,7 +21,7 @@ public class GO_Instantiator : MonoBehaviour
         {
             _pool.CreatePool();
             _pool.InstantiatePoolObjects();
-            //    _sceneTrigger.Trigger();
+            _sceneTrigger.Trigger(); // trigger scene load after it's done loading the pool objects
 
         }
         else

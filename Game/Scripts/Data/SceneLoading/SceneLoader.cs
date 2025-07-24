@@ -27,7 +27,7 @@ public static class SceneLoader
     /// </summary>
     public static event Action<SceneLoadingSettings> OnSceneLoadComplete;
 
-    private static readonly bool _debugMode = true;
+    private static readonly bool _debugMode = false;
 
     #region
     /// <summary>
@@ -79,10 +79,12 @@ public static class SceneLoader
 
         var handle = Addressables.LoadSceneAsync(SceneLoadingSettings.Loading.SceneType.ToString(), LoadSceneMode.Additive);
         await handle.Task;
+        if (handle.Status == AsyncOperationStatus.Succeeded)
+        {
+            UnloadRecentScene();
 
-
-        LoadedSceneHandles.Push(handle); // adds to loaded scenes stack when done loading
-
+            LoadedSceneHandles.Push(handle); // adds to loaded scenes stack when done loading
+        }
 
 
     }
