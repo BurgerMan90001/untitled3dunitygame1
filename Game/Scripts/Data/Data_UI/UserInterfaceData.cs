@@ -1,30 +1,9 @@
-using MyBox;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-#region
-/// <summary>
-/// <br> Toggleable user interfaces. </br>
-/// </summary>
-#endregion
-public enum UserInterfaceType
-{
-    None,
-    HUD,
-    Loading,
-    Inventory,
-    Dialogue,
-    Settings,
-    PauseMenu,
-    MainMenu,
-    SaveSlotsMenu,
-    Combat,
-    Shop,
 
-}
 
 
 #region
@@ -43,11 +22,11 @@ public class UserInterfaceData : Data
     [Header("Debug")]
     [SerializeField] private bool _debugMode = true;
 
-    public Dictionary<UserInterfaceType, VisualElement> UserInterfaceElements;
+    public Dictionary<UserInterfaceType, VisualElement> UserInterfaceElements = new Dictionary<UserInterfaceType, VisualElement>();
 
 
-    public Stack<UserInterfaceType> ShownInterfaces;
-    [ReadOnly][SerializeField] private List<UserInterfaceType> ShownInterfacesStack;
+    public Stack<UserInterfaceType> ShownInterfaces = new Stack<UserInterfaceType>();
+    // [ReadOnly][SerializeField] private List<UserInterfaceType> ShownInterfacesStack;
 
     #region
     /// <summary>
@@ -57,7 +36,11 @@ public class UserInterfaceData : Data
     #endregion
     public void SwitchToUserInterface(UserInterfaceType userInterface)
     {
-
+        if (ShownInterfaces == null)
+        {
+            Debug.LogError("Shown interfaces is null.");
+            return;
+        }
         HideRecentInterface();
         ShowInterface(userInterface);
 
@@ -77,7 +60,7 @@ public class UserInterfaceData : Data
         VisualElement elementToBeShown = UserInterfaceElements[userInterface];
         elementToBeShown.style.display = DisplayStyle.Flex;
 
-        ShownInterfacesStack = ShownInterfaces.ToList();
+        //  ShownInterfacesStack = ShownInterfaces.ToList();
 
 
     }
@@ -92,7 +75,7 @@ public class UserInterfaceData : Data
             VisualElement elementToBeHiden = UserInterfaceElements[userInterface];
             elementToBeHiden.style.display = DisplayStyle.None;
 
-            ShownInterfacesStack = ShownInterfaces.ToList<UserInterfaceType>();
+            //   ShownInterfacesStack = ShownInterfaces.ToList<UserInterfaceType>();
         }
 
     }

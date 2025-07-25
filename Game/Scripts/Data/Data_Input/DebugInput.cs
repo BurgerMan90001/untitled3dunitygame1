@@ -4,15 +4,15 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[CreateAssetMenu(menuName = "Input/CameraInput")]
+[CreateAssetMenu(menuName = "Input/DebugInput")]
 public class DebugInput : InputEvent
 {
     public bool Debug1Enabled { get; private set; }
     public bool Debug2Enabled { get; private set; }
 
     [Header("InputActionReferences")]
-    [field: SerializeField] public InputActionReference Debug1Action { get; private set; }
-    [field: SerializeField] public InputActionReference Debug2Action { get; private set; }
+    public InputActionReference Debug1Action;
+    public InputActionReference Debug2Action;
 
     public void EnableDebug1(bool enabled)
     {

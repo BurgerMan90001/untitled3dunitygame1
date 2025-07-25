@@ -9,6 +9,7 @@ public enum InputType
     Movement,
     Camera,
     Menu,
+    Debug,
 }
 
 
@@ -24,11 +25,12 @@ public class InputEvent : ScriptableObject
             if (active)
             {
                 reference.action.Enable();
-            } else
+            }
+            else
             {
                 reference.action.Disable();
             }
-            
+
         }
         Enabled = active;
     }

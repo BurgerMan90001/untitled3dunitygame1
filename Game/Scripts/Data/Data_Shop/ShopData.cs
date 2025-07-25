@@ -23,28 +23,16 @@ public class ShopData : Data
     [SerializeField] private List<ShopItemPool> _shopItemPools;
     */
     [Header("Data")]
+    /*
     [SerializeField] private UserInterfaceData _userInterfaceData;
     [SerializeField] private InputData _inputData;
-    [SerializeField] private GameTimeData gameTimeData;
+    [SerializeField] private GameTimeData _gameTimeData;
+    */
 
-    public bool InShop { get; private set; } = false;
+    public bool InShop;
 
 
-    private void Awake()
-    {
-
-    }
-
-    private void OnEnable()
-    {
-
-    }
-
-    private void OnDisable()
-    {
-
-    }
-
+    /*
     #region
     /// <summary>
     /// <br> Invokes the OnShopShown event. </br>
@@ -53,30 +41,33 @@ public class ShopData : Data
     public void EnterShop(string shopGuid)
     {
 
-
+        
 
         _userInterfaceData.SwitchToUserInterface(UserInterfaceType.Shop);
 
         _inputData.MovementInput.EnableMovement(false);
         _inputData.CameraInput.EnableLook(false);
 
-
+        
         InShop = true;
+
 
     }
 
     public void ExitShop()
     {
-
+        
 
         _userInterfaceData.SwitchToUserInterface(UserInterfaceType.HUD);
 
 
         _inputData.MovementInput.EnableMovement(true);
         _inputData.CameraInput.EnableLook(true);
+        
 
         InShop = false;
     }
+    */
     // 5 common top 0-2
     public void GenerateShopContents()
     {

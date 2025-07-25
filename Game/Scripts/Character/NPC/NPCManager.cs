@@ -5,19 +5,8 @@ public class NPCManager : MonoBehaviour
     [Header("Dependancies")]
     [SerializeField] private DialogueEvents _dialogueEvents;
 
-    private void OnEnable()
-    {
-        InitializeNPCS();
-    }
-    private void OnDisable()
-    {
 
-    }
-
-    /// <summary>
-    /// <br> Injects all npcs with depndancies. </br>
-    /// <br> Called in onEnable. </br>
-    /// </summary>
+    /*
     protected virtual void InitializeNPCS()
     {
 
@@ -37,7 +26,7 @@ public class NPCManager : MonoBehaviour
 
         }
     }
-
+    */
 
 }
 

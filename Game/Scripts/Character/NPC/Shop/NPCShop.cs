@@ -3,14 +3,21 @@ using UnityEngine;
 
 
 
-public class NPCShop: MonoBehaviour, IInteractable
+public class NPCShop : MonoBehaviour, IInteractable
 {
     [Header("Shop Settings")]
     [SerializeField] private ShopItemPool _shopItemPool;
 
+    [Header("Data")]
+
+    [SerializeField] private ShopData _shopData;
+    [SerializeField] private InputData _inputData;
+    [SerializeField] private UserInterfaceData _userInterfaceData;
+    /*
     private ShopData _shopData;
     private string _shopGuid; // MAYBE
 
+    
     #region
     /// <summary>
     /// <br> Dependancy injection for npcs. </br>
@@ -22,6 +29,7 @@ public class NPCShop: MonoBehaviour, IInteractable
         _shopData = shopData;
         _shopGuid = shopGuid;
     }
+    */
     #region
     /// <summary>
     /// <br> Called when the player interacts with the shop npc.</br>
@@ -29,6 +37,21 @@ public class NPCShop: MonoBehaviour, IInteractable
     #endregion
     public void Interact(GameObject interactor)
     {
+        if (_shopData.InShop)
+        {
+
+        }
+        else
+        {
+            _userInterfaceData.SwitchToUserInterface(UserInterfaceType.Shop);
+
+            _inputData.MovementInput.EnableMovement(false);
+            _inputData.CameraInput.EnableLook(false);
+
+        }
+
+
+        /*
         if (!_shopData.InShop) // if not in the shop
         {
             _shopData.EnterShop(_shopGuid);
@@ -39,11 +62,12 @@ public class NPCShop: MonoBehaviour, IInteractable
         {
             _shopData.ExitShop();
         }
+        */
     }
-
+    /*
     public void GenerateContents()
     {
-        
+
         switch (_shopItemPool.ShopType)
         {
             case ShopType.Lower:
@@ -55,15 +79,15 @@ public class NPCShop: MonoBehaviour, IInteractable
             case ShopType.Upper:
 
                 break;
-            
+
             default:
                 Debug.LogError("Could not find the shop's type!");
                 break;
         }
     }
-    
 
-    
+    */
+
 }
 
 public class ShopManager

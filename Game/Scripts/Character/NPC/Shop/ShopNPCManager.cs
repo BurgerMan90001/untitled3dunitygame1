@@ -1,19 +1,7 @@
-using System;
-using UnityEngine;
-
 public class ShopNPCManager : NPCManager
 {
-    [Header("Dependancies")]
 
-    [SerializeField] private ShopData _shopData;
-    private void OnEnable()
-    {
-        InitializeNPCS();
-    }
-    private void OnDisable()
-    {
-        
-    }
+    /*
     protected override void InitializeNPCS()
     {
         foreach (Transform shopNPC in transform)
@@ -36,4 +24,6 @@ public class ShopNPCManager : NPCManager
     {
         return Guid.NewGuid().ToString("N");
     }
+    */
+
 }

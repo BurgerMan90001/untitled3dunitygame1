@@ -5,8 +5,12 @@ using UnityEngine;
 public static class GameCursor
 {
 
-    private static bool _disableLock = false;
+
+    private static readonly bool _disableLock = false;
     public static CursorLockMode LockMode => Cursor.lockState = CursorLockMode.Locked;
+
+    public static bool Locked { get; private set; } = false;
+
     /// <summary>
     /// <br> Locks the cursor into the middle and hides it.</br>
     /// </summary>
@@ -15,16 +19,31 @@ public static class GameCursor
         if (_disableLock) { return; }
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        Locked = true;
     }
     /// <summary>
     /// <br> Unlocks the cursor and shows it.</br>
     /// </summary>
-    public static void Unlock() 
+    public static void Unlock()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-    }
 
+        Locked = false;
+    }
+    public static void ToggleLock()
+    {
+        if (Locked)
+        {
+            Unlock();
+
+        }
+        else
+        {
+            Lock();
+        }
+    }
     /// <summary>
     /// <br> Can control and set the state of the cursor.</br>
     /// </summary>

@@ -12,12 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac943efc18fbbee4098c64faca388cf3, type: 3}
   m_Name: Input Data
   m_EditorClassIdentifier: 
-  _dialogueEvents: {fileID: 11400000, guid: 758561cdb6a753b41945355c3ac635c9, type: 2}
-  _combatEvents: {fileID: 11400000, guid: 25e76855a225a9340a439ced081b70c4, type: 2}
-  <MovementInput>k__BackingField: {fileID: 11400000, guid: 5073dac0742252247848489dfbc58d5d, type: 2}
-  <CameraInput>k__BackingField: {fileID: 11400000, guid: a9af73362ae1ead4dad683960fcf65fc, type: 2}
-  <MenuInput>k__BackingField: {fileID: 11400000, guid: 40ac9e5222a69664b8750e11ab44a282, type: 2}
-  <DebugInput>k__BackingField: {fileID: 0}
-  _debugEnabled: 0
-  _debug1: {fileID: 0}
-  _debug2: {fileID: 0}
+  MovementInput: {fileID: 11400000, guid: 5073dac0742252247848489dfbc58d5d, type: 2}
+  CameraInput: {fileID: 11400000, guid: a9af73362ae1ead4dad683960fcf65fc, type: 2}
+  MenuInput: {fileID: 11400000, guid: 40ac9e5222a69664b8750e11ab44a282, type: 2}
+  DebugInput: {fileID: 11400000, guid: 49317bbaf4c0ea04588d7a06f96a7c57, type: 2}
+  DebugMode: 1

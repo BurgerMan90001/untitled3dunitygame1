@@ -6,7 +6,9 @@ using UnityEngine;
 public class Initialize : MonoBehaviour
 {
     [SerializeField] private bool _active;
-    [SerializeField] private SceneLoadTrigger _sceneTrigger;
+
+    [SerializeField] private bool _triggerSceneLoad;
+    [ConditionalField(nameof(_triggerSceneLoad))][SerializeField] private SceneLoadTrigger _sceneTrigger;
 
     [Header("Initilize Pool")]
     [DisplayInspector]
@@ -21,8 +23,10 @@ public class Initialize : MonoBehaviour
         {
             _pool.CreatePool();
             _pool.InstantiatePoolObjects();
-
-            _sceneTrigger.Trigger(SceneLoadingSettings.MainMenu); // trigger scene load after it's done loading the pool objects
+            if (_triggerSceneLoad)
+            {
+                _sceneTrigger.Trigger(SceneLoadingSettings.MainMenu); // trigger scene load after it's done loading the pool objects
+            }
 
         }
         else

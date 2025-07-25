@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a8e0bc16f641eb46a2218cd00587f64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _active: 0
+  _active: 1
+  _triggerSceneLoad: 1
   _sceneTrigger: {fileID: 0}
   _pool: {fileID: 11400000, guid: 0a0688c2a331aab41940c8260a9ae491, type: 2}

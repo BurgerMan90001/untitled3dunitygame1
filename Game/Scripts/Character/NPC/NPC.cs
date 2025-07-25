@@ -5,12 +5,15 @@ public class NPC : MonoBehaviour, IInteractable
     [Header("Dialogue Knot Name")]
     [SerializeField] private string _dialogueKnotName;
 
-    private DialogueEvents _dialogueEvents;
+    [SerializeField] private DialogueEvents _dialogueEvents;
 
-    private bool _initialized = false;
+    // private DialogueEvents _dialogueEvents;
 
+    //  private bool _initialized = false;
 
     private readonly bool _debugMode = false;
+
+    /*
     public void Initialize(DialogueEvents dialogueEvents)
     {
 
@@ -18,22 +21,16 @@ public class NPC : MonoBehaviour, IInteractable
 
         _initialized = true;
     }
-    private void OnEnable()
-    {
-
-    }
-    private void OnDisable()
-    {
-
-    }
+    */
     public void Interact(GameObject interactor)
     {
+        /*
         if (!_initialized)
         {
             Debug.LogWarning("This npc has not been initialized yet!");
             return;
         }
-
+        */
 
         if (_dialogueEvents.InDialogue)
         {

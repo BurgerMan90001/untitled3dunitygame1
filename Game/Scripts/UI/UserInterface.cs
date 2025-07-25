@@ -74,7 +74,7 @@ public class UserInterface : Manager
     {
         _uiDocument = GetComponent<UIDocument>();
 
-        _userInterfaceData.ShownInterfaces = new Stack<UserInterfaceType>();
+
 
         Root = _uiDocument.rootVisualElement;
         Root.style.flexGrow = 1;
@@ -97,6 +97,7 @@ public class UserInterface : Manager
 
     private async void Start()
     {
+
         Debug.Log("START");
         _userInterfaceData.UserInterfaceElements = await _uxmlFileHandler.LoadInterfacesAsync(_uxmlAssetLabelReference); // load the user interfaces asynchronously. visual element configuration is done after this.
 
@@ -106,6 +107,9 @@ public class UserInterface : Manager
         _uiInventory.UpdateInterface();
 
         ShowInitialInterface();
+
+
+
     }
 
     private void OnEnable() // the userinterface game object will be enabled by the main manager
