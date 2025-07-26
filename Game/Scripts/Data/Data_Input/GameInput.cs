@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Input/InputData")]
-public class InputData : Data
+[CreateAssetMenu(menuName = "Input/GameInput")]
+public class GameInput : ScriptableObject
 {
 
     [Header("InputEvents")]
@@ -12,14 +12,6 @@ public class InputData : Data
 
     [Header("Debug")]
     [SerializeField] public bool DebugMode = false;
-
-
-
-
-    public bool InputEnabled { get; private set; }
-
-
-
 
 
 
@@ -34,21 +26,8 @@ public class InputData : Data
         MovementInput.SetActive(active);
         CameraInput.SetActive(active);
     }
-
-
-
-    public override void LoadData(GameData data)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void SaveData(GameData data)
-    {
-        throw new System.NotImplementedException();
-    }
 }
-
-
+// MAYBE 
 
 public struct InputSettings
 {

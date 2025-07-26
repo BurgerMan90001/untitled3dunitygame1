@@ -11,7 +11,7 @@ public class InputManager : Manager
 
 
     [Header("Data")]
-    [SerializeField] private InputData _inputData;
+    [SerializeField] private GameInput _gameInput;
 
     [Header("Events")]
     [SerializeField] private DialogueEvents _dialogueEvents;
@@ -29,8 +29,8 @@ public class InputManager : Manager
         _combatEvents.OnExitCombat += OnExitCombat;
 
 
-        _inputData.DebugInput.RegisterInputEvent(_inputData.DebugInput.Debug1Action, OnDebug1); // Z
-        _inputData.DebugInput.RegisterInputEvent(_inputData.DebugInput.Debug2Action, OnDebug2); // X
+        _gameInput.DebugInput.RegisterInputEvent(_gameInput.DebugInput.Debug1Action, OnDebug1); // Z
+        _gameInput.DebugInput.RegisterInputEvent(_gameInput.DebugInput.Debug2Action, OnDebug2); // X
 
         _eventSystem = FindFirstObjectByType<InputSystemUIInputModule>().gameObject;
 
@@ -45,37 +45,37 @@ public class InputManager : Manager
         _dialogueEvents.OnUpdateChoices -= OnUpdateChoices;
 
 
-        _inputData.DebugInput.UnregisterInputEvent(_inputData.DebugInput.Debug1Action, OnDebug1);
-        _inputData.DebugInput.UnregisterInputEvent(_inputData.DebugInput.Debug2Action, OnDebug2);
+        _gameInput.DebugInput.UnregisterInputEvent(_gameInput.DebugInput.Debug1Action, OnDebug1);
+        _gameInput.DebugInput.UnregisterInputEvent(_gameInput.DebugInput.Debug2Action, OnDebug2);
 
 
     }
 
     private void OnEnterCombat(CombatUnit _)
     {
-        _inputData.MovementInput.EnableMovement(false);
-        _inputData.MenuInput.EnableInventoryToggle(false);
+        _gameInput.MovementInput.EnableMovement(false);
+        _gameInput.MenuInput.EnableInventoryToggle(false);
     }
     private void OnExitCombat()
     {
-        _inputData.MovementInput.EnableMovement(true);
-        _inputData.MenuInput.EnableInventoryToggle(true);
+        _gameInput.MovementInput.EnableMovement(true);
+        _gameInput.MenuInput.EnableInventoryToggle(true);
     }
 
     private void OnUpdateChoices(List<string> choices) // discards the list of choice strings. disables input
     {
-        _inputData.MovementInput.EnableMovement(false);
-        _inputData.CameraInput.EnableLook(false);
-        _inputData.CameraInput.EnableInteract(false);
-        _inputData.MenuInput.EnableInventoryToggle(false);
+        _gameInput.MovementInput.EnableMovement(false);
+        _gameInput.CameraInput.EnableLook(false);
+        _gameInput.CameraInput.EnableInteract(false);
+        _gameInput.MenuInput.EnableInventoryToggle(false);
     }
 
     private void OnChoiceSelected(int choicesIndex) // discards the chosen int index. enables input
     {
-        _inputData.MovementInput.EnableMovement(true);
-        _inputData.CameraInput.EnableLook(true);
-        _inputData.CameraInput.EnableInteract(true);
-        _inputData.MenuInput.EnableInventoryToggle(true);
+        _gameInput.MovementInput.EnableMovement(true);
+        _gameInput.CameraInput.EnableLook(true);
+        _gameInput.CameraInput.EnableInteract(true);
+        _gameInput.MenuInput.EnableInventoryToggle(true);
     }
     private void OnDebug1(InputAction.CallbackContext ctx)
     {

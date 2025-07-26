@@ -13,11 +13,9 @@ MonoBehaviour:
   m_Name: Managers
   m_EditorClassIdentifier: 
   PoolScene:
-    m_Handle: -6076
+    m_Handle: -244980
   PoolName: Managers
   PoolObjects:
   - {fileID: 5502777966608178585, guid: d6feb5d8cd767c84e8e3871800c2a327, type: 3}
   - {fileID: 1735396627005812491, guid: 29d0da05cd858234b94b1afee26ae887, type: 3}
-  - {fileID: 132536, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
-  - {fileID: 2683633199883665360, guid: 24be39324516e564eb87e69973a16e06, type: 3}
   - {fileID: 5213178087977755191, guid: 2fc3e4cec2dd15d40bcc60c97c84aab2, type: 3}

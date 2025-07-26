@@ -12,10 +12,10 @@ public enum ShopType
     Upper,
 }
 // pennies
+
 /// <summary>
 /// <br> Universal data and events for npc shops.</br>
 /// </summary>
-[CreateAssetMenu(menuName = "Data/ShopData")]
 public class ShopData : Data
 {
     /*
@@ -25,7 +25,7 @@ public class ShopData : Data
     [Header("Data")]
     /*
     [SerializeField] private userInterfaceEvents _userInterfaceEvents;
-    [SerializeField] private InputData _inputData;
+    [SerializeField] private gameInput _gameInput;
     [SerializeField] private GameTimeData _gameTimeData;
     */
 
@@ -45,8 +45,8 @@ public class ShopData : Data
 
         _userInterfaceEvents.SwitchToUserInterface(UserInterfaceType.Shop);
 
-        _inputData.MovementInput.EnableMovement(false);
-        _inputData.CameraInput.EnableLook(false);
+        _gameInput.MovementInput.EnableMovement(false);
+        _gameInput.CameraInput.EnableLook(false);
 
         
         InShop = true;
@@ -61,8 +61,8 @@ public class ShopData : Data
         _userInterfaceEvents.SwitchToUserInterface(UserInterfaceType.HUD);
 
 
-        _inputData.MovementInput.EnableMovement(true);
-        _inputData.CameraInput.EnableLook(true);
+        _gameInput.MovementInput.EnableMovement(true);
+        _gameInput.CameraInput.EnableLook(true);
         
 
         InShop = false;

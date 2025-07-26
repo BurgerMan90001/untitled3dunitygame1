@@ -11,13 +11,12 @@ public class NPCShop : MonoBehaviour, IInteractable
     [Header("Data")]
 
     [SerializeField] private ShopData _shopData;
-    [SerializeField] private InputData _inputData;
+    [SerializeField] private GameInput _gameInput;
     [SerializeField] private UserInterfaceEvents _userInterfaceEvents;
     /*
     private ShopData _shopData;
     private string _shopGuid; // MAYBE
 
-    
     #region
     /// <summary>
     /// <br> Dependancy injection for npcs. </br>
@@ -45,8 +44,8 @@ public class NPCShop : MonoBehaviour, IInteractable
         {
             _userInterfaceEvents.SwitchToUserInterface(UserInterfaceType.Shop);
 
-            _inputData.MovementInput.EnableMovement(false);
-            _inputData.CameraInput.EnableLook(false);
+            _gameInput.MovementInput.EnableMovement(false);
+            _gameInput.CameraInput.EnableLook(false);
 
         }
 

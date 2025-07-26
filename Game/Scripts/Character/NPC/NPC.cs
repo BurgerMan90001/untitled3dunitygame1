@@ -5,6 +5,7 @@ public class NPC : MonoBehaviour, IInteractable
     [Header("Dialogue Knot Name")]
     [SerializeField] private string _dialogueKnotName;
 
+    [Header("Events")]
     [SerializeField] private DialogueEvents _dialogueEvents;
 
     // private DialogueEvents _dialogueEvents;

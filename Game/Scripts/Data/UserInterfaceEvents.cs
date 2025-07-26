@@ -16,6 +16,8 @@ public class UserInterfaceEvents : Event
         HideRecentInterface();
         ShowInterface(userInterface);
 
+        Debug.Log("ASDASD");
+
     }
 
 
@@ -24,6 +26,7 @@ public class UserInterfaceEvents : Event
     {
         OnShowInterface?.Invoke(userInterface);
 
+        Debug.Log("AAAAAAAA");
     }
     /// <summary>
     /// <br> Hides the most recently shown interface. Does nothing if there is none. </br>
@@ -33,6 +36,7 @@ public class UserInterfaceEvents : Event
 
         OnHideRecentInterface?.Invoke();
 
+        Debug.Log("1231232131");
 
     }
 }

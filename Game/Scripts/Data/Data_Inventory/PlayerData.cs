@@ -7,7 +7,7 @@ public class PlayerData : MonoBehaviour, IDataPersistence
     [Header("Dependancies")]
 
     [SerializeField] private UserInterfaceEvents _userInterfaceEvents;
-    [SerializeField] private InputData _inputData;
+    [SerializeField] private GameInput _gameInput;
 
     public Inventory Inventory;
 
@@ -20,7 +20,7 @@ public class PlayerData : MonoBehaviour, IDataPersistence
     private void OnEnable()
     {
 
-        _inputData.MenuInput.RegisterInputEvent(_inputData.MenuInput.InventoryToggleAction, OnOpenInventory);
+        _gameInput.MenuInput.RegisterInputEvent(_gameInput.MenuInput.InventoryToggleAction, OnOpenInventory);
 
 
         ClearInventory(_clearOnEnable);
@@ -30,7 +30,7 @@ public class PlayerData : MonoBehaviour, IDataPersistence
 
     private void OnDisable()
     {
-        _inputData.MenuInput.UnregisterInputEvent(_inputData.MenuInput.InventoryToggleAction, OnOpenInventory);
+        _gameInput.MenuInput.UnregisterInputEvent(_gameInput.MenuInput.InventoryToggleAction, OnOpenInventory);
 
     }
 
@@ -43,16 +43,16 @@ public class PlayerData : MonoBehaviour, IDataPersistence
                 _userInterfaceEvents.SwitchToUserInterface(UserInterfaceType.HUD);
                 _interfaceEnabled = false;
 
-                _inputData.MovementInput.EnableMovement(true);
-                _inputData.CameraInput.EnableLook(true);
+                _gameInput.MovementInput.EnableMovement(true);
+                _gameInput.CameraInput.EnableLook(true);
             }
             else
             {
                 _userInterfaceEvents.SwitchToUserInterface(UserInterfaceType.Inventory);
                 _interfaceEnabled = true;
 
-                _inputData.MovementInput.EnableMovement(false);
-                _inputData.CameraInput.EnableLook(false);
+                _gameInput.MovementInput.EnableMovement(false);
+                _gameInput.CameraInput.EnableLook(false);
 
             }
         }

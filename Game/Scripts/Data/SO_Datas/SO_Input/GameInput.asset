@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac943efc18fbbee4098c64faca388cf3, type: 3}
-  m_Name: Input Data
+  m_Name: GameInput
   m_EditorClassIdentifier: 
   MovementInput: {fileID: 11400000, guid: 5073dac0742252247848489dfbc58d5d, type: 2}
   CameraInput: {fileID: 11400000, guid: a9af73362ae1ead4dad683960fcf65fc, type: 2}
