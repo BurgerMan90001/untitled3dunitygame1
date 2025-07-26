@@ -27,8 +27,6 @@ public class HorizontalMovement
         _movementStateManager = movementStateManager;
         _rigidBody = rigidBody;
 
-
-
     }
 
     public void MoveRigidBody(Vector2 movementInput, IsGrounded isGrounded, Transform orientation)

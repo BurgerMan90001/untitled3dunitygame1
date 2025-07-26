@@ -8,10 +8,10 @@ public class PlayerObjectPool : ObjectPool
     [SerializeField] private Transform _orientation;
     [SerializeField] private GameObject _player;
     */
-    [Header("Player Objects")]
+    [Header("Player Prefabs")]
 
-    [SerializeField] private GameObject _cameraGameObject;
-    [SerializeField] private GameObject _playerGameObject;
+    [SerializeField] private GameObject _cameraPrefab;
+    [SerializeField] private GameObject _playerPrefab;
 
 
 
@@ -22,14 +22,22 @@ public class PlayerObjectPool : ObjectPool
 
     public override void InstantiatePoolObjects()
     {
-        _camera = _cameraGameObject.GetComponent<IGameCamera>();
-        _playerMovement = _playerGameObject.GetComponent<IPlayerMovement>();
-        Debug.Log("joigdfigpoksdfgps");
+
+
+        var playerInstance = Instantiate(_playerPrefab);
+        var cameraInstance = Instantiate(_cameraPrefab);
+
+        SceneManager.MoveGameObjectToScene(playerInstance, PoolScene);
+        SceneManager.MoveGameObjectToScene(cameraInstance, PoolScene);
+
+        _camera = cameraInstance.GetComponent<IGameCamera>();
+        _playerMovement = playerInstance.GetComponent<IPlayerMovement>();
+
+
+
         _playerMovement.Initilize();
+
         _camera.Initilize(_playerMovement.GameObject, _playerMovement.Orientation);
-
-
-        SceneManager.MoveGameObjectToScene(Instantiate(_playerMovement.GameObject), PoolScene);
-        SceneManager.MoveGameObjectToScene(Instantiate(_camera.GameObject), PoolScene);
     }
+
 }
