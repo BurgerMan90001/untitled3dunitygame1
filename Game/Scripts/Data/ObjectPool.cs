@@ -20,8 +20,8 @@ public class ObjectPool : ScriptableObject
 
         foreach (var gameObject in PoolObjects)
         {
-            var instantiatedManager = Instantiate(gameObject);
-            SceneManager.MoveGameObjectToScene(instantiatedManager, PoolScene);
+
+            SceneManager.MoveGameObjectToScene(Instantiate(gameObject), PoolScene);
 
         }
         //    PoolObjectsInstantiated = true;

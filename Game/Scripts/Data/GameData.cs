@@ -8,13 +8,14 @@ public class GameData // game data is the data that will be serialized and saved
 {
     //    public UserInterfaceData UserInterfaceData;
 
+    /*
     public DialogueData DialogueData;
 
 
     public GameTimeData GameTimeData;
 
     public CombatStats CombatStats;
-
+    */
 
 
 

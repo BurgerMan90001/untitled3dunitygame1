@@ -1,6 +1,4 @@
-using System;
-using System.Collections.Generic;
-using UnityEngine;
+/*
 #region
 /// <summary>
 /// <br> Toggleable user interfaces. </br>
@@ -9,11 +7,11 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Data/userInterfaceEvents")]
 public class UserInterfaceData : Data
 {
-    /*
+    
     [Header("Data")]
     [SerializeField] private Inventory _inventory;
 
-    */
+    
     [Header("Debug")]
     [SerializeField] private bool _debugMode = true;
 
@@ -36,6 +34,16 @@ public class UserInterfaceData : Data
         throw new NotImplementedException();
     }
 
+}
+
+*/
+public class UserInterfaceData
+{
+
+    public UserInterfaceData()
+    {
+
+    }
 }
 
 /*
