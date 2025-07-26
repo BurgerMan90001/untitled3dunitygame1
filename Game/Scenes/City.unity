@@ -46717,6 +46717,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6963751255385419254, guid: f40e3f93f2b658041b05e3687907e980, type: 3}
+      propertyPath: _pool
+      value: 
+      objectReference: {fileID: 11400000, guid: 9436ae59463b53c4a875694e5a919cb2, type: 2}
+    - target: {fileID: 6963751255385419254, guid: f40e3f93f2b658041b05e3687907e980, type: 3}
       propertyPath: _initializeType
       value: 2
       objectReference: {fileID: 0}
@@ -60144,36 +60148,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: Initialize_Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7569441586903955300, guid: c49c8522baaf35244aa7ee18f969dd6b, type: 3}
+      propertyPath: _pool
+      value: 
+      objectReference: {fileID: 11400000, guid: 240c15408ec81774c80356a05b6e72db, type: 2}
+    - target: {fileID: 7569441586903955300, guid: c49c8522baaf35244aa7ee18f969dd6b, type: 3}
+      propertyPath: _initializeType
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1876079179441123708, guid: c49c8522baaf35244aa7ee18f969dd6b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 571451209542695308}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c49c8522baaf35244aa7ee18f969dd6b, type: 3}
---- !u!1 &571451209542695307 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1876079179441123708, guid: c49c8522baaf35244aa7ee18f969dd6b, type: 3}
-  m_PrefabInstance: {fileID: 571451209542695306}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &571451209542695308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 571451209542695307}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a8e0bc16f641eb46a2218cd00587f64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _active: 1
-  _initializeType: 2
-  _sceneTrigger: {fileID: 0}
-  test: 0
-  _pool: {fileID: 11400000, guid: b5170607e26dcbf41ac47d215179cc43, type: 2}
 --- !u!33 &763392350937356739
 MeshFilter:
   m_ObjectHideFlags: 0

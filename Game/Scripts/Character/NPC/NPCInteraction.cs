@@ -12,7 +12,7 @@ public class NPCInteraction
 
     private DialogueEvents _dialogueEvents;
 
-    private int _interactionStage = 0;
+    //   private int _interactionStage = 0; MAYBE
 
     private const string _silentDialogueKnotName = "silentDialogue";
     public NPCInteraction(string dialogueKnotName, DialogueEvents dialogueEvents)

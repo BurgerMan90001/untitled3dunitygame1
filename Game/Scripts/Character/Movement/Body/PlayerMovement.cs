@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     [Header("Dependencies")]
     [SerializeField] private Rigidbody _rigidBody;
     [SerializeField] private GeneralStats _stats;
-    [SerializeField] private Transform _orientation;
     [SerializeField] private MovementInput _input;
 
     [Header("MovementStateManager Settings")]
@@ -49,29 +48,34 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     private IsGrounded _isGrounded;
     private Sprint _sprint;
 
+    public Transform Orientation => transform.Find("Orientation");
+    public GameObject GameObject => gameObject;
+
     public void Initilize()
     {
-        throw new NotImplementedException();
+        Debug.LogWarning("NOT IMPLEMENTED YET");
+        //   throw new NotImplementedException();
     }
 
     private void Awake()
     {
         _playerMovementObject = transform;
 
+        //   Orientation 
 
         _sprint = new Sprint(_stats);
 
         _movementStateManager = new MovementStateManager(_rigidBody, _stateSettings, _baseSpeed, _globalSpeedMultiplier);
 
         _verticalMovement = new VerticalMovement(_playerMovementObject, _movementStateManager);
-        _horizontalMovement = new HorizontalMovement(_rigidBody, _movementStateManager, _orientation);
+        _horizontalMovement = new HorizontalMovement(_rigidBody, _movementStateManager);
 
 
         _isGrounded = new IsGrounded(_movementStateManager, _horizontalMovement, _playerMovementObject);
     }
     private void Start()
     {
-        _originalYScale = transform.parent.localScale.y;
+        _originalYScale = transform.localScale.y;
 
     }
 
@@ -138,7 +142,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     }
     private void FixedUpdate()
     {
-        _horizontalMovement.MoveRigidBody(_movementInput, _isGrounded);
+        _horizontalMovement.MoveRigidBody(_movementInput, _isGrounded, Orientation);
 
         if (Math.Abs(_rigidBody.linearVelocity.y) > Y_VELOCITY_THRESHOLD)
         {

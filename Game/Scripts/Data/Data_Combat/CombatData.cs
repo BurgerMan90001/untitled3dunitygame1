@@ -9,7 +9,8 @@ using UnityEngine;
 
 public class CombatData : Data
 {
-    private CombatEvents _combatEvents;
+
+    [SerializeField] private CombatEvents _combatEvents;
 
 
     [Header("HurtEffects")]
@@ -31,10 +32,7 @@ public class CombatData : Data
 
     public Stack<CombatStates> CombatState { get; private set; } = new Stack<CombatStates>();
 
-    public CombatData(CombatEvents combatEvents)
-    {
-        _combatEvents = combatEvents;
-    }
+
 
     public void PushCombatState(CombatStates combatState)
     {

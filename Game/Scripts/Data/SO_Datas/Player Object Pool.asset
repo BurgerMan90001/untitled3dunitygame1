@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe796fb261be26b45a8b0eb5439b988a, type: 3}
+  m_Name: Player Object Pool
+  m_EditorClassIdentifier: 
+  PoolScene:
+    m_Handle: -151320
+  PoolSceneName: Player
+  _cameraGameObject: {fileID: 2142478289644107325, guid: dc9cc93027786b147b9779a8d2273da3, type: 3}
+  _playerGameObject: {fileID: 8627166357939686976, guid: ae6a4fd0d2198b841bdc8fdab92cc427, type: 3}

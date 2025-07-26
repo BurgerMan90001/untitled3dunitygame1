@@ -1,32 +1,24 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-[CreateAssetMenu(menuName = "ObjectPool/ObjectPool")]
-public class ObjectPool : ScriptableObject
+
+public abstract class ObjectPool : ScriptableObject
 {
     public Scene PoolScene; // IM GOONUING
-    public string PoolName;
+    public string PoolSceneName;
 
-    public List<GameObject> PoolObjects;
 
-    public void CreatePool()
-    {
-        PoolScene = SceneManager.CreateScene(PoolName);
-
-    }
     /// <summary>
-    /// <br> Move game objects to the pool scene. </br>
+    /// <br> Creates a scene where the pool's objects are going to be moved to. </br>
     /// </summary>
-    public virtual void InstantiatePoolObjects()
+    public virtual void CreatePool()
     {
-
-        foreach (var gameObject in PoolObjects)
-        {
-
-            SceneManager.MoveGameObjectToScene(Instantiate(gameObject), PoolScene);
-
-        }
-        //    PoolObjectsInstantiated = true;
+        PoolScene = SceneManager.CreateScene(PoolSceneName);
 
     }
+
+    /// <summary>
+    /// <br> Instantiates and moves the game objects to the pool scene. </br>
+    /// <br> Abstract so that implementers can do different things.</br>
+    /// </summary>
+    public abstract void InstantiatePoolObjects();
 }

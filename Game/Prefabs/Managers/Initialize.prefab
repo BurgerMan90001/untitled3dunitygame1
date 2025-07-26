@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _active: 1
-  _triggerSceneLoad: 1
+  _initializeType: 0
   _sceneTrigger: {fileID: 0}
-  _pool: {fileID: 11400000, guid: 0a0688c2a331aab41940c8260a9ae491, type: 2}
+  test: 0
+  _pool: {fileID: 11400000, guid: 9436ae59463b53c4a875694e5a919cb2, type: 2}

@@ -2,11 +2,14 @@ using UnityEngine;
 
 public interface IInjectable
 {
-    //  void Initilize();
+    GameObject GameObject { get; }
 }
 
 public interface IPlayerMovement : IInjectable
 {
+    Transform Orientation { get; }
+    //    Transform GetOrientation();
+    //   GameObject GetGameObject();
     void Initilize();
 }
 

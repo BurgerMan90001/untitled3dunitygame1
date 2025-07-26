@@ -25,8 +25,8 @@ public class CombatManager : Manager
 
     private void Awake()
     {
-        _combatData = new CombatData(_combatEvents);
-        //    gameObject.GetInstanceID();
+        _combatData = GetComponent<CombatData>();
+
     }
     private void Start()
     {

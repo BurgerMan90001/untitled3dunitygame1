@@ -8,36 +8,35 @@ using UnityEngine;
 
 public class HorizontalMovement
 {
-    
+
     private Vector3 _flatHorizontalVelocity; // velocities for calculating in the limitspeed() function
     private Vector3 _limitedHorizontalVelocity;
 
     private Vector3 _horizontalVelocity;
 
 
-    private float _slopeMovementSpeedMultiplyer = 1.25f; 
+    private float _slopeMovementSpeedMultiplyer = 1.25f;
 
     private Rigidbody _rigidBody;
     private MovementStateManager _movementStateManager;
-    private Transform _orientation;
 
-    
-    public HorizontalMovement(Rigidbody rigidBody, MovementStateManager movementStateManager, Transform orientation)
+
+    public HorizontalMovement(Rigidbody rigidBody, MovementStateManager movementStateManager)
     {
-        
-        _movementStateManager = movementStateManager; 
+
+        _movementStateManager = movementStateManager;
         _rigidBody = rigidBody;
-        _orientation = orientation;
-        
-        
+
+
+
     }
 
-    public void MoveRigidBody(Vector2 movementInput, IsGrounded isGrounded)
+    public void MoveRigidBody(Vector2 movementInput, IsGrounded isGrounded, Transform orientation)
     {
         if (movementInput == Vector2.zero) return; // if no input, do not move
 
-        _horizontalVelocity = _orientation.forward * movementInput.y + _orientation.right * movementInput.x;
-        
+        _horizontalVelocity = orientation.forward * movementInput.y + orientation.right * movementInput.x;
+
         switch (_movementStateManager.MovementState)
         {
             case MovementStates.Walking:
@@ -51,12 +50,12 @@ public class HorizontalMovement
                 WalkingMovement(isGrounded);
                 break;
         }
-        
+
     }
-    
+
     private void WalkingMovement(IsGrounded isGrounded)
     {
-        
+
         if (isGrounded.OnSlope)
         {
 
@@ -67,7 +66,7 @@ public class HorizontalMovement
         {
             _rigidBody.AddForce(_horizontalVelocity.normalized * _movementStateManager.GetCurrentSpeed(), ForceMode.Force);
         }
-            
+
     }
     private void LadderMovement()
     {
@@ -80,10 +79,10 @@ public class HorizontalMovement
     }
 }
 
-    
-    
 
-    
+
+
+
 
 #region
 /*

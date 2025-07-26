@@ -22,7 +22,7 @@ public class GameTimeManager : Manager
 
     private void OnValidate()
     {
-        _gameTimeData.DayNightCycle.UpdateSun(_sun, _gameTimeData.Hour);
+        //    _gameTimeData.DayNightCycle.UpdateSun(_sun, _gameTimeData.Hour);
     }
     private void Update()
     {

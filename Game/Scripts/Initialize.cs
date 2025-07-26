@@ -6,6 +6,7 @@ public enum InitializeType
     None,
     TriggerSceneLoad,
     TriggerOnSceneLoad,
+    Debug,
 }
 
 

@@ -52,13 +52,16 @@ public class GameCamera : MonoBehaviour, IGameCamera
     private GameObject _player;
     private Transform _orientation;
 
-    //   private bool _initialized = false;
+    public GameObject GameObject => gameObject;
+
+    private bool _initialized = false;
     public void Initilize(GameObject player, Transform orientation)
     {
         _player = player;
         _orientation = orientation;
 
-        //   _initialized = true;
+        _initialized = true;
+        Debug.Log("kjiodpfgdsfgpok");
     }
 
     private void Awake()
@@ -137,17 +140,19 @@ public class GameCamera : MonoBehaviour, IGameCamera
 
     private void LateUpdate()
     {
-        /*
+
         if (!_initialized)
         {
             Debug.LogError("CameraActions has not been initialized");
             return;
         }
-        */
+
+
         _rotateCamera.Rotate(transform, _orientation, _lookInput, _sensitivityY, _sensitivityX);
         _positionCamera.MoveCameraPosition(_cameraTransform, _orientation);
 
     }
+
 }
 
 

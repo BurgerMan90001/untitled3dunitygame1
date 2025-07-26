@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d79f3a7b2781eac439a651b89ad56ba1, type: 3}
-  m_Name: Managers Pool
+  m_Script: {fileID: 11500000, guid: edf9f1854ef725c43bd5627d4b9e7d6b, type: 3}
+  m_Name: Manager Object Pool
   m_EditorClassIdentifier: 
   PoolScene:
-    m_Handle: -244980
-  PoolName: Managers
+    m_Handle: 0
+  PoolSceneName: Managers
   PoolObjects:
   - {fileID: 5502777966608178585, guid: d6feb5d8cd767c84e8e3871800c2a327, type: 3}
+  - {fileID: 5453962910619538363, guid: 4b8d629962679a649a249c1df00737ac, type: 3}
   - {fileID: 1735396627005812491, guid: 29d0da05cd858234b94b1afee26ae887, type: 3}
-  - {fileID: 5213178087977755191, guid: 2fc3e4cec2dd15d40bcc60c97c84aab2, type: 3}
