@@ -33,7 +33,6 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     [SerializeField] private float _jumpForce = 5f;
 
     [Header("Sprint Settings")]
-    [SerializeField] private float _maxStamina = 10f;
     [SerializeField] private float _staminaRegenRate = 1f;
     [SerializeField] private float _sprintStaminaCost = 1f;
     [SerializeField] private double _buttonDurationThreshold = 0.30d;

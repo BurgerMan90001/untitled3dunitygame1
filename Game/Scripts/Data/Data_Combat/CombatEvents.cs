@@ -27,7 +27,7 @@ public class CombatEvents : Event
     #endregion
     public void ExitCombat()
     {
-        SceneLoader.LoadScene(SceneLoadingSettings.MainGame);
+        SceneLoader.LoadScene(SceneLoadingSettings.City);
 
         OnExitCombat?.Invoke();
     }

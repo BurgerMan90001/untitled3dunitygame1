@@ -14,12 +14,12 @@ using UnityEngine;
 public class Interact
 {
 
-    private HitDetect _hitDetect;
+    private readonly HitDetect _hitDetect;
     private LayerMask _mask;
 
     public bool ButtonHeld { get; private set; }
 
-    private bool _debugMode;
+    private readonly bool _debugMode;
 
     public Interact(HitDetect hitDetect, LayerMask mask)
     {

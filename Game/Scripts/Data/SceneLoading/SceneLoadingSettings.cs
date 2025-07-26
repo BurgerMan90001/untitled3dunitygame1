@@ -17,7 +17,7 @@ public enum SceneType
 #endregion
 public struct SceneLoadingSettings
 {
-    private static readonly Vector3 _mainGameSpawnPoint = new Vector3(-21.9972f, 54.65f, -37.326f);
+    private static readonly Vector3 _citySpawnPoint = new Vector3(-21.9972f, 54.65f, -37.326f);
     private static readonly Vector3 _combatSpawnPoint = new Vector3(-3f, 4f, 0f);
 
     //  private static readonly string Path = "Scenes/"+name+".unity";
@@ -56,7 +56,7 @@ public struct SceneLoadingSettings
     /// <br> Loads the main game scene with the HUD interface. Spawns the player at (-21.9972f, 54.65f, -37.326f).</br>
     /// </summary>
     #endregion
-    public static readonly SceneLoadingSettings MainGame = new SceneLoadingSettings("MainGame", SceneType.Game, UserInterfaceType.HUD, _mainGameSpawnPoint);
+    public static readonly SceneLoadingSettings City = new SceneLoadingSettings("City", SceneType.Game, UserInterfaceType.HUD, _citySpawnPoint);
     #region
     /// <summary>
     /// <br> Loads the combat scene with the combat interface. Spawns the player at (-3f, 4f, 0f).</br>

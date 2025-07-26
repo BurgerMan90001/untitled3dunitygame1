@@ -4,7 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Events/UserInterfaceEvents")]
 public class UserInterfaceEvents : Event
 {
-    public event Action<UserInterfaceType> OnSwitchToUserInterface;
     public event Action<UserInterfaceType> OnShowInterface;
     public event Action OnHideRecentInterface;
     /*

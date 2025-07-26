@@ -126,7 +126,7 @@ public class UI_SaveSlotsMenu : IUserInterface
 
         //   _dataPersistenceEvents.SaveGameData();
 
-        SceneLoader.LoadScene(SceneLoadingSettings.MainGame);
+        SceneLoader.LoadScene(SceneLoadingSettings.City);
 
 
 

@@ -37,8 +37,8 @@ public class UserInterfaceData : Data
     }
     private void OnDestroy()
     {
-        _events.OnShowInterface += ShowInterface;
-        _events.OnHideRecentInterface += HideRecentInterface;
+        _events.OnShowInterface -= ShowInterface;
+        _events.OnHideRecentInterface -= HideRecentInterface;
     }
     #region
     /// <summary>
