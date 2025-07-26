@@ -1,3 +1,4 @@
+using MyBox;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,7 +16,8 @@ public class UxmlFileHandler
 
     private readonly bool _showLoadingResults = false;
 
-    private readonly Dictionary<UserInterfaceType, VisualElement> _userInterfaces = new Dictionary<UserInterfaceType, VisualElement>();
+
+    //   private readonly Dictionary<UserInterfaceType, VisualElement> _userInterfaces = new Dictionary<UserInterfaceType, VisualElement>();
 
     public UxmlFileHandler(VisualElement root)
     {
@@ -30,13 +32,13 @@ public class UxmlFileHandler
 
         }
     }
-    public async Task<Dictionary<UserInterfaceType, VisualElement>> LoadInterfacesAsync(AssetLabelReference labelReference)
+    public async Task LoadInterfacesAsync(AssetLabelReference labelReference, MyDictionary<UserInterfaceType, VisualElement> serInterfaceElements)
     {
 
         List<string> keys = new List<string>() { labelReference.labelString };
-        var uxmlLabelHandle = Addressables.LoadAssetsAsync<VisualTreeAsset>(keys, visualeTreeAsset =>
+        var uxmlLabelHandle = Addressables.LoadAssetsAsync<VisualTreeAsset>(keys, visualTreeAsset =>
         {
-            CreateInterface(visualeTreeAsset);
+            CreateInterface(visualTreeAsset, serInterfaceElements);
 
         }, Addressables.MergeMode.Intersection);
 
@@ -46,25 +48,34 @@ public class UxmlFileHandler
         {
             _loadedInterfaces = uxmlLabelHandle;
 
-            return _userInterfaces;
         }
         else
         {
             Debug.LogError("The uxml label load has failed.");
-            return null;
+
         }
 
     }
 
 
 
-    private void CreateInterface(VisualTreeAsset visualeTreeAsset)
+    private void CreateInterface(VisualTreeAsset visualeTreeAsset, MyDictionary<UserInterfaceType, VisualElement> userInterfaceElements)
     {
         ShowLoadingResults(visualeTreeAsset, _showLoadingResults);
 
         var element = SetupInterface(visualeTreeAsset);
 
-        UpdateInterfaceDictionary(element);
+        UserInterfaceType userInterfaceType = FindMatchingInterfaceType(element.name);
+        if (userInterfaceType == UserInterfaceType.None)
+        {
+            Debug.LogWarning($"Can't find a user interface type from the visual tree name : {element.name}");
+            return;
+        }
+        else
+        {
+            userInterfaceElements.Add(userInterfaceType, element);
+
+        }
     }
     #region
     /// <summary>
@@ -108,6 +119,7 @@ public class UxmlFileHandler
         return interfaceElement;
 
     }
+    /*
     private void UpdateInterfaceDictionary(VisualElement interfaceElement)
     {
         UserInterfaceType userInterface = FindMatchingInterfaceType(interfaceElement.name);
@@ -121,6 +133,7 @@ public class UxmlFileHandler
             _userInterfaces.Add(userInterface, interfaceElement);
         }
     }
+    */
 
 
     #region

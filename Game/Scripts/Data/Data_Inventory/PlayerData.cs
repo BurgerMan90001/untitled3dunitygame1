@@ -6,7 +6,7 @@ public class PlayerData : MonoBehaviour, IDataPersistence
 {
     [Header("Dependancies")]
 
-    [SerializeField] private UserInterfaceData _userInterfaceData;
+    [SerializeField] private UserInterfaceEvents _userInterfaceEvents;
     [SerializeField] private InputData _inputData;
 
     public Inventory Inventory;
@@ -40,7 +40,7 @@ public class PlayerData : MonoBehaviour, IDataPersistence
         {
             if (_interfaceEnabled)
             {
-                _userInterfaceData.SwitchToUserInterface(UserInterfaceType.HUD);
+                _userInterfaceEvents.SwitchToUserInterface(UserInterfaceType.HUD);
                 _interfaceEnabled = false;
 
                 _inputData.MovementInput.EnableMovement(true);
@@ -48,7 +48,7 @@ public class PlayerData : MonoBehaviour, IDataPersistence
             }
             else
             {
-                _userInterfaceData.SwitchToUserInterface(UserInterfaceType.Inventory);
+                _userInterfaceEvents.SwitchToUserInterface(UserInterfaceType.Inventory);
                 _interfaceEnabled = true;
 
                 _inputData.MovementInput.EnableMovement(false);

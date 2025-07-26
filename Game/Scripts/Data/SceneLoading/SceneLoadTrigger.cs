@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 /// <summary>
 /// <br> Triggers a scene load on start. </br>
 /// </summary>
@@ -25,12 +24,15 @@ public class SceneLoadTrigger : MonoBehaviour
     }
     private void OnSceneLoadComplete(SceneLoadingSettings sceneLoadingSettings)
     {
+
+        /*
         if (sceneLoadingSettings.SceneType is SceneType.Game)
         {
-            SceneManager.UnloadSceneAsync(0); // unloads itself when in game and not in menu.
+            SceneManager.UnloadSceneAsync("Initilization");
+            // unloads itself when in game and not in menu.
         }
+        */
+
     }
-
-
 
 }

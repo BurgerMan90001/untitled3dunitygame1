@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
-
-public class GameTimeEvents : IEvent
+[CreateAssetMenu(menuName = "Events/GameTimeEvents")]
+public class GameTimeEvents : Event
 {
     public Action<Day> OnDayChanged;
     public Action<Month> OnMonthChanged;

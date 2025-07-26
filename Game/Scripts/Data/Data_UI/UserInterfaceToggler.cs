@@ -11,8 +11,8 @@ public class UserInterfaceToggler
 {
     public event Action OnInterfaceChanged;
 
-    private readonly UserInterfaceData _data;
-    public UserInterfaceToggler(UserInterfaceData data)
+    private readonly userInterfaceEvents _data;
+    public UserInterfaceToggler(userInterfaceEvents data)
     {
         _data = data;
         _data.ShownInterface = UserInterfaceType.None;

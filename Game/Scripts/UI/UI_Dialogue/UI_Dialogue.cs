@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 // animationsz logic
 public class UI_Dialogue : IUserInterface
 {
-    private UserInterfaceData _userInterfaceData;
+    private UserInterfaceEvents _userInterfaceEvents;
 
     private VisualElement _panelDialogue; // Panel_Dialogue uxml name
     private VisualElement _panelChoices; // Panel_Choices uxml name
@@ -18,9 +18,9 @@ public class UI_Dialogue : IUserInterface
 
     private DialogueEvents _dialogueEvents;
 
-    public UI_Dialogue(UserInterfaceData userInterfaceData, DialogueEvents dialogueEvents)
+    public UI_Dialogue(UserInterfaceEvents userInterfaceEvents, DialogueEvents dialogueEvents)
     {
-        _userInterfaceData = userInterfaceData;
+        _userInterfaceEvents = userInterfaceEvents;
         _dialogueEvents = dialogueEvents;
 
     }
@@ -90,7 +90,7 @@ public class UI_Dialogue : IUserInterface
     private void DisplayDialoguePanel(string _)
     {
 
-        _userInterfaceData.ShowInterface(UserInterfaceType.Dialogue);
+        _userInterfaceEvents.ShowInterface(UserInterfaceType.Dialogue);
 
 
     }
@@ -101,7 +101,7 @@ public class UI_Dialogue : IUserInterface
     }
     private void HideDialogue(GameObject _)
     {
-        _userInterfaceData.HideRecentInterface();
+        _userInterfaceEvents.HideRecentInterface();
         _dialogueLabel.text = "";
     }
 

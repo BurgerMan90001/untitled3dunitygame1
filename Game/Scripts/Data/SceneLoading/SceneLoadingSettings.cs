@@ -8,6 +8,7 @@ public enum SceneType
     Debug,
 }
 
+// TODO ORGINIZE ADDRESSABLES IN FOLDERS
 
 #region
 /// <summary>
@@ -19,6 +20,7 @@ public struct SceneLoadingSettings
     private static readonly Vector3 _mainGameSpawnPoint = new Vector3(-21.9972f, 54.65f, -37.326f);
     private static readonly Vector3 _combatSpawnPoint = new Vector3(-3f, 4f, 0f);
 
+    //  private static readonly string Path = "Scenes/"+name+".unity";
 
     public SceneType SceneType;
 

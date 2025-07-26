@@ -24,7 +24,7 @@ public class ShopData : Data
     */
     [Header("Data")]
     /*
-    [SerializeField] private UserInterfaceData _userInterfaceData;
+    [SerializeField] private userInterfaceEvents _userInterfaceEvents;
     [SerializeField] private InputData _inputData;
     [SerializeField] private GameTimeData _gameTimeData;
     */
@@ -43,7 +43,7 @@ public class ShopData : Data
 
         
 
-        _userInterfaceData.SwitchToUserInterface(UserInterfaceType.Shop);
+        _userInterfaceEvents.SwitchToUserInterface(UserInterfaceType.Shop);
 
         _inputData.MovementInput.EnableMovement(false);
         _inputData.CameraInput.EnableLook(false);
@@ -58,7 +58,7 @@ public class ShopData : Data
     {
         
 
-        _userInterfaceData.SwitchToUserInterface(UserInterfaceType.HUD);
+        _userInterfaceEvents.SwitchToUserInterface(UserInterfaceType.HUD);
 
 
         _inputData.MovementInput.EnableMovement(true);

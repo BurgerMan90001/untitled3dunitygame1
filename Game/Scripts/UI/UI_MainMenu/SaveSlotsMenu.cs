@@ -39,14 +39,14 @@ public class UI_SaveSlotsMenu : IUserInterface
 
     private DataPersistenceEvents _dataPersistenceEvents;
 
-    private UserInterfaceData _userInterfaceData;
+    private UserInterfaceEvents _userInterfaceEvents;
 
 
-    public UI_SaveSlotsMenu(DataPersistenceEvents dataPersistenceEvents, UserInterfaceData userInterfaceData)
+    public UI_SaveSlotsMenu(DataPersistenceEvents dataPersistenceEvents, UserInterfaceEvents userInterfaceEvents)
     {
 
         _dataPersistenceEvents = dataPersistenceEvents;
-        _userInterfaceData = userInterfaceData;
+        _userInterfaceEvents = userInterfaceEvents;
     }
     public void QueryElements(VisualElement root)
     {
@@ -97,7 +97,7 @@ public class UI_SaveSlotsMenu : IUserInterface
     }
     private void OnBackClicked()
     {
-        _userInterfaceData.SwitchToUserInterface(UserInterfaceType.MainMenu);
+        _userInterfaceEvents.SwitchToUserInterface(UserInterfaceType.MainMenu);
     }
     public void OnSaveSlotClicked(object userData)
     {

@@ -30,16 +30,16 @@ public enum Month
 /// <br> Months and days and in game time stuff.</br>
 /// </summary>
 #endregion
-[CreateAssetMenu (menuName = "Time/GameTimeData")]
-public class GameTimeData : ScriptableObject, IDataPersistence
+[CreateAssetMenu(menuName = "Time/GameTimeData")]
+public class GameTimeData : Data
 {
     [Header("Settings")]
-   
+
     [SerializeField] private float dayLength = 120f;
-  //  [SerializeField] private Vector3 sunInitialRotation = new Vector3(50f, -30f, 0f);
+    //  [SerializeField] private Vector3 sunInitialRotation = new Vector3(50f, -30f, 0f);
 
     [Header("Data")]
-   
+
     [Header("Debug")]
 
 
@@ -50,7 +50,7 @@ public class GameTimeData : ScriptableObject, IDataPersistence
     //    public HDRPVolumeProfileSettings volumeProfileSettings;
 
     public DayNightCycle DayNightCycle { get; private set; } = new DayNightCycle();
-    public GameTimeEvents Events { get; private set; } = new GameTimeEvents();
+    // public GameTimeEvents Events { get; private set; } = new GameTimeEvents();
 
     public Day Day;
     public Month Month;
@@ -66,6 +66,7 @@ public class GameTimeData : ScriptableObject, IDataPersistence
         _initilized = true;
     }
     */
+    /*
     private void OnEnable()
     {
         
@@ -79,7 +80,7 @@ public class GameTimeData : ScriptableObject, IDataPersistence
         Events.OnMonthChanged -= OnMonthChanged;
     }
     
-    
+    */
     public void IncrementHour(int value)
     {
         int newTimeOfDay = Hour + value;
@@ -93,25 +94,29 @@ public class GameTimeData : ScriptableObject, IDataPersistence
         }
         Hour += value;
     }
-    private void OnDayChanged(Day day)
-    {
 
-    }
-    private void OnMonthChanged(Month month)
-    {
-
-    }
-
-    public void LoadData(GameData data)
+    public override void LoadData(GameData data)
     {
         throw new NotImplementedException();
     }
 
-    public void SaveData(GameData data)
+    public override void SaveData(GameData data)
     {
         throw new NotImplementedException();
     }
 }
+/*
+private void OnDayChanged(Day day)
+{
+
+}
+private void OnMonthChanged(Month month)
+{
+
+}
+*/
+
+
 
 
 

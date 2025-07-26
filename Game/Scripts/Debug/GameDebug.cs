@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class GameDebug : MonoBehaviour
 {
-
+    /*
     private static GameDebug _Instance;
     public static GameDebug Instance
     {
@@ -20,13 +20,13 @@ public class GameDebug : MonoBehaviour
             return _Instance;
         }
     }
-
+    */
     [Header("Debug Scene")]
     [SerializeField] private bool _enableDebuging;
 
 
     [Header("Stuff")]
-
+    [SerializeField] private UserInterfaceData _userInterfaceData;
 
     [Header("Debug Settings")]
     [ConditionalField(nameof(_enableDebuging))][SerializeField] private bool _lockCursor = true;
@@ -65,7 +65,7 @@ public class GameDebug : MonoBehaviour
             {
                 GameCursor.Lock();
             }
-
+            Debug.LogError(_userInterfaceData.Test);
         }
 
 

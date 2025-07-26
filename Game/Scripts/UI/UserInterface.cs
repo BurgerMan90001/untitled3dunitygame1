@@ -1,3 +1,4 @@
+using MyBox;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -13,8 +14,8 @@ public class UserInterface : Manager
 {
     [Header("Data")]
     [SerializeField] private Inventory _inventory; // the dynamic inventory scriptable object that will be used to manage the inventory
+    [SerializeField] private UserInterfaceEvents _userInterfaceEvents;
     [SerializeField] private UserInterfaceData _userInterfaceData;
-
 
     [SerializeField] private InputData _inputData;
     [SerializeField] private CombatData _combatData;
@@ -35,6 +36,7 @@ public class UserInterface : Manager
     [SerializeField] private bool _showHoveredOnElement = false;
 
 
+    public MyDictionary<UserInterfaceType, VisualElement> UserInterfaceElements = new MyDictionary<UserInterfaceType, VisualElement>();
     private VisualElement _currentElement;
 
     private UIDocument _uiDocument;
@@ -82,9 +84,9 @@ public class UserInterface : Manager
 
         _uxmlFileHandler = new UxmlFileHandler(Root);
 
-        _uiMainMenu = new UI_MainMenu(_dataPersistenceEvents, _userInterfaceData);
-        _uiSaveSlotsMenu = new UI_SaveSlotsMenu(_dataPersistenceEvents, _userInterfaceData);
-        _uiDialogue = new UI_Dialogue(_userInterfaceData, _dialogueEvents);
+        _uiMainMenu = new UI_MainMenu(_dataPersistenceEvents, _userInterfaceEvents);
+        _uiSaveSlotsMenu = new UI_SaveSlotsMenu(_dataPersistenceEvents, _userInterfaceEvents);
+        _uiDialogue = new UI_Dialogue(_userInterfaceEvents, _dialogueEvents);
         _uiInventory = new UI_Inventory(_inventory);
 
         _userInterfaces.Add(_uiMainMenu);
@@ -99,7 +101,9 @@ public class UserInterface : Manager
     {
 
         Debug.Log("START");
-        _userInterfaceData.UserInterfaceElements = await _uxmlFileHandler.LoadInterfacesAsync(_uxmlAssetLabelReference); // load the user interfaces asynchronously. visual element configuration is done after this.
+        await _uxmlFileHandler.LoadInterfacesAsync(_uxmlAssetLabelReference, UserInterfaceElements); // load the user interfaces asynchronously. visual element configuration is done after this.
+
+        _userInterfaceData.Test = 123123;
 
         QueryAllElements();
         RegisterAllInterfaces();
@@ -108,7 +112,7 @@ public class UserInterface : Manager
 
         ShowInitialInterface();
 
-
+        Debug.LogError(_userInterfaceData.Test);
 
     }
 
@@ -117,6 +121,9 @@ public class UserInterface : Manager
         _inventory.OnInventoryChanged += OnInventoryChanged;
 
         SceneLoader.OnSceneLoadComplete += OnSceneLoadComplete;
+
+        _userInterfaceEvents.OnShowInterface += ShowInterface;
+        _userInterfaceEvents.OnHideRecentInterface += HideRecentInterface;
 
 
     }
@@ -141,9 +148,80 @@ public class UserInterface : Manager
 
     private void OnSceneLoadComplete(SceneLoadingSettings settings)
     {
-        _userInterfaceData.SwitchToUserInterface(settings.UserInterface);
+        SwitchToUserInterface(settings.UserInterface);
 
     }
+    #region
+    /// <summary>
+    /// <br> Switches to the UserInterfaceType userInterface. </br>
+    /// </summary>
+    /// <param name="userInterface"></param>
+    #endregion
+    public void SwitchToUserInterface(UserInterfaceType userInterface)
+    {
+        if (_userInterfaceData.ShownInterfaces == null)
+        {
+            Debug.LogError("Shown interfaces is null.");
+            return;
+        }
+        HideRecentInterface();
+        ShowInterface(userInterface);
+
+    }
+
+
+
+    public void ShowInterface(UserInterfaceType userInterface)
+    {
+        if (userInterface == UserInterfaceType.None)
+        {
+            Debug.LogWarning($"Can't show {UserInterfaceType.None}");
+            return;
+        }
+
+        _userInterfaceData.ShownInterfaces.Push(userInterface);
+        VisualElement elementToBeShown = UserInterfaceElements[userInterface];
+        elementToBeShown.style.display = DisplayStyle.Flex;
+
+        //  ShownInterfacesStack = ShownInterfaces.ToList();
+
+
+    }
+    /// <summary>
+    /// <br> Hides the most recently shown interface. Does nothing if there is none. </br>
+    /// </summary>
+    public void HideRecentInterface()
+    {
+
+        if (_userInterfaceData.ShownInterfaces.TryPop(out UserInterfaceType userInterface))
+        {
+            VisualElement elementToBeHiden = UserInterfaceElements[userInterface];
+            elementToBeHiden.style.display = DisplayStyle.None;
+
+            //   ShownInterfacesStack = ShownInterfaces.ToList<UserInterfaceType>();
+        }
+
+    }
+    /// <summary>
+    /// Gets the most recently added user interface in the shown interfaces stack.
+    /// </summary>
+    /// <returns></returns>
+    public UserInterfaceType GetRecentInterface()
+    {
+        if (_userInterfaceData.ShownInterfaces.TryPeek(out UserInterfaceType userInterface))
+        {
+            return userInterface;
+        }
+        else
+        {
+            if (_debugMode)
+            {
+                Debug.LogWarning("There is no interfaces in _shownInterfaces. ");
+            }
+            return UserInterfaceType.None;
+        }
+    }
+
 
     private void OnInventoryChanged()
     {
@@ -151,7 +229,7 @@ public class UserInterface : Manager
     }
     private void ShowInitialInterface()
     {
-        _userInterfaceData.SwitchToUserInterface(InitalShownUserInterface);
+        SwitchToUserInterface(InitalShownUserInterface);
 
     }
     private void OnMouseMove(MouseMoveEvent evt)

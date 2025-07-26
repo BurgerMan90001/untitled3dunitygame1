@@ -6,15 +6,24 @@ using UnityEngine;
 [System.Serializable]
 public class GameData // game data is the data that will be serialized and saved into a json file.
 {
+    //    public UserInterfaceData UserInterfaceData;
+
+    public DialogueData DialogueData;
 
 
+    public GameTimeData GameTimeData;
+
+    public CombatStats CombatStats;
+
+
+
+
+    //    public GeneralStats GeneralStats;
     public long LastUpdated;
-
     public Vector3 PlayerPosition;
 
 
     public float MaxStamina;
-
     public float MaxHealth;
 
     public float Energy;
@@ -37,8 +46,10 @@ public class GameData // game data is the data that will be serialized and saved
 
 
 
+
     public GameData() // new game stats
     {
+
 
         PlayerPosition = new Vector3(-21.9972f, 54.65f, -37.326f); // area where player will spawn at in newgame
 

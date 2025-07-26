@@ -12,7 +12,7 @@ public class UI_MainMenu : IUserInterface
 
     private DataPersistenceEvents _dataPersistenceEvents;
 
-    private UserInterfaceData _userInterfaceData;
+    private UserInterfaceEvents _userInterfaceEvents;
 
     // menuButton
     // mainMenuBackingPanel
@@ -36,12 +36,12 @@ public class UI_MainMenu : IUserInterface
     .button_secondary
     */
     #endregion
-    public UI_MainMenu(DataPersistenceEvents dataPersistenceEvents, UserInterfaceData userInterfaceData)
+    public UI_MainMenu(DataPersistenceEvents dataPersistenceEvents, UserInterfaceEvents userInterfaceEvents)
     {
 
         _dataPersistenceEvents = dataPersistenceEvents;
 
-        _userInterfaceData = userInterfaceData;
+        _userInterfaceEvents = userInterfaceEvents;
 
     }
 
@@ -73,13 +73,13 @@ public class UI_MainMenu : IUserInterface
 
     private void OnNewGameClicked() // is loading = false 
     {
-        _userInterfaceData.SwitchToUserInterface(UserInterfaceType.SaveSlotsMenu);
+        _userInterfaceEvents.SwitchToUserInterface(UserInterfaceType.SaveSlotsMenu);
 
     }
     private void OnLoadGameClicked() // is loading = true 
     {
 
-        _userInterfaceData.SwitchToUserInterface(UserInterfaceType.SaveSlotsMenu);
+        _userInterfaceEvents.SwitchToUserInterface(UserInterfaceType.SaveSlotsMenu);
 
     }
     public void OnContinueGameClicked()

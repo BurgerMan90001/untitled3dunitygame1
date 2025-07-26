@@ -12,7 +12,7 @@ public class NPCShop : MonoBehaviour, IInteractable
 
     [SerializeField] private ShopData _shopData;
     [SerializeField] private InputData _inputData;
-    [SerializeField] private UserInterfaceData _userInterfaceData;
+    [SerializeField] private UserInterfaceEvents _userInterfaceEvents;
     /*
     private ShopData _shopData;
     private string _shopGuid; // MAYBE
@@ -43,7 +43,7 @@ public class NPCShop : MonoBehaviour, IInteractable
         }
         else
         {
-            _userInterfaceData.SwitchToUserInterface(UserInterfaceType.Shop);
+            _userInterfaceEvents.SwitchToUserInterface(UserInterfaceType.Shop);
 
             _inputData.MovementInput.EnableMovement(false);
             _inputData.CameraInput.EnableLook(false);

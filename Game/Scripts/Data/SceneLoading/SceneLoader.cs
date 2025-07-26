@@ -105,9 +105,53 @@ public static class SceneLoader
             }
             else
             {
-                Debug.LogWarning("The scene handle is not loaded. ");
+                Debug.LogError("The scene handle is not loaded. ");
             }
         }
 
     }
+
+    public static void UnloadAllLoadedScenes()
+    {
+        foreach (var sceneHandle in LoadedSceneHandles)
+        {
+            if (sceneHandle.IsValid())
+            {
+                Addressables.UnloadSceneAsync(sceneHandle);
+                if (_debugMode)
+                {
+                    Debug.Log("UNLOADING");
+                }
+
+            }
+            else
+            {
+                Debug.LogError("The scene handle is not loaded. ");
+            }
+
+        }
+
+
+        /*
+        int lastIndex = LoadedSceneHandles.Count - 1;
+        var element = LoadedSceneHandles.ElementAt(lastIndex);
+        if (LoadedSceneHandles.)
+        {
+            if (sceneHandle.IsValid())
+            {
+                Addressables.UnloadSceneAsync(sceneHandle);
+                if (_debugMode)
+                {
+                    Debug.Log("UNLOADING");
+                }
+
+            }
+            else
+            {
+                Debug.LogError("The scene handle is not loaded. ");
+            }
+        }
+        */
+    }
+
 }
