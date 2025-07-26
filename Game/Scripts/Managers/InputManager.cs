@@ -103,7 +103,7 @@ public class InputManager : Manager
         GameCursor.ToggleLock();
     }
 
-    public override void Instantiate()
+    public override void Initialize()
     {
         Debug.Log("Input manager instantiated.");
     }

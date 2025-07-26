@@ -28,6 +28,7 @@ public class Initialize : MonoBehaviour
     [SerializeField]
     private ObjectPool _pool;
 
+    private Test Test;
 
     private void Start()
     {
@@ -52,3 +53,9 @@ public class Initialize : MonoBehaviour
     }
 
 }
+
+public class Test
+{
+
+}
+

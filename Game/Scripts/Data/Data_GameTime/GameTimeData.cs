@@ -30,7 +30,7 @@ public enum Month
 /// <br> Months and days and in game time stuff.</br>
 /// </summary>
 #endregion
-[CreateAssetMenu(menuName = "Time/GameTimeData")]
+
 public class GameTimeData : Data
 {
     [Header("Settings")]

@@ -3,8 +3,14 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+public interface IPlayerMovement
+{
+    void Initilize();
+}
 
-public class PlayerMovement : MonoBehaviour
+
+
+public class PlayerMovement : MonoBehaviour, IPlayerMovement
 {
     [Header("Dependencies")]
     [SerializeField] private Rigidbody _rigidBody;
@@ -40,7 +46,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool _drawDebugRay = true;
 
     private Vector2 _movementInput;
-    private bool _sprintButtonHeld;
     private Transform _playerMovementObject;
 
     private MovementStateManager _movementStateManager;
@@ -50,20 +55,22 @@ public class PlayerMovement : MonoBehaviour
     private IsGrounded _isGrounded;
     private Sprint _sprint;
 
-    private Vector2 _horizontalVelocity;
-
+    public void Initilize()
+    {
+        throw new NotImplementedException();
+    }
 
     private void Awake()
     {
         _playerMovementObject = transform;
 
-        
+
         _sprint = new Sprint(_stats);
 
         _movementStateManager = new MovementStateManager(_rigidBody, _stateSettings, _baseSpeed, _globalSpeedMultiplier);
 
         _verticalMovement = new VerticalMovement(_playerMovementObject, _movementStateManager);
-        _horizontalMovement = new HorizontalMovement( _rigidBody, _movementStateManager, _orientation);
+        _horizontalMovement = new HorizontalMovement(_rigidBody, _movementStateManager, _orientation);
 
 
         _isGrounded = new IsGrounded(_movementStateManager, _horizontalMovement, _playerMovementObject);
@@ -71,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         _originalYScale = transform.parent.localScale.y;
-        
+
     }
 
 
@@ -92,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
         _input.RegisterInputEvent(_input.CrouchAction, OnCrouch);
 
     }
-    
+
     private void OnMove(InputAction.CallbackContext ctx)
     {
 
@@ -105,31 +112,32 @@ public class PlayerMovement : MonoBehaviour
     private void OnJump(InputAction.CallbackContext ctx)
     {
         _verticalMovement.MakeBodyJump(_rigidBody, _jumpForce, _isGrounded.OnGround);
-        
+
     }
     public void OnSprint(InputAction.CallbackContext ctx)
     {
-        
+
         if (ctx.started && _isGrounded.OnGround)
         {
-                
+
             _verticalMovement.UnCrouchBody(_originalYScale, _isGrounded.OnGround);
             _sprint.Run(_movementStateManager);
-   
+
         }
         else if (ctx.canceled || ctx.duration < _buttonDurationThreshold)
         {
-            _sprint.CancelRun(_movementStateManager, _isGrounded.OnGround); 
+            _sprint.CancelRun(_movementStateManager, _isGrounded.OnGround);
         }
-        
+
     }
-    
+
     public void OnCrouch(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
         {
-            _verticalMovement.CrouchBody(_rigidBody, _crouchYScale,_isGrounded.OnGround);
-        } else if (ctx.canceled)
+            _verticalMovement.CrouchBody(_rigidBody, _crouchYScale, _isGrounded.OnGround);
+        }
+        else if (ctx.canceled)
         {
             _verticalMovement.UnCrouchBody(_originalYScale, _isGrounded.OnGround);
         }
@@ -137,18 +145,20 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         _horizontalMovement.MoveRigidBody(_movementInput, _isGrounded);
-        
+
         if (Math.Abs(_rigidBody.linearVelocity.y) > Y_VELOCITY_THRESHOLD)
         {
             _isGrounded.CheckIfGrounded(_verticalMovement.IsCrouched, _groundCheckDistance, _groundMask, _drawDebugRay);
         }
-        
-        
-        
+
+
+
     }
     private void Update()
     {
         _sprint.UpdateStamina(_movementStateManager, _sprintStaminaCost, _staminaRegenRate, _isGrounded.OnGround);
     }
+
+
 }
 

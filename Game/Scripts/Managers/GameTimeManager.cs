@@ -1,5 +1,5 @@
+using System;
 using UnityEngine;
-
 public class GameTimeManager : Manager
 {
     [Header("Data")]
@@ -29,8 +29,9 @@ public class GameTimeManager : Manager
         _gameTimeData.DayNightCycle.UpdateSun(_sun, _gameTimeData.Hour);
     }
 
-    public override void Instantiate()
+    public override void Initialize()
     {
-        Debug.Log("GameTimeManager instantiated");
+        Debug.Log("GameTimeManager Initializeed");
+        throw new NotImplementedException();
     }
 }

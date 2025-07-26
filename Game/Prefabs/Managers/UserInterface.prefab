@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3480076296380487864}
   - component: {fileID: 3432003003172095732}
   - component: {fileID: 3293367255992662212}
+  - component: {fileID: 5242112016568343094}
   m_Layer: 5
   m_Name: UserInterface
   m_TagString: Untagged
@@ -47,8 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inventory: {fileID: 11400000, guid: 429beb422e6f2764ab242e6b1ace72b8, type: 2}
   _userInterfaceEvents: {fileID: 11400000, guid: 5fb333813e03981409debdbf88246c14, type: 2}
-  _userInterfaceData: {fileID: 11400000, guid: 7054af2a61a96c845a5f983d3cc07073, type: 2}
-  _inputData: {fileID: 11400000, guid: ad90d15a45aacc6478ff302fd813f986, type: 2}
+  _gameInput: {fileID: 11400000, guid: ad90d15a45aacc6478ff302fd813f986, type: 2}
   _combatData: {fileID: 11400000, guid: e99ab9cb863476f46ae38c8aee2da7b4, type: 2}
   _dialogueEvents: {fileID: 11400000, guid: 758561cdb6a753b41945355c3ac635c9, type: 2}
   _dataPersistenceEvents: {fileID: 11400000, guid: 721e3fea6cf2b2c40a65ae5e4f51be8a, type: 2}
@@ -57,15 +57,6 @@ MonoBehaviour:
     m_LabelString: uxml
   _debugMode: 1
   _showHoveredOnElement: 0
-  UserInterfaceElements:
-    _buckets: ffffffffffffffffffffffff
-    _hashCodes: 000000000000000000000000
-    _next: 000000000000000000000000
-    _count: 0
-    _version: 0
-    _freeList: -1
-    _freeCount: 0
-    _keys: 000000000000000000000000
 --- !u!114 &3293367255992662212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,3 +76,26 @@ MonoBehaviour:
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
+--- !u!114 &5242112016568343094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5502777966608178585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eae7f35cb96e1fd44ac13c78c7eb1891, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UserInterfaceElements:
+    _buckets: ffffffffffffffffffffffff
+    _hashCodes: 000000000000000000000000
+    _next: 000000000000000000000000
+    _count: 0
+    _version: 0
+    _freeList: -1
+    _freeCount: 0
+    _keys: 000000000000000000000000
+  Test: 0
+  _events: {fileID: 0}

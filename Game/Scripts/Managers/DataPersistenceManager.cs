@@ -198,9 +198,11 @@ public class DataPersistenceManager : Manager
         return _fileDataHandler.LoadAllProfiles();
     }
 
-    public override void Instantiate()
+
+    public override void Initialize()
     {
-        Debug.Log("Datapersistence manager instantiated.");
+        Debug.Log("Datapersistence manager Initialized.");
+        throw new System.NotImplementedException();
     }
 }
 

@@ -17,7 +17,7 @@ public class UserInterface : Manager
 
 
     [SerializeField] private GameInput _gameInput;
-    [SerializeField] private CombatData _combatData;
+    //   [SerializeField] private CombatData _combatData;
 
 
     [Header("Events")]
@@ -85,7 +85,7 @@ public class UserInterface : Manager
         Root.style.flexGrow = 1;
 
 
-        _userInterfaceData = new UserInterfaceData();
+        _userInterfaceData = GetComponent<UserInterfaceData>();
 
         _uxmlFileHandler = new UxmlFileHandler(Root);
 
@@ -127,17 +127,8 @@ public class UserInterface : Manager
 
         SceneLoader.OnSceneLoadComplete += OnSceneLoadComplete;
 
-        _userInterfaceEvents.OnShowInterface += ShowInterface;
-        _userInterfaceEvents.OnHideRecentInterface += HideRecentInterface;
-
-
     }
 
-    private void OnDisable()
-    {
-
-
-    }
     private void OnDestroy()
     {
         _inventory.OnInventoryChanged -= OnInventoryChanged;
@@ -153,60 +144,11 @@ public class UserInterface : Manager
 
     private void OnSceneLoadComplete(SceneLoadingSettings settings)
     {
-        SwitchToUserInterface(settings.UserInterface);
-
-    }
-    #region
-    /// <summary>
-    /// <br> Switches to the UserInterfaceType userInterface. </br>
-    /// </summary>
-    /// <param name="userInterface"></param>
-    #endregion
-    public void SwitchToUserInterface(UserInterfaceType userInterface)
-    {
-        if (_userInterfaceData.ShownInterfaces == null)
-        {
-            Debug.LogError("Shown interfaces is null.");
-            return;
-        }
-        HideRecentInterface();
-        ShowInterface(userInterface);
+        _userInterfaceData.SwitchToUserInterface(settings.UserInterface);
 
     }
 
 
-
-    public void ShowInterface(UserInterfaceType userInterface)
-    {
-        if (userInterface == UserInterfaceType.None)
-        {
-            Debug.LogWarning($"Can't show {UserInterfaceType.None}");
-            return;
-        }
-
-        _userInterfaceData.ShownInterfaces.Push(userInterface);
-        VisualElement elementToBeShown = _userInterfaceData.UserInterfaceElements[userInterface];
-        elementToBeShown.style.display = DisplayStyle.Flex;
-
-        //  ShownInterfacesStack = ShownInterfaces.ToList();
-
-
-    }
-    /// <summary>
-    /// <br> Hides the most recently shown interface. Does nothing if there is none. </br>
-    /// </summary>
-    public void HideRecentInterface()
-    {
-
-        if (_userInterfaceData.ShownInterfaces.TryPop(out UserInterfaceType userInterface))
-        {
-            VisualElement elementToBeHiden = _userInterfaceData.UserInterfaceElements[userInterface];
-            elementToBeHiden.style.display = DisplayStyle.None;
-
-            //   ShownInterfacesStack = ShownInterfaces.ToList<UserInterfaceType>();
-        }
-
-    }
 
 
 
@@ -216,7 +158,7 @@ public class UserInterface : Manager
     }
     private void ShowInitialInterface()
     {
-        SwitchToUserInterface(InitalShownUserInterface);
+        _userInterfaceData.SwitchToUserInterface(InitalShownUserInterface);
 
     }
     private void OnMouseMove(MouseMoveEvent evt)
@@ -276,7 +218,8 @@ public class UserInterface : Manager
         _userInterfaces.ForEach(ui => ui?.Unregister());
     }
 
-    public override void Instantiate()
+
+    public override void Initialize()
     {
         Debug.Log("User interface manager instantiated.");
         throw new System.NotImplementedException();

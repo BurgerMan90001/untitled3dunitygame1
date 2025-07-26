@@ -166,9 +166,9 @@ public class DialogueManager : Manager
 
     }
 
-    public override void Instantiate()
+    public override void Initialize()
     {
-        Debug.Log("Dialogue manager instantiated.");
+        Debug.Log("Dialogue manager Initializeed.");
         throw new System.NotImplementedException();
     }
     /*

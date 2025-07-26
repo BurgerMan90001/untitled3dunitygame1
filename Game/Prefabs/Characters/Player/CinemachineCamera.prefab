@@ -90,10 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d67fec91c6c47f4390c73380129b6b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inventory: {fileID: 11400000, guid: 429beb422e6f2764ab242e6b1ace72b8, type: 2}
   _input: {fileID: 11400000, guid: a9af73362ae1ead4dad683960fcf65fc, type: 2}
-  _player: {fileID: 0}
-  _orientation: {fileID: 0}
   _mask:
     serializedVersion: 2
     m_Bits: 4294967295

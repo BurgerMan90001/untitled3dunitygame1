@@ -38,10 +38,10 @@ public class CombatManager : Manager
         }
         */
     }
-    public override void Instantiate()
+    public override void Initialize()
     {
         Instance = this;
-
+        throw new System.NotImplementedException();
     }
     private void OnEnable()
     {

@@ -2,10 +2,19 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 //TODO MAYBE MAKE NOT SINGLETON FOR MULTI
+
+public interface IGameCamera
+{
+
+    void Initilize(GameObject player, Transform orientation);
+
+
+}
 /// <summary>
 /// all of the actions that the camera will handle
 /// </summary>
-public class CameraActions : MonoBehaviour
+
+public class GameCamera : MonoBehaviour, IGameCamera
 {
     private Interact _interact;
     private PositionCamera _positionCamera;
@@ -19,13 +28,10 @@ public class CameraActions : MonoBehaviour
     private Transform _cameraTransform;
 
     [Header("Dependencies")]
-    [SerializeField] private Inventory _inventory;
+    //  [SerializeField] private Inventory _inventory;
 
     [SerializeField] private CameraInput _input;
-    [SerializeField] private GameObject _player;
 
-    [Header("Positions")]
-    [SerializeField] private Transform _orientation;
     // [SerializeField] private Transform _rainPosition;
 
     [Header("Hit Detect Settings")]
@@ -48,6 +54,18 @@ public class CameraActions : MonoBehaviour
     [SerializeField] private float _leftClickDistance = 5f;
     [SerializeField] private LayerMask _leftClickMask;
 
+    // injected dependancies
+    private GameObject _player;
+    private Transform _orientation;
+
+    private bool _initialized = false;
+    public void Initilize(GameObject player, Transform orientation)
+    {
+        _player = player;
+        _orientation = orientation;
+
+        _initialized = true;
+    }
 
     private void Awake()
     {
@@ -119,13 +137,17 @@ public class CameraActions : MonoBehaviour
     {
         if (ctx.started)
         {
-
+            throw new System.NotImplementedException();
         }
     }
 
     private void LateUpdate()
     {
-
+        if (!_initialized)
+        {
+            Debug.LogError("CameraActions has not been initialized");
+            return;
+        }
         _rotateCamera.Rotate(transform, _orientation, _lookInput, _sensitivityY, _sensitivityX);
         _positionCamera.MoveCameraPosition(_cameraTransform, _orientation);
 
