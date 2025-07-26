@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 
 public abstract class ObjectPool : ScriptableObject
@@ -14,6 +15,12 @@ public abstract class ObjectPool : ScriptableObject
     {
         PoolScene = SceneManager.CreateScene(PoolSceneName);
 
+    }
+
+
+    public virtual void LoadGameObjectAsync(AssetReferenceGameObject gameObjectReference)
+    {
+        var instanceHandle = gameObjectReference.InstantiateAsync();
     }
 
     /// <summary>

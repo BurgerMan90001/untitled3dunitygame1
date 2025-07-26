@@ -5,6 +5,8 @@ using UnityEngine.InputSystem.UI;
 
 public class InputManager : Manager
 {
+    [Header("Test")]
+    [SerializeField] private Inventory test;
 
     private GameObject _eventSystem;
     [Header("Stuff")]

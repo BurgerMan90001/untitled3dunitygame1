@@ -30,6 +30,16 @@ public class UserInterfaceData : Data
     [Header("Debug")]
     [SerializeField] private bool _debugMode = true;
     */
+    private void Start()
+    {
+        SceneLoader.OnSceneLoadComplete += test;
+    }
+
+    private void test(SceneLoadingSettings settings)
+    {
+        Debug.LogError(UserInterfaceElements.Count);
+    }
+
     private void OnEnable()
     {
         _events.OnShowInterface += ShowInterface;

@@ -12,6 +12,8 @@ public enum InitializeType
 
 public class Initialize : MonoBehaviour
 {
+
+
     [SerializeField] private bool _active;
 
     [ConditionalField(nameof(_active))]
@@ -39,11 +41,12 @@ public class Initialize : MonoBehaviour
             _pool.CreatePool();
             _pool.InstantiatePoolObjects();
 
+            /*
             if (_initializeType is InitializeType.TriggerSceneLoad)
             {
                 _sceneTrigger.Trigger(SceneLoadingSettings.MainMenu); // trigger scene load after it's done loading the pool objects
             }
-
+            */
         }
         else
         {

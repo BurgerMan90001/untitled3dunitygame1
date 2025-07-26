@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.AddressableAssets;
 // TODO INSTANTIATE SCRIPTABLE OBJECTS WITH GAME OBJECTS.
 // MAYBE ADD MULTIPLAYER
 /// <summary>
@@ -10,9 +10,9 @@ public class PlayerObjectPool : ObjectPool
 {
 
     [Header("Player Prefabs")]
-    [SerializeField] private GameObject _cameraPrefab;
-    [SerializeField] private GameObject _playerPrefab;
 
+    [SerializeField] private AssetReferenceGameObject _cameraPrefab;
+    [SerializeField] private AssetReferenceGameObject _playerPrefab;
 
 
     private IGameCamera _camera;
@@ -22,10 +22,9 @@ public class PlayerObjectPool : ObjectPool
 
     public override void InstantiatePoolObjects()
     {
-
-
-        var playerInstance = Instantiate(_playerPrefab);
-        var cameraInstance = Instantiate(_cameraPrefab);
+        /*
+        var playerInstance = _playerPrefab.InstantiateAsync();
+        var cameraInstance = _cameraPrefab.InstantiateAsync();
 
         SceneManager.MoveGameObjectToScene(playerInstance, PoolScene);
         SceneManager.MoveGameObjectToScene(cameraInstance, PoolScene);
@@ -38,6 +37,7 @@ public class PlayerObjectPool : ObjectPool
         _playerMovement.Initilize();
 
         _camera.Initilize(_playerMovement.GameObject, _playerMovement.Orientation);
+        */
     }
 
 }

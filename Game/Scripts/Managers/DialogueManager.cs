@@ -1,3 +1,4 @@
+using Ink.Runtime;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ public class DialogueManager : Manager
 {
     [Header("Data")]
     [SerializeField] private DialogueData _dialogueData;
-
+    [SerializeField] private TextAsset _textAsset;
     [Header("Events")]
     [SerializeField] private DialogueEvents _dialogueEvents;
     private void Awake()
@@ -29,6 +30,7 @@ public class DialogueManager : Manager
 
     private void Start()
     {
+        _dialogueData.Story = new Story(_textAsset.text);
         _dialogueData.SetInDialogue(false);
     }
     private void OnEnable()
