@@ -37,7 +37,7 @@ public static class SceneLoader
 
         await LoadLoadingScene();
 
-        //   await Task.Delay(1000);
+        await Task.Delay(1000);
 
         var handle = Addressables.LoadSceneAsync(sceneLoadingSettings.Key, LoadSceneMode.Additive);
 
