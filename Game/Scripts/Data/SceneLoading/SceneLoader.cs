@@ -8,8 +8,6 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 
-
-
 // TODO PLAY SUM FADE ANIMATION
 #region
 /// <summary>

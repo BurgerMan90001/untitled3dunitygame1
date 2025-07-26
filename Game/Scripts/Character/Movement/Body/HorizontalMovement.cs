@@ -9,16 +9,16 @@ using UnityEngine;
 public class HorizontalMovement
 {
 
-    private Vector3 _flatHorizontalVelocity; // velocities for calculating in the limitspeed() function
+    private readonly Vector3 _flatHorizontalVelocity; // velocities for calculating in the limitspeed() function
     private Vector3 _limitedHorizontalVelocity;
 
     private Vector3 _horizontalVelocity;
 
 
-    private float _slopeMovementSpeedMultiplyer = 1.25f;
+    private const float SLOPE_SPEED_MULTIPLIER = 1.25f;
 
-    private Rigidbody _rigidBody;
-    private MovementStateManager _movementStateManager;
+    private readonly Rigidbody _rigidBody;
+    private readonly MovementStateManager _movementStateManager;
 
 
     public HorizontalMovement(Rigidbody rigidBody, MovementStateManager movementStateManager)
@@ -33,7 +33,7 @@ public class HorizontalMovement
     {
         if (movementInput == Vector2.zero) return; // if no input, do not move
 
-        _horizontalVelocity = orientation.forward * movementInput.y + orientation.right * movementInput.x;
+        _horizontalVelocity = (orientation.forward * movementInput.y) + (orientation.right * movementInput.x);
 
         switch (_movementStateManager.MovementState)
         {
@@ -58,7 +58,7 @@ public class HorizontalMovement
         {
 
             _rigidBody.AddForce(isGrounded.GetSlopeMoveDirection(_horizontalVelocity)
-                * _movementStateManager.GetCurrentSpeed() * _slopeMovementSpeedMultiplyer, ForceMode.Force);
+                * _movementStateManager.GetCurrentSpeed() * SLOPE_SPEED_MULTIPLIER, ForceMode.Force);
         }
         else
         {

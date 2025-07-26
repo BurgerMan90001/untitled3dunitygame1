@@ -10,8 +10,8 @@ using UnityEngine;
 public class VerticalMovement
 {
 
-    private MovementStateManager _movementStateManager;
-    private Transform _body;
+    private readonly MovementStateManager _movementStateManager;
+    private readonly Transform _body;
 
 
     public bool IsCrouched { get; private set; }

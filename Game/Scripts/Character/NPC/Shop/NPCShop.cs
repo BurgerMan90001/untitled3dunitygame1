@@ -10,9 +10,13 @@ public class NPCShop : MonoBehaviour, IInteractable
 
     [Header("Data")]
 
-    [SerializeField] private ShopData _shopData;
+
     [SerializeField] private GameInput _gameInput;
+
     [SerializeField] private UserInterfaceEvents _userInterfaceEvents;
+
+
+    private ShopData _shopData;
     /*
     private ShopData _shopData;
     private string _shopGuid; // MAYBE
@@ -36,6 +40,7 @@ public class NPCShop : MonoBehaviour, IInteractable
     #endregion
     public void Interact(GameObject interactor)
     {
+        /*
         if (_shopData.InShop)
         {
 
@@ -48,6 +53,7 @@ public class NPCShop : MonoBehaviour, IInteractable
             _gameInput.CameraInput.EnableLook(false);
 
         }
+        */
 
 
         /*

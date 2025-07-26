@@ -61,8 +61,6 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     {
         _playerMovementObject = transform;
 
-        //   Orientation 
-
         _sprint = new Sprint(_stats);
 
         _movementStateManager = new MovementStateManager(_rigidBody, _stateSettings, _baseSpeed, _globalSpeedMultiplier);
