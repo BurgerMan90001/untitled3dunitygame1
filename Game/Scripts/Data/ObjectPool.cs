@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-[CreateAssetMenu(menuName = "ObjectPool")]
+[CreateAssetMenu(menuName = "ObjectPool/ObjectPool")]
 public class ObjectPool : ScriptableObject
 {
     public Scene PoolScene; // IM GOONUING
@@ -17,7 +17,7 @@ public class ObjectPool : ScriptableObject
     /// <summary>
     /// <br> Move game objects to the pool scene. </br>
     /// </summary>
-    public void InstantiatePoolObjects()
+    public virtual void InstantiatePoolObjects()
     {
 
         foreach (var gameObject in PoolObjects)

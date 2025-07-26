@@ -3,12 +3,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-public interface IPlayerMovement
-{
-    void Initilize();
-}
-
-
 
 public class PlayerMovement : MonoBehaviour, IPlayerMovement
 {
@@ -39,10 +33,11 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
 
 
     [Header("Ground Check Settings")]
-    [SerializeField] private readonly float Y_VELOCITY_THRESHOLD = 0.1f;
     [SerializeField] private float _groundCheckDistance = 2.5f;
     [SerializeField] private LayerMask _groundMask = 10; // default layermask is whatIsGround
     [SerializeField] private bool _drawDebugRay = true;
+
+    private readonly float Y_VELOCITY_THRESHOLD = 0.1f;
 
     private Vector2 _movementInput;
     private Transform _playerMovementObject;

@@ -42909,7 +42909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dialogueKnotName: PayPhone
-  _dialogueEvents: {fileID: 0}
+  _dialogueEvents: {fileID: 11400000, guid: 758561cdb6a753b41945355c3ac635c9, type: 2}
 --- !u!1 &1500120146
 GameObject:
   m_ObjectHideFlags: 0

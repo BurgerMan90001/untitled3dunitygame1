@@ -8,6 +8,7 @@ public enum InitializeType
     TriggerOnSceneLoad,
 }
 
+
 public class Initialize : MonoBehaviour
 {
     [SerializeField] private bool _active;
@@ -36,6 +37,7 @@ public class Initialize : MonoBehaviour
         {
             _pool.CreatePool();
             _pool.InstantiatePoolObjects();
+
             if (_initializeType is InitializeType.TriggerSceneLoad)
             {
                 _sceneTrigger.Trigger(SceneLoadingSettings.MainMenu); // trigger scene load after it's done loading the pool objects

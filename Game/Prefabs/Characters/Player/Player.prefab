@@ -337,7 +337,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6911050178077802128}
   - component: {fileID: 4352959175546808045}
-  - component: {fileID: 9152935094951914555}
   m_Layer: 0
   m_Name: PlayerMovement
   m_TagString: Untagged
@@ -374,42 +373,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   footstepClips: []
   footstepInterval: 0.5
---- !u!114 &9152935094951914555
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8238359183903782362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6fd2ea7c60caaa4c906036b5ba3dc04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rigidBody: {fileID: 1910124331457139435}
-  _stats: {fileID: 11400000, guid: 52b218812565c5e4a950196553673cc0, type: 2}
-  _orientation: {fileID: 21161711872895792}
-  _input: {fileID: 11400000, guid: 5073dac0742252247848489dfbc58d5d, type: 2}
-  _baseSpeed: 10
-  _globalSpeedMultiplier: 2
-  _stateSettings:
-  - {fileID: 11400000, guid: 2830155706e8b944a97a512b585b167f, type: 2}
-  - {fileID: 11400000, guid: 13429a7b2a513fc4c937b4cdb05e4091, type: 2}
-  - {fileID: 11400000, guid: ba9334ad2687d4c4db3c1e8b82f7d1a3, type: 2}
-  - {fileID: 11400000, guid: aceb83ccfb0d48b4194c365e4ad19d50, type: 2}
-  - {fileID: 11400000, guid: 5d10b517b4cf04340a34e98944b9ea31, type: 2}
-  - {fileID: 11400000, guid: 065cca293604c934ca59a3e923e71821, type: 2}
-  _crouchYScale: 0.5
-  _jumpForce: 5
-  _maxStamina: 10
-  _staminaRegenRate: 1
-  _sprintStaminaCost: 1
-  _buttonDurationThreshold: 0.3
-  _groundCheckDistance: 2.5
-  _groundMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  _drawDebugRay: 1
 --- !u!1 &8627166357939686976
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,6 +384,7 @@ GameObject:
   - component: {fileID: 1690913341386684573}
   - component: {fileID: 1910124331457139435}
   - component: {fileID: 3352542942748122954}
+  - component: {fileID: 2485296774001511730}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -488,6 +452,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enableRigidbodyTrigger: 0
   _debugMode: 0
+--- !u!114 &2485296774001511730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8627166357939686976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6fd2ea7c60caaa4c906036b5ba3dc04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidBody: {fileID: 1910124331457139435}
+  _stats: {fileID: 11400000, guid: 52b218812565c5e4a950196553673cc0, type: 2}
+  _orientation: {fileID: 21161711872895792}
+  _input: {fileID: 11400000, guid: 5073dac0742252247848489dfbc58d5d, type: 2}
+  _baseSpeed: 10
+  _globalSpeedMultiplier: 2
+  _stateSettings:
+  - {fileID: 11400000, guid: 2830155706e8b944a97a512b585b167f, type: 2}
+  - {fileID: 11400000, guid: 13429a7b2a513fc4c937b4cdb05e4091, type: 2}
+  - {fileID: 11400000, guid: ba9334ad2687d4c4db3c1e8b82f7d1a3, type: 2}
+  - {fileID: 11400000, guid: aceb83ccfb0d48b4194c365e4ad19d50, type: 2}
+  - {fileID: 11400000, guid: 5d10b517b4cf04340a34e98944b9ea31, type: 2}
+  - {fileID: 11400000, guid: 065cca293604c934ca59a3e923e71821, type: 2}
+  _crouchYScale: 0.5
+  _jumpForce: 5
+  _staminaRegenRate: 1
+  _sprintStaminaCost: 1
+  _buttonDurationThreshold: 0.3
+  _groundCheckDistance: 2.5
+  _groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  _drawDebugRay: 1
 --- !u!1 &8640111384967327290
 GameObject:
   m_ObjectHideFlags: 0
