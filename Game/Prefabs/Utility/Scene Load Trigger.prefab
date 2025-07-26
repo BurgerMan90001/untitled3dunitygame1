@@ -44,10 +44,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b221497f73e1afd478787d7343bdb81f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _triggerOnStart: 1
-  _loadedScene: Main Menu
-  _loadedUserInterface: 7
-  _loadedPosition: {x: 0, y: 0, z: 0}
-  _dialogueData: {fileID: 11400000, guid: b7057052d12597d459bf37d69cac44f3, type: 2}
-  _combatData: {fileID: 11400000, guid: e99ab9cb863476f46ae38c8aee2da7b4, type: 2}
-  _debugMode: 1
