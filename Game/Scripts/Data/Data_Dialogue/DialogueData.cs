@@ -7,17 +7,15 @@ using UnityEngine;
 /// Dialogue events and data.
 /// </summary>
 #endregion
-[CreateAssetMenu(menuName = "Data/DialogueData")]
+
 public class DialogueData : Data
 {
-    [Header("Ink Story")]
-    [field: SerializeField] public TextAsset InkJson { get; private set; }
+    public TextAsset InkJson;
     public Story Story;
 
-    [Header("Settings")]
 
-    private StoryState StoryState;
-    [Header("Debug")]
+    //   private StoryState StoryState;
+
     public bool DebugMode = false;
     public bool ShowVariables = false;
 

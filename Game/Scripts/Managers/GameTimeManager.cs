@@ -28,4 +28,9 @@ public class GameTimeManager : Manager
     {
         _gameTimeData.DayNightCycle.UpdateSun(_sun, _gameTimeData.Hour);
     }
+
+    public override void Instantiate()
+    {
+        Debug.Log("GameTimeManager instantiated");
+    }
 }

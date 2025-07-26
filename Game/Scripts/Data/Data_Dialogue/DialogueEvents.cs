@@ -1,3 +1,4 @@
+using MyBox;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,9 +21,12 @@ public class DialogueEvents : Event
     public event Action<int> OnChoiceSelected;
 
     private GameObject _npc;
+    [ReadOnly][field: SerializeField] public bool InDialogue { get; private set; } = false;
 
+    /*
     public bool InDialogue => _dialogueData.InDialogue;
-
+    public bool InCombat => 
+    */
     public DialogueEvents() { }
     #region
     /// <summary>

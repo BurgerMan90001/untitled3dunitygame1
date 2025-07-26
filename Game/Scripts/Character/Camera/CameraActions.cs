@@ -22,7 +22,7 @@ public class CameraActions : MonoBehaviour
     [SerializeField] private Inventory _inventory;
 
     [SerializeField] private CameraInput _input;
-
+    [SerializeField] private GameObject _player;
 
     [Header("Positions")]
     [SerializeField] private Transform _orientation;
@@ -107,7 +107,7 @@ public class CameraActions : MonoBehaviour
         if (ctx.started)
         {
 
-            _interact.StartInteract(_interactDistance, _showInteractDebugRayCast);
+            _interact.StartInteract(_interactDistance, _showInteractDebugRayCast, _player);
 
         }
         else if (ctx.canceled)

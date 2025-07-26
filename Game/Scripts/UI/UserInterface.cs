@@ -276,7 +276,11 @@ public class UserInterface : Manager
         _userInterfaces.ForEach(ui => ui?.Unregister());
     }
 
-
+    public override void Instantiate()
+    {
+        Debug.Log("User interface manager instantiated.");
+        throw new System.NotImplementedException();
+    }
 }
 
 

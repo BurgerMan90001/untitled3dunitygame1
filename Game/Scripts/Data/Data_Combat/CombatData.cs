@@ -1,31 +1,23 @@
-using MyBox;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 
 /// <summary>
 /// <br> Combat events and data. <br>
-/// <br> Initiates the combat. </br>
 /// </summary>
-[CreateAssetMenu(menuName = "Data/CombatData")]
+
 public class CombatData : Data
 {
+    private CombatEvents _combatEvents;
+
+
     [Header("HurtEffects")]
     public List<HurtEffect> HurtEffects;
 
     [Header("Prefabs")]
     public CombatUnit PlayerUnit;
     public CombatUnit EnemyUnit;
-
-
-    [Header("Data")]
-
-
-    [Header("Events")]
-    [SerializeField] private CombatEvents _combatEvents;
-    [Header("Settings")]
 
 
     [Header("Spawn Points")]
@@ -38,16 +30,15 @@ public class CombatData : Data
 
 
     public Stack<CombatStates> CombatState { get; private set; } = new Stack<CombatStates>();
-    [ReadOnly][SerializeField] private List<CombatStates> CombatStateStack;
 
-
-    //   [field: SerializeField] public CombatStates CombatState { get; private set; }
-
+    public CombatData(CombatEvents combatEvents)
+    {
+        _combatEvents = combatEvents;
+    }
 
     public void PushCombatState(CombatStates combatState)
     {
         CombatState.Push(combatState);
-        CombatStateStack = CombatState.ToList();
     }
 
     public void CheckIfCombatEntered(GameObject npc, bool combatEntered)

@@ -16,6 +16,7 @@ public class Interact
 
     private HitDetect _hitDetect;
     private LayerMask _mask;
+
     public bool ButtonHeld { get; private set; }
 
     private bool _debugMode;
@@ -25,9 +26,10 @@ public class Interact
         _hitDetect = hitDetect;
         _mask = mask;
 
+
     }
 
-    public void StartInteract(float interactDistance, bool showDebugRayCast)
+    public void StartInteract(float interactDistance, bool showDebugRayCast, GameObject player)
     {
         ButtonHeld = true;
 
@@ -39,7 +41,7 @@ public class Interact
 
         if (hitGameObject.TryGetComponent(out IInteractable interactable))
         {
-            interactable.Interact(hitGameObject);
+            interactable.Interact(player);
         }
 
 

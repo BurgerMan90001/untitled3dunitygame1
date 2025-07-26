@@ -318,10 +318,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c4662de983fc414286daaff6b380c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _userInterfaceData: {fileID: 11400000, guid: 1c7fbd88d5738b74087a9f4ddfe1e972, type: 2}
-  _inputData: {fileID: 11400000, guid: ad90d15a45aacc6478ff302fd813f986, type: 2}
+  _userInterfaceEvents: {fileID: 11400000, guid: 5fb333813e03981409debdbf88246c14, type: 2}
+  _gameInput: {fileID: 11400000, guid: ad90d15a45aacc6478ff302fd813f986, type: 2}
   Inventory: {fileID: 11400000, guid: 429beb422e6f2764ab242e6b1ace72b8, type: 2}
-  _clearOnEnable: 0
+  _clearOnEnable: 1
 --- !u!1 &7799804481094144216
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,11 +368,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78ddfc1f532361144b5bc108b565718f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xOffset: 1.38
-  yOffset: -0.69
-  zOffset: 1.52
-  followSpeed: 10
-  cam: {fileID: 21161711872895792}
+  _xOffset: 0
+  _yOffset: 0
+  _zOffset: 1
+  _followSpeed: 10
+  _orientation: {fileID: 0}
 --- !u!1 &8238359183903782362
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,6 +531,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 639ac27b121c22646bf7cae62793c0b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enableRigidbodyTrigger: 0
+  _debugMode: 0
 --- !u!1 &8640111384967327290
 GameObject:
   m_ObjectHideFlags: 0

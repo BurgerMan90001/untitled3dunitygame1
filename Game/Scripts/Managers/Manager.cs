@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public abstract class Manager : MonoBehaviour
 {
-
+    public abstract void Instantiate();
     /*
     protected void Instantiate()
     {

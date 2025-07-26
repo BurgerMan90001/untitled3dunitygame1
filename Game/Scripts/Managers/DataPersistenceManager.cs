@@ -197,6 +197,11 @@ public class DataPersistenceManager : Manager
     {
         return _fileDataHandler.LoadAllProfiles();
     }
+
+    public override void Instantiate()
+    {
+        Debug.Log("Datapersistence manager instantiated.");
+    }
 }
 
 

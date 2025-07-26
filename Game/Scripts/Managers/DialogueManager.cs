@@ -165,12 +165,18 @@ public class DialogueManager : Manager
         }
 
     }
-    /*
-    private IEnumerator AutomaticallyContinueStory()
+
+    public override void Instantiate()
     {
-        yield return new WaitForSeconds(_continueDialogueInSeconds);
-        ContinueOrExitStory();
+        Debug.Log("Dialogue manager instantiated.");
+        throw new System.NotImplementedException();
     }
-    */
+    /*
+private IEnumerator AutomaticallyContinueStory()
+{
+   yield return new WaitForSeconds(_continueDialogueInSeconds);
+   ContinueOrExitStory();
+}
+*/
 
 }

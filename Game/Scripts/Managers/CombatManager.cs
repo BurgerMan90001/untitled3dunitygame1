@@ -13,24 +13,11 @@ using UnityEngine;
 public class CombatManager : Manager
 {
     private static CombatManager _Instance;
-    public static CombatManager Instance
-    {
-        get
-        {
-            if (!_Instance)
-            {
-                _Instance = new GameObject().AddComponent<CombatManager>();
+    public static CombatManager Instance;
 
-                _Instance.name = _Instance.GetType().ToString();
 
-                DontDestroyOnLoad(_Instance.gameObject);
-            }
-            return _Instance;
-        }
-    }
-    [Header("Data")]
-    [SerializeField] private DialogueData _dialogueData;
-    [SerializeField] private CombatData _combatData;
+    private CombatData _combatData;
+
 
     [Header("Events")]
     [SerializeField] private CombatEvents _combatEvents;
@@ -38,17 +25,24 @@ public class CombatManager : Manager
 
     private void Awake()
     {
+        _combatData = new CombatData(_combatEvents);
         //    gameObject.GetInstanceID();
     }
     private void Start()
     {
+        /*
         if (_combatData.DebugMode)
         {
             Debug.Log("IN COMBAT DEBUG MODE");
             _combatEvents.EnterCombat(_combatData.EnemyUnit);
         }
+        */
     }
+    public override void Instantiate()
+    {
+        Instance = this;
 
+    }
     private void OnEnable()
     {
         _dialogueEvents.OnExitDialogue += CheckIfEnteredCombat; // TODO MOVE COMBAT CHECK INTO DIALOGUE EVENTS  
@@ -62,7 +56,8 @@ public class CombatManager : Manager
     }
     private void CheckIfEnteredCombat(GameObject npc)
     {
-        if (_dialogueData.CombatEntered)
+        /*
+        if (_dialogueEvents.CombatEntered)
         {
             if (npc.TryGetComponent(out CombatUnit combatUnit))
             {
@@ -74,6 +69,7 @@ public class CombatManager : Manager
             }
 
         }
+        */
     }
 
 
@@ -179,6 +175,7 @@ public class CombatManager : Manager
         }
         _combatEvents.ExitCombat();
     }
+
 
 
     /*
