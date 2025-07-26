@@ -46717,6 +46717,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6963751255385419254, guid: f40e3f93f2b658041b05e3687907e980, type: 3}
+      propertyPath: _initializeType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6963751255385419254, guid: f40e3f93f2b658041b05e3687907e980, type: 3}
       propertyPath: _triggerSceneLoad
       value: 0
       objectReference: {fileID: 0}

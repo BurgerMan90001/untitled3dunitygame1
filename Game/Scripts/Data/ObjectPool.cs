@@ -11,10 +11,12 @@ public class ObjectPool : ScriptableObject
 
     public void CreatePool()
     {
-
         PoolScene = SceneManager.CreateScene(PoolName);
-    }
 
+    }
+    /// <summary>
+    /// <br> Move game objects to the pool scene. </br>
+    /// </summary>
     public void InstantiatePoolObjects()
     {
 
