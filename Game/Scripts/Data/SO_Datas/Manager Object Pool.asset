@@ -13,9 +13,14 @@ MonoBehaviour:
   m_Name: Manager Object Pool
   m_EditorClassIdentifier: 
   PoolScene:
-    m_Handle: -45806
+    m_Handle: -100496
   PoolSceneName: Managers
   PoolObjectKeys:
+  - m_AssetGUID: b0b3948c6930edc4f8b463a36a2acf92
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
   - m_AssetGUID: d6feb5d8cd767c84e8e3871800c2a327
     m_SubObjectName: 
     m_SubObjectType: 

@@ -5,31 +5,12 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 // profileIDs are directories which store a json save file
-public class DataPersistenceManager : Manager
+public class DataPersistenceManager : MonoBehaviour, IDataPersistenceManager
 {
-    /*
-    private static DataPersistenceManager _Instance;
-    public static DataPersistenceManager Instance
-    {
-        get
-        {
-            if (!_Instance)
-            {
-                _Instance = new GameObject().AddComponent<DataPersistenceManager>();
 
-                _Instance.name = _Instance.GetType().ToString();
-
-                DontDestroyOnLoad(_Instance.gameObject);
-            }
-            return _Instance;
-        }
-    }
-    */
     [Header("LabelReferences")]
     [SerializeField] private AssetLabelReference _dataLabelReference;
 
-    [Header("Events")]
-    [SerializeField] private DataPersistenceEvents _dataPersistenceEvents;
 
     [Header("File Storage")]
     [SerializeField] private string _fileName;
@@ -47,7 +28,15 @@ public class DataPersistenceManager : Manager
     private List<IDataPersistence> _dataPersistenceObjects;
     private FileDataHandler _fileDataHandler;
 
+    private DataPersistenceEvents _dataPersistenceEvents;
+
     private string selectedProfileID = "";
+
+
+    public void Initialise(DataPersistenceEvents dataPersistenceEvents)
+    {
+        _dataPersistenceEvents = dataPersistenceEvents;
+    }
     private void Awake()
     {
 
@@ -199,11 +188,6 @@ public class DataPersistenceManager : Manager
     }
 
 
-    public override void Initialize()
-    {
-        Debug.Log("Datapersistence manager Initialized.");
-        throw new System.NotImplementedException();
-    }
 }
 
 

@@ -1,12 +1,16 @@
-using System.Collections.Generic;
 using UnityEngine;
-
+// TODO MAYBE MAKE NOT SINGLETON
+/// <summary>
+/// <br> A singleton</br>
+/// </summary>
 public class EventManager : MonoBehaviour
 {
 
-    public List<Event> Events;
-
-
+    public CombatEvents CombatEvents;
+    public DialogueEvents DialogueEvents;
+    public DataPersistenceEvents DataPersistenceEvents;
+    public UserInterfaceEvents UserInterfaceEvents;
+    public GameTimeEvents GameTimeEvents;
     public static EventManager Instance { get; private set; }
 
 

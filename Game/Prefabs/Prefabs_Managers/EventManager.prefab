@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2106948592144486163}
+  - component: {fileID: 7034397122207730066}
   m_Layer: 0
   m_Name: EventManager
   m_TagString: Untagged
@@ -31,3 +32,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7034397122207730066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3426295299607470756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42eee67ea6fb6674ba6f9d9ab96c5d68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CombatEvents: {fileID: 11400000, guid: 25e76855a225a9340a439ced081b70c4, type: 2}
+  DialogueEvents: {fileID: 11400000, guid: 758561cdb6a753b41945355c3ac635c9, type: 2}
+  DataPersistenceEvents: {fileID: 11400000, guid: 721e3fea6cf2b2c40a65ae5e4f51be8a, type: 2}
+  UserInterfaceEvents: {fileID: 11400000, guid: 5fb333813e03981409debdbf88246c14, type: 2}

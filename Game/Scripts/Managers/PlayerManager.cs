@@ -2,11 +2,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerData : MonoBehaviour, IDataPersistence
+public class PlayerManager : MonoBehaviour, IDataPersistence
 {
     [Header("Dependancies")]
 
-    [SerializeField] private UserInterfaceEvents _userInterfaceEvents;
     [SerializeField] private GameInput _gameInput;
 
     public Inventory Inventory;
@@ -40,7 +39,7 @@ public class PlayerData : MonoBehaviour, IDataPersistence
         {
             if (_interfaceEnabled)
             {
-                _userInterfaceEvents.SwitchToUserInterface(UserInterfaceType.HUD);
+                EventManager.Instance.UserInterfaceEvents.SwitchToUserInterface(UserInterfaceType.HUD);
                 _interfaceEnabled = false;
 
                 _gameInput.MovementInput.EnableMovement(true);
@@ -48,7 +47,7 @@ public class PlayerData : MonoBehaviour, IDataPersistence
             }
             else
             {
-                _userInterfaceEvents.SwitchToUserInterface(UserInterfaceType.Inventory);
+                EventManager.Instance.UserInterfaceEvents.SwitchToUserInterface(UserInterfaceType.Inventory);
                 _interfaceEnabled = true;
 
                 _gameInput.MovementInput.EnableMovement(false);

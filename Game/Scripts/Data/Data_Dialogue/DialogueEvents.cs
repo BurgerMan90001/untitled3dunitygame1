@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Events/DialogueEvents")]
 public class DialogueEvents : Event
 {
-    [SerializeField] private DialogueData _dialogueData;
+    //    [SerializeField] private DialogueData _dialogueData;
     #region
     /// <summary>
     /// <br> The string knotName and the gameobeject npc that was interacted with. </br>
@@ -96,7 +96,7 @@ public class DialogueEvents : Event
 
     public void UpdateDialogueLine(string newDialogueLine)
     {
-        _dialogueData.DialogueLine = newDialogueLine;
+        //    _dialogueData.DialogueLine = newDialogueLine;
         OnUpdateDialogueLine?.Invoke(newDialogueLine);
     }
     public void ObservVariable(string variableName)

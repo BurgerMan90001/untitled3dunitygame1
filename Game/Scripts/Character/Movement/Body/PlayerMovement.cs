@@ -51,10 +51,10 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     public Transform Orientation => transform.Find("Orientation");
     public GameObject GameObject => gameObject;
 
-    public void Initilize()
+    public void Initilise()
     {
         Debug.LogWarning("NOT IMPLEMENTED YET");
-        //   throw new NotImplementedException();
+
     }
 
     private void Awake()

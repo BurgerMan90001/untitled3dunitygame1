@@ -13,7 +13,7 @@ public class NPCShop : MonoBehaviour, IInteractable
 
     [SerializeField] private GameInput _gameInput;
 
-    [SerializeField] private UserInterfaceEvents _userInterfaceEvents;
+
 
 
     private ShopData _shopData;

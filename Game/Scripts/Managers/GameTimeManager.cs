@@ -1,15 +1,21 @@
-using System;
 using UnityEngine;
-public class GameTimeManager : Manager
+//TODO FIX GAMETIME DAYNIGHT CYCLE
+public class GameTimeManager : MonoBehaviour, IGameTimeManager
 {
-    [Header("Data")]
-    [SerializeField] private GameTimeData _gameTimeData;
+    private GameTimeData _gameTimeData;
+    private GameTimeEvents _gameTimeEvents;
 
+    [Header("Lights")]
     [SerializeField] private Light _sun;
     [SerializeField] private Light _moon;
+
+    public void Initialise(GameTimeEvents gameTimeEvents)
+    {
+        _gameTimeEvents = gameTimeEvents;
+    }
     private void Awake()
     {
-
+        _gameTimeData = GetComponent<GameTimeData>();
     }
     private void Start()
     {
@@ -26,12 +32,10 @@ public class GameTimeManager : Manager
     }
     private void Update()
     {
-        _gameTimeData.DayNightCycle.UpdateSun(_sun, _gameTimeData.Hour);
+        //    _gameTimeData.DayNightCycle.UpdateSun(_sun, _gameTimeData.Hour);
     }
 
-    public override void Initialize()
-    {
-        Debug.Log("GameTimeManager Initializeed");
-        throw new NotImplementedException();
-    }
+
+
+
 }

@@ -3,14 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-public class DialogueManager : Manager
+
+
+
+
+public class DialogueManager : MonoBehaviour, IDialogueManager
 {
 
-    [Header("Events")]
-    [SerializeField] private DialogueEvents _dialogueEvents;
-
+    private DialogueEvents _dialogueEvents;
 
     private DialogueData _dialogueData;
+
+
+    public void Initialise(DialogueEvents dialogueEvents)
+    {
+        _dialogueEvents = dialogueEvents;
+    }
+
     private void Awake()
     {
 
@@ -171,16 +180,20 @@ public class DialogueManager : Manager
 
     }
 
-    public override void Initialize()
-    {
-        Debug.Log("Dialogue manager Initializeed.");
-        throw new System.NotImplementedException();
-    }
+
     /*
+
+public override void Initialize(DialogueEvents dialogueEvents)
+{
+   Debug.Log("Dialogue manager Initializeed.");
+   throw new System.NotImplementedException();
+}
+/*
+
 private IEnumerator AutomaticallyContinueStory()
 {
-   yield return new WaitForSeconds(_continueDialogueInSeconds);
-   ContinueOrExitStory();
+yield return new WaitForSeconds(_continueDialogueInSeconds);
+ContinueOrExitStory();
 }
 */
 

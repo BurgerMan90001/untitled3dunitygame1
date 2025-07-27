@@ -9,20 +9,19 @@ using UnityEngine.UIElements;
 /// <br> Enabled by Main Manager. </br>
 /// </summary>
 #endregion
-public class UserInterface : Manager
+public class UserInterfaceManager : MonoBehaviour, IUserInterfaceManager
 {
-    [Header("Data")]
-    [SerializeField] private Inventory _inventory; // the dynamic inventory scriptable object that will be used to manage the inventory
-    [SerializeField] private UserInterfaceEvents _userInterfaceEvents;
+    private Inventory _inventory; // the dynamic inventory scriptable object that will be used to manage the inventory
+                                  //    [SerializeField] private UserInterfaceEvents _userInterfaceEvents;
 
 
-    [SerializeField] private GameInput _gameInput;
+    //private GameInput _gameInput;
     //   [SerializeField] private CombatData _combatData;
 
+    private DataPersistenceEvents _dataPersistenceEvents;
+    private UserInterfaceEvents _userInterfaceEvents;
+    private DialogueEvents _dialogueEvents;
 
-    [Header("Events")]
-    [SerializeField] private DialogueEvents _dialogueEvents;
-    [SerializeField] private DataPersistenceEvents _dataPersistenceEvents;
 
     [Header("First Shown Interface")]
     public UserInterfaceType InitalShownUserInterface;
@@ -57,24 +56,14 @@ public class UserInterface : Manager
 
     private UxmlFileHandler _uxmlFileHandler;
 
-    /*
-    private static UserInterface _Instance;
-    public static UserInterface Instance
+
+    public void Initialise(DataPersistenceEvents dataPersistenceEvents, UserInterfaceEvents userInterfaceEvents, DialogueEvents dialogueEvents, Inventory inventory)
     {
-        get
-        {
-            if (!_Instance)
-            {
-                _Instance = new GameObject().AddComponent<UserInterface>();
-
-                _Instance.name = _Instance.GetType().ToString();
-
-                DontDestroyOnLoad(_Instance.gameObject);
-            }
-            return _Instance;
-        }
+        _dataPersistenceEvents = dataPersistenceEvents;
+        _userInterfaceEvents = userInterfaceEvents;
+        _dialogueEvents = dialogueEvents;
+        _inventory = inventory;
     }
-    */
     private void Awake()
     {
         _uiDocument = GetComponent<UIDocument>();
@@ -89,16 +78,6 @@ public class UserInterface : Manager
 
         _uxmlFileHandler = new UxmlFileHandler(Root);
 
-        _uiMainMenu = new UI_MainMenu(_dataPersistenceEvents, _userInterfaceEvents);
-        _uiSaveSlotsMenu = new UI_SaveSlotsMenu(_dataPersistenceEvents, _userInterfaceEvents);
-        _uiDialogue = new UI_Dialogue(_userInterfaceEvents, _dialogueEvents);
-        _uiInventory = new UI_Inventory(_inventory);
-
-        _userInterfaces.Add(_uiMainMenu);
-        _userInterfaces.Add(_uiSaveSlotsMenu);
-        _userInterfaces.Add(_uiDialogue);
-        _userInterfaces.Add(_uiInventory);
-
 
     }
 
@@ -108,16 +87,12 @@ public class UserInterface : Manager
         Debug.Log("START");
         await _uxmlFileHandler.LoadInterfacesAsync(_uxmlAssetLabelReference, _userInterfaceData.UserInterfaceElements); // load the user interfaces asynchronously. visual element configuration is done after this.
 
-        _userInterfaceData.Test = 123123;
 
         QueryAllElements();
         RegisterAllInterfaces();
 
-        _uiInventory.UpdateInterface();
 
-        ShowInitialInterface();
 
-        Debug.LogError(_userInterfaceData.Test);
 
     }
 
@@ -126,6 +101,22 @@ public class UserInterface : Manager
         _inventory.OnInventoryChanged += OnInventoryChanged;
 
         SceneLoader.OnSceneLoadComplete += OnSceneLoadComplete;
+
+        _uiMainMenu = new UI_MainMenu(_dataPersistenceEvents, _userInterfaceEvents);
+        _uiSaveSlotsMenu = new UI_SaveSlotsMenu(_dataPersistenceEvents, _userInterfaceEvents);
+        _uiDialogue = new UI_Dialogue(_userInterfaceEvents, _dialogueEvents);
+        _uiInventory = new UI_Inventory(_inventory);
+
+        _userInterfaces.Add(_uiMainMenu);
+        _userInterfaces.Add(_uiSaveSlotsMenu);
+        _userInterfaces.Add(_uiDialogue);
+
+        _userInterfaces.Add(_uiInventory);
+
+
+        _uiInventory.UpdateInterface();
+
+        ShowInitialInterface();
 
     }
 
@@ -218,12 +209,6 @@ public class UserInterface : Manager
         _userInterfaces.ForEach(ui => ui?.Unregister());
     }
 
-
-    public override void Initialize()
-    {
-        Debug.Log("User interface manager instantiated.");
-        throw new System.NotImplementedException();
-    }
 }
 
 

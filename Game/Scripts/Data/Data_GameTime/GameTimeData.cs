@@ -38,18 +38,12 @@ public class GameTimeData : Data
     [SerializeField] private float dayLength = 120f;
     //  [SerializeField] private Vector3 sunInitialRotation = new Vector3(50f, -30f, 0f);
 
-    [Header("Data")]
 
-    [Header("Debug")]
-
-
-    private Light _sun;
-    private Light _moon;
 
     //   public Volume volume;
     //    public HDRPVolumeProfileSettings volumeProfileSettings;
 
-    public DayNightCycle DayNightCycle { get; private set; } = new DayNightCycle();
+    //    public DayNightCycle DayNightCycle { get; private set; } = new DayNightCycle();
     // public GameTimeEvents Events { get; private set; } = new GameTimeEvents();
 
     public Day Day;

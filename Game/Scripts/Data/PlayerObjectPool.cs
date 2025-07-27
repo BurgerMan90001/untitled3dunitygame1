@@ -35,9 +35,9 @@ public class PlayerObjectPool : ObjectPool
 
 
 
-        _playerMovement.Initilize();
+        _playerMovement.Initilise();
 
-        _camera.Initilize(_playerMovement.GameObject, _playerMovement.Orientation);
+        _camera.Initilise(_playerMovement.GameObject, _playerMovement.Orientation);
 
     }
 

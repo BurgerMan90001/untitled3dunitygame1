@@ -2,23 +2,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputManager : Manager
+public class InputManager : MonoBehaviour, IInputManager
 {
     [Header("Test")]
     [SerializeField] private Inventory test;
 
-    private GameObject _eventSystem;
-    [Header("Stuff")]
-
-
-    [Header("Data")]
-    [SerializeField] private GameInput _gameInput;
-
-    [Header("Events")]
-    [SerializeField] private DialogueEvents _dialogueEvents;
-    [SerializeField] private CombatEvents _combatEvents;
-
-
+    private GameInput _gameInput;
+    private DialogueEvents _dialogueEvents;
+    private CombatEvents _combatEvents;
+    public void Initialise(DialogueEvents dialogueEvents, CombatEvents combatEvents, GameInput gameInput)
+    {
+        _combatEvents = combatEvents;
+        _dialogueEvents = dialogueEvents;
+        _gameInput = gameInput;
+    }
 
     private void OnEnable()
     {
@@ -30,10 +27,10 @@ public class InputManager : Manager
         _combatEvents.OnExitCombat += OnExitCombat;
 
 
+
         _gameInput.DebugInput.RegisterInputEvent(_gameInput.DebugInput.Debug1Action, OnDebug1); // Z
         _gameInput.DebugInput.RegisterInputEvent(_gameInput.DebugInput.Debug2Action, OnDebug2); // X
 
-        //    _eventSystem = FindFirstObjectByType<InputSystemUIInputModule>().gameObject;
 
     }
     private void OnDisable()
@@ -44,6 +41,7 @@ public class InputManager : Manager
 
         _dialogueEvents.OnChoiceSelected -= OnChoiceSelected;
         _dialogueEvents.OnUpdateChoices -= OnUpdateChoices;
+
 
 
         _gameInput.DebugInput.UnregisterInputEvent(_gameInput.DebugInput.Debug1Action, OnDebug1);
@@ -83,6 +81,7 @@ public class InputManager : Manager
         if (ctx.started)
         {
 
+            /*
             Debug.Log("Debug1 button pressed.");
             if (_eventSystem.activeSelf) // if active
             {
@@ -93,6 +92,7 @@ public class InputManager : Manager
             {
                 _eventSystem.SetActive(true);
             }
+            */
         }
 
     }
@@ -104,8 +104,5 @@ public class InputManager : Manager
         GameCursor.ToggleLock();
     }
 
-    public override void Initialize()
-    {
-        Debug.Log("Input manager instantiated.");
-    }
+
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 
 /// <summary>
 /// <br> For data that is created during runtime. </br>
+/// <br> A monobehavior</br>
 /// </summary>
 public abstract class Data : MonoBehaviour, IDataPersistence
 {

@@ -10,18 +10,16 @@ using UnityEngine;
 /// <br> Manages in-game combat. </br>
 /// <br> Used in the combat scene. </br>
 /// </summary>
-public class CombatManager : Manager
+public class CombatManager : MonoBehaviour, ICombatManager
 {
-    private static CombatManager _Instance;
-    public static CombatManager Instance;
 
 
     private CombatData _combatData;
 
 
-    [Header("Events")]
-    [SerializeField] private CombatEvents _combatEvents;
-    [SerializeField] private DialogueEvents _dialogueEvents;
+    private CombatEvents _combatEvents;
+    private DialogueEvents _dialogueEvents;
+
 
     private void Awake()
     {
@@ -38,10 +36,10 @@ public class CombatManager : Manager
         }
         */
     }
-    public override void Initialize()
+    public void Initialise(DialogueEvents dialogueEvents, CombatEvents combatEvents)
     {
-        Instance = this;
-        throw new System.NotImplementedException();
+        _dialogueEvents = dialogueEvents;
+        _combatEvents = combatEvents;
     }
     private void OnEnable()
     {
