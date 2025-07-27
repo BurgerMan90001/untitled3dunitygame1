@@ -35,7 +35,7 @@ public static class SceneLoader
     public static async void LoadScene(SceneLoadingSettings sceneLoadingSettings)
     {
 
-        await LoadLoadingScene();
+        //   await LoadLoadingScene();
 
         await Task.Delay(1000);
 

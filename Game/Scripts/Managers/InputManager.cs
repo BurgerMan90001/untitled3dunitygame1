@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
 
 public class InputManager : Manager
 {
@@ -34,7 +33,7 @@ public class InputManager : Manager
         _gameInput.DebugInput.RegisterInputEvent(_gameInput.DebugInput.Debug1Action, OnDebug1); // Z
         _gameInput.DebugInput.RegisterInputEvent(_gameInput.DebugInput.Debug2Action, OnDebug2); // X
 
-        _eventSystem = FindFirstObjectByType<InputSystemUIInputModule>().gameObject;
+        //    _eventSystem = FindFirstObjectByType<InputSystemUIInputModule>().gameObject;
 
     }
     private void OnDisable()

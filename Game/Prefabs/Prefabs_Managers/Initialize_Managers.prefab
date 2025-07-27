@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 760159754627750083}
   - component: {fileID: 6963751255385419254}
   m_Layer: 0
-  m_Name: Initialize
+  m_Name: Initialize_Managers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _active: 1
-  _initializeType: 0
+  _initializeType: 2
   _sceneTrigger: {fileID: 0}
   test: 0
   _pool: {fileID: 11400000, guid: 9436ae59463b53c4a875694e5a919cb2, type: 2}

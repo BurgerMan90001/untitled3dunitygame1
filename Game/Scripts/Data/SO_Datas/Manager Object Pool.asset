@@ -13,15 +13,8 @@ MonoBehaviour:
   m_Name: Manager Object Pool
   m_EditorClassIdentifier: 
   PoolScene:
-    m_Handle: 0
+    m_Handle: -45806
   PoolSceneName: Managers
-  PoolObjects:
-  - {fileID: 5502777966608178585, guid: d6feb5d8cd767c84e8e3871800c2a327, type: 3}
-  - {fileID: 5453962910619538363, guid: 4b8d629962679a649a249c1df00737ac, type: 3}
-  - {fileID: 1735396627005812491, guid: 29d0da05cd858234b94b1afee26ae887, type: 3}
-  - {fileID: 5213178087977755191, guid: 2fc3e4cec2dd15d40bcc60c97c84aab2, type: 3}
-  - {fileID: 132536, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
-  - {fileID: 2683633199883665360, guid: 24be39324516e564eb87e69973a16e06, type: 3}
   PoolObjectKeys:
   - m_AssetGUID: d6feb5d8cd767c84e8e3871800c2a327
     m_SubObjectName: 
@@ -39,16 +32,6 @@ MonoBehaviour:
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
   - m_AssetGUID: 2fc3e4cec2dd15d40bcc60c97c84aab2
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_SubObjectGUID: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: e789f1a2cd73869498048019411a14db
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_SubObjectGUID: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: 
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 

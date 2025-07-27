@@ -5,20 +5,23 @@ using System.Text;
 using UnityEngine;
 public class DialogueManager : Manager
 {
-    [Header("Data")]
-    [SerializeField] private DialogueData _dialogueData;
-    [SerializeField] private TextAsset _textAsset;
+
     [Header("Events")]
     [SerializeField] private DialogueEvents _dialogueEvents;
+
+
+    private DialogueData _dialogueData;
     private void Awake()
     {
-        /*
+
+        _dialogueData = GetComponent<DialogueData>();
+
         if (_dialogueData.Story == null)
         {
             _dialogueData.Story = new Story(_dialogueData.InkJson.text);
             Debug.Log("Created a new ink story because it didn't exsist.");
         }
-        */
+
         if (_dialogueData.ShowVariables)
         {
             ShowVariables();
@@ -30,7 +33,7 @@ public class DialogueManager : Manager
 
     private void Start()
     {
-        _dialogueData.Story = new Story(_textAsset.text);
+        //    _dialogueData.Story = new Story(_textAsset.text);
         _dialogueData.SetInDialogue(false);
     }
     private void OnEnable()

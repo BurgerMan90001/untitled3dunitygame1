@@ -1,5 +1,7 @@
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 
 public abstract class ObjectPool : ScriptableObject
@@ -28,4 +30,33 @@ public abstract class ObjectPool : ScriptableObject
     /// <br> Abstract so that implementers can do different things.</br>
     /// </summary>
     public abstract void InstantiatePoolObjects();
+
+
+    protected async Task<GameObject> InstantiateObject(AssetReferenceGameObject GOreference)
+    {
+        if (GOreference != null)
+        {
+            var instance = GOreference.InstantiateAsync();
+
+            await instance.Task;
+
+            if (instance.Status == AsyncOperationStatus.Succeeded)
+            {
+                return instance.Result;
+                //    SceneManager.MoveGameObjectToScene(instance.Result, PoolScene);
+            }
+            else
+            {
+                Debug.LogError($"Failed to load {GOreference} pool object");
+
+            }
+
+        }
+        else
+        {
+            Debug.LogError($"The {GOreference} is null.");
+
+        }
+        return null;
+    }
 }
