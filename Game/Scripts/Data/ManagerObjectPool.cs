@@ -34,28 +34,27 @@ public class ManagerObjectPool : ObjectPool
 
         eventManagerInstanceGO.SetActive(true);
 
-        var userInterfaceGO = await InstantiateObject(_userInterfacePrefabKey);
+        var userInterfaceGO = await LoadObject(_userInterfacePrefabKey);
         userInterfaceGO.GetComponent<IUserInterfaceManager>().Inject(_eventManager.DataPersistenceEvents, _eventManager.UserInterfaceEvents, _eventManager.DialogueEvents, _playerInventory);
-        userInterfaceGO.SetActive(true);
 
 
-        var dataPersistenceManagerGO = await InstantiateObject(_dataPersistenceManagerPrefabKey);
+        var dataPersistenceManagerGO = await LoadObject(_dataPersistenceManagerPrefabKey);
         dataPersistenceManagerGO.GetComponent<IDataPersistenceManager>().Inject(_eventManager.DataPersistenceEvents);
         dataPersistenceManagerGO.SetActive(true);
 
-        var dialogueManagerGO = await InstantiateObject(_dialogueManagerPrefabKey);
+        var dialogueManagerGO = await LoadObject(_dialogueManagerPrefabKey);
         dialogueManagerGO.GetComponent<IDialogueManager>().Inject(_eventManager.DialogueEvents);
         dialogueManagerGO.SetActive(true);
 
-        var gameTimeManagerGO = await InstantiateObject(_gameTimeManagerPrefabKey);
+        var gameTimeManagerGO = await LoadObject(_gameTimeManagerPrefabKey);
         gameTimeManagerGO.GetComponent<IGameTimeManager>().Inject(_eventManager.GameTimeEvents);
         gameTimeManagerGO.SetActive(true);
 
-        var combatManagerInstanceGO = await InstantiateObject(_combatManagerPrefabKey);
+        var combatManagerInstanceGO = await LoadObject(_combatManagerPrefabKey);
         combatManagerInstanceGO.GetComponent<ICombatManager>().Inject(_eventManager.DialogueEvents, _eventManager.CombatEvents);
         combatManagerInstanceGO.SetActive(true);
 
-        var inputManagerInstanceGO = await InstantiateObject(_inputManagerPrefabKey);
+        var inputManagerInstanceGO = await LoadObject(_inputManagerPrefabKey);
         inputManagerInstanceGO.GetComponent<IInputManager>().Inject(_eventManager.DialogueEvents, _eventManager.CombatEvents, _gameInput, _eventManager.UserInterfaceEvents);
         inputManagerInstanceGO.SetActive(true);
 

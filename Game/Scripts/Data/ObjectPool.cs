@@ -40,7 +40,7 @@ public abstract class ObjectPool : ScriptableObject
 
             await instance.Task;
 
-            instance.Result.SetActive(false);
+            //    instance.Result.SetActive(false);
 
             if (instance.Status == AsyncOperationStatus.Succeeded)
             {
@@ -72,7 +72,7 @@ public abstract class ObjectPool : ScriptableObject
 
             await instance.Task;
 
-            instance.Result.SetActive(false);
+            //    instance.Result.SetActive(false);
 
             if (instance.Status == AsyncOperationStatus.Succeeded)
             {
