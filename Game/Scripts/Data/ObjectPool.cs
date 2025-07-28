@@ -31,14 +31,48 @@ public abstract class ObjectPool : ScriptableObject
     /// </summary>
     public abstract void InstantiatePoolObjects();
 
+    protected async Task<GameObject> LoadObject(AssetReferenceGameObject GOreference)
+    {
+        if (GOreference != null)
+        {
 
+            var instance = GOreference.LoadAssetAsync();
+
+            await instance.Task;
+
+            instance.Result.SetActive(false);
+
+            if (instance.Status == AsyncOperationStatus.Succeeded)
+            {
+                return instance.Result;
+
+            }
+            else
+            {
+                Debug.LogError($"Failed to load {GOreference} pool object");
+
+            }
+
+        }
+        else
+        {
+            Debug.LogError($"The {GOreference} is null.");
+
+        }
+        return null;
+
+    }
     protected async Task<GameObject> InstantiateObject(AssetReferenceGameObject GOreference)
     {
         if (GOreference != null)
         {
+
             var instance = GOreference.InstantiateAsync();
 
+
             await instance.Task;
+
+            instance.Result.SetActive(false);
 
             if (instance.Status == AsyncOperationStatus.Succeeded)
             {

@@ -4,21 +4,30 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour, IInputManager
 {
-    [Header("Test")]
-    [SerializeField] private Inventory test;
+    [Header("Debug")]
+    [SerializeField] private bool _clearInventoryOnEnable = false;
+
+    //  private Inventory _inventory;
+    private bool _interfaceEnabled = false;
+
 
     private GameInput _gameInput;
     private DialogueEvents _dialogueEvents;
     private CombatEvents _combatEvents;
-    public void Initialise(DialogueEvents dialogueEvents, CombatEvents combatEvents, GameInput gameInput)
+
+    private UserInterfaceEvents _userInterfaceEvents;
+    public void Inject(DialogueEvents dialogueEvents, CombatEvents combatEvents, GameInput gameInput, UserInterfaceEvents userInterfaceEvents)
     {
         _combatEvents = combatEvents;
         _dialogueEvents = dialogueEvents;
         _gameInput = gameInput;
+        _userInterfaceEvents = userInterfaceEvents;
     }
 
     private void OnEnable()
     {
+
+
         _dialogueEvents.OnChoiceSelected += OnChoiceSelected;
         _dialogueEvents.OnUpdateChoices += OnUpdateChoices;
 
@@ -26,12 +35,14 @@ public class InputManager : MonoBehaviour, IInputManager
         _combatEvents.OnEnterCombat += OnEnterCombat;
         _combatEvents.OnExitCombat += OnExitCombat;
 
-
+        _gameInput.MenuInput.RegisterInputEvent(_gameInput.MenuInput.InventoryToggleAction, OnOpenInventory);
 
         _gameInput.DebugInput.RegisterInputEvent(_gameInput.DebugInput.Debug1Action, OnDebug1); // Z
         _gameInput.DebugInput.RegisterInputEvent(_gameInput.DebugInput.Debug2Action, OnDebug2); // X
 
 
+
+        //   ClearInventory(_clearInventoryOnEnable);
     }
     private void OnDisable()
     {
@@ -47,9 +58,46 @@ public class InputManager : MonoBehaviour, IInputManager
         _gameInput.DebugInput.UnregisterInputEvent(_gameInput.DebugInput.Debug1Action, OnDebug1);
         _gameInput.DebugInput.UnregisterInputEvent(_gameInput.DebugInput.Debug2Action, OnDebug2);
 
+        _gameInput.MenuInput.UnregisterInputEvent(_gameInput.MenuInput.InventoryToggleAction, OnOpenInventory);
+
+
+    }
+    private void OnOpenInventory(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+        {
+            if (_interfaceEnabled)
+            {
+                _userInterfaceEvents.SwitchToUserInterface(UserInterfaceType.HUD);
+                _interfaceEnabled = false;
+
+                _gameInput.MovementInput.EnableMovement(true);
+                _gameInput.CameraInput.EnableLook(true);
+            }
+            else
+            {
+                EventManager.Instance.UserInterfaceEvents.SwitchToUserInterface(UserInterfaceType.Inventory);
+                _interfaceEnabled = true;
+
+                _gameInput.MovementInput.EnableMovement(false);
+                _gameInput.CameraInput.EnableLook(false);
+
+            }
+        }
+
 
     }
 
+    /*
+    private void ClearInventory(bool active)
+    {
+        if (active)
+        {
+
+            _inventory.ResetInventory();
+        }
+    }
+    */
     private void OnEnterCombat(CombatUnit _)
     {
         _gameInput.MovementInput.EnableMovement(false);

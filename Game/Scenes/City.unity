@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: c76fcec0702bca549a04c443d82176cb, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 1b60c0be92d7fe3439c66209683cf622, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -7964,7 +7964,7 @@ MonoBehaviour:
   lowestSubdivLevelOverride: 1
   highestSubdivLevelOverride: 3
   overridesSubdivLevels: 1
-  mightNeedRebaking: 1
+  mightNeedRebaking: 0
   cachedTransform:
     e00: 1
     e01: 0
@@ -42909,7 +42909,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dialogueKnotName: PayPhone
-  _dialogueEvents: {fileID: 11400000, guid: 758561cdb6a753b41945355c3ac635c9, type: 2}
 --- !u!1 &1500120146
 GameObject:
   m_ObjectHideFlags: 0
@@ -46712,6 +46711,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Initialize_Managers
       objectReference: {fileID: 0}
+    - target: {fileID: 6963751255385419254, guid: f40e3f93f2b658041b05e3687907e980, type: 3}
+      propertyPath: _pool
+      value: 
+      objectReference: {fileID: 11400000, guid: 9436ae59463b53c4a875694e5a919cb2, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -51375,7 +51378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a83d2f7ae04ab6f4f99b0d85377be998, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializedBakingSet: {fileID: 0}
+  serializedBakingSet: {fileID: 11400000, guid: 8a2d366de34c81747bd89f408c6997fe, type: 2}
   sceneGUID: 75b8d9e5c83d29740830ae82b3d0b184
   obsoleteAsset: {fileID: 0}
   obsoleteCellSharedDataAsset: {fileID: 0}
@@ -59702,63 +59705,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 123
   m_IsActive: 1
---- !u!1001 &287477336495996028
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2106948592144486163, guid: b0b3948c6930edc4f8b463a36a2acf92, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 29.99632
-      objectReference: {fileID: 0}
-    - target: {fileID: 2106948592144486163, guid: b0b3948c6930edc4f8b463a36a2acf92, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 55.13935
-      objectReference: {fileID: 0}
-    - target: {fileID: 2106948592144486163, guid: b0b3948c6930edc4f8b463a36a2acf92, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -63.35568
-      objectReference: {fileID: 0}
-    - target: {fileID: 2106948592144486163, guid: b0b3948c6930edc4f8b463a36a2acf92, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2106948592144486163, guid: b0b3948c6930edc4f8b463a36a2acf92, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2106948592144486163, guid: b0b3948c6930edc4f8b463a36a2acf92, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2106948592144486163, guid: b0b3948c6930edc4f8b463a36a2acf92, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2106948592144486163, guid: b0b3948c6930edc4f8b463a36a2acf92, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2106948592144486163, guid: b0b3948c6930edc4f8b463a36a2acf92, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2106948592144486163, guid: b0b3948c6930edc4f8b463a36a2acf92, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3426295299607470756, guid: b0b3948c6930edc4f8b463a36a2acf92, type: 3}
-      propertyPath: m_Name
-      value: EventManager
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b0b3948c6930edc4f8b463a36a2acf92, type: 3}
 --- !u!114 &311416062784354642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62185,4 +62131,3 @@ SceneRoots:
   - {fileID: 1600041022}
   - {fileID: 124769656}
   - {fileID: 571451209542695306}
-  - {fileID: 287477336495996028}

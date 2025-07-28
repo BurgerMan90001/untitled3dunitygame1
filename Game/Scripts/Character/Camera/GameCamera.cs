@@ -55,7 +55,7 @@ public class GameCamera : MonoBehaviour, IGameCamera
     public GameObject GameObject => gameObject;
 
     //  private bool _initialized = false;
-    public void Initilise(GameObject player, Transform orientation)
+    public void Inject(GameObject player, Transform orientation)
     {
         _player = player;
         _orientation = orientation;

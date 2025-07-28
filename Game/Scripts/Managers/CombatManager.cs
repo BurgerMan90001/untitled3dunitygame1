@@ -36,13 +36,15 @@ public class CombatManager : MonoBehaviour, ICombatManager
         }
         */
     }
-    public void Initialise(DialogueEvents dialogueEvents, CombatEvents combatEvents)
+    public void Inject(DialogueEvents dialogueEvents, CombatEvents combatEvents)
     {
+        Debug.Log("INJECT");
         _dialogueEvents = dialogueEvents;
         _combatEvents = combatEvents;
     }
     private void OnEnable()
     {
+        Debug.Log("ENABLE");
         _dialogueEvents.OnExitDialogue += CheckIfEnteredCombat; // TODO MOVE COMBAT CHECK INTO DIALOGUE EVENTS  
 
     }

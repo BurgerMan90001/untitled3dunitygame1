@@ -8,10 +8,9 @@ public class NPCShop : MonoBehaviour, IInteractable
     [Header("Shop Settings")]
     [SerializeField] private ShopItemPool _shopItemPool;
 
-    [Header("Data")]
 
 
-    [SerializeField] private GameInput _gameInput;
+    // [SerializeField] private GameInput _gameInput;
 
 
 

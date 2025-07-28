@@ -23,21 +23,21 @@ public class PlayerObjectPool : ObjectPool
 
     public async override void InstantiatePoolObjects()
     {
-        var playerInstance = await InstantiateObject(_playerPrefabKey);
-        var cameraInstance = await InstantiateObject(_cameraPrefabKey);
+        var playerInstanceGO = await InstantiateObject(_playerPrefabKey);
+        var cameraInstanceGO = await InstantiateObject(_cameraPrefabKey);
 
 
-        SceneManager.MoveGameObjectToScene(playerInstance, PoolScene);
-        SceneManager.MoveGameObjectToScene(cameraInstance, PoolScene);
+        SceneManager.MoveGameObjectToScene(playerInstanceGO, PoolScene);
+        SceneManager.MoveGameObjectToScene(cameraInstanceGO, PoolScene);
 
-        _camera = cameraInstance.GetComponent<IGameCamera>();
-        _playerMovement = playerInstance.GetComponent<IPlayerMovement>();
+        _camera = cameraInstanceGO.GetComponent<IGameCamera>();
+        _playerMovement = playerInstanceGO.GetComponent<IPlayerMovement>();
 
 
 
-        _playerMovement.Initilise();
+        _playerMovement.Inject();
 
-        _camera.Initilise(_playerMovement.GameObject, _playerMovement.Orientation);
+        _camera.Inject(_playerMovement.GameObject, _playerMovement.Orientation);
 
     }
 

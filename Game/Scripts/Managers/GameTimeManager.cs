@@ -9,7 +9,7 @@ public class GameTimeManager : MonoBehaviour, IGameTimeManager
     [SerializeField] private Light _sun;
     [SerializeField] private Light _moon;
 
-    public void Initialise(GameTimeEvents gameTimeEvents)
+    public void Inject(GameTimeEvents gameTimeEvents)
     {
         _gameTimeEvents = gameTimeEvents;
     }
@@ -35,7 +35,13 @@ public class GameTimeManager : MonoBehaviour, IGameTimeManager
         //    _gameTimeData.DayNightCycle.UpdateSun(_sun, _gameTimeData.Hour);
     }
 
+    public void RegisterEvents()
+    {
+        throw new System.NotImplementedException();
+    }
 
-
-
+    public void UnregisterEvents()
+    {
+        throw new System.NotImplementedException();
+    }
 }

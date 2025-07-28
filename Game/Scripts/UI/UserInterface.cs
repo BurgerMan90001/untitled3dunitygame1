@@ -57,7 +57,7 @@ public class UserInterfaceManager : MonoBehaviour, IUserInterfaceManager
     private UxmlFileHandler _uxmlFileHandler;
 
 
-    public void Initialise(DataPersistenceEvents dataPersistenceEvents, UserInterfaceEvents userInterfaceEvents, DialogueEvents dialogueEvents, Inventory inventory)
+    public void Inject(DataPersistenceEvents dataPersistenceEvents, UserInterfaceEvents userInterfaceEvents, DialogueEvents dialogueEvents, Inventory inventory)
     {
         _dataPersistenceEvents = dataPersistenceEvents;
         _userInterfaceEvents = userInterfaceEvents;

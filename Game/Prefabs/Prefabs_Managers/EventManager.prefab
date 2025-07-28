@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42eee67ea6fb6674ba6f9d9ab96c5d68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CombatEvents: {fileID: 11400000, guid: 25e76855a225a9340a439ced081b70c4, type: 2}
-  DialogueEvents: {fileID: 11400000, guid: 758561cdb6a753b41945355c3ac635c9, type: 2}
-  DataPersistenceEvents: {fileID: 11400000, guid: 721e3fea6cf2b2c40a65ae5e4f51be8a, type: 2}
-  UserInterfaceEvents: {fileID: 11400000, guid: 5fb333813e03981409debdbf88246c14, type: 2}
+  <CombatEvents>k__BackingField: {fileID: 11400000, guid: 25e76855a225a9340a439ced081b70c4, type: 2}
+  <DialogueEvents>k__BackingField: {fileID: 11400000, guid: 758561cdb6a753b41945355c3ac635c9, type: 2}
+  <DataPersistenceEvents>k__BackingField: {fileID: 11400000, guid: 721e3fea6cf2b2c40a65ae5e4f51be8a, type: 2}
+  <UserInterfaceEvents>k__BackingField: {fileID: 11400000, guid: 5fb333813e03981409debdbf88246c14, type: 2}
+  <GameTimeEvents>k__BackingField: {fileID: 11400000, guid: aa91e4f052082614e9b9b630e3c923b8, type: 2}

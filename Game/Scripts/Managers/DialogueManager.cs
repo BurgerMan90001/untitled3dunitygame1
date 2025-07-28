@@ -15,7 +15,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     private DialogueData _dialogueData;
 
 
-    public void Initialise(DialogueEvents dialogueEvents)
+    public void Inject(DialogueEvents dialogueEvents)
     {
         _dialogueEvents = dialogueEvents;
     }
@@ -53,7 +53,7 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         _dialogueEvents.OnEnterDialogue += EnterDialogue;
         _dialogueEvents.OnContinueDialogue += ContinueOrExitStory;
         _dialogueEvents.OnChoiceSelected += SelectChoice;
-
+        Debug.Log("hjksdfhfsdnfsf");
 
 
     }

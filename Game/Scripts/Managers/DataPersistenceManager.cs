@@ -33,7 +33,7 @@ public class DataPersistenceManager : MonoBehaviour, IDataPersistenceManager
     private string selectedProfileID = "";
 
 
-    public void Initialise(DataPersistenceEvents dataPersistenceEvents)
+    public void Inject(DataPersistenceEvents dataPersistenceEvents)
     {
         _dataPersistenceEvents = dataPersistenceEvents;
     }
@@ -75,7 +75,6 @@ public class DataPersistenceManager : MonoBehaviour, IDataPersistenceManager
         _dataPersistenceEvents.OnGetAllProfilesGameData += GetAllProfilesGameData;
 
     }
-
 
 
     private void OnDisable()

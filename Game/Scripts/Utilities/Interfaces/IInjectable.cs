@@ -13,7 +13,10 @@ public interface IPlayerMovement : IInjectable
 
     //    Transform GetOrientation();
     //   GameObject GetGameObject();
-    void Initilise();
+    /// <summary>
+    /// FOR NOW DOES NOTHING
+    /// </summary>
+    void Inject();
 
 
 
@@ -22,7 +25,7 @@ public interface IPlayerMovement : IInjectable
 public interface IGameCamera : IInjectable
 {
 
-    void Initilise(GameObject player, Transform orientation);
+    void Inject(GameObject player, Transform orientation);
 
 
 }
