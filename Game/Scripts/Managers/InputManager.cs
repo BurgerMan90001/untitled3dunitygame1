@@ -31,15 +31,12 @@ public class InputManager : MonoBehaviour
         _dialogueEvents = dialogueEvents;
 
         _userInterfaceEvents = userInterfaceEvents;
-
-
-
     }
 
 
     private void OnEnable()
     {
-
+        PlayerInputActions.Player.Disable();
         Debug.Log("REGISTER");
         _dialogueEvents.OnChoiceSelected += OnChoiceSelected;
         _dialogueEvents.OnUpdateChoices += OnUpdateChoices;
