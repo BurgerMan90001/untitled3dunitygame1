@@ -9,18 +9,19 @@ using UnityEngine.UIElements;
 /// <br> Enabled by Main Manager. </br>
 /// </summary>
 #endregion
-public class UserInterfaceManager : MonoBehaviour, IUserInterfaceManager
+public class UserInterfaceManager : MonoBehaviour
 {
-    private Inventory _inventory; // the dynamic inventory scriptable object that will be used to manage the inventory
-                                  //    [SerializeField] private UserInterfaceEvents _userInterfaceEvents;
+    [SerializeField] private Inventory _inventory; // the dynamic inventory scriptable object that will be used to manage the inventory
+                                                   //    [SerializeField] private UserInterfaceEvents _userInterfaceEvents;
 
 
     //private GameInput _gameInput;
     //   [SerializeField] private CombatData _combatData;
 
-    private DataPersistenceEvents _dataPersistenceEvents;
-    private UserInterfaceEvents _userInterfaceEvents;
-    private DialogueEvents _dialogueEvents;
+    [SerializeField] private DataPersistenceEvents _dataPersistenceEvents;
+    [SerializeField] private UserInterfaceEvents _userInterfaceEvents;
+    [SerializeField] private DialogueEvents _dialogueEvents;
+    //  [SerializeField] private InputEvent inputEvents;
 
 
     [Header("First Shown Interface")]
@@ -68,6 +69,18 @@ public class UserInterfaceManager : MonoBehaviour, IUserInterfaceManager
     {
         _uiDocument = GetComponent<UIDocument>();
 
+        _uiMainMenu = new UI_MainMenu(_dataPersistenceEvents, _userInterfaceEvents);
+        _uiSaveSlotsMenu = new UI_SaveSlotsMenu(_dataPersistenceEvents, _userInterfaceEvents);
+        _uiDialogue = new UI_Dialogue(_userInterfaceEvents, _dialogueEvents);
+        _uiInventory = new UI_Inventory(_inventory);
+
+        _userInterfaces.Add(_uiMainMenu);
+        _userInterfaces.Add(_uiSaveSlotsMenu);
+        _userInterfaces.Add(_uiDialogue);
+
+        _userInterfaces.Add(_uiInventory);
+
+
 
 
         Root = _uiDocument.rootVisualElement;
@@ -78,7 +91,7 @@ public class UserInterfaceManager : MonoBehaviour, IUserInterfaceManager
 
         _uxmlFileHandler = new UxmlFileHandler(Root);
 
-
+        DontDestroyOnLoad(gameObject);
     }
 
     private async void Start()
@@ -92,7 +105,9 @@ public class UserInterfaceManager : MonoBehaviour, IUserInterfaceManager
         RegisterAllInterfaces();
 
 
+        _uiInventory.UpdateInterface();
 
+        ShowInitialInterface();
 
     }
 
@@ -102,21 +117,7 @@ public class UserInterfaceManager : MonoBehaviour, IUserInterfaceManager
 
         SceneLoader.OnSceneLoadComplete += OnSceneLoadComplete;
 
-        _uiMainMenu = new UI_MainMenu(_dataPersistenceEvents, _userInterfaceEvents);
-        _uiSaveSlotsMenu = new UI_SaveSlotsMenu(_dataPersistenceEvents, _userInterfaceEvents);
-        _uiDialogue = new UI_Dialogue(_userInterfaceEvents, _dialogueEvents);
-        _uiInventory = new UI_Inventory(_inventory);
 
-        _userInterfaces.Add(_uiMainMenu);
-        _userInterfaces.Add(_uiSaveSlotsMenu);
-        _userInterfaces.Add(_uiDialogue);
-
-        _userInterfaces.Add(_uiInventory);
-
-
-        _uiInventory.UpdateInterface();
-
-        ShowInitialInterface();
 
     }
 

@@ -10,7 +10,6 @@ using UnityEngine;
 public class CombatData : Data
 {
 
-    [SerializeField] private CombatEvents _combatEvents;
 
 
     [Header("HurtEffects")]
@@ -44,6 +43,7 @@ public class CombatData : Data
         if (combatEntered)
         {
 
+            /*
             if (npc.TryGetComponent(out CombatUnit combatUnit))
             {
                 _combatEvents.EnterCombat(combatUnit);
@@ -53,6 +53,7 @@ public class CombatData : Data
                 Debug.LogWarning("The story's combatEntered value is true, but the npc does not have a CombatUnit component! ");
                 return;
             }
+            */
 
         }
 

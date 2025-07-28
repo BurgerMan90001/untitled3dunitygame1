@@ -5,7 +5,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 // profileIDs are directories which store a json save file
-public class DataPersistenceManager : MonoBehaviour, IDataPersistenceManager
+public class DataPersistenceManager : MonoBehaviour
 {
 
     [Header("LabelReferences")]

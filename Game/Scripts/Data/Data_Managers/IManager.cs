@@ -12,13 +12,14 @@ public interface IManager
 
 }
 
+/*
 public interface IUserInterfaceManager : IManager // Userinterface manager
 {
     void Inject(DataPersistenceEvents dataPersistenceEvents, UserInterfaceEvents userInterfaceEvents, DialogueEvents dialogueEvents, Inventory inventory);
 }
 public interface IInputManager : IManager // Input manager
 {
-    void Inject(DialogueEvents dialogueEvents, CombatEvents combatEvents, GameInput gameInput, UserInterfaceEvents userInterfaceEvents);
+    void Inject(DialogueEvents dialogueEvents, CombatEvents combatEvents, UserInterfaceEvents userInterfaceEvents);
 }
 public interface IDataPersistenceManager : IManager // Datapersistence manager
 {
@@ -46,6 +47,7 @@ public interface IEventManager : IManager
     GameTimeEvents GameTimeEvents { get; set; }
     void Inject();
 }
+*/
 
 
 /*

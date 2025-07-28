@@ -27,7 +27,6 @@ public class DialogueEvents : Event
     public bool InDialogue => _dialogueData.InDialogue;
     public bool InCombat => 
     */
-    public DialogueEvents() { }
     #region
     /// <summary>
     /// <br> Triggers the OnEnterDialogue event. </br>
@@ -40,6 +39,8 @@ public class DialogueEvents : Event
         OnEnterDialogue?.Invoke(knotName); // null check
 
         _npc = npc;
+
+        InDialogue = true;
 
     }
     #region
@@ -63,6 +64,8 @@ public class DialogueEvents : Event
     public void ExitDialogue()
     {
         OnExitDialogue?.Invoke(_npc);
+
+        InDialogue = false;
     }
 
 

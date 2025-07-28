@@ -107,6 +107,8 @@ MonoBehaviour:
   _leftClickMask:
     serializedVersion: 2
     m_Bits: 4294967295
+  _player: {fileID: 0}
+  _orientation: {fileID: 0}
 --- !u!114 &4779378915233208134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,7 +127,6 @@ MonoBehaviour:
   cullingMask:
     serializedVersion: 2
     m_Bits: 512
-  _dialogueData: {fileID: 11400000, guid: b7057052d12597d459bf37d69cac44f3, type: 2}
 --- !u!1 &2397414322020366127
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ public class NPC : MonoBehaviour, IInteractable
 
 
 
-    // private DialogueEvents _dialogueEvents;
+    [SerializeField] private DialogueEvents _dialogueEvents;
 
     //  private bool _initialized = false;
 
@@ -32,13 +32,13 @@ public class NPC : MonoBehaviour, IInteractable
         }
         */
 
-        if (EventManager.Instance.DialogueEvents.InDialogue)
+        if (_dialogueEvents.InDialogue)
         {
             if (_debugMode)
             {
                 Debug.Log("CONT");
             }
-            EventManager.Instance.DialogueEvents.ContinueDialogue();
+            _dialogueEvents.ContinueDialogue();
 
         }
 
@@ -50,12 +50,12 @@ public class NPC : MonoBehaviour, IInteractable
                 Debug.Log("ENTER");
             }
 
-            EventManager.Instance.DialogueEvents.EnterDialogue(_dialogueKnotName, gameObject);// begins the NPC's dialgoue at their knotName
+            _dialogueEvents.EnterDialogue(_dialogueKnotName, gameObject);// begins the NPC's dialgoue at their knotName
 
         }
         else // the npc will default to ... if there is no dialogue knot 
         {
-            EventManager.Instance.DialogueEvents.EnterDialogue("silentDialogue", gameObject);
+            _dialogueEvents.EnterDialogue("silentDialogue", gameObject);
         }
     }
 

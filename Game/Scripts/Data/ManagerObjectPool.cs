@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.SceneManagement;
 
 // NOTES EVENT MANAGER IS INSTATIATED FIRST
 
@@ -10,7 +9,6 @@ public class ManagerObjectPool : ObjectPool
 {
     [Header("Data")]
     [SerializeField] private Inventory _playerInventory;
-    [SerializeField] private GameInput _gameInput;
 
 
     [Header("Managers")]
@@ -22,11 +20,11 @@ public class ManagerObjectPool : ObjectPool
     [SerializeField] private AssetReferenceGameObject _dataPersistenceManagerPrefabKey;
     [SerializeField] private AssetReferenceGameObject _gameTimeManagerPrefabKey;
 
-    private IEventManager _eventManager;
 
 
     public async override void InstantiatePoolObjects()
     {
+        /*
         var eventManagerInstanceGO = await InstantiateObject(_eventManagerPrefabKey);
         _eventManager = eventManagerInstanceGO.GetComponent<IEventManager>();
 
@@ -55,7 +53,7 @@ public class ManagerObjectPool : ObjectPool
         combatManagerInstanceGO.SetActive(true);
 
         var inputManagerInstanceGO = await LoadObject(_inputManagerPrefabKey);
-        inputManagerInstanceGO.GetComponent<IInputManager>().Inject(_eventManager.DialogueEvents, _eventManager.CombatEvents, _gameInput, _eventManager.UserInterfaceEvents);
+        inputManagerInstanceGO.GetComponent<IInputManager>().Inject(_eventManager.DialogueEvents, _eventManager.CombatEvents, _eventManager.UserInterfaceEvents);
         inputManagerInstanceGO.SetActive(true);
 
         SceneManager.MoveGameObjectToScene(eventManagerInstanceGO, PoolScene);
@@ -72,6 +70,7 @@ public class ManagerObjectPool : ObjectPool
 
         SceneManager.MoveGameObjectToScene(inputManagerInstanceGO, PoolScene);
 
+        */
 
 
 

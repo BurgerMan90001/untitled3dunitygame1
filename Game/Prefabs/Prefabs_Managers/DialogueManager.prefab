@@ -45,8 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0669f307808c64942b322a5b206b7c48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dialogueData: {fileID: 11400000, guid: b7057052d12597d459bf37d69cac44f3, type: 2}
-  _textAsset: {fileID: 4900000, guid: 7e2d4f69c8461424da28133ec1ce413d, type: 3}
   _dialogueEvents: {fileID: 11400000, guid: 758561cdb6a753b41945355c3ac635c9, type: 2}
 --- !u!114 &187205691923621369
 MonoBehaviour:
@@ -61,6 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InkJson: {fileID: 4900000, guid: 7e2d4f69c8461424da28133ec1ce413d, type: 3}
+  _events: {fileID: 11400000, guid: 758561cdb6a753b41945355c3ac635c9, type: 2}
   DebugMode: 0
   ShowVariables: 0
   DialogueLine: 

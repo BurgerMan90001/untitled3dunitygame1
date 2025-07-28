@@ -1,6 +1,6 @@
 using UnityEngine;
 //TODO FIX GAMETIME DAYNIGHT CYCLE
-public class GameTimeManager : MonoBehaviour, IGameTimeManager
+public class GameTimeManager : MonoBehaviour
 {
     private GameTimeData _gameTimeData;
     private GameTimeEvents _gameTimeEvents;

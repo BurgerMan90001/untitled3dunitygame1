@@ -1,12 +1,31 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.SceneManagement;
 /// <summary>
 /// <br> Triggers a scene load on start. </br>
 /// </summary>
 public class SceneLoadTrigger : MonoBehaviour
 {
-    private void Start()
+    [SerializeField] private bool _preloadAssets = true;
+    [SerializeField] private AssetReference scene;
+    [SerializeField] private AssetLabelReference assetLabel;
+    private IEnumerator Start()
     {
-        Trigger(SceneLoadingSettings.City);
+
+        if (_preloadAssets)
+        {
+            Debug.Log("Preloading assets. ");
+            var preloadHandle = Addressables.LoadAssetsAsync<ScriptableObject>(assetLabel, null);
+            yield return preloadHandle; // wait for preload handle to finish.
+        }
+
+
+        yield return null;
+
+        var handle = Addressables.LoadSceneAsync(scene, LoadSceneMode.Additive);
+        yield return handle;
+        //    SceneLoader.LoadScene(SceneLoadingSettings.City);
     }
     private void OnEnable()
     {
@@ -17,14 +36,7 @@ public class SceneLoadTrigger : MonoBehaviour
     {
         SceneLoader.OnSceneLoadComplete -= OnSceneLoadComplete;
     }
-    /// <summary>
-    /// <br> Triggers a scene load. </br> 
-    /// </summary>
-    public void Trigger(SceneLoadingSettings sceneLoadingSettings)
-    {
-        SceneLoader.LoadScene(sceneLoadingSettings);
 
-    }
     private void OnSceneLoadComplete(SceneLoadingSettings sceneLoadingSettings)
     {
         //   SceneManager.UnloadSceneAsync("Initilization");

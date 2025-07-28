@@ -17,7 +17,7 @@ public class CombatEvents : Event
     {
         OnEnterCombat?.Invoke(enemyUnit);
 
-        SceneLoader.LoadScene(SceneLoadingSettings.Combat);
+        //    SceneLoader.LoadScene(SceneLoadingSettings.Combat);
     }
     #region
     /// <summary>
@@ -27,7 +27,7 @@ public class CombatEvents : Event
     #endregion
     public void ExitCombat()
     {
-        SceneLoader.LoadScene(SceneLoadingSettings.City);
+        //   SceneLoader.LoadScene(SceneLoadingSettings.City);
 
         OnExitCombat?.Invoke();
     }

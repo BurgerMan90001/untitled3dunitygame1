@@ -2,8 +2,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputManager : MonoBehaviour, IInputManager
+public class InputManager : MonoBehaviour
 {
+    [Header("Input")]
+
+    public PlayerInputActions PlayerInputActions;
+
+    public MovementInput MovementInput;
+    public CameraInput CameraInput;
+    public MenuInput MenuInput;
+    public DebugInput DebugInput;
     [Header("Debug")]
     [SerializeField] private bool _clearInventoryOnEnable = false;
 
@@ -11,23 +19,28 @@ public class InputManager : MonoBehaviour, IInputManager
     private bool _interfaceEnabled = false;
 
 
-    private GameInput _gameInput;
-    private DialogueEvents _dialogueEvents;
-    private CombatEvents _combatEvents;
 
-    private UserInterfaceEvents _userInterfaceEvents;
-    public void Inject(DialogueEvents dialogueEvents, CombatEvents combatEvents, GameInput gameInput, UserInterfaceEvents userInterfaceEvents)
+    [SerializeField] private DialogueEvents _dialogueEvents;
+    [SerializeField] private CombatEvents _combatEvents;
+
+    [SerializeField] private UserInterfaceEvents _userInterfaceEvents;
+
+    public void Inject(DialogueEvents dialogueEvents, CombatEvents combatEvents, UserInterfaceEvents userInterfaceEvents)
     {
         _combatEvents = combatEvents;
         _dialogueEvents = dialogueEvents;
-        _gameInput = gameInput;
+
         _userInterfaceEvents = userInterfaceEvents;
+
+
+
     }
+
 
     private void OnEnable()
     {
 
-
+        Debug.Log("REGISTER");
         _dialogueEvents.OnChoiceSelected += OnChoiceSelected;
         _dialogueEvents.OnUpdateChoices += OnUpdateChoices;
 
@@ -35,18 +48,20 @@ public class InputManager : MonoBehaviour, IInputManager
         _combatEvents.OnEnterCombat += OnEnterCombat;
         _combatEvents.OnExitCombat += OnExitCombat;
 
-        _gameInput.MenuInput.RegisterInputEvent(_gameInput.MenuInput.InventoryToggleAction, OnOpenInventory);
+        MenuInput.RegisterInputEvent(MenuInput.InventoryToggleAction, OnOpenInventory);
 
-        _gameInput.DebugInput.RegisterInputEvent(_gameInput.DebugInput.Debug1Action, OnDebug1); // Z
-        _gameInput.DebugInput.RegisterInputEvent(_gameInput.DebugInput.Debug2Action, OnDebug2); // X
+        DebugInput.RegisterInputEvent(DebugInput.Debug1Action, OnDebug1); // Z
+        DebugInput.RegisterInputEvent(DebugInput.Debug2Action, OnDebug2); // X
 
 
 
         //   ClearInventory(_clearInventoryOnEnable);
     }
-    private void OnDisable()
-    {
 
+
+    private void OnDestroy()
+    {
+        Debug.Log("DESTROY");
         _combatEvents.OnEnterCombat -= OnEnterCombat;
         _combatEvents.OnExitCombat -= OnExitCombat;
 
@@ -55,15 +70,15 @@ public class InputManager : MonoBehaviour, IInputManager
 
 
 
-        _gameInput.DebugInput.UnregisterInputEvent(_gameInput.DebugInput.Debug1Action, OnDebug1);
-        _gameInput.DebugInput.UnregisterInputEvent(_gameInput.DebugInput.Debug2Action, OnDebug2);
+        DebugInput.UnregisterInputEvent(DebugInput.Debug1Action, OnDebug1);
+        DebugInput.UnregisterInputEvent(DebugInput.Debug2Action, OnDebug2);
 
-        _gameInput.MenuInput.UnregisterInputEvent(_gameInput.MenuInput.InventoryToggleAction, OnOpenInventory);
-
+        MenuInput.UnregisterInputEvent(MenuInput.InventoryToggleAction, OnOpenInventory);
 
     }
     private void OnOpenInventory(InputAction.CallbackContext ctx)
     {
+        Debug.Log("ASdjoikksdakm");
         if (ctx.started)
         {
             if (_interfaceEnabled)
@@ -71,16 +86,16 @@ public class InputManager : MonoBehaviour, IInputManager
                 _userInterfaceEvents.SwitchToUserInterface(UserInterfaceType.HUD);
                 _interfaceEnabled = false;
 
-                _gameInput.MovementInput.EnableMovement(true);
-                _gameInput.CameraInput.EnableLook(true);
+                MovementInput.EnableMovement(true);
+                CameraInput.EnableLook(true);
             }
             else
             {
-                EventManager.Instance.UserInterfaceEvents.SwitchToUserInterface(UserInterfaceType.Inventory);
+                _userInterfaceEvents.SwitchToUserInterface(UserInterfaceType.Inventory);
                 _interfaceEnabled = true;
 
-                _gameInput.MovementInput.EnableMovement(false);
-                _gameInput.CameraInput.EnableLook(false);
+                MovementInput.EnableMovement(false);
+                CameraInput.EnableLook(false);
 
             }
         }
@@ -100,47 +115,38 @@ public class InputManager : MonoBehaviour, IInputManager
     */
     private void OnEnterCombat(CombatUnit _)
     {
-        _gameInput.MovementInput.EnableMovement(false);
-        _gameInput.MenuInput.EnableInventoryToggle(false);
+        MovementInput.EnableMovement(false);
+        MenuInput.EnableInventoryToggle(false);
     }
     private void OnExitCombat()
     {
-        _gameInput.MovementInput.EnableMovement(true);
-        _gameInput.MenuInput.EnableInventoryToggle(true);
+        MovementInput.EnableMovement(true);
+        MenuInput.EnableInventoryToggle(true);
     }
 
     private void OnUpdateChoices(List<string> choices) // discards the list of choice strings. disables input
     {
-        _gameInput.MovementInput.EnableMovement(false);
-        _gameInput.CameraInput.EnableLook(false);
-        _gameInput.CameraInput.EnableInteract(false);
-        _gameInput.MenuInput.EnableInventoryToggle(false);
+        MovementInput.EnableMovement(false);
+        CameraInput.EnableLook(false);
+        CameraInput.EnableInteract(false);
+        MenuInput.EnableInventoryToggle(false);
     }
 
     private void OnChoiceSelected(int choicesIndex) // discards the chosen int index. enables input
     {
-        _gameInput.MovementInput.EnableMovement(true);
-        _gameInput.CameraInput.EnableLook(true);
-        _gameInput.CameraInput.EnableInteract(true);
-        _gameInput.MenuInput.EnableInventoryToggle(true);
+        MovementInput.EnableMovement(true);
+        CameraInput.EnableLook(true);
+        CameraInput.EnableInteract(true);
+        MenuInput.EnableInventoryToggle(true);
     }
     private void OnDebug1(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
         {
 
-            /*
-            Debug.Log("Debug1 button pressed.");
-            if (_eventSystem.activeSelf) // if active
-            {
-                _eventSystem.SetActive(false); // turn off
 
-            }
-            else
-            {
-                _eventSystem.SetActive(true);
-            }
-            */
+            Debug.Log("Debug1 button pressed.");
+
         }
 
     }

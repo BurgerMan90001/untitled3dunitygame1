@@ -42,6 +42,7 @@ public class UserInterfaceData : Data
 
     private void OnEnable()
     {
+        Debug.Log("PKOASDAPOKSDKOAsd");
         _events.OnShowInterface += ShowInterface;
         _events.OnHideRecentInterface += HideRecentInterface;
     }

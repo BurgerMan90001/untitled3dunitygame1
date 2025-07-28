@@ -44,7 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22ed16c3fb3a0aa4185c6fe41c2166de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: {fileID: 11400000, guid: 429beb422e6f2764ab242e6b1ace72b8, type: 2}
-  _gameInput: {fileID: 11400000, guid: ad90d15a45aacc6478ff302fd813f986, type: 2}
+  MovementInput: {fileID: 11400000, guid: 5073dac0742252247848489dfbc58d5d, type: 2}
+  CameraInput: {fileID: 11400000, guid: a9af73362ae1ead4dad683960fcf65fc, type: 2}
+  MenuInput: {fileID: 11400000, guid: 40ac9e5222a69664b8750e11ab44a282, type: 2}
+  DebugInput: {fileID: 11400000, guid: 49317bbaf4c0ea04588d7a06f96a7c57, type: 2}
+  _clearInventoryOnEnable: 0
   _dialogueEvents: {fileID: 11400000, guid: 758561cdb6a753b41945355c3ac635c9, type: 2}
   _combatEvents: {fileID: 11400000, guid: 25e76855a225a9340a439ced081b70c4, type: 2}
+  _userInterfaceEvents: {fileID: 11400000, guid: 5fb333813e03981409debdbf88246c14, type: 2}

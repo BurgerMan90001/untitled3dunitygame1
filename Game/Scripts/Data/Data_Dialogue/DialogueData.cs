@@ -1,4 +1,5 @@
 using Ink.Runtime;
+using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ public class DialogueData : Data
     public TextAsset InkJson;
     public Story Story;
 
-
+    [SerializeField] private DialogueEvents _events;
     //   private StoryState StoryState;
 
     public bool DebugMode = false;
@@ -30,7 +31,27 @@ public class DialogueData : Data
 
     public bool CombatEntered => (bool)Story.variablesState["combatEntered"];
 
+    private void OnEnable()
+    {
+        _events.OnUpdateDialogueLine += UpdateDialogueLine;
+        _events.OnUpdateChoices += UpdateChoices;
+    }
 
+    private void UpdateDialogueLine(string dialogueLine)
+    {
+        DialogueLine = dialogueLine;
+    }
+
+    private void UpdateChoices(List<string> list)
+    {
+        //    throw new NotImplementedException();
+    }
+
+    private void OnDestroy()
+    {
+        _events.OnUpdateDialogueLine -= UpdateDialogueLine;
+        _events.OnUpdateChoices -= UpdateChoices;
+    }
     public void SetInDialogue(bool inDialogue)
     {
         InDialogue = inDialogue;

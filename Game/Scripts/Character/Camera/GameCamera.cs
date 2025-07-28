@@ -49,8 +49,8 @@ public class GameCamera : MonoBehaviour, IGameCamera
     [SerializeField] private LayerMask _leftClickMask;
 
     // injected dependancies
-    private GameObject _player;
-    private Transform _orientation;
+    [SerializeField] private GameObject _player;
+    [SerializeField] private Transform _orientation;
 
     public GameObject GameObject => gameObject;
 

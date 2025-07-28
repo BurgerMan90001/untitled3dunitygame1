@@ -12,14 +12,11 @@ public class CameraSettings : MonoBehaviour
     [Header("Cull Mask")]
     [SerializeField] private LayerMask cullingMask;
 
-    [Header("Data")]
-    [SerializeField] private DialogueData _dialogueData;
+    //  [Header("Data")]
+    //   [SerializeField] private DialogueData _dialogueData;
 
 
-    private void Awake()
-    {
 
-    }
     public void OnEnable()
     {
         if (_blurScreen)

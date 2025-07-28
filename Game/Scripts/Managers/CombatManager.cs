@@ -10,7 +10,7 @@ using UnityEngine;
 /// <br> Manages in-game combat. </br>
 /// <br> Used in the combat scene. </br>
 /// </summary>
-public class CombatManager : MonoBehaviour, ICombatManager
+public class CombatManager : MonoBehaviour
 {
 
 

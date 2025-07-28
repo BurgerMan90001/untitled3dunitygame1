@@ -21,8 +21,6 @@ public class Player : MonoBehaviour
         }
     }
     */
-    [Header("Dependancies")]
-    [SerializeField] private MovementStateManager _movementStateManager;
 
     [Header("Settings")]
     [SerializeField] private bool _enableRigidbodyTrigger;
@@ -42,7 +40,7 @@ public class Player : MonoBehaviour
         _rigidBody = GetComponent<Rigidbody>();
 
 
-        _rigidbodyTrigger = new RigidbodyTrigger(_rigidBody, _movementStateManager);
+        _rigidbodyTrigger = new RigidbodyTrigger(_rigidBody);
 
     }
     private void Start()

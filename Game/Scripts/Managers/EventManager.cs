@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// <br> A singleton</br>
 /// </summary>
-public class EventManager : MonoBehaviour, IEventManager
+public class EventManager : MonoBehaviour
 {
 
     [field: SerializeField] public CombatEvents CombatEvents { get; set; }

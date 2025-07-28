@@ -7,10 +7,10 @@ using UnityEngine;
 
 
 
-public class DialogueManager : MonoBehaviour, IDialogueManager
+public class DialogueManager : MonoBehaviour
 {
 
-    private DialogueEvents _dialogueEvents;
+    [SerializeField] private DialogueEvents _dialogueEvents;
 
     private DialogueData _dialogueData;
 
@@ -53,7 +53,6 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
         _dialogueEvents.OnEnterDialogue += EnterDialogue;
         _dialogueEvents.OnContinueDialogue += ContinueOrExitStory;
         _dialogueEvents.OnChoiceSelected += SelectChoice;
-        Debug.Log("hjksdfhfsdnfsf");
 
 
     }

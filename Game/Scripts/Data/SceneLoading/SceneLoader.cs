@@ -25,6 +25,8 @@ public static class SceneLoader
 
     private static readonly bool _debugMode = false;
 
+    public static int DelayTime = 1000;
+    public static bool DelayLoad = false;
     #region
     /// <summary>
     /// <br> Load scene with interface. </br>
@@ -32,12 +34,15 @@ public static class SceneLoader
     /// <param name="sceneName"></param>
     /// <param name="userInterface"></param>
     #endregion
-    public static async void LoadScene(SceneLoadingSettings sceneLoadingSettings)
+    public static async void LoadSceneAsync(SceneLoadingSettings sceneLoadingSettings)
     {
 
         //   await LoadLoadingScene();
+        if (DelayLoad)
+        {
+            await Task.Delay(DelayTime);
+        }
 
-        await Task.Delay(1000);
 
         var handle = Addressables.LoadSceneAsync(sceneLoadingSettings.Key, LoadSceneMode.Additive);
 
@@ -59,7 +64,7 @@ public static class SceneLoader
                 Debug.Log("LOADED SUCCESSFULLY");
 
             }
-            UnloadRecentScene();
+            //    UnloadRecentScene();
 
             LoadedSceneHandles.Push(handle);
 
