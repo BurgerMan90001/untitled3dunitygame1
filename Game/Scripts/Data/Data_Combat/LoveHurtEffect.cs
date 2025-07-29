@@ -12,9 +12,9 @@ public class LoveHurtEffect : HurtEffect
     [SerializeField] private float HealPercent = 0.25f; // one quarter
     public override void ApplyEffect(CombatUnit target, CombatUnit attacker, float damage)
     {
-    //    target.Hurt(damage);
+        //    target.Hurt(damage);
 
 
-        attacker.CombatStats.Heal(damage * HealPercent);
+        attacker.Heal(damage * HealPercent);
     }
 }

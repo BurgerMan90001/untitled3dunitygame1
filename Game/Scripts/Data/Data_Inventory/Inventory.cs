@@ -1,4 +1,5 @@
 
+using MyBox;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ public class Inventory : ScriptableObject
 {
 
     public int MaxItems = 28;
-    public List<ItemInstance> Items;
+    [DisplayInspector] public List<ItemInstance> Items;
 
     public event Action OnInventoryChanged;
 
@@ -22,7 +23,6 @@ public class Inventory : ScriptableObject
         {
             Items[firstEmptySlotIndex] = itemToAdd;
         }
-
     }
     #region
     /// <summary>
@@ -34,8 +34,8 @@ public class Inventory : ScriptableObject
     {
         OnInventoryChanged?.Invoke();
     }
-    
-   
+
+
     private void AddOrStackItem(ItemInstance itemToAdd)
     {
         if (ExistInInventory(itemToAdd, out ItemInstance matchingItem) && matchingItem.IsStackable)
@@ -50,10 +50,12 @@ public class Inventory : ScriptableObject
             AddToInventory(itemToAdd);
             Debug.Log("ADDDED NEW ITEM");
 
-        } else {
+        }
+        else
+        {
             Debug.LogError("Something went wrong when adding the item. ");
         }
-        
+
 
     }
     public void OpenPack(ItemPackInstance itemPackInstance)
@@ -72,23 +74,24 @@ public class Inventory : ScriptableObject
     }
     public virtual bool AddItem(ItemInstance itemToAdd)
     {
-        
-        
+
+
         if (itemToAdd is ItemPackInstance itemPackInstance)
         {
-            
+
             OpenPack(itemPackInstance);
             return true;
         }
- 
+
         else if (!IsInventoryFull()) // if its a normal item and the inventory is not full
         {
             AddOrStackItem(itemToAdd);
             InventoryChange();
 
-            return true; 
+            return true;
 
-        } else
+        }
+        else
         {
             Debug.Log("No space in the inventory for item: " + itemToAdd.ItemType);
             return false;
@@ -96,20 +99,21 @@ public class Inventory : ScriptableObject
     }
     public void RemoveItem(int itemIndex)
     {
-        
+
         if (Items[itemIndex].Quantity > 1)
         {
             Items[itemIndex].Quantity -= 1; // Just ecrease quantity if item is stackable
             InventoryChange();
 
-        } else
+        }
+        else
         {
             Items.RemoveAt(itemIndex);
         }
 
     }
 
-    
+
     #region
     /// <summary>
     /// <br> Clears the inventory and adds empty items the items list. </br>
@@ -139,18 +143,19 @@ public class Inventory : ScriptableObject
     private bool ExistInInventory(ItemInstance itemToAdd, out ItemInstance exsistingItem)
     {
         exsistingItem = null;
-        
+
         exsistingItem = Items.Find(existingItem => existingItem.ItemType == itemToAdd.ItemType);
 
-        if (exsistingItem != null) {
+        if (exsistingItem != null)
+        {
             bool sameQuality = exsistingItem.Quality == itemToAdd.Quality;
             return sameQuality;
         }
         return false;
-        
-       // Return true if the item exists in the inventory and they have the same quality
+
+        // Return true if the item exists in the inventory and they have the same quality
     }
-     #region
+    #region
     /// <summary>
     /// <br> True if there is an null or empty slot.</br>
     ///  <br> Also returns the first empty index it finds.</br>
@@ -160,13 +165,13 @@ public class Inventory : ScriptableObject
     #endregion
     private bool IsThereEmptySlot(out int firstEmptySlotIndex)
     {
-        
+
         firstEmptySlotIndex = Items.FindIndex(item => item.ItemType == null);
         if (firstEmptySlotIndex == -1)
         {
             Debug.LogWarning("There are no more empty slots!");
         }
-        return !(firstEmptySlotIndex == -1); 
+        return !(firstEmptySlotIndex == -1);
     }
 
     public bool IsInventoryFull()
@@ -191,7 +196,7 @@ public class Inventory : ScriptableObject
     #endregion
     public bool SwapItems(int indexA, int indexB) // TODO make bool function
     {
-        
+
         SwapIndexes(indexA, indexB);
         InventoryChange();
         return true;
@@ -208,7 +213,7 @@ public class Inventory : ScriptableObject
         InventoryChange();
         return true;
     }
-    private void SwapIndexes(int indexA, int indexB) 
+    private void SwapIndexes(int indexA, int indexB)
     {
         (Items[indexB], Items[indexA]) = (Items[indexA], Items[indexB]);
     }

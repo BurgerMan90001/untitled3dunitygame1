@@ -58288,6 +58288,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CombatManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2309645640552493600, guid: 29d0da05cd858234b94b1afee26ae887, type: 3}
+      propertyPath: PlayerUnit
+      value: 
+      objectReference: {fileID: 841869463}
     - target: {fileID: 4690592151540497001, guid: 29d0da05cd858234b94b1afee26ae887, type: 3}
       propertyPath: PlayerUnit
       value: 
@@ -61524,26 +61528,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2075618969}
     m_Modifications:
-    - target: {fileID: 2188898096051650180, guid: 9fe33fa81f6876e4db500f7a30808692, type: 3}
-      propertyPath: _shopData
-      value: 
-      objectReference: {fileID: 11400000, guid: 02e0e3dbadb8ebd4b8d4002f80cdfebe, type: 2}
-    - target: {fileID: 2188898096051650180, guid: 9fe33fa81f6876e4db500f7a30808692, type: 3}
-      propertyPath: _gameInput
-      value: 
-      objectReference: {fileID: 11400000, guid: ad90d15a45aacc6478ff302fd813f986, type: 2}
-    - target: {fileID: 2188898096051650180, guid: 9fe33fa81f6876e4db500f7a30808692, type: 3}
-      propertyPath: _inputData
-      value: 
-      objectReference: {fileID: 11400000, guid: ad90d15a45aacc6478ff302fd813f986, type: 2}
-    - target: {fileID: 2188898096051650180, guid: 9fe33fa81f6876e4db500f7a30808692, type: 3}
-      propertyPath: _userInterfaceData
-      value: 
-      objectReference: {fileID: 11400000, guid: 7054af2a61a96c845a5f983d3cc07073, type: 2}
-    - target: {fileID: 2188898096051650180, guid: 9fe33fa81f6876e4db500f7a30808692, type: 3}
-      propertyPath: _userInterfaceEvents
-      value: 
-      objectReference: {fileID: 11400000, guid: 5fb333813e03981409debdbf88246c14, type: 2}
     - target: {fileID: 4198267278124945074, guid: 9fe33fa81f6876e4db500f7a30808692, type: 3}
       propertyPath: m_Name
       value: NPC_CityShop
@@ -61588,8 +61572,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7018980993367270992, guid: 9fe33fa81f6876e4db500f7a30808692, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

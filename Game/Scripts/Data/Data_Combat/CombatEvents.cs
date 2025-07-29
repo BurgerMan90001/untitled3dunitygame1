@@ -4,7 +4,7 @@ using UnityEngine;
 public class CombatEvents : Event
 {
     public event Action<CombatUnit> OnEnterCombat;
-    public event Action OnExitCombat;
+    public event Action<CombatStates> OnExitCombat;
 
 
     #region
@@ -25,11 +25,11 @@ public class CombatEvents : Event
     /// <br> Loads the previous scene. </br>
     /// </summary>
     #endregion
-    public void ExitCombat()
+    public void ExitCombat(CombatStates combatState)
     {
         //   SceneLoader.LoadScene(SceneLoadingSettings.City);
 
-        OnExitCombat?.Invoke();
+        OnExitCombat?.Invoke(combatState);
     }
 }
 

@@ -1,9 +1,9 @@
+using MyBox;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
-
-
 
 //TODO MAKE COMBAT SYSTEM BETTER
 //TODO MAKE BETTER ENEMY AI WITH ENEMY TURN.
@@ -16,22 +16,36 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class CombatManager : MonoBehaviour
 {
+    [Header("HurtEffects")]
+    public List<HurtEffect> HurtEffects;
+
+    [Header("Prefabs")]
+    public CombatUnit PlayerUnit;
+    [ReadOnly] public CombatUnit EnemyUnit;
 
 
-    private CombatData _combatData;
+    [Header("Spawn Points")]
+    [field: SerializeField] public Vector3 PlayerSpawnPoint { get; private set; } = new Vector3(3f, 4f, 0);
+    [field: SerializeField] public Vector3 EnemySpawnPoint { get; private set; } = new Vector3(-3f, 4f, 0);
+
+
+    [Header("Debugging")]
+    [SerializeField] public bool DebugMode = true;
+
 
     [Header("Events")]
     [SerializeField] private CombatEvents _combatEvents;
     [SerializeField] private DialogueEvents _dialogueEvents;
     [SerializeField] private UserInterfaceEvents _userInterfaceEvents;
 
+    public Stack<CombatStates> CombatState { get; private set; } = new Stack<CombatStates>();
+
+    [SerializeField] private List<CombatStates> _combatStateStack = new List<CombatStates>();
+
     private void Awake()
     {
-        _combatData = GetComponent<CombatData>();
 
     }
-
-
     private void OnEnable()
     {
 
@@ -44,50 +58,9 @@ public class CombatManager : MonoBehaviour
         _combatEvents.OnEnterCombat -= OnEnterCombat;
     }
 
-
-    private void OnEnterCombat(CombatUnit enemy)
-    {
-
-
-
-        _userInterfaceEvents.SwitchToUserInterface(UserInterfaceType.Combat);
-
-        _combatData.PushCombatState(CombatStates.Start);
-
-
-        PlayerTurn();
-    }
-
-
-    private IEnumerator PlayerAttack()
-    {
-
-        bool isDead = _combatData.EnemyUnit.CombatStats.Hurt(_combatData.PlayerUnit.CombatStats.Damage);
-
-        Debug.Log(_combatData.EnemyUnit.CombatStats.Health); // UPDATE HUD
-
-        yield return new WaitForSeconds(2f);
-
-        if (isDead)
-        {
-            _combatData.PushCombatState(CombatStates.Won);
-            EndBattle();
-        }
-        else
-        {
-            _combatData.PushCombatState(CombatStates.EnemyTurn);
-            StartCoroutine(EnemyTurn());
-        }
-
-    }
-    private IEnumerator PlayerBlock()
-    {
-        Debug.Log("BLOCK");
-        yield return new WaitForSeconds(2f);
-    }
     public void OnAttackButton(InputAction.CallbackContext ctx)
     {
-        if (!_combatData.IsPlayerTurn()) return;
+        if (!IsPlayerTurn()) return;
 
         if (ctx.started)
         {
@@ -97,7 +70,7 @@ public class CombatManager : MonoBehaviour
     }
     public void OnBlockButton(InputAction.CallbackContext ctx)
     {
-        if (!_combatData.IsPlayerTurn()) return;
+        if (!IsPlayerTurn()) return;
         if (ctx.started)
         {
             StartCoroutine(PlayerBlock());
@@ -105,10 +78,92 @@ public class CombatManager : MonoBehaviour
 
 
     }
+    /// <summary>
+    /// Triggered when the combat entered event is triggered.
+    /// </summary>
+    /// <param name="enemy"></param>
+    private void OnEnterCombat(CombatUnit enemy)
+    {
 
+        EnemyUnit = enemy;
+
+        _userInterfaceEvents.SwitchToUserInterface(UserInterfaceType.Combat);
+
+        PushCombatState(CombatStates.Start);
+
+        PlayerTurn();
+    }
+
+
+    private IEnumerator PlayerAttack()
+    {
+
+        bool isDead = EnemyUnit.Hurt(PlayerUnit.CombatStats.Damage);
+
+        Debug.Log($" ENEMY HEALTH {EnemyUnit.CombatStats.Health}"); // UPDATE HUD
+
+        yield return new WaitForSeconds(2f);
+
+        if (isDead)
+        {
+            PushCombatState(CombatStates.Won);
+            EndBattle();
+        }
+        else
+        {
+            PushCombatState(CombatStates.EnemyTurn);
+            StartCoroutine(EnemyTurn());
+        }
+
+    }
+    private IEnumerator PlayerBlock()
+    {
+        Debug.Log("BLOCK");
+        yield return new WaitForSeconds(2f);
+    }
+
+
+
+    public void PushCombatState(CombatStates combatState)
+    {
+        CombatState.Push(combatState);
+        _combatStateStack = CombatState.ToList();
+    }
+
+    private bool IsPlayerTurn()
+    {
+        if (CombatState.TryPeek(out CombatStates combatState))
+        {
+            if (combatState == CombatStates.PlayerTurn)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private CombatStates CheckIfCombatWon()
+    {
+        if (CombatState.TryPeek(out CombatStates combatState))
+        {
+            if (combatState == CombatStates.Won ||
+                combatState == CombatStates.Lost)
+            {
+                return combatState;
+            }
+            else
+            {
+                Debug.LogWarning($" Found a combat state of : {combatState}, instead of a win condition.");
+                return CombatStates.None;
+            }
+        }
+
+        Debug.LogError("Could not find the most recent combat state.");
+        return CombatStates.None;
+    }
     private void PlayerTurn()
     {
-        _combatData.PushCombatState(CombatStates.PlayerTurn);
+        PushCombatState(CombatStates.PlayerTurn);
         Debug.Log("YOUR TURN");
     }
     #region
@@ -123,15 +178,15 @@ public class CombatManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
 
-        bool isDead = _combatData.PlayerUnit.CombatStats.Hurt(_combatData.EnemyUnit.CombatStats.Damage);
+        bool isDead = PlayerUnit.Hurt(EnemyUnit.CombatStats.Damage);
 
-        Debug.Log(_combatData.PlayerUnit.CombatStats.Health);
+        Debug.Log($" PLAYER HEALTH{PlayerUnit.CombatStats.Health}");
 
         yield return new WaitForSeconds(1f);
 
         if (isDead)
         {
-            _combatData.PushCombatState(CombatStates.Lost);
+            PushCombatState(CombatStates.Lost);
         }
         else
         {
@@ -144,15 +199,19 @@ public class CombatManager : MonoBehaviour
 
     private void EndBattle()
     {
-        if (_combatData.DidWin())
-        {
-            Debug.Log("WINNER");
-        }
-        else
-        {
-            Debug.Log("DEFEAT");
-        }
-        _combatEvents.ExitCombat();
+        PlayerUnit.ResetStats();
+        EnemyUnit.ResetStats();
+
+
+        var combatState = CheckIfCombatWon();
+
+
+
+
+        _combatEvents.ExitCombat(combatState);
+
+
+
     }
 
 

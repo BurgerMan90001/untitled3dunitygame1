@@ -7,7 +7,7 @@ public class SleepHurtEffect : HurtEffect
 
     public override void ApplyEffect(CombatUnit target, CombatUnit attacker, float damage)
     {
-        target.CombatStats.Hurt(damage);
+        //   target.Hurt(damage);
 
     }
 }

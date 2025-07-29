@@ -85,7 +85,7 @@ public class InputManager : MonoBehaviour, PlayerInputActions.IPlayerActions, Pl
         _combatActions.Enable();
 
     }
-    private void OnExitCombat()
+    private void OnExitCombat(CombatStates combatState)
     {
         _combatActions.Disable();
         _playerActions.Enable();

@@ -1,5 +1,5 @@
+using MyBox;
 using UnityEngine;
-
 /// <summary>
 /// <br> Stats that are used during combat. </br>
 /// </summary>
@@ -7,14 +7,14 @@ using UnityEngine;
 public class CombatStats : Stats
 {
     [Header("Data")]
- //   [SerializeField] private CombatData _combatData;
-    [SerializeField] private Inventory _inventory;
+    //   [SerializeField] private CombatData _combatData;
+    [DisplayInspector][SerializeField] private Inventory _inventory;
 
-    public float MaxHealth {get; private set;}
-    public float Health {get; private set;} // used in battle
+    public float MaxHealth;
+    public float Health; // used in battle
 
 
-    public float Damage = 1; 
+    public float Damage = 1;
     /*
     public float AttackValue = 1; //MAYBE
     public float AttackPercent; // e.g. 1 is 100% and 0.5 is 50%
@@ -29,27 +29,7 @@ public class CombatStats : Stats
     /// <param name="value"></param>
     /// <returns></returns>
     #endregion
-    public bool Hurt(float damage) 
-    {
-        Health -= damage;
-        if (Health <= 0)
-        {
-            return true;
-        }    
-        return false;
-        
-    }
 
-    public void Heal(float value)
-    {
-        Health += value;
-    }
-    /*
-    public float GetFinalAttackValue()
-    {
-        return AttackValue * AttackPercent;
-    }
-    */
     public override void LoadData(GameData data)
     {
         MaxHealth = data.MaxHealth;
