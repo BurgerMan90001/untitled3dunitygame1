@@ -25,7 +25,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Attack",
+                    "name": "LeftClick",
                     "type": "Value",
                     "id": "78876126-3833-4309-ac0c-76834f000c32",
                     "expectedControlType": "",
@@ -279,7 +279,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "Attack",
+                    "action": "LeftClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -290,7 +290,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Attack",
+                    "action": "LeftClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -301,7 +301,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Touch",
-                    "action": "Attack",
+                    "action": "LeftClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -312,7 +312,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
-                    "action": "Attack",
+                    "action": "LeftClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -323,7 +323,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "XR",
-                    "action": "Attack",
+                    "action": "LeftClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -1,7 +1,7 @@
+using MyBox;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
 
 /// <summary>
 /// <br> Combat events and data. <br>
@@ -17,7 +17,7 @@ public class CombatData : Data
 
     [Header("Prefabs")]
     public CombatUnit PlayerUnit;
-    public CombatUnit EnemyUnit;
+    [ReadOnly] public CombatUnit EnemyUnit;
 
 
     [Header("Spawn Points")]

@@ -24139,6 +24139,17 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 0.26027524}
   m_Center: {x: 0, y: 0.5477311, z: 0.15535332}
+--- !u!114 &841869463 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5385442810182727302, guid: ae6a4fd0d2198b841bdc8fdab92cc427, type: 3}
+  m_PrefabInstance: {fileID: 625054897}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a3d06e508871c5478bd93dc69da0a1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &862591417
 GameObject:
   m_ObjectHideFlags: 0
@@ -28189,6 +28200,10 @@ PrefabInstance:
       propertyPath: _playerPrefab
       value: 
       objectReference: {fileID: 625054898}
+    - target: {fileID: 6304404001366895819, guid: 2fc3e4cec2dd15d40bcc60c97c84aab2, type: 3}
+      propertyPath: _combatManager
+      value: 
+      objectReference: {fileID: 1479470576}
     - target: {fileID: 6304404001366895819, guid: 2fc3e4cec2dd15d40bcc60c97c84aab2, type: 3}
       propertyPath: _gameCameraPrefab
       value: 
@@ -43133,6 +43148,17 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!114 &1479470576 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2309645640552493600, guid: 29d0da05cd858234b94b1afee26ae887, type: 3}
+  m_PrefabInstance: {fileID: 2083511484}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e8b3a07d6974fd4ea340a196ff6b9b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1486638522 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3bfdf6f48a2eac14ca7f1c3b996f5d70, type: 3}
@@ -58262,6 +58288,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CombatManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4690592151540497001, guid: 29d0da05cd858234b94b1afee26ae887, type: 3}
+      propertyPath: PlayerUnit
+      value: 
+      objectReference: {fileID: 841869463}
     - target: {fileID: 9125093960881774552, guid: 29d0da05cd858234b94b1afee26ae887, type: 3}
       propertyPath: m_LocalPosition.x
       value: -28.97567

@@ -13,15 +13,10 @@ public class UserInterfaceManager : MonoBehaviour
 {
     [SerializeField] private Inventory _inventory; // the dynamic inventory scriptable object that will be used to manage the inventory
                                                    //    [SerializeField] private UserInterfaceEvents _userInterfaceEvents;
-
-
-    //private GameInput _gameInput;
-    //   [SerializeField] private CombatData _combatData;
-
+    [Header("Events")]
     [SerializeField] private DataPersistenceEvents _dataPersistenceEvents;
     [SerializeField] private UserInterfaceEvents _userInterfaceEvents;
     [SerializeField] private DialogueEvents _dialogueEvents;
-    //  [SerializeField] private InputEvent inputEvents;
 
 
     [Header("First Shown Interface")]
@@ -57,14 +52,6 @@ public class UserInterfaceManager : MonoBehaviour
 
     private UxmlFileHandler _uxmlFileHandler;
 
-
-    public void Inject(DataPersistenceEvents dataPersistenceEvents, UserInterfaceEvents userInterfaceEvents, DialogueEvents dialogueEvents, Inventory inventory)
-    {
-        _dataPersistenceEvents = dataPersistenceEvents;
-        _userInterfaceEvents = userInterfaceEvents;
-        _dialogueEvents = dialogueEvents;
-        _inventory = inventory;
-    }
     private void Awake()
     {
         _uiDocument = GetComponent<UIDocument>();

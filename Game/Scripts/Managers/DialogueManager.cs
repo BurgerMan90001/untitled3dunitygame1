@@ -33,15 +33,11 @@ public class DialogueManager : MonoBehaviour
             ShowVariables();
         }
         _dialogueData.ChoiceText = new StringBuilder();
-
-
-    }
-
-    private void Start()
-    {
-        //    _dialogueData.Story = new Story(_textAsset.text);
         _dialogueData.SetInDialogue(false);
+
+        //    _dialogueData.Story = new Story(_textAsset.text);
     }
+
     private void OnEnable()
     {
         _dialogueData.Story.onError += OnError;
@@ -129,6 +125,8 @@ public class DialogueManager : MonoBehaviour
         _dialogueData.ChoiceText?.Clear();
 
         _dialogueData.SetInDialogue(false);
+
+        _dialogueData.CurrentNpc = null;
 
         if (_dialogueData.ResetStoryOnExit)
         {

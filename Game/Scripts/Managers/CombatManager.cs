@@ -1,15 +1,18 @@
-using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 
 
 //TODO MAKE COMBAT SYSTEM BETTER
 //TODO MAKE BETTER ENEMY AI WITH ENEMY TURN.
+
+
+
 /// <summary>
 /// <br> Manages in-game combat. </br>
-/// <br> Used in the combat scene. </br>
+/// <br> Listens for the combat event trigger. </br>
 /// </summary>
 public class CombatManager : MonoBehaviour
 {
@@ -20,7 +23,7 @@ public class CombatManager : MonoBehaviour
     [Header("Events")]
     [SerializeField] private CombatEvents _combatEvents;
     [SerializeField] private DialogueEvents _dialogueEvents;
-
+    [SerializeField] private UserInterfaceEvents _userInterfaceEvents;
 
     private void Awake()
     {
@@ -31,43 +34,29 @@ public class CombatManager : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("ENABLE");
+
         _combatEvents.OnEnterCombat += OnEnterCombat;
-        //   _dialogueEvents.OnExitDialogue += CheckIfEnteredCombat; // TODO MOVE COMBAT CHECK INTO DIALOGUE EVENTS  
 
     }
 
-    private void OnEnterCombat(CombatUnit unit)
+    private void OnDestroy()
     {
-        throw new NotImplementedException();
+        _combatEvents.OnEnterCombat -= OnEnterCombat;
     }
 
-    private void OnDisable()
-    {
-        _combatEvents.OnEnterCombat += OnEnterCombat;
-        //    _dialogueEvents.OnExitDialogue -= CheckIfEnteredCombat;
 
-    }
-    private void CheckIfEnteredCombat(GameObject npc)
+    private void OnEnterCombat(CombatUnit enemy)
     {
 
-        /*
-        if (_dialogueEvents.CombatEntered)
-        {
-            if (npc.TryGetComponent(out CombatUnit combatUnit))
-            {
-                EnterCombat(combatUnit);
-            }
-            else
-            {
-                Debug.LogError("Combat was entered, but the npc does not have a CombatUnit monobehaviour.");
-            }
 
-        }
-        */
+
+        _userInterfaceEvents.SwitchToUserInterface(UserInterfaceType.Combat);
+
+        _combatData.PushCombatState(CombatStates.Start);
+
+
+        PlayerTurn();
     }
-
-
 
 
     private IEnumerator PlayerAttack()
@@ -96,17 +85,24 @@ public class CombatManager : MonoBehaviour
         Debug.Log("BLOCK");
         yield return new WaitForSeconds(2f);
     }
-    public void OnAttackButton()
+    public void OnAttackButton(InputAction.CallbackContext ctx)
     {
         if (!_combatData.IsPlayerTurn()) return;
 
-        StartCoroutine(PlayerAttack());
+        if (ctx.started)
+        {
+            StartCoroutine(PlayerAttack());
+        }
+
     }
-    public void OnBlockButton()
+    public void OnBlockButton(InputAction.CallbackContext ctx)
     {
         if (!_combatData.IsPlayerTurn()) return;
+        if (ctx.started)
+        {
+            StartCoroutine(PlayerBlock());
+        }
 
-        StartCoroutine(PlayerBlock());
 
     }
 
@@ -145,19 +141,7 @@ public class CombatManager : MonoBehaviour
 
     }
 
-    private void EnterCombat(CombatUnit enemy)
-    {
 
-        DontDestroyOnLoad(enemy.gameObject);
-
-        _combatEvents.EnterCombat(enemy);
-
-
-        _combatData.PushCombatState(CombatStates.Start);
-
-
-        PlayerTurn();
-    }
     private void EndBattle()
     {
         if (_combatData.DidWin())

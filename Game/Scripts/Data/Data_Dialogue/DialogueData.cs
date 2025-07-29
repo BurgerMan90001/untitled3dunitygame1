@@ -1,7 +1,7 @@
 using Ink.Runtime;
+using MyBox;
 using System.Text;
 using UnityEngine;
-
 #region
 /// <summary>
 /// Dialogue events and data.
@@ -12,10 +12,11 @@ public class DialogueData : Data
 {
     public TextAsset InkJson;
     public Story Story;
-
+    [Header("Events")]
     [SerializeField] private DialogueEvents _events;
     //   private StoryState StoryState;
 
+    [Header("Debug")]
     public bool DebugMode = false;
     public bool ShowVariables = false;
 
@@ -25,7 +26,7 @@ public class DialogueData : Data
 
     public string DialogueLine;
 
-    public GameObject CurrentNpc;
+    [ReadOnly] public GameObject CurrentNpc;
 
     public StringBuilder ChoiceText = new StringBuilder();
 

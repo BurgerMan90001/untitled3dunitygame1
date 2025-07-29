@@ -10,6 +10,8 @@ public class InputManager : MonoBehaviour, PlayerInputActions.IPlayerActions, Pl
     [SerializeField] private GameInput _playerPrefab;
     private IPlayerMovement _playerMovement;
 
+    [SerializeField] private CombatManager _combatManager;
+
     [Header("Debug")]
     [SerializeField] private bool _clearInventoryOnEnable = false;
 
@@ -109,11 +111,6 @@ public class InputManager : MonoBehaviour, PlayerInputActions.IPlayerActions, Pl
         _gameCamera.OnLook(ctx);
     }
 
-    public void OnAttack(InputAction.CallbackContext ctx)
-    {
-        _gameCamera.OnLeftClick(ctx);
-    }
-
     public void OnPickup(InputAction.CallbackContext ctx)
     {
         _gameCamera.OnPickup(ctx);
@@ -173,8 +170,17 @@ public class InputManager : MonoBehaviour, PlayerInputActions.IPlayerActions, Pl
         throw new System.NotImplementedException();
     }
 
-    public void OnBlock(InputAction.CallbackContext context)
+    public void OnAttack(InputAction.CallbackContext ctx)
     {
-        throw new System.NotImplementedException();
+        _combatManager.OnAttackButton(ctx);
+    }
+    public void OnBlock(InputAction.CallbackContext ctx)
+    {
+        _combatManager.OnBlockButton(ctx);
+    }
+
+    public void OnLeftClick(InputAction.CallbackContext ctx)
+    {
+        _gameCamera.OnLeftClick(ctx);
     }
 }

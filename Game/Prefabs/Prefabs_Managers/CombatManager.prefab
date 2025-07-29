@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _combatEvents: {fileID: 11400000, guid: 25e76855a225a9340a439ced081b70c4, type: 2}
   _dialogueEvents: {fileID: 11400000, guid: 758561cdb6a753b41945355c3ac635c9, type: 2}
+  _userInterfaceEvents: {fileID: 11400000, guid: 5fb333813e03981409debdbf88246c14, type: 2}
 --- !u!114 &4690592151540497001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,7 +60,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c3211a2e793fb94bb5bac785ff485cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _combatEvents: {fileID: 11400000, guid: 25e76855a225a9340a439ced081b70c4, type: 2}
   HurtEffects: []
   PlayerUnit: {fileID: 0}
   EnemyUnit: {fileID: 0}
