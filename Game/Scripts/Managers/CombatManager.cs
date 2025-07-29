@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -16,9 +17,9 @@ public class CombatManager : MonoBehaviour
 
     private CombatData _combatData;
 
-
-    private CombatEvents _combatEvents;
-    private DialogueEvents _dialogueEvents;
+    [Header("Events")]
+    [SerializeField] private CombatEvents _combatEvents;
+    [SerializeField] private DialogueEvents _dialogueEvents;
 
 
     private void Awake()
@@ -26,36 +27,30 @@ public class CombatManager : MonoBehaviour
         _combatData = GetComponent<CombatData>();
 
     }
-    private void Start()
-    {
-        /*
-        if (_combatData.DebugMode)
-        {
-            Debug.Log("IN COMBAT DEBUG MODE");
-            _combatEvents.EnterCombat(_combatData.EnemyUnit);
-        }
-        */
-    }
-    public void Inject(DialogueEvents dialogueEvents, CombatEvents combatEvents)
-    {
-        Debug.Log("INJECT");
-        _dialogueEvents = dialogueEvents;
-        _combatEvents = combatEvents;
-    }
+
+
     private void OnEnable()
     {
         Debug.Log("ENABLE");
-        _dialogueEvents.OnExitDialogue += CheckIfEnteredCombat; // TODO MOVE COMBAT CHECK INTO DIALOGUE EVENTS  
+        _combatEvents.OnEnterCombat += OnEnterCombat;
+        //   _dialogueEvents.OnExitDialogue += CheckIfEnteredCombat; // TODO MOVE COMBAT CHECK INTO DIALOGUE EVENTS  
 
     }
+
+    private void OnEnterCombat(CombatUnit unit)
+    {
+        throw new NotImplementedException();
+    }
+
     private void OnDisable()
     {
-
-        _dialogueEvents.OnExitDialogue -= CheckIfEnteredCombat;
+        _combatEvents.OnEnterCombat += OnEnterCombat;
+        //    _dialogueEvents.OnExitDialogue -= CheckIfEnteredCombat;
 
     }
     private void CheckIfEnteredCombat(GameObject npc)
     {
+
         /*
         if (_dialogueEvents.CombatEntered)
         {

@@ -11,16 +11,16 @@ public class DialogueEvents : Event
     /// <br> The string knotName and the gameobeject npc that was interacted with. </br>
     /// </summary>
     #endregion
-    public event Action<string> OnEnterDialogue;
+    public event Action<string, GameObject> OnEnterDialogue;
     public event Action OnContinueDialogue;
     public event Action<string> OnUpdateDialogueLine;
-    public event Action<GameObject> OnExitDialogue;
+    public event Action OnExitDialogue;
 
 
     public event Action<List<string>> OnUpdateChoices;
     public event Action<int> OnChoiceSelected;
 
-    private GameObject _npc;
+    //    private GameObject _npc;
     [ReadOnly][field: SerializeField] public bool InDialogue { get; private set; } = false;
 
     /*
@@ -36,9 +36,9 @@ public class DialogueEvents : Event
     #endregion
     public void EnterDialogue(string knotName, GameObject npc)
     {
-        OnEnterDialogue?.Invoke(knotName); // null check
+        OnEnterDialogue?.Invoke(knotName, npc); // null check
 
-        _npc = npc;
+        //    _npc = npc;
 
         InDialogue = true;
 
@@ -63,7 +63,7 @@ public class DialogueEvents : Event
     #endregion
     public void ExitDialogue()
     {
-        OnExitDialogue?.Invoke(_npc);
+        OnExitDialogue?.Invoke();
 
         InDialogue = false;
     }
@@ -80,7 +80,6 @@ public class DialogueEvents : Event
     public void SelectChoice(int choiceIndex)
     {
         OnChoiceSelected?.Invoke(choiceIndex);
-
 
         ContinueDialogue(); // automatically continue dialogue
     }
@@ -102,8 +101,9 @@ public class DialogueEvents : Event
         //    _dialogueData.DialogueLine = newDialogueLine;
         OnUpdateDialogueLine?.Invoke(newDialogueLine);
     }
-    public void ObservVariable(string variableName)
+    public void ObserveVariable(string variableName)
     {
 
     }
+
 }

@@ -2,42 +2,58 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputManager : MonoBehaviour
+public class InputManager : MonoBehaviour, PlayerInputActions.IPlayerActions, PlayerInputActions.ICombatActions
 {
-    [Header("Input")]
+    [Header("Player Input Objects")]
+    [SerializeField] private GameInput _gameCameraPrefab;
+    private IGameCamera _gameCamera;
+    [SerializeField] private GameInput _playerPrefab;
+    private IPlayerMovement _playerMovement;
 
-    public PlayerInputActions PlayerInputActions;
-
-    public MovementInput MovementInput;
-    public CameraInput CameraInput;
-    public MenuInput MenuInput;
-    public DebugInput DebugInput;
     [Header("Debug")]
     [SerializeField] private bool _clearInventoryOnEnable = false;
 
-    //  private Inventory _inventory;
     private bool _interfaceEnabled = false;
 
-
-
+    [Header("Events")]
     [SerializeField] private DialogueEvents _dialogueEvents;
     [SerializeField] private CombatEvents _combatEvents;
-
     [SerializeField] private UserInterfaceEvents _userInterfaceEvents;
 
-    public void Inject(DialogueEvents dialogueEvents, CombatEvents combatEvents, UserInterfaceEvents userInterfaceEvents)
+    private PlayerInputActions _playerInputActions;
+    private PlayerInputActions.PlayerActions _playerActions;
+    private PlayerInputActions.CombatActions _combatActions;
+    private void Awake()
     {
-        _combatEvents = combatEvents;
-        _dialogueEvents = dialogueEvents;
-
-        _userInterfaceEvents = userInterfaceEvents;
+        _playerInputActions = new PlayerInputActions();
+        _playerActions = _playerInputActions.Player;
+        _combatActions = _playerInputActions.Combat;
+        _playerActions.AddCallbacks(this);
+        _combatActions.AddCallbacks(this);
     }
+    private void Start()
+    {
+        if (_gameCameraPrefab.TryGetComponent(out IGameCamera gameCamera))
+        {
+            _gameCamera = gameCamera;
+        }
+        else
+        {
+            Debug.LogError("The game camera prefab does not have a IGameCamera component.");
+        }
+        if (_playerPrefab.TryGetComponent(out IPlayerMovement playerMovement))
+        {
 
+            _playerMovement = playerMovement;
+        }
+        else
+        {
+            Debug.LogError("The game player movement prefab does not have a IPlayerMovement component.");
+        }
+    }
 
     private void OnEnable()
     {
-        PlayerInputActions.Player.Disable();
-        Debug.Log("REGISTER");
         _dialogueEvents.OnChoiceSelected += OnChoiceSelected;
         _dialogueEvents.OnUpdateChoices += OnUpdateChoices;
 
@@ -45,37 +61,81 @@ public class InputManager : MonoBehaviour
         _combatEvents.OnEnterCombat += OnEnterCombat;
         _combatEvents.OnExitCombat += OnExitCombat;
 
-        MenuInput.RegisterInputEvent(MenuInput.InventoryToggleAction, OnOpenInventory);
 
-        DebugInput.RegisterInputEvent(DebugInput.Debug1Action, OnDebug1); // Z
-        DebugInput.RegisterInputEvent(DebugInput.Debug2Action, OnDebug2); // X
-
-
-
-        //   ClearInventory(_clearInventoryOnEnable);
+        _playerActions.Enable();
     }
-
-
     private void OnDestroy()
     {
-        Debug.Log("DESTROY");
-        _combatEvents.OnEnterCombat -= OnEnterCombat;
-        _combatEvents.OnExitCombat -= OnExitCombat;
-
         _dialogueEvents.OnChoiceSelected -= OnChoiceSelected;
         _dialogueEvents.OnUpdateChoices -= OnUpdateChoices;
 
+        _combatEvents.OnEnterCombat -= OnEnterCombat;
+        _combatEvents.OnExitCombat -= OnExitCombat;
+
+        _playerActions.Disable();
+    }
 
 
-        DebugInput.UnregisterInputEvent(DebugInput.Debug1Action, OnDebug1);
-        DebugInput.UnregisterInputEvent(DebugInput.Debug2Action, OnDebug2);
 
-        MenuInput.UnregisterInputEvent(MenuInput.InventoryToggleAction, OnOpenInventory);
+    private void OnEnterCombat(CombatUnit _)
+    {
+        _playerActions.Disable();
+        _combatActions.Enable();
 
     }
-    private void OnOpenInventory(InputAction.CallbackContext ctx)
+    private void OnExitCombat()
     {
-        Debug.Log("ASdjoikksdakm");
+        _combatActions.Disable();
+        _playerActions.Enable();
+
+    }
+
+    private void OnUpdateChoices(List<string> choices) // discards the list of choice strings. disables input
+    {
+        _playerActions.Disable();
+    }
+
+    private void OnChoiceSelected(int choicesIndex) // discards the chosen int index. enables input
+    {
+        _playerActions.Enable();
+    }
+
+    public void OnMove(InputAction.CallbackContext ctx)
+    {
+        _playerMovement.OnMove(ctx);
+    }
+    public void OnLook(InputAction.CallbackContext ctx)
+    {
+        _gameCamera.OnLook(ctx);
+    }
+
+    public void OnAttack(InputAction.CallbackContext ctx)
+    {
+        _gameCamera.OnLeftClick(ctx);
+    }
+
+    public void OnPickup(InputAction.CallbackContext ctx)
+    {
+        _gameCamera.OnPickup(ctx);
+    }
+
+    public void OnJump(InputAction.CallbackContext ctx)
+    {
+        _playerMovement.OnJump(ctx);
+    }
+
+    public void OnCrouch(InputAction.CallbackContext ctx)
+    {
+        _playerMovement.OnCrouch(ctx);
+    }
+
+    public void OnSprint(InputAction.CallbackContext ctx)
+    {
+        _playerMovement.OnSprint(ctx);
+    }
+
+    public void OnOpenInventory(InputAction.CallbackContext ctx)
+    {
         if (ctx.started)
         {
             if (_interfaceEnabled)
@@ -83,77 +143,38 @@ public class InputManager : MonoBehaviour
                 _userInterfaceEvents.SwitchToUserInterface(UserInterfaceType.HUD);
                 _interfaceEnabled = false;
 
-                MovementInput.EnableMovement(true);
-                CameraInput.EnableLook(true);
+                //    MovementInput.EnableMovement(true);
+                //    CameraInput.EnableLook(true);
             }
             else
             {
                 _userInterfaceEvents.SwitchToUserInterface(UserInterfaceType.Inventory);
                 _interfaceEnabled = true;
 
-                MovementInput.EnableMovement(false);
-                CameraInput.EnableLook(false);
+                //    MovementInput.EnableMovement(false);
+                //   CameraInput.EnableLook(false);
 
             }
         }
-
-
     }
 
-    /*
-    private void ClearInventory(bool active)
+    public void OnInteract(InputAction.CallbackContext ctx)
     {
-        if (active)
-        {
-
-            _inventory.ResetInventory();
-        }
+        _gameCamera.OnInteract(ctx);
     }
-    */
-    private void OnEnterCombat(CombatUnit _)
+
+    public void OnDebug(InputAction.CallbackContext ctx)
     {
-        MovementInput.EnableMovement(false);
-        MenuInput.EnableInventoryToggle(false);
+        throw new System.NotImplementedException();
     }
-    private void OnExitCombat()
+
+    public void OnOpenPauseMenu(InputAction.CallbackContext ctx)
     {
-        MovementInput.EnableMovement(true);
-        MenuInput.EnableInventoryToggle(true);
+        throw new System.NotImplementedException();
     }
 
-    private void OnUpdateChoices(List<string> choices) // discards the list of choice strings. disables input
+    public void OnBlock(InputAction.CallbackContext context)
     {
-        MovementInput.EnableMovement(false);
-        CameraInput.EnableLook(false);
-        CameraInput.EnableInteract(false);
-        MenuInput.EnableInventoryToggle(false);
+        throw new System.NotImplementedException();
     }
-
-    private void OnChoiceSelected(int choicesIndex) // discards the chosen int index. enables input
-    {
-        MovementInput.EnableMovement(true);
-        CameraInput.EnableLook(true);
-        CameraInput.EnableInteract(true);
-        MenuInput.EnableInventoryToggle(true);
-    }
-    private void OnDebug1(InputAction.CallbackContext ctx)
-    {
-        if (ctx.started)
-        {
-
-
-            Debug.Log("Debug1 button pressed.");
-
-        }
-
-    }
-    private void OnDebug2(InputAction.CallbackContext ctx)
-    {
-        Debug.Log("Debug2 button pressed.");
-
-
-        GameCursor.ToggleLock();
-    }
-
-
 }

@@ -1,23 +1,16 @@
-using UnityEngine;
+using UnityEngine.InputSystem;
 
 public interface IInjectable
 {
-    GameObject GameObject { get; }
-
 
 }
 
 public interface IPlayerMovement : IInjectable
 {
-    Transform Orientation { get; }
-
-    //    Transform GetOrientation();
-    //   GameObject GetGameObject();
-    /// <summary>
-    /// FOR NOW DOES NOTHING
-    /// </summary>
-    void Inject();
-
+    void OnMove(InputAction.CallbackContext ctx);
+    void OnJump(InputAction.CallbackContext ctx);
+    void OnSprint(InputAction.CallbackContext ctx);
+    void OnCrouch(InputAction.CallbackContext ctx);
 
 
 }
@@ -25,7 +18,9 @@ public interface IPlayerMovement : IInjectable
 public interface IGameCamera : IInjectable
 {
 
-    void Inject(GameObject player, Transform orientation);
-
+    void OnLeftClick(InputAction.CallbackContext ctx);
+    void OnLook(InputAction.CallbackContext ctx);
+    void OnInteract(InputAction.CallbackContext ctx);
+    void OnPickup(InputAction.CallbackContext ctx);
 
 }

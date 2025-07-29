@@ -1,6 +1,5 @@
-// TODO MAYBE MAKE UNIVERSAL MANAGER METHODES 
-// TODO SIMPLIFY
-//joipgfdjiosdfoipghsdpokfgdpox
+
+
 /// <summary>
 /// <br> For managers and such. Inherits from monobehaviour.</br>
 /// <br> for now empty and for singletons </br>

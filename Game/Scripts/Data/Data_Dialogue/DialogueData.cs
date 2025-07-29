@@ -1,5 +1,4 @@
 using Ink.Runtime;
-using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
@@ -26,6 +25,7 @@ public class DialogueData : Data
 
     public string DialogueLine;
 
+    public GameObject CurrentNpc;
 
     public StringBuilder ChoiceText = new StringBuilder();
 
@@ -34,24 +34,16 @@ public class DialogueData : Data
     private void OnEnable()
     {
         _events.OnUpdateDialogueLine += UpdateDialogueLine;
-        _events.OnUpdateChoices += UpdateChoices;
     }
-
+    private void OnDestroy()
+    {
+        _events.OnUpdateDialogueLine -= UpdateDialogueLine;
+    }
     private void UpdateDialogueLine(string dialogueLine)
     {
         DialogueLine = dialogueLine;
     }
 
-    private void UpdateChoices(List<string> list)
-    {
-        //    throw new NotImplementedException();
-    }
-
-    private void OnDestroy()
-    {
-        _events.OnUpdateDialogueLine -= UpdateDialogueLine;
-        _events.OnUpdateChoices -= UpdateChoices;
-    }
     public void SetInDialogue(bool inDialogue)
     {
         InDialogue = inDialogue;
@@ -59,7 +51,6 @@ public class DialogueData : Data
 
     public override void LoadData(GameData data)
     {
-
         Story = data.Story;
     }
 

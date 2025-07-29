@@ -35,10 +35,6 @@ public class PlayerObjectPool : ObjectPool
 
 
 
-        _playerMovement.Inject();
-
-        _camera.Inject(_playerMovement.GameObject, _playerMovement.Orientation);
-
     }
 
 }

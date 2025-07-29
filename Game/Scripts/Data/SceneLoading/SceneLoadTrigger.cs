@@ -1,3 +1,4 @@
+using MyBox;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -8,24 +9,55 @@ using UnityEngine.SceneManagement;
 public class SceneLoadTrigger : MonoBehaviour
 {
     [SerializeField] private bool _preloadAssets = true;
-    [SerializeField] private AssetReference scene;
-    [SerializeField] private AssetLabelReference assetLabel;
-    private IEnumerator Start()
-    {
+    [ConditionalField(nameof(_preloadAssets))][SerializeField] private AssetLabelReference preloadAssetLabel;
 
+    [SerializeField] private AssetReference _targetScene;
+    [SerializeField] private AssetReference _loadingScene;
+
+    private void Start()
+    {
         if (_preloadAssets)
         {
-            Debug.Log("Preloading assets. ");
-            var preloadHandle = Addressables.LoadAssetsAsync<ScriptableObject>(assetLabel, null);
-            yield return preloadHandle; // wait for preload handle to finish.
+            StartCoroutine(LoadScenePreload());
+        }
+        else
+        {
+            StartCoroutine(LoadScene());
+
         }
 
-
-        yield return null;
-
-        var handle = Addressables.LoadSceneAsync(scene, LoadSceneMode.Additive);
-        yield return handle;
         //    SceneLoader.LoadScene(SceneLoadingSettings.City);
+    }
+    private IEnumerator LoadScenePreload()
+    {
+        Debug.Log("Preloading assets. ");
+        var preloadHandle = Addressables.LoadAssetsAsync<ScriptableObject>(preloadAssetLabel, null);
+        var loadingHandle = Addressables.LoadSceneAsync(_loadingScene, LoadSceneMode.Additive);
+
+        yield return loadingHandle; // wait for load scene to load
+
+        yield return preloadHandle; // after, wait for preload handle to finis
+
+        Debug.Log("Done preloading assets");
+
+        var handle = Addressables.LoadSceneAsync(_targetScene, LoadSceneMode.Additive);
+        yield return handle; // wait for the target scene to load
+
+        //    SceneManager.UnloadSceneAsync(0); // unload the bootstrap scene after the target scene loads
+
+        //    Addressables.UnloadSceneAsync(loadingHandle); // unload the loading scene after the target scene loads
+    }
+    private IEnumerator LoadScene()
+    {
+        var loadingHandle = Addressables.LoadSceneAsync(_loadingScene, LoadSceneMode.Additive);
+        yield return loadingHandle; // wait for load scene to load
+
+        var handle = Addressables.LoadSceneAsync(_targetScene, LoadSceneMode.Additive);
+        yield return handle; // wait for the target scene to load
+
+        //     SceneManager.UnloadSceneAsync(0); // unload the bootstrap scene after the target scene loads
+
+        //   Addressables.UnloadSceneAsync(loadingHandle); // unload the loading scene after the target scene loads
     }
     private void OnEnable()
     {

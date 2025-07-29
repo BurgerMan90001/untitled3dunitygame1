@@ -38,12 +38,13 @@ public class CombatData : Data
         CombatState.Push(combatState);
     }
 
+    /*
     public void CheckIfCombatEntered(GameObject npc, bool combatEntered)
     {
         if (combatEntered)
         {
 
-            /*
+            
             if (npc.TryGetComponent(out CombatUnit combatUnit))
             {
                 _combatEvents.EnterCombat(combatUnit);
@@ -53,11 +54,12 @@ public class CombatData : Data
                 Debug.LogWarning("The story's combatEntered value is true, but the npc does not have a CombatUnit component! ");
                 return;
             }
-            */
+            
 
         }
 
     }
+    */
     public bool IsPlayerTurn()
     {
         if (CombatState.TryPeek(out CombatStates combatState))

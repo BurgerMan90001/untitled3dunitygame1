@@ -164,14 +164,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _preloadAssets: 1
-  scene:
+  preloadAssetLabel:
+    m_LabelString: preload
+  _targetScene:
     m_AssetGUID: 75b8d9e5c83d29740830ae82b3d0b184
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  _loadingScene:
+    m_AssetGUID: 2e24f1f41d2d94447a3172e34cf5a190
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
     m_EditorAssetChanged: 1
-  assetLabel:
-    m_LabelString: preload
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

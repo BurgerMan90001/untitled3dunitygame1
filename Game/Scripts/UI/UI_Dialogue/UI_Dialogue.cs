@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 // animationsz logic
+// MAYBE HAVE DIFFERENT DIALOGUE UI FOR CHARACTERS
 public class UI_Dialogue : IUserInterface
 {
     private UserInterfaceEvents _userInterfaceEvents;
@@ -87,7 +88,7 @@ public class UI_Dialogue : IUserInterface
         }
     }
 
-    private void DisplayDialoguePanel(string _)
+    private void DisplayDialoguePanel(string _, GameObject _1)
     {
 
         _userInterfaceEvents.ShowInterface(UserInterfaceType.Dialogue);
@@ -99,7 +100,7 @@ public class UI_Dialogue : IUserInterface
 
         _dialogueLabel.text = newText;
     }
-    private void HideDialogue(GameObject _)
+    private void HideDialogue()
     {
         _userInterfaceEvents.HideRecentInterface();
         _dialogueLabel.text = "";

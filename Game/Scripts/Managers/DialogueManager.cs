@@ -9,16 +9,13 @@ using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
-
+    [Header("Events")]
+    [SerializeField] private CombatEvents _combatEvents;
     [SerializeField] private DialogueEvents _dialogueEvents;
 
     private DialogueData _dialogueData;
 
 
-    public void Inject(DialogueEvents dialogueEvents)
-    {
-        _dialogueEvents = dialogueEvents;
-    }
 
     private void Awake()
     {
@@ -70,13 +67,15 @@ public class DialogueManager : MonoBehaviour
     }
 
 
-    private void EnterDialogue(string knotName) // begins or continues dialogue
+    private void EnterDialogue(string knotName, GameObject npc) // begins or continues dialogue
     {
 
         if (!knotName.Equals(""))
         {
             _dialogueData.SetInDialogue(true);
             _dialogueData.Story.ChoosePathString(knotName); // jump to the knotname in the ink file
+
+            _dialogueData.CurrentNpc = npc;
 
             ContinueOrExitStory();
         }
@@ -111,6 +110,18 @@ public class DialogueManager : MonoBehaviour
     }
     private void ExitDialogue()
     {
+        if ((bool)CheckVariable("combatEntered"))
+        {
+            if (_dialogueData.CurrentNpc.TryGetComponent(out CombatUnit enemy))
+            {
+                _combatEvents.EnterCombat(enemy);
+            }
+            else
+            {
+                Debug.LogError("Combat was entered, but the current npc does not have a combat unit component.");
+            }
+
+        }
         _dialogueEvents.ExitDialogue();
 
         _dialogueEvents.UpdateDialogueLine("");
@@ -124,6 +135,10 @@ public class DialogueManager : MonoBehaviour
             _dialogueData.Story.ResetState();
         }
 
+    }
+    private object CheckVariable(string variableName)
+    {
+        return _dialogueData.Story.variablesState[variableName];
     }
     private void UpdateChoices()
     {

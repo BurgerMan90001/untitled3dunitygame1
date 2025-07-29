@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 /// all of the actions that the camera will handle
 /// </summary>
 
-public class GameCamera : MonoBehaviour, IGameCamera
+public class GameCamera : GameInput, IGameCamera
 {
     private Interact _interact;
     private PositionCamera _positionCamera;
@@ -22,9 +22,9 @@ public class GameCamera : MonoBehaviour, IGameCamera
     private Transform _cameraTransform;
 
     [Header("Dependencies")]
+    [SerializeField] private GameObject _player;
+    [SerializeField] private Transform _orientation;
     //  [SerializeField] private Inventory _inventory;
-
-    [SerializeField] private CameraInput _input;
 
     // [SerializeField] private Transform _rainPosition;
 
@@ -41,35 +41,16 @@ public class GameCamera : MonoBehaviour, IGameCamera
     [SerializeField] private bool _showInteractDebugRayCast = true;
     [SerializeField] private LayerMask _interactMask;
 
-
-
     [Header("MouseClick Settings")]
     [SerializeField] private bool _showMouseClickDebugRayCast = true;
     [SerializeField] private float _leftClickDistance = 5f;
     [SerializeField] private LayerMask _leftClickMask;
 
-    // injected dependancies
-    [SerializeField] private GameObject _player;
-    [SerializeField] private Transform _orientation;
-
-    public GameObject GameObject => gameObject;
-
-    //  private bool _initialized = false;
-    public void Inject(GameObject player, Transform orientation)
-    {
-        _player = player;
-        _orientation = orientation;
-
-        //   _initialized = true;
-
-    }
 
     private void Awake()
     {
 
-
         _cameraTransform = transform;
-
 
         // the camera transform is this script's transform because it will be on the cinemachine camera gameobject
 
@@ -82,20 +63,6 @@ public class GameCamera : MonoBehaviour, IGameCamera
     }
 
 
-    private void OnEnable()
-    {
-        _input.RegisterInputEvent(_input.LookAction, OnLook);
-        _input.RegisterInputEvent(_input.InteractAction, OnInteract);
-        _input.RegisterInputEvent(_input.LeftClickAction, OnLeftClick);
-        _input.RegisterInputEvent(_input.PickupAction, OnPickup);
-    }
-    private void OnDisable()
-    {
-        _input.UnregisterInputEvent(_input.LookAction, OnLook);
-        _input.UnregisterInputEvent(_input.InteractAction, OnInteract);
-        _input.UnregisterInputEvent(_input.LeftClickAction, OnLeftClick);
-        _input.UnregisterInputEvent(_input.PickupAction, OnPickup);
-    }
     public void OnLeftClick(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
@@ -140,14 +107,6 @@ public class GameCamera : MonoBehaviour, IGameCamera
 
     private void LateUpdate()
     {
-        /*
-        if (!_initialized)
-        {
-            Debug.LogError("CameraActions has not been initialized");
-            return;
-        }
-        */
-
 
         _rotateCamera.Rotate(transform, _orientation, _lookInput, _sensitivityY, _sensitivityX);
         _positionCamera.MoveCameraPosition(_cameraTransform, _orientation);

@@ -4,19 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour, IPlayerMovement
+public class PlayerMovement : GameInput, IPlayerMovement
 {
     [Header("Dependencies")]
     [SerializeField] private Rigidbody _rigidBody;
     [SerializeField] private GeneralStats _stats;
-    [SerializeField] private MovementInput _input;
+    [SerializeField] private Transform _orientation;
 
     [Header("MovementStateManager Settings")]
     [SerializeField] private float _baseSpeed;
     [SerializeField] private float _globalSpeedMultiplier = 2f;
     [SerializeField] private List<StateSettings> _stateSettings;
-
-
 
     [Header("Crouch Settings")]
     [SerializeField] private float _crouchYScale = 0.5f;
@@ -48,18 +46,14 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     private IsGrounded _isGrounded;
     private Sprint _sprint;
 
-    public Transform Orientation => transform.Find("Orientation");
-    public GameObject GameObject => gameObject;
 
-    public void Inject()
-    {
-        Debug.LogWarning("NOT IMPLEMENTED YET");
 
-    }
 
     private void Awake()
     {
         _playerMovementObject = transform;
+
+        _originalYScale = transform.localScale.y;
 
         _sprint = new Sprint(_stats);
 
@@ -71,32 +65,9 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
 
         _isGrounded = new IsGrounded(_movementStateManager, _horizontalMovement, _playerMovementObject);
     }
-    private void Start()
-    {
-        _originalYScale = transform.localScale.y;
-
-    }
 
 
-    private void OnEnable()
-    {
-        _input.RegisterInputEvent(_input.MoveAction, OnMove);
-        _input.RegisterInputEvent(_input.JumpAction, OnJump);
-        _input.RegisterInputEvent(_input.SprintAction, OnSprint);
-        _input.RegisterInputEvent(_input.CrouchAction, OnCrouch);
-
-    }
-
-    private void OnDisable()
-    {
-        _input.UnregisterInputEvent(_input.MoveAction, OnMove);
-        _input.UnregisterInputEvent(_input.JumpAction, OnJump);
-        _input.UnregisterInputEvent(_input.SprintAction, OnSprint);
-        _input.RegisterInputEvent(_input.CrouchAction, OnCrouch);
-
-    }
-
-    private void OnMove(InputAction.CallbackContext ctx)
+    public void OnMove(InputAction.CallbackContext ctx)
     {
 
         Vector2 newInput = ctx.ReadValue<Vector2>();
@@ -105,7 +76,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
             _movementInput = newInput;
         }
     }
-    private void OnJump(InputAction.CallbackContext ctx)
+    public void OnJump(InputAction.CallbackContext ctx)
     {
         _verticalMovement.MakeBodyJump(_rigidBody, _jumpForce, _isGrounded.OnGround);
 
@@ -140,15 +111,12 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     }
     private void FixedUpdate()
     {
-        _horizontalMovement.MoveRigidBody(_movementInput, _isGrounded, Orientation);
+        _horizontalMovement.MoveRigidBody(_movementInput, _isGrounded, _orientation);
 
         if (Math.Abs(_rigidBody.linearVelocity.y) > Y_VELOCITY_THRESHOLD)
         {
             _isGrounded.CheckIfGrounded(_verticalMovement.IsCrouched, _groundCheckDistance, _groundMask, _drawDebugRay);
         }
-
-
-
     }
     private void Update()
     {
