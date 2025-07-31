@@ -47,8 +47,25 @@ public class DialogueManager : MonoBehaviour
         _dialogueEvents.OnContinueDialogue += ContinueOrExitStory;
         _dialogueEvents.OnChoiceSelected += SelectChoice;
 
-
+        _combatEvents.OnExitCombat += OnExitCombat;
     }
+
+    private void OnExitCombat(CombatStates states)
+    {
+        if (states == CombatStates.Won)
+        {
+
+        }
+        else if (states == CombatStates.Lost)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
+
     private void OnDisable()
     {
         _dialogueData.Story.onError -= OnError;

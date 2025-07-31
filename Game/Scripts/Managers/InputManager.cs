@@ -140,17 +140,21 @@ public class InputManager : MonoBehaviour, PlayerInputActions.IPlayerActions, Pl
                 _userInterfaceEvents.SwitchToUserInterface(UserInterfaceType.HUD);
                 _interfaceEnabled = false;
 
-                //    MovementInput.EnableMovement(true);
-                //    CameraInput.EnableLook(true);
+                _playerActions.Move.Enable();
+                _playerActions.Look.Enable();
+
+                GameCursor.Lock();
+
             }
             else
             {
                 _userInterfaceEvents.SwitchToUserInterface(UserInterfaceType.Inventory);
                 _interfaceEnabled = true;
 
-                //    MovementInput.EnableMovement(false);
-                //   CameraInput.EnableLook(false);
+                _playerActions.Move.Disable();
+                _playerActions.Look.Disable();
 
+                GameCursor.Unlock();
             }
         }
     }

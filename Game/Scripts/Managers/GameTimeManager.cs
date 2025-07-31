@@ -1,21 +1,38 @@
 using UnityEngine;
+
+
+#region
+/// <summary>
+/// <br> Months and days and in game time stuff.</br>
+/// </summary>
+#endregion
+
+
+
 //TODO FIX GAMETIME DAYNIGHT CYCLE
 public class GameTimeManager : MonoBehaviour
 {
-    private GameTimeData _gameTimeData;
-    private GameTimeEvents _gameTimeEvents;
+    [Header("Events")]
+    [SerializeField] private GameTimeEvents _gameTimeEvents;
+
+    [Header("Time")]
+    public Day Day;
+    public Month Month;
+    [Range(0f, 24f)] public int Hour;
+
+    public int Year; // MAYBE
 
     [Header("Lights")]
     [SerializeField] private Light _sun;
     [SerializeField] private Light _moon;
 
-    public void Inject(GameTimeEvents gameTimeEvents)
-    {
-        _gameTimeEvents = gameTimeEvents;
-    }
+    [Header("Settings")]
+
+    [SerializeField] private float dayLength = 120f;
+
     private void Awake()
     {
-        _gameTimeData = GetComponent<GameTimeData>();
+
     }
     private void Start()
     {
@@ -24,6 +41,21 @@ public class GameTimeManager : MonoBehaviour
     private void OnEnable()
     {
 
+    }
+
+
+    public void IncrementHour(int value)
+    {
+        int newTimeOfDay = Hour + value;
+        if (newTimeOfDay >= 24)
+        {
+            Hour = 0;
+        }
+        else
+        {
+            Hour = newTimeOfDay;
+        }
+        Hour += value;
     }
 
     private void OnValidate()
@@ -35,13 +67,5 @@ public class GameTimeManager : MonoBehaviour
         //    _gameTimeData.DayNightCycle.UpdateSun(_sun, _gameTimeData.Hour);
     }
 
-    public void RegisterEvents()
-    {
-        throw new System.NotImplementedException();
-    }
 
-    public void UnregisterEvents()
-    {
-        throw new System.NotImplementedException();
-    }
 }

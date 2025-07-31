@@ -1,41 +1,8 @@
 using System;
-using UnityEngine;
-public enum Day
-{
-    Monday,
-    Tuesday,
-    Wednesday,
-    Thursday,
-    Friday,
-    Saturday,
-    Sunday,
-}
-public enum Month
-{
-    January,
-    Febuary,
-    March,
-    April,
-    May,
-    June,
-    July,
-    August,
-    September,
-    October,
-    November,
-    December,
-}
-#region
-/// <summary>
-/// <br> Months and days and in game time stuff.</br>
-/// </summary>
-#endregion
 
 public class GameTimeData : Data
 {
-    [Header("Settings")]
 
-    [SerializeField] private float dayLength = 120f;
     //  [SerializeField] private Vector3 sunInitialRotation = new Vector3(50f, -30f, 0f);
 
 
@@ -46,11 +13,8 @@ public class GameTimeData : Data
     //      public DayNightCycle DayNightCycle { get; private set; } = new DayNightCycle();
     // public GameTimeEvents Events { get; private set; } = new GameTimeEvents();
 
-    public Day Day;
-    public Month Month;
-    [Range(0f, 24f)] public int Hour;
 
-    public int Year; // MAYBE
+
     /*
     public void Initilize(Light sun, Light moon)
     {
@@ -75,19 +39,6 @@ public class GameTimeData : Data
     }
     
     */
-    public void IncrementHour(int value)
-    {
-        int newTimeOfDay = Hour + value;
-        if (newTimeOfDay >= 24)
-        {
-            Hour = 0;
-        }
-        else
-        {
-            Hour = newTimeOfDay;
-        }
-        Hour += value;
-    }
 
     public override void LoadData(GameData data)
     {

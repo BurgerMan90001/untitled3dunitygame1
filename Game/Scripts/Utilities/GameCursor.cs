@@ -6,7 +6,7 @@ public static class GameCursor
 {
 
 
-    private static readonly bool _disableLock = true;
+    private static readonly bool _disableLock = false;
     public static CursorLockMode LockMode => Cursor.lockState = CursorLockMode.Locked;
 
     public static bool Locked { get; private set; } = false;
