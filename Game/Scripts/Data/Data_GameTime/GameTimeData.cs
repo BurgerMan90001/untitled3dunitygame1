@@ -12,31 +12,6 @@ public class GameTimeData : Data
 
 
 
-    /*
-    public void Initilize(Light sun, Light moon)
-    {
-        _sun = sun;
-        _moon = moon;
-
-        _initilized = true;
-    }
-    */
-    /*
-    private void OnEnable()
-    {
-        
-        Events.OnDayChanged += OnDayChanged;
-        Events.OnMonthChanged += OnMonthChanged;
-    }
-    private void OnDisable()
-    {
-
-        Events.OnDayChanged -= OnDayChanged;
-        Events.OnMonthChanged -= OnMonthChanged;
-    }
-    
-    */
-
     public override void LoadData(GameData data)
     {
         throw new NotImplementedException();

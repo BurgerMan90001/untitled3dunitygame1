@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-
+using UnityEngine.Rendering;
 #region
 /// <summary>
 /// <br> Months and days and in game time stuff.</br>
@@ -12,6 +12,8 @@ using UnityEngine;
 //TODO FIX GAMETIME DAYNIGHT CYCLE
 public class GameTimeManager : MonoBehaviour
 {
+
+    public Volume test;
     [Header("Events")]
     [SerializeField] private GameTimeEvents _events;
     private DayNightCycle _dayNightCycle;

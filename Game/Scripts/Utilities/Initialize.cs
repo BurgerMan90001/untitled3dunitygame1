@@ -9,6 +9,8 @@ public enum InitializeType
     Debug,
 }
 
+// UNUSED
+
 
 public class Initialize : MonoBehaviour
 {
@@ -20,6 +22,7 @@ public class Initialize : MonoBehaviour
     [SerializeField] private InitializeType _initializeType = InitializeType.None;
 
 
+    /*
     [ConditionalField(nameof(_initializeType), false, InitializeType.TriggerSceneLoad)]
     [SerializeField] private SceneLoadTrigger _sceneTrigger;
 
@@ -31,15 +34,16 @@ public class Initialize : MonoBehaviour
     [ConditionalField(nameof(_active))]
     [SerializeField]
     private ObjectPool _pool;
-
-    private Test Test;
+    */
 
     private void Start()
     {
         if (_active)
         {
+            /*
             _pool.CreatePool();
             _pool.InstantiatePoolObjects();
+            */
 
             /*
             if (_initializeType is InitializeType.TriggerSceneLoad)
@@ -59,9 +63,3 @@ public class Initialize : MonoBehaviour
     }
 
 }
-
-public class Test
-{
-
-}
-
