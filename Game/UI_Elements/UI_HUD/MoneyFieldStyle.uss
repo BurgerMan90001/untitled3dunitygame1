@@ -1,10 +1,7 @@
 :root {
 }
 
-#MoneyField > #unity-text-input > .unity-text-element--inner-input-field-component {
-}
-
-.moneytext {
+.text-money {
     align-items: center;
     align-content: flex-start;
     align-self: flex-start;
@@ -15,28 +12,28 @@
     letter-spacing: -15px;
 }
 
-.moneyTextBackingPanel {
+.panel-money1 {
     flex-grow: 1;
     width: 12%;
-    height: 8%;
+    height: 9%;
     background-size: 100% 100%;
     align-items: auto;
     justify-content: center;
     align-self: flex-start;
     max-width: 100%;
     max-height: 100%;
-    background-color: rgb(255, 165, 95);
-    margin-left: 0;
-    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, 0.54);
+    margin-left: 0%;
+    margin-bottom: 0%;
     padding-bottom: 0;
-    margin-top: 2%;
-    margin-right: 0;
+    margin-top: 0%;
+    margin-right: 0%;
     padding-right: 0;
-    position: absolute;
+    position: relative;
     rotate: 0;
     padding-top: 0;
     padding-left: 0;
-    top: 0;
+    top: auto;
     align-content: auto;
     display: flex;
     flex-shrink: 1;
@@ -46,9 +43,9 @@
     transform-origin: center;
 }
 
-.moneyValueBackingPanel {
+.panel-money2 {
     flex-grow: 1;
-    width: 357px;
+    width: 12%;
     height: 9%;
     background-size: 100% 100%;
     align-items: auto;
@@ -56,14 +53,14 @@
     align-self: flex-start;
     max-width: 100%;
     max-height: 100%;
-    background-color: rgb(75, 75, 75);
-    margin-left: 12%;
+    background-color: rgba(0, 0, 0, 0.28);
+    margin-left: 0%;
     margin-bottom: 0%;
     padding-bottom: 0;
-    margin-top: 1%;
+    margin-top: 0%;
     margin-right: 0%;
     padding-right: 0;
-    position: absolute;
+    position: relative;
     rotate: 0;
     padding-top: 0;
     padding-left: 0;
@@ -72,13 +69,13 @@
     background-position-y: center 0;
     align-content: auto;
     opacity: 1;
-    top: 17px;
-    left: 16px;
+    top: auto;
+    left: auto;
 }
 
 .money {
     flex-grow: 1;
-    position: absolute;
+    position: relative;
     margin-top: 0%;
     margin-right: 0%;
     margin-bottom: 0%;
@@ -92,30 +89,4 @@
     flex-shrink: 1;
     align-items: auto;
     align-content: auto;
-}
-
-.tooltip {
-    flex-grow: 1;
-    visibility: visible;
-    display: flex;
-    background-color: rgba(0, 0, 0, 0.8);
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 21%;
-    height: 13%;
-    white-space: normal;
-    -unity-text-align: upper-left;
-    overflow: hidden;
-    font-size: 20px;
-    border-top-left-radius: 11px;
-    border-top-right-radius: 11px;
-    border-bottom-right-radius: 11px;
-    border-bottom-left-radius: 11px;
 }

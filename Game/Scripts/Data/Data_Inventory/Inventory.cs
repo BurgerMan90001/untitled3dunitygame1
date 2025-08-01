@@ -8,6 +8,7 @@ using UnityEngine;
 /// <summary>
 /// <br> </br>
 /// </summary>
+
 [CreateAssetMenu(menuName = "Items/Inventory")]
 public class Inventory : ScriptableObject
 {

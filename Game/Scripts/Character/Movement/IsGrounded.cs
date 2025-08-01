@@ -1,7 +1,5 @@
 
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.UIElements;
 
 
 
@@ -9,15 +7,11 @@ using UnityEngine.UIElements;
 /// <summary> 
 /// checks if the player is grounded by casting a ray or sphere downwards.
 
-
-
-
-
 public class IsGrounded
 {
-    
+
     private readonly float _maxSlopeAngle = 45f; // 45 degrees
-   
+
     private MovementStateManager _movementStateManager;
     private Transform _body;
     private HorizontalMovement _horizontalMovement;
@@ -29,27 +23,27 @@ public class IsGrounded
     private bool _isGroundedThisFrame;
     public bool OnSlope { get; private set; }
     private bool _onSlopeThisFrame;
-    
+
+    public bool InWater { get; private set; }
+
     private float _slopeAngle;
 
     private float _groundCheckTimer;
 
     public IsGrounded(MovementStateManager MovementStateManager, HorizontalMovement horizontalMovement, Transform body)
     {
-        
+
         _movementStateManager = MovementStateManager;
         _body = body;
 
-        
-
     }
-    
+
     private void UpdateMovementState(bool crouching) // linear damping is air drag, and the linear damping will change if the grounded state changes.
     {
-        
+
         if (OnGround)
         {
-            if (crouching) 
+            if (crouching)
             {
                 _movementStateManager.SetMovementState(MovementStates.Crouching);
             }
@@ -62,12 +56,26 @@ public class IsGrounded
         else
         {
             _movementStateManager.SetMovementState(MovementStates.InAir);
-           
+
         }
     }
-    
 
-    public void CheckIfGrounded(bool crouching,float groundCheckDistance, LayerMask groundMask, bool drawDebugRay)
+    public bool CheckIfInWater(Vector3 upAxis, float probeDistance, LayerMask probeMask, bool drawDebugRay)
+    {
+        if (drawDebugRay)
+        {
+            Debug.DrawRay(_body.position, upAxis * probeDistance, Color.red);
+        }
+        if (!Physics.Raycast(
+            _body.position, -upAxis, out RaycastHit hit,
+            probeDistance, probeMask, QueryTriggerInteraction.Ignore
+        ))
+        {
+            return false;
+        }
+        return true;
+    }
+    public void CheckIfGrounded(bool crouching, float groundCheckDistance, LayerMask groundMask, bool drawDebugRay)
     {
         _groundCheckTimer += Time.fixedDeltaTime;
         if (_groundCheckTimer < 0.1f) // check every 0.1 seconds
@@ -92,14 +100,14 @@ public class IsGrounded
             UpdateMovementState(crouching);
 
         }
-        
+
         if (OnSlope != _onSlopeThisFrame)
         {
             OnSlope = _onSlopeThisFrame;
-            
+
         }
-        
-        
+
+
         if (drawDebugRay)
         {
             Debug.DrawRay(_body.position, Vector3.down * groundCheckDistance, Color.red);
@@ -107,7 +115,7 @@ public class IsGrounded
     }
     public Vector3 GetSlopeMoveDirection(Vector3 horizontalVelocity)
     {
-        
+
         return Vector3.ProjectOnPlane(horizontalVelocity, _slopeHit.normal).normalized;
     }
 }

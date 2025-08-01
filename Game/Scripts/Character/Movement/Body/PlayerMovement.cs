@@ -32,9 +32,15 @@ public class PlayerMovement : GameInput, IPlayerMovement
     [Header("Ground Check Settings")]
     [SerializeField] private float _groundCheckDistance = 2.5f;
     [SerializeField] private LayerMask _groundMask = 10; // default layermask is whatIsGround
-    [SerializeField] private bool _drawDebugRay = true;
+    [SerializeField] private bool _drawDebugRayGround = true;
 
-    private readonly float Y_VELOCITY_THRESHOLD = 0.1f;
+    [Header("Water Settings")]
+    [SerializeField] private Vector3 _upAxis;
+    [SerializeField] private float _probeDistance;
+    [SerializeField] private LayerMask _probeMask;
+    [SerializeField] private bool _drawDebugRayWater = true;
+
+    private const float Y_VELOCITY_THRESHOLD = 0.1f;
 
     private Vector2 _movementInput;
     private Transform _playerMovementObject;
@@ -113,9 +119,14 @@ public class PlayerMovement : GameInput, IPlayerMovement
     {
         _horizontalMovement.MoveRigidBody(_movementInput, _isGrounded, _orientation);
 
+
+        if (_isGrounded.CheckIfInWater(Vector3.up, _probeDistance, _probeMask, _drawDebugRayWater))
+        {
+            Debug.Log("IN WATER");
+        }
         if (Math.Abs(_rigidBody.linearVelocity.y) > Y_VELOCITY_THRESHOLD)
         {
-            _isGrounded.CheckIfGrounded(_verticalMovement.IsCrouched, _groundCheckDistance, _groundMask, _drawDebugRay);
+            _isGrounded.CheckIfGrounded(_verticalMovement.IsCrouched, _groundCheckDistance, _groundMask, _drawDebugRayGround);
         }
     }
     private void Update()

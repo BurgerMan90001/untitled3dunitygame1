@@ -4,7 +4,7 @@
 .tooltip {
     flex-grow: 1;
     visibility: visible;
-    display: flex;
+    display: none;
     background-color: rgba(0, 0, 0, 0.8);
     margin-top: 0;
     margin-right: 0;
@@ -16,7 +16,7 @@
     -unity-font-style: bold;
     font-size: 30px;
     -unity-text-align: upper-left;
-    text-overflow: clip;
+    text-overflow: ellipsis;
     top: 0;
     flex-shrink: 1;
     height: 200px;
@@ -28,7 +28,22 @@
     left: 0;
     background-size: 100% 100%;
     flex-wrap: wrap;
-    white-space: nowrap;
+    white-space: normal;
+    flex-direction: column;
+}
+
+.ghostImage {
+    flex-grow: 1;
+    flex-direction: row-reverse;
+    background-image: none;
+    opacity: 1;
+    visibility: visible;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0);
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
 }
 
 .tooltipLayer {

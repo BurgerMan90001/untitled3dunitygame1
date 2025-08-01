@@ -3,6 +3,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
+
+//NOTES: PRELOAD ASSETS THAT WILL BE REUSED BETWEEN SCENES OR THERE WILL BE DUPLICATES. LABEL ADDRESABLES WITH preload.
+
 /// <summary>
 /// <br> Triggers a scene load on start. </br>
 /// </summary>

@@ -75,6 +75,12 @@ public class HorizontalMovement
         _rigidBody.linearVelocity = _horizontalVelocity.normalized * _movementStateManager.GetCurrentSpeed();
 
     }
+
+
+    private void WaterMovement()
+    {
+
+    }
 }
 
 
