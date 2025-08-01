@@ -1,7 +1,6 @@
 
 using UnityEngine;
 
-// TODO OPTIMIZE TAG CHECKING AND suthf
 
 
 #region
@@ -17,7 +16,8 @@ public class Interact
     private readonly HitDetect _hitDetect;
     private LayerMask _mask;
 
-    public bool ButtonHeld { get; private set; }
+    public bool InteractButtonHeld { get; private set; }
+    public bool PickupButtonHeld { get; private set; }
 
     private readonly bool _debugMode;
 
@@ -31,7 +31,7 @@ public class Interact
 
     public void StartInteract(float interactDistance, bool showDebugRayCast, GameObject player)
     {
-        ButtonHeld = true;
+        InteractButtonButtonHeld = true;
 
         _hitDetect.ShootRayCastFromCamera(showDebugRayCast, interactDistance, _mask);
 
@@ -47,11 +47,17 @@ public class Interact
 
 
     }
-    public void StartPickup()
+    public void StartPickup(float interactDistance, bool showDebugRayCast, GameObject player)
+    {
+        PickupButtonHeld = true;
+
+        _hitDetect.ShootRayCastFromCamera(showDebugRayCast, interactDistance, _mask);
+
+    }
+    public void CancelPickup()
     {
 
     }
-
     public void CancelInteract()
     {
         ButtonHeld = false;

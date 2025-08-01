@@ -9,19 +9,24 @@ public class GrabbableObject : MonoBehaviour
     [Header("For Picking Up / Inspecting Things - ensure collider, rigidbody, and trigger")]
     [Tooltip("MainCamera -> Empty Game Object, a bit in front")]
     public Transform HoldPos;
+
     [Tooltip("200 Strong, 50 weak")]
     public float throwSpeed = 200;
+
     [Tooltip("0 pickup, 1 throw, 2 crash soft, 3 crash hard")]
     public AudioClip[] clips;
     private AudioSource source;
+
     [Tooltip("Primary renderer of this object")]
     public Renderer rend;
     private Color originColor;
     private bool over = false;
+
     [Tooltip("Color when hovered over (looked at)")]
     public Color targetColor = Color.yellow;
     private GameObject MainCam;
     private Interact InteractionScript;
+
     [Tooltip("Grab Object, Throw Object OR n/a")]
     public string[] prompts = { "Grab Object", "" };
     private bool touched = false;
@@ -30,8 +35,9 @@ public class GrabbableObject : MonoBehaviour
     private float velocityClipSplit = 5f;
     private bool rotating = false;
     private Quaternion rotateBy;
+
     [Tooltip("set to 2 default")]
-    public MouseLook[] lookScript;
+    //    public MouseLook[] lookScript;
     private Vector3 originPos;
     private Quaternion originRot;
     [Tooltip("if object is returned to original position, snaps into place")]
@@ -60,8 +66,10 @@ public class GrabbableObject : MonoBehaviour
     {
         over = true;
         StartCoroutine(Fadeout());
+        /*
         if (!beingCarried)
             InteractionScript.message = prompts[0];
+        */
     }
     public void Interacting()
     {
@@ -75,11 +83,13 @@ public class GrabbableObject : MonoBehaviour
             source.clip = clips[1];//Throw
             source.Play();
             rotating = false;
+            /*
             for (int i = 0; i < lookScript.Length; i++)
             {
                 lookScript[i].working = true;
             }
             touched = false;
+            */
         }
         else if (beingCarried)
         {
@@ -91,8 +101,10 @@ public class GrabbableObject : MonoBehaviour
             source.Play();
             objectReset = false;
         }
+        /*
         InteractionScript.message = prompts[1];
         InteractionScript.CrosshairUI.SetActive(false);
+        */
     }
 
     public void RelativeRotate(float rotateLeftRight, float rotateUpDown)
@@ -113,7 +125,7 @@ public class GrabbableObject : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
 
         if (rotating)
@@ -143,16 +155,19 @@ public class GrabbableObject : MonoBehaviour
             transform.parent = null;
             beingCarried = false;
             rotating = false;
+            /*
             for (int i = 0; i < lookScript.Length; i++)
             {
                 lookScript[i].working = true;
             }
+            */
             touched = false;
         }
     }
 
-    void Update()
+    private void Update()
     {
+        /*
         if (beingCarried)
         {
             if (Input.GetButtonDown("Squint") && !rotating)
@@ -176,6 +191,7 @@ public class GrabbableObject : MonoBehaviour
                 rotating = false;
             }
         }
+        
         else
         {
             if (canReturn)
@@ -195,6 +211,7 @@ public class GrabbableObject : MonoBehaviour
                 }
             }
         }
+        */
 
     }
 
