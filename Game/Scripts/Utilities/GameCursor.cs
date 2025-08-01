@@ -4,8 +4,6 @@ using UnityEngine;
 /// </summary>
 public static class GameCursor
 {
-
-
     private static readonly bool _disableLock = false;
     public static CursorLockMode LockMode => Cursor.lockState = CursorLockMode.Locked;
 

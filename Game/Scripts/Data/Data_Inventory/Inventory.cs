@@ -195,7 +195,7 @@ public class Inventory : ScriptableObject
     /// <param name="indexB"></param>
     /// <returns></returns>
     #endregion
-    public bool SwapItems(int indexA, int indexB) // TODO make bool function
+    public bool SwapItems(int indexA, int indexB)
     {
 
         SwapIndexes(indexA, indexB);

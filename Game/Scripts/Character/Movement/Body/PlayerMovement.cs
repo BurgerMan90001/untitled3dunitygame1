@@ -120,7 +120,7 @@ public class PlayerMovement : GameInput, IPlayerMovement
         _horizontalMovement.MoveRigidBody(_movementInput, _isGrounded, _orientation);
 
 
-        if (_isGrounded.CheckIfInWater(Vector3.up, _probeDistance, _probeMask, _drawDebugRayWater))
+        if (_isGrounded.CheckIfInWater(_probeDistance, _probeMask, _drawDebugRayWater))
         {
             Debug.Log("IN WATER");
         }

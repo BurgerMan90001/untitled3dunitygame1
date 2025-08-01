@@ -1,16 +1,13 @@
 
 using UnityEngine;
 
-
-
-
 /// <summary> 
 /// checks if the player is grounded by casting a ray or sphere downwards.
 
 public class IsGrounded
 {
 
-    private readonly float _maxSlopeAngle = 45f; // 45 degrees
+    private const float MAX_SLOPE_ANGLE = 45f; // 45 degrees
 
     private MovementStateManager _movementStateManager;
     private Transform _body;
@@ -60,16 +57,15 @@ public class IsGrounded
         }
     }
 
-    public bool CheckIfInWater(Vector3 upAxis, float probeDistance, LayerMask probeMask, bool drawDebugRay)
+    public bool CheckIfInWater(float probeDistance, LayerMask probeMask, bool drawDebugRay)
     {
         if (drawDebugRay)
         {
-            Debug.DrawRay(_body.position, upAxis * probeDistance, Color.red);
+            Debug.DrawRay(_body.position, Vector3.down * probeDistance, Color.red);
         }
         if (!Physics.Raycast(
-            _body.position, -upAxis, out RaycastHit hit,
-            probeDistance, probeMask, QueryTriggerInteraction.Ignore
-        ))
+            _body.position, Vector3.down, out RaycastHit hit,
+            probeDistance, probeMask, QueryTriggerInteraction.Ignore))
         {
             return false;
         }
@@ -87,7 +83,7 @@ public class IsGrounded
         if (_isGroundedThisFrame) // if the raycast hits something
         {
             _slopeAngle = Vector3.Angle(Vector3.up, _slopeHit.normal);
-            _onSlopeThisFrame = _slopeAngle < _maxSlopeAngle && _slopeAngle != 0;
+            _onSlopeThisFrame = _slopeAngle < MAX_SLOPE_ANGLE && _slopeAngle != 0;
             // if the slope angle is less than the max slope angle and not zero, then the player is on a slope
         }
 

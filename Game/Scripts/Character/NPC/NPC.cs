@@ -9,29 +9,12 @@ public class NPC : MonoBehaviour, IInteractable
 
     [SerializeField] private DialogueEvents _dialogueEvents;
 
-    //  private bool _initialized = false;
 
     private readonly bool _debugMode = false;
 
-    /*
-    public void Initialize(DialogueEvents dialogueEvents)
-    {
 
-        _dialogueEvents = dialogueEvents;
-
-        _initialized = true;
-    }
-    */
     public void Interact(GameObject interactor)
     {
-        /*
-        if (!_initialized)
-        {
-            Debug.LogWarning("This npc has not been initialized yet!");
-            return;
-        }
-        */
-
         if (_dialogueEvents.InDialogue)
         {
             if (_debugMode)

@@ -1,5 +1,5 @@
+using System;
 using UnityEngine;
-
 
 #region
 /// <summary>
@@ -13,8 +13,8 @@ using UnityEngine;
 public class GameTimeManager : MonoBehaviour
 {
     [Header("Events")]
-    [SerializeField] private GameTimeEvents _gameTimeEvents;
-
+    [SerializeField] private GameTimeEvents _events;
+    private DayNightCycle _dayNightCycle;
     [Header("Time")]
     public Day Day;
     public Month Month;
@@ -32,7 +32,7 @@ public class GameTimeManager : MonoBehaviour
 
     private void Awake()
     {
-
+        _dayNightCycle = new DayNightCycle();
     }
     private void Start()
     {
@@ -40,8 +40,27 @@ public class GameTimeManager : MonoBehaviour
     }
     private void OnEnable()
     {
+        _events.OnDayChanged += OnDayChanged;
+        _events.OnMonthChanged += OnMonthChanged;
+    }
+    private void OnDestroy()
+    {
+        _events.OnDayChanged -= OnDayChanged;
+        _events.OnMonthChanged -= OnMonthChanged;
+    }
+
+    private void OnDayChanged(Day day)
+    {
+        Day = day;
+        Debug.Log("DAY CHANGED");
 
     }
+    private void OnMonthChanged(Month month)
+    {
+        Month = month;
+        Debug.Log("MONTH CHANGED");
+    }
+
 
 
     public void IncrementHour(int value)

@@ -3,32 +3,30 @@ using UnityEngine;
 
 public class DayNightCycle
 {
-    
-    private Vector3 sunInitialRotation = new Vector3(50f, -30f, 0f);
-
+    //   private Vector3 sunInitialRotation = new Vector3(50f, -30f, 0f);
 
     public event Action OnSunrise;
     public event Action OnNoon;
     public event Action OnSunset;
     public event Action OnMidnight;
 
-    /*
-    private Light _sun;
-    private Light _moon;
-    */
+    private const int SUNSET_TIME = 9; // 9 PM
+    private const int SUNRISE_TIME = 21; // 9 AM
+    private const int NOON_TIME = 0; // 12 PM
+    private const int MIDNIGHT_TIME = 12; // 12 AM
 
     public string twelveHourTime;
 
     public int TotalTime;
 
+    /*
     private float currentTime;
+
     private float timeMultiplier;
+    */
 
 
-    private const int SUNSET_TIME = 9; // 9 PM
-    private const int SUNRISE_TIME = 21; // 9 AM
-    private const int NOON_TIME = 0; // 12 PM
-    private const int MIDNIGHT_TIME = 12; // 12 AM
+
 
     private int lastEventHour = -1;
 
@@ -54,21 +52,21 @@ public class DayNightCycle
         timeMultiplier = 24f / dayLength;
     }
     */
-    
-    
 
-    public void UpdateSun(Light sun, int time)
+
+
+    public void UpdateSun(Light sun, int time, Vector3 sunInitialRotation)
     {
-       
-        float sunRotation = (time / 24f) * 360f;
+
+        float sunRotation = time / 24f * 360f;
         sun.transform.rotation = Quaternion.Euler(sunInitialRotation.x + sunRotation, sunInitialRotation.y, sunInitialRotation.z);
 
 
         //    moon.transform.rotation = Quaternion.Euler(sunInitialRotation.x + sunRotation + 180f, sunInitialRotation.y, sunInitialRotation.z);
     }
-    
+
     public void ShowTime(int currentHour)
-    { 
+    {
         if (currentHour == 0)
         {
             twelveHourTime = 12 + " AM";
@@ -76,7 +74,7 @@ public class DayNightCycle
         else if (currentHour < 12)
         {
             twelveHourTime = currentHour + " PM";
-        }   
+        }
         else if (currentHour == 12)
         {
             twelveHourTime = currentHour + " AM";
@@ -86,40 +84,9 @@ public class DayNightCycle
         {
             twelveHourTime = currentHour - 12 + " AM";
         }
+
     }
-    public void TriggerEvents(int currentHour)
-    {
 
-        if (currentHour != lastEventHour)
-        {
-            switch (currentHour)
-            {
-                case SUNRISE_TIME:
-                    Debug.Log("SUNRISE");
-                    OnSunrise?.Invoke();
-                   // _sun.enabled = true;
-                    break;
-                case SUNSET_TIME:
-                    OnSunset?.Invoke();
-                    Debug.Log("SUNSET");
-                //    _sun.enabled = false;
-                    break;
-
-                case NOON_TIME:
-                    OnNoon?.Invoke();
-                    Debug.Log("NOON");
-                    break;
-
-                case MIDNIGHT_TIME:
-                    OnMidnight?.Invoke();
-                    Debug.Log("MIDNIGHT");
-                    break;
-
-            }
-
-            lastEventHour = currentHour;
-        }
-    }
     /*
     private void Update()
     {

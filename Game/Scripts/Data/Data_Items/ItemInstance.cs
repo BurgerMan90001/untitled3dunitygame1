@@ -47,7 +47,7 @@ public class ItemInstance
 
     [HideInInspector] private StringBuilder _tooltipString;
 
-    public ItemInstance() { }
+    public ItemInstance() { } // an empty item
     public ItemInstance(Item item)  // when a card is first created
     {
 

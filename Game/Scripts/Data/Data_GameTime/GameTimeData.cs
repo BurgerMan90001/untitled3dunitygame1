@@ -5,9 +5,6 @@ public class GameTimeData : Data
 
     //  [SerializeField] private Vector3 sunInitialRotation = new Vector3(50f, -30f, 0f);
 
-
-
-    //   public Volume volume;
     //    public HDRPVolumeProfileSettings volumeProfileSettings;
 
     //      public DayNightCycle DayNightCycle { get; private set; } = new DayNightCycle();

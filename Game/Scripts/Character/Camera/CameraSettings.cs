@@ -1,5 +1,7 @@
 using UnityEngine;
-
+/// <summary>
+/// blurs and such
+/// </summary>
 public class CameraSettings : MonoBehaviour
 {
     [Header("Dependancies")]

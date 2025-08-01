@@ -6,6 +6,7 @@ public class GameTimeEvents : Event
     public Action<Day> OnDayChanged;
     public Action<Month> OnMonthChanged;
     public Action<int> OnYearChanged;
+
     public void ChangeDay(Day newDay)
     {
 
