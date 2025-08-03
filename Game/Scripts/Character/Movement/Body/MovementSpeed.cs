@@ -15,29 +15,19 @@ public class MovementStateManager
         _globalSpeedMultiplier = globalSpeedMultiplier;
     }
 
-
     public MovementStates MovementState { get; private set; }
 
     public float GetCurrentSpeed()
     {
 
-        SetLinearDamping();
+        _rigidBody.SetLinearDamping(MovementState.LinearDamping);
         return _baseSpeed * _globalSpeedMultiplier * MovementState.SpeedMultiplier;
     }
 
-    public void SetLinearDamping()
-    {
-
-        if (_rigidBody.linearDamping != MovementState.LinearDamping) // if the linear damping is not equal to the one in the state setting, then apply the linear damping
-        {
-
-            _rigidBody.linearDamping = MovementState.LinearDamping; // apply the linear damping to the rigidbody
-        }
-    }
     public void SetMovementState(MovementStates newState)
     {
-        if (MovementState.SpeedMultiplier == newState.SpeedMultiplier
-            || MovementState.LinearDamping == newState.LinearDamping) return; // if the movement state has actually changed, then change it or cancel
+        if (MovementState.SpeedMultiplier == newState.SpeedMultiplier // MAYBE BETTER STRUCT COMAPRISON
+            && MovementState.LinearDamping == newState.LinearDamping) return; // if the movement state has actually changed, then change it or cancel
 
         MovementState = newState;
 

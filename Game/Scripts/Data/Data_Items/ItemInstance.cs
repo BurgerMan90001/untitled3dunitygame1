@@ -79,6 +79,7 @@ public class ItemInstance
         GetToolTipString();
 
     }
+
     public virtual string GetToolTipString() // can be updated whenever
     {
         if (_tooltipString == null)
@@ -100,6 +101,16 @@ public class ItemInstance
             .Append(Description);
 
         return _tooltipString.ToString();
+    }
+    #region
+    /// <summary>
+    /// Returns true if the item instance is empty, meaning it has no ItemType assigned.
+    /// </summary>
+    /// <returns></returns>
+    #endregion
+    public bool IsEmpty()
+    {
+        return ItemType == null;
     }
 
 }

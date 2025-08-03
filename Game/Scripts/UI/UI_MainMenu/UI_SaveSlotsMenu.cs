@@ -78,7 +78,7 @@ public class UI_SaveSlotsMenu : IUserInterface
 
             saveSlotButton.userData = new SaveSlotData(i.ToString(), saveSlotButton); // numbers profile ids to 0, 1, 2
 
-            saveSlotButton.style.display = DisplayStyle.Flex;
+            saveSlotButton.Show();
 
             var buttonData = saveSlotButton.userData;
 
@@ -114,7 +114,7 @@ public class UI_SaveSlotsMenu : IUserInterface
     }
     private void LoadGame(SaveSlotData saveSlotData)
     {
-        _panelSaveSlots.style.display = DisplayStyle.None;
+        _panelSaveSlots.Hide();
         //    DisableSaveSlotButtons();
 
         _dataPersistenceEvents.ChangeSelectedProfileID(saveSlotData.ProfileID);
@@ -137,7 +137,7 @@ public class UI_SaveSlotsMenu : IUserInterface
 
     public void ActivateMenu(bool isLoadingGame)
     {
-        _panelSaveSlots.style.display = DisplayStyle.Flex;
+        _panelSaveSlots.Show();
         _panelSaveSlots.SetEnabled(true);
         _isLoadingGame = isLoadingGame;
 
@@ -198,7 +198,7 @@ public class UI_SaveSlotsMenu : IUserInterface
         foreach (Button saveSlotButton in _saveSlotButtons)
         {
             saveSlotButton.SetEnabled(false);
-            saveSlotButton.style.display = DisplayStyle.None;
+            saveSlotButton.Hide();
         }
     }
 

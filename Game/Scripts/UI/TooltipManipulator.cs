@@ -12,7 +12,8 @@ using UnityEngine.UIElements;
 public class TooltipManipulator : PointerManipulator
 {
 
-    private StringBuilder _tooltipString;
+    private readonly StringBuilder _tooltipString;
+
     private Label _tooltipLabel;
 
     private Vector2 _tooltipSize = new Vector2(200, 200);
@@ -21,29 +22,27 @@ public class TooltipManipulator : PointerManipulator
     private float _horizontalOffset;
     private float _verticalOffset;
 
-    private VisualElement _inventoryBackingPanel;
+
 
     public TooltipManipulator(VisualElement target, VisualElement root)
     {
-        this.target = target;   
+        this.target = target;
 
         _tooltipString = new StringBuilder();
 
         QueryElements(root);
 
-        _tooltipLabel.style.display = DisplayStyle.None;
+        _tooltipLabel.Hidden();
     }
     private void QueryElements(VisualElement root)
     {
-        _inventoryBackingPanel = root.Q<VisualElement>("Panel_Inventory");
         _tooltipLabel = root.Q<Label>("Tooltip");
     }
-    
+
     protected override void RegisterCallbacksOnTarget()
     {
         target.RegisterCallback<PointerEnterEvent>(PointerEnter);
         target.RegisterCallback<PointerOutEvent>(PointerOut);
-
         target.RegisterCallback<PointerCaptureOutEvent>(PointerCaptureOut);
     }
 
@@ -52,15 +51,15 @@ public class TooltipManipulator : PointerManipulator
 
         target.UnregisterCallback<PointerEnterEvent>(PointerEnter);
         target.UnregisterCallback<PointerOutEvent>(PointerOut);
-
         target.UnregisterCallback<PointerCaptureOutEvent>(PointerCaptureOut);
     }
 
-    private void PointerEnter(PointerEnterEvent evt) 
+    private void PointerEnter(PointerEnterEvent evt)
     {
-        if (evt.currentTarget is VisualElement hoveredElement) {
+        if (evt.currentTarget is VisualElement hoveredElement)
+        {
 
-            if (hoveredElement.userData is ItemInstance itemInstance 
+            if (hoveredElement.TryGetUserData(out ItemInstance itemInstance)
                 && itemInstance.ItemType != null)
             {
                 ShowTooltip(itemInstance);
@@ -68,7 +67,7 @@ public class TooltipManipulator : PointerManipulator
         }
     }
 
-    
+
     private void ShowTooltip(ItemInstance itemInstance)
     {
 
@@ -81,23 +80,23 @@ public class TooltipManipulator : PointerManipulator
 
         StyleText(_tooltipSize);
 
-        _tooltipLabel.style.display = DisplayStyle.Flex; // Makes the tooltip visible.
+        _tooltipLabel.Show(); // Makes the tooltip visible.
     }
     private void PointerDown(PointerDownEvent evt)
     {
         if (evt.button == 0 || evt.button == 1)
         {
             _tooltipString.Clear();
-            _tooltipLabel.style.display = DisplayStyle.None; // Hides the tooltip when mouse capture is lost.
-            
+            _tooltipLabel.Hide(); // Hides the tooltip when mouse capture is lost.
+
         }
-        
+
     }
 
     private void PointerCaptureOut(PointerCaptureOutEvent evt) // mouse capture out
     {
-    //    _tooltipString.Clear();
-        _tooltipLabel.style.display = DisplayStyle.None; // Hides the tooltip when mouse capture is lost.
+        //    _tooltipString.Clear();
+        _tooltipLabel.Hide(); // Hides the tooltip when mouse capture is lost.
 
         /*
         if (evt.target is VisualElement hoveredElement)
@@ -114,7 +113,7 @@ public class TooltipManipulator : PointerManipulator
     private void PointerOut(PointerOutEvent evt) // mouse leave
     {
 
-        _tooltipLabel.style.display = DisplayStyle.None; // Hides the tooltip when mouse leaves the element.
+        _tooltipLabel.Hide(); // Hides the tooltip when mouse leaves the element.
     }
     // positions increase to the right and down, so the top left corner is (0,0) and the bottom right corner is (width, height)
     private void SetOffset(VisualElement element, Vector2 tooltipSize)
@@ -137,26 +136,26 @@ public class TooltipManipulator : PointerManipulator
         _screenSize.y = Screen.height;
 
         SetOffset(target, _tooltipSize);
-        
-        
+
+
         _tooltipLabel.style.left = target.worldBound.x + _horizontalOffset;
         _tooltipLabel.style.top = target.worldBound.y + _verticalOffset;
 
         _tooltipLabel.style.bottom = _screenSize.y - (target.worldBound.y + _tooltipSize.y + _verticalOffset);
         _tooltipLabel.style.right = _screenSize.x - (target.worldBound.x + _tooltipSize.x + _horizontalOffset);
-        
+
     }
-    
-    
+
+
     private void StyleText(Vector2 tooltipSize)
     {
         _tooltipLabel.style.fontSize = tooltipSize.y * 0.1f; // the tooltip text is set to 10% of the tooltip size.
-        
+
     }
     public void UpdateText() // called in Update in a monobehaviour
     {
 
-        if (_tooltipLabel.style.display == DisplayStyle.Flex) // if the tooltip is visible
+        if (_tooltipLabel.Shown()) // if the tooltip is visible
         {
             _tooltipLabel.text = _tooltipString.ToString();
 

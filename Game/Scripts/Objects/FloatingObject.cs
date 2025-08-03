@@ -48,17 +48,13 @@ public class FloatingObject : MonoBehaviour
     }
     private void AddBuoyancyForce(float depth)
     {
-        if (depth < _depthThreshhold) // if the object is submurged deep enough
+        if (_rigidBody.TryAddBuoyancyForce(depth, _targetSurface.Density, out Vector3 buoyantForce))
         {
-            Vector3 buoyantForce = _targetSurface.Density * depth * Physics.gravity;
-
-            _rigidBody.AddForce(buoyantForce, ForceMode.Acceleration);
-
             if (_drawRay)
             {
-                Debug.DrawRay(gameObject.transform.position, buoyantForce, Color.red);
-            }
+                _rigidBody.DrawRay(buoyantForce, Color.red);
 
+            }
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -80,10 +76,5 @@ public class FloatingObject : MonoBehaviour
     {
         FloatObject();
     }
-    private void OnTriggerExit(Collider other)
-    {
-
-    }
-
 
 }

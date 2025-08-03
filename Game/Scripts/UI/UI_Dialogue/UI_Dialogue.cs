@@ -36,7 +36,7 @@ public class UI_Dialogue : IUserInterface
 
         _choiceButtons = _panelChoices.Query<Button>(className: "choiceButton").ToList();
 
-        _panelChoices.style.display = DisplayStyle.None; // make sure
+        _panelChoices.Hide(); // make sure
     }
     public void Register(VisualElement root)
     {
@@ -108,8 +108,7 @@ public class UI_Dialogue : IUserInterface
 
     private void UpdateChoices(List<string> choiceText)
     {
-        _panelChoices.style.display = DisplayStyle.Flex;
-
+        _panelChoices.Show();
 
         for (int i = 0; i < _choiceButtons.Count; i++)
         {
@@ -146,7 +145,7 @@ public class UI_Dialogue : IUserInterface
 
         GameCursor.Lock();
 
-        _panelChoices.style.display = DisplayStyle.None;
+        _panelChoices.Hide();
 
 
     }
