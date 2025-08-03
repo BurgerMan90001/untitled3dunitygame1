@@ -84,7 +84,7 @@ public class UserInterfaceManager : MonoBehaviour
     private async void Start()
     {
 
-        Debug.Log("START");
+
         await _uxmlFileHandler.LoadInterfacesAsync(_uxmlAssetLabelReference, _userInterfaceData.UserInterfaceElements); // load the user interfaces asynchronously. visual element configuration is done after this.
 
 
@@ -170,29 +170,20 @@ public class UserInterfaceManager : MonoBehaviour
 
     private void QueryAllElements()
     {
-        if (_debugMode)
-        {
-            Debug.Log("QUERAY");
-        }
+
 
         _userInterfaces.ForEach(ui => ui.QueryElements(Root));
     }
     private void RegisterAllInterfaces()
     {
-        if (_debugMode)
-        {
-            Debug.Log("REGISTER");
-        }
+
 
         _userInterfaces.ForEach(ui => ui.Register(Root));
 
     }
     private void UnregisterAllInterfaces()
     {
-        if (_debugMode)
-        {
-            Debug.Log("UNREGISTER");
-        }
+
 
         _userInterfaces.ForEach(ui => ui?.Unregister());
     }

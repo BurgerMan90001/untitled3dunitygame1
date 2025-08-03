@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-// TODO MAKE GHOST IMAGE NOT STRETCH AND OPTIMIZE
+// TODO REFACTOR 
 #region
 /// <summary>
 /// <br> For dragging and dropping ui elements. </br>
@@ -19,14 +19,15 @@ public class DragAndDropManipulator : PointerManipulator
     private bool _isDraggingElement;
 
     private Vector2 _ghostImageStartPosition;
-
     private Vector3 _pointerStartPosition;
 
     private VisualElement _selectedFullItemSlot;
 
     private readonly Inventory _inventory;
 
-    UQueryBuilder<VisualElement> _allSlots;
+    private UQueryBuilder<VisualElement> _allSlots;
+
+    private const int MouseButton = 0; // left mouse button
 
     #region
     /// <summary>
@@ -36,7 +37,7 @@ public class DragAndDropManipulator : PointerManipulator
     /// <param name="inventoryBackingPanel"></param>
     /// <param name="root"></param>
     #endregion
-    public DragAndDropManipulator(VisualElement target, VisualElement ghostImage, 
+    public DragAndDropManipulator(VisualElement target, VisualElement ghostImage,
         VisualElement inventoryBackingPanel, VisualElement root, Inventory inventory)
     {
 
@@ -45,14 +46,14 @@ public class DragAndDropManipulator : PointerManipulator
         _inventoryBackingPanel = inventoryBackingPanel;
         _ghostImage = ghostImage;
         _inventory = inventory;
-        
+
+        QueryAllInventorySlots();
 
     }
     protected override void RegisterCallbacksOnTarget()
     {
         target.RegisterCallback<PointerDownEvent>(PointerDown);
         target.RegisterCallback<PointerMoveEvent>(PointerMove);
-
 
         target.RegisterCallback<PointerUpEvent>(PointerUp);
         target.RegisterCallback<PointerCaptureOutEvent>(PointerCaptureOut);
@@ -78,14 +79,15 @@ public class DragAndDropManipulator : PointerManipulator
     }
     private void PointerDown(PointerDownEvent evt)
     {
-        
-        if (evt.button == 0) // Left mouse button
+
+        if (!IsMouseButton(evt.button)) return;
+
+        if (GetItemInstanceData<PointerDownEvent>(evt, out ItemInstance itemInstance, out VisualElement hoveredElement))
         {
-            if (GetItemInstanceData<PointerDownEvent>(evt, out ItemInstance itemInstance, out VisualElement hoveredElement))
-            {
-                ShowGhostImage(evt, itemInstance, hoveredElement);
-            }
+            ShowGhostImage(evt, itemInstance, hoveredElement);
+
         }
+
     }
     #region
     /// <summary>
@@ -99,13 +101,13 @@ public class DragAndDropManipulator : PointerManipulator
 
     private bool GetItemInstanceData<T>(EventBase evt, out ItemInstance itemInstance, out VisualElement hoveredElement)
     {
-        
+
         itemInstance = null;
         hoveredElement = null;
         if (evt.currentTarget is VisualElement foundHoveredElement)
         {
             hoveredElement = foundHoveredElement;
-            if (foundHoveredElement.userData is ItemInstance foundItemInstance 
+            if (foundHoveredElement.userData is ItemInstance foundItemInstance
                 && foundItemInstance.ItemType != null)
             {
                 itemInstance = foundItemInstance;
@@ -114,20 +116,22 @@ public class DragAndDropManipulator : PointerManipulator
         }
         return false;
     }
-    
+
     private void ShowGhostImage(PointerDownEvent evt, ItemInstance itemInstance, VisualElement hoveredElement)
     {
         _selectedFullItemSlot = hoveredElement;
 
         float width = _ghostImage.resolvedStyle.width / 2f;
-        float height = _ghostImage.resolvedStyle.height / 2f;
-        
+        //    float height = _ghostImage.resolvedStyle.height / 2f;
+
         Vector3 offset = new Vector3(0, width, 0);
 
+
         _ghostImageStartPosition = evt.position - offset;
-        _ghostImageStartPosition = RootSpaceOfSlot(_selectedFullItemSlot);
+        //   _ghostImageStartPosition = RootSpaceOfSlot(_selectedFullItemSlot);
+
         _ghostImageStartPosition = new Vector2(_ghostImageStartPosition.x - 5, _ghostImageStartPosition.y - 5);
-        
+
         _ghostImage.transform.position = _ghostImageStartPosition;
         _pointerStartPosition = evt.position;
 
@@ -142,28 +146,27 @@ public class DragAndDropManipulator : PointerManipulator
         _ghostImage.style.display = DisplayStyle.Flex;
 
     }
-    
-    
+
+
     private void PointerUp(PointerUpEvent evt)
     {
-        if (evt.button == 0 || evt.button == 1) // Left mouse button or right
+        if (!IsMouseButton(evt.button)) return;
+
+
+        if (_isDraggingElement && target.HasPointerCapture(evt.pointerId))
         {
-            
-            if (_isDraggingElement && target.HasPointerCapture(evt.pointerId)) 
+
+            target.ReleasePointer(evt.pointerId);
+
+            if (GetItemInstanceData<PointerDownEvent>(evt, out ItemInstance itemInstance, out VisualElement hoveredElement))
             {
-                
-                target.ReleasePointer(evt.pointerId);
-                
-                if (GetItemInstanceData<PointerDownEvent>(evt, out ItemInstance itemInstance, out VisualElement hoveredElement))
-                {
-                    _ghostImage.style.display = DisplayStyle.None;
-                    hoveredElement.style.backgroundImage = Background.FromSprite(itemInstance.Icon);
-                }
-                
-                
+                _ghostImage.style.display = DisplayStyle.None;
+                hoveredElement.style.backgroundImage = Background.FromSprite(itemInstance.Icon);
             }
-            
+
         }
+
+
     }
     #region
     /// <summary>
@@ -171,11 +174,10 @@ public class DragAndDropManipulator : PointerManipulator
     /// </summary>
     /// <param name="evt"></param>
     #endregion
-    private void PointerMove(PointerMoveEvent evt) 
+    private void PointerMove(PointerMoveEvent evt)
     {
-        
-        
-        if (_isDraggingElement && target.HasPointerCapture(evt.pointerId)) {
+        if (_isDraggingElement && target.HasPointerCapture(evt.pointerId))
+        {
 
             Vector3 pointerDelta = evt.position - _pointerStartPosition;
 
@@ -184,10 +186,8 @@ public class DragAndDropManipulator : PointerManipulator
                 Mathf.Clamp(_ghostImageStartPosition.y + pointerDelta.y, 0, _ghostImage.panel.visualTree.worldBound.height));
 
         }
-            
-        
     }
-    
+
     #region
     /// <summary>
     /// <br> Stolen from Unity docs. </br>
@@ -198,7 +198,6 @@ public class DragAndDropManipulator : PointerManipulator
     #endregion
     private void PointerCaptureOut(PointerCaptureOutEvent evt)
     {
-        QueryAllInventorySlots();
         UQueryBuilder<VisualElement> overlappingSlots =
             _allSlots.Where(OverlapsTarget);
         VisualElement closestOverlappingSlot =
@@ -214,23 +213,25 @@ public class DragAndDropManipulator : PointerManipulator
                 && closestOverlappingSlot.userData is ItemInstance overlappingSlotItemInstance) // if there is an item in the selected item slot
             {
                 SwapSlotItems(itemInstance, overlappingSlotItemInstance, closestOverlappingSlot);
-                
+
             }
 
-        } else // if there are no close overlapping slots, reset to original
-        {
-          
-            _ghostImage.transform.position = _ghostImageStartPosition;
         }
-        
-            
+        else // if there are no close overlapping slots, reset to original
+        {
+
+            _ghostImage.transform.position = _ghostImageStartPosition;
+
+        }
+
+
         _isDraggingElement = false;
-        
+
 
     }
     private void SwapSlotItems(ItemInstance itemInstance, ItemInstance overlappingSlotItemInstance, VisualElement closestOverlappingSlot)
     {
-       
+
         closestOverlappingSlot.style.backgroundImage = Background.FromSprite(itemInstance.Icon);
 
         closestOverlappingSlot.userData = itemInstance;
@@ -261,11 +262,20 @@ public class DragAndDropManipulator : PointerManipulator
         }
         return closest;
     }
-
+    /// <summary>
+    /// The middle of the item slot in root space.
+    /// </summary>
+    /// <param name="slot"></param>
+    /// <returns></returns>
     private Vector3 RootSpaceOfSlot(VisualElement slot)
     {
         Vector2 slotWorldSpace = slot.parent.LocalToWorld(slot.layout.position);
         return _root.WorldToLocal(slotWorldSpace);
+    }
+
+    private bool IsMouseButton(int buttonNumber)
+    {
+        return buttonNumber == MouseButton;
     }
 }
 

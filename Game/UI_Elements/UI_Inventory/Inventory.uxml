@@ -50,7 +50,7 @@
             <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1; flex-direction: row-reverse; flex-shrink: 1;" />
         </ui:VisualElement>
         <ui:VisualElement enabled="true" name="TooltipLayer" focusable="false" picking-mode="Ignore" class="tooltipLayer" style="opacity: 1; display: flex; visibility: visible; top: -1px; bottom: 0%; right: 0; left: 0;">
-            <ui:VisualElement name="GhostImage" focusable="false" tabindex="-1" picking-mode="Ignore" class="slotContainer ghostImage" />
+            <ui:VisualElement name="GhostImage" focusable="false" tabindex="-1" picking-mode="Ignore" class="slotContainer ghostImage" style="flex-grow: 1;" />
             <ui:Label text="fasdffffffffffffffffffasfdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd" name="Tooltip" picking-mode="Ignore" enabled="true" class="tooltip" />
         </ui:VisualElement>
     </ui:VisualElement>

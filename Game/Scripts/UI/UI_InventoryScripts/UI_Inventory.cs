@@ -1,8 +1,7 @@
 
 using System.Collections.Generic;
-using UnityEngine.UIElements;
 using UnityEngine;
-using System;
+using UnityEngine.UIElements;
 //TODO MAYBE OPTIMIZE INVENTORY UPDATES TO ONLY UPDATE CHANGED ELEMENTS
 // TODO MAYBE USE BINDINGS TO OPTIMIZE
 
@@ -31,14 +30,14 @@ public class UI_Inventory : IUserInterface // animation and stuff
 
     public void QueryElements(VisualElement root)
     {
-        _inventoryBackingPanel = root.Q<VisualElement>("Panel_Inventory");
+        _inventoryBackingPanel = root.Q<VisualElement>("Panel_Inventory_Left");
         _ghostImage = root.Q<VisualElement>("GhostImage");
     }
-    
+
     public void Register(VisualElement root)
     {
 
-        
+
         for (int i = 0; i < _inventoryBackingPanel.childCount; i++)
         {
 
@@ -47,9 +46,9 @@ public class UI_Inventory : IUserInterface // animation and stuff
             _itemVisualElements.Add(child);
 
             _dragAndDropManipulator = new DragAndDropManipulator(child, _ghostImage, _inventoryBackingPanel, root, _inventory);
-            _tooltipManipulator = new TooltipManipulator(child,root); // tooltip manipulator will be used to show the tooltip
-           
-            
+            _tooltipManipulator = new TooltipManipulator(child, root); // tooltip manipulator will be used to show the tooltip
+
+
             child.AddManipulator(_tooltipManipulator);
             child.AddManipulator(_dragAndDropManipulator);
 
@@ -60,17 +59,17 @@ public class UI_Inventory : IUserInterface // animation and stuff
 
 
         }
-        
+
 
     }
-    
+
     public void Unregister()
     {
 
 
         for (int i = 0; i < _inventoryBackingPanel.childCount; i++)
         {
-            
+
             var child = _inventoryBackingPanel[i];
             if (child == null) continue;
 
@@ -80,7 +79,7 @@ public class UI_Inventory : IUserInterface // animation and stuff
 
 
     }
-    
+
     #region
     /// <summary>
     /// Updates the ItemSlots dictionary with the current items in the dynamic inventory. 
@@ -88,29 +87,29 @@ public class UI_Inventory : IUserInterface // animation and stuff
     #endregion
     public void UpdateInterface() // O(n)
     {
-        
+
         for (int i = 0; i < _inventory.Items.Count; i++)
         {
             VisualElement child = _itemVisualElements[i];
-            
+
             ItemInstance itemInstance = _inventory.Items[i]; // get the item instance from the dynamic inventory
 
             if (child == null || itemInstance == null)
             {
                 Debug.LogWarning("A child or itemInstance is null");
                 continue; // skip if the child is null
-                
+
             }
             child.userData = itemInstance;
-    
+
             child.style.backgroundImage = Background.FromSprite(itemInstance.Icon);
 
         }
-        
+
     }
 
-    
-    
+
+
 }
 
 
