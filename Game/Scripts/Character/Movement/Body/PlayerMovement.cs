@@ -1,6 +1,5 @@
 
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,7 +13,7 @@ public class PlayerMovement : GameInput, IPlayerMovement
     [Header("MovementStateManager Settings")]
     [SerializeField] private float _baseSpeed;
     [SerializeField] private float _globalSpeedMultiplier = 2f;
-    [SerializeField] private List<StateSettings> _stateSettings;
+
 
     [Header("Crouch Settings")]
     [SerializeField] private float _crouchYScale = 0.5f;
@@ -62,7 +61,7 @@ public class PlayerMovement : GameInput, IPlayerMovement
 
         _sprint = new Sprint(_stats);
 
-        _movementStateManager = new MovementStateManager(_rigidBody, _stateSettings, _baseSpeed, _globalSpeedMultiplier);
+        _movementStateManager = new MovementStateManager(_rigidBody, _baseSpeed, _globalSpeedMultiplier);
 
         _verticalMovement = new VerticalMovement(_playerMovementObject, _movementStateManager);
         _horizontalMovement = new HorizontalMovement(_rigidBody, _movementStateManager);

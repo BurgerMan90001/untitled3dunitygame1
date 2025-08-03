@@ -1,20 +1,16 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 
 public class MovementStateManager
 {
 
-    private Rigidbody _rigidBody;
+    private readonly Rigidbody _rigidBody;
+    private readonly float _baseSpeed;
+    private readonly float _globalSpeedMultiplier = 2f;
 
-    private float _baseSpeed;
-    private float _globalSpeedMultiplier = 2f;
-    private List<StateSettings> _stateSettings;
-
-    public MovementStateManager(Rigidbody rigidBody, List<StateSettings> stateSettings, float baseSpeed, float globalSpeedMultiplier)
+    public MovementStateManager(Rigidbody rigidBody, float baseSpeed, float globalSpeedMultiplier)
     {
         _rigidBody = rigidBody;
-        _stateSettings = stateSettings;
         _baseSpeed = baseSpeed;
         _globalSpeedMultiplier = globalSpeedMultiplier;
     }
@@ -24,6 +20,8 @@ public class MovementStateManager
 
     public float GetCurrentSpeed()
     {
+
+        /*
         foreach (var stateSetting in _stateSettings)
         {
             if (MovementState == stateSetting.State) // searches list for each movement state, if the current movementstate is equal to that, then apply the multiplier
@@ -34,23 +32,24 @@ public class MovementStateManager
             }
         }
         return _baseSpeed * _globalSpeedMultiplier; // apply default speed if no state matches
+        */
+        SetLinearDamping();
+        return _baseSpeed * _globalSpeedMultiplier * MovementState.SpeedMultiplier;
     }
 
-    public void SetLinearDamping(StateSettings stateSetting)
+    public void SetLinearDamping()
     {
-        /*
-        Debug.Log(_rigidBody.linearDamping);
-        Debug.Log(stateSetting.LinearDamping);
-        */
-        if (_rigidBody.linearDamping != stateSetting.LinearDamping) // if the linear damping is not equal to the one in the state setting, then apply the linear damping
+
+        if (_rigidBody.linearDamping != MovementState.LinearDamping) // if the linear damping is not equal to the one in the state setting, then apply the linear damping
         {
-            Debug.Log("UPDATE");
-            _rigidBody.linearDamping = stateSetting.LinearDamping; // apply the linear damping to the rigidbody
+
+            _rigidBody.linearDamping = MovementState.LinearDamping; // apply the linear damping to the rigidbody
         }
     }
     public void SetMovementState(MovementStates newState)
     {
-        if (MovementState == newState) return; // if the movement state has actually changed, then change it or cancel
+        if (MovementState.SpeedMultiplier == newState.SpeedMultiplier
+            || MovementState.LinearDamping == newState.LinearDamping) return; // if the movement state has actually changed, then change it or cancel
 
         MovementState = newState;
 
