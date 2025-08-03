@@ -68,7 +68,7 @@ public class FloatingObject : MonoBehaviour
             }
             _targetSurface = waterSurface;
 
-            _rigidBody.linearDamping = waterSurface.LinearDamping;
+            _rigidBody.SetLinearDamping(waterSurface.LinearDamping);
         }
 
     }
