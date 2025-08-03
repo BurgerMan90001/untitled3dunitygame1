@@ -21,18 +21,6 @@ public class MovementStateManager
     public float GetCurrentSpeed()
     {
 
-        /*
-        foreach (var stateSetting in _stateSettings)
-        {
-            if (MovementState == stateSetting.State) // searches list for each movement state, if the current movementstate is equal to that, then apply the multiplier
-            {
-
-                SetLinearDamping(stateSetting); // set the linear damping to the one in the state setting
-                return _baseSpeed * _globalSpeedMultiplier * stateSetting.SpeedMultiplier;
-            }
-        }
-        return _baseSpeed * _globalSpeedMultiplier; // apply default speed if no state matches
-        */
         SetLinearDamping();
         return _baseSpeed * _globalSpeedMultiplier * MovementState.SpeedMultiplier;
     }

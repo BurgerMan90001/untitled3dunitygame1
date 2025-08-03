@@ -15,7 +15,7 @@ public class HorizontalMovement
     private Vector3 _horizontalVelocity;
 
 
-    private const float SLOPE_SPEED_MULTIPLIER = 1.25f;
+    private const float SlopeSpeedMultiplier = 1.25f;
 
     private readonly Rigidbody _rigidBody;
     private readonly MovementStateManager _movementStateManager;
@@ -35,19 +35,22 @@ public class HorizontalMovement
 
         _horizontalVelocity = (orientation.forward * movementInput.y) + (orientation.right * movementInput.x);
 
+        WalkingMovement(isGrounded);
+        /*
         switch (_movementStateManager.MovementState)
         {
             case MovementStates.Walking:
                 WalkingMovement(isGrounded);
                 break;
 
-            case MovementStates.Climbing:
+            case MovementStates.Climbing.:
                 LadderMovement();
                 break;
             default:
                 WalkingMovement(isGrounded);
                 break;
         }
+        */
 
     }
 
@@ -58,7 +61,7 @@ public class HorizontalMovement
         {
 
             _rigidBody.AddForce(_movementStateManager.GetCurrentSpeed()
-                * SLOPE_SPEED_MULTIPLIER
+                * SlopeSpeedMultiplier
                 * isGrounded.GetSlopeMoveDirection(_horizontalVelocity), ForceMode.Force);
         }
         else
