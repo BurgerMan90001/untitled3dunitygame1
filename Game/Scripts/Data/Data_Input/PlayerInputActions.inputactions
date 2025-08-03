@@ -97,9 +97,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "OpenPauseMenu",
+                    "name": "Quit",
                     "type": "Button",
-                    "id": "d84fbc8b-af6c-4aee-b049-bd50f7df1d3e",
+                    "id": "fde7378c-a3f3-427a-83ed-c3a472692c1d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Fullscreen",
+                    "type": "Button",
+                    "id": "54aa610f-dbb0-447d-8d6c-79bec5719dbd",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -417,12 +426,23 @@
                 },
                 {
                     "name": "",
-                    "id": "ddf0b9e3-cce5-450a-9269-defd45b97c61",
+                    "id": "48142d52-b08e-4968-813c-7f349b2a3cd2",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "OpenPauseMenu",
+                    "groups": "",
+                    "action": "Quit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "aaa15af9-1735-48ef-b300-88f2d2fb864a",
+                    "path": "<Keyboard>/f11",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fullscreen",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

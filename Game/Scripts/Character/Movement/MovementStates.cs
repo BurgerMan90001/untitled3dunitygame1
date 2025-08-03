@@ -8,7 +8,7 @@ public enum MovementStates // list of different player movement states
     Climbing,
     Crouching,
     InAir,
-
+    Swimming,
 }
 
 [System.Serializable]
@@ -19,3 +19,11 @@ public class StateSettings : ScriptableObject
     public float SpeedMultiplier;
     public float LinearDamping; // amount of air drag
 }
+
+
+/*
+public struct MovementStates
+{
+
+}
+*/

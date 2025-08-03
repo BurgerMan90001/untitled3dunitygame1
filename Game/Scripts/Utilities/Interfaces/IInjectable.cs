@@ -7,11 +7,11 @@ public interface IInjectable
 
 public interface IPlayerMovement : IInjectable
 {
+
     void OnMove(InputAction.CallbackContext ctx);
     void OnJump(InputAction.CallbackContext ctx);
     void OnSprint(InputAction.CallbackContext ctx);
     void OnCrouch(InputAction.CallbackContext ctx);
-
 
 }
 

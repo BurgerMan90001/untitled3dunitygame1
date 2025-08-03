@@ -57,8 +57,9 @@ public class HorizontalMovement
         if (isGrounded.OnSlope)
         {
 
-            _rigidBody.AddForce(isGrounded.GetSlopeMoveDirection(_horizontalVelocity)
-                * _movementStateManager.GetCurrentSpeed() * SLOPE_SPEED_MULTIPLIER, ForceMode.Force);
+            _rigidBody.AddForce(_movementStateManager.GetCurrentSpeed()
+                * SLOPE_SPEED_MULTIPLIER
+                * isGrounded.GetSlopeMoveDirection(_horizontalVelocity), ForceMode.Force);
         }
         else
         {

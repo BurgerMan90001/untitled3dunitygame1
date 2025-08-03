@@ -2,21 +2,24 @@
     <Style src="project://database/Assets/myprojectV1/Game/UI_Elements/UI_HUD/MoneyFieldStyle.uss?fileID=7433441132597879392&amp;guid=e664ec3c1db1e58498b812ec768f58d3&amp;type=3#MoneyFieldStyle" />
     <Style src="project://database/Assets/myprojectV1/Game/UI_Elements/UI_Inventory/Inventory.uss?fileID=7433441132597879392&amp;guid=8089a9f7c998d4a46aac97bb4e11a787&amp;type=3#Inventory" />
     <Style src="project://database/Assets/myprojectV1/Game/UI_Elements/Tooltip.uss?fileID=7433441132597879392&amp;guid=92f147d235c47d54ea1b7f7ba1fb9115&amp;type=3#Tooltip" />
-    <ui:VisualElement name="Root" style="margin-top: 0%; margin-right: 0%; margin-bottom: 0%; margin-left: 0%; flex-direction: row; align-items: auto; align-content: center; justify-content: center; align-self: auto; flex-grow: 1;">
-        <ui:VisualElement name="Money" picking-mode="Ignore" class="money" style="flex-grow: 1; flex-wrap: wrap; visibility: visible; overflow: visible; display: flex; white-space: normal; flex-direction: row; flex-shrink: 1;">
-            <ui:VisualElement name="Panel_Money1" class="panel-money1">
-                <ui:Label text="MONEY" name="Text_Money" class="money moneytext text-money" />
+    <Style src="project://database/Assets/myprojectV1/Game/UI_Elements/root.uss?fileID=7433441132597879392&amp;guid=dab9f6c68fd38894fa1aaaa31fa32d0c&amp;type=3#root" />
+    <Style src="project://database/Assets/myprojectV1/Game/UI_Elements/UI_Inventory/InventoryPanel.uss?fileID=7433441132597879392&amp;guid=00b983830bad45a438a9ae208b803045&amp;type=3#InventoryPanel" />
+    <ui:VisualElement name="Root" style="margin-top: 0%; margin-right: 0%; margin-bottom: 0%; margin-left: 0%; flex-direction: row; align-items: auto; align-content: center; justify-content: flex-start; align-self: auto; flex-grow: 1;">
+        <ui:VisualElement name="Panel_Left" class="panel-left" style="height: 100%; flex-direction: column;">
+            <ui:VisualElement name="Panel_Money" picking-mode="Ignore" class="money" style="flex-grow: 1; flex-wrap: wrap; visibility: visible; overflow: visible; display: flex; white-space: normal; flex-direction: column; flex-shrink: 10; height: auto; align-items: auto; align-self: flex-start; align-content: flex-start;">
+                <ui:VisualElement name="SubPanel_Money1" class="subPanel-money1" style="width: 128px;" />
+                <ui:VisualElement name="SubPanel_Money2" class="subPanel-money2" style="width: auto; align-self: flex-start;">
+                    <ui:Label text="Label" name="Value_Money" class="moneytext text-money">
+                        <Bindings>
+                            <ui:DataBinding property="text" data-source-path="Money" data-source="project://database/Assets/myprojectV1/Game/Scripts/Data/SO_Datas/SO_Stats/GeneralPlayerStats%201.asset?fileID=11400000&amp;guid=52b218812565c5e4a950196553673cc0&amp;type=2#GeneralPlayerStats 1" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:Label>
+                </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="Panel_Money2" class="panel-money2">
-                <ui:Label text="Label" name="Value_Money" class="money moneytext text-money" style="align-self: flex-start; justify-content: flex-end; align-content: stretch; align-items: flex-start;">
-                    <Bindings>
-                        <ui:DataBinding property="text" data-source-path="Money" data-source="project://database/Assets/myprojectV1/Game/Scripts/Data/SO_Datas/SO_Stats/GeneralPlayerStats%201.asset?fileID=11400000&amp;guid=52b218812565c5e4a950196553673cc0&amp;type=2#GeneralPlayerStats 1" binding-mode="ToTarget" />
-                    </Bindings>
-                </ui:Label>
-            </ui:VisualElement>
+            <ui:VisualElement name="EmptyPanel_Left" class="emptyPanel-left" />
         </ui:VisualElement>
-        <ui:VisualElement style="flex-grow: 1; width: 100%; height: 100%;" />
-        <ui:VisualElement name="Panel_Inventory" class="panel_inventory" style="flex-grow: 1; width: 100%;">
+        <ui:VisualElement name="EmptyPanel_Middle" class="emptyPanel-middle" />
+        <ui:VisualElement name="Panel_Inventory_Left" class="panel_inventory panel-inventory-left">
             <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1; flex-direction: row-reverse; background-image: none;" />
             <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1;" />
             <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1; flex-direction: column;" />
@@ -46,7 +49,7 @@
             <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1; flex-direction: row-reverse; flex-shrink: 1;" />
             <ui:VisualElement name="VisualElement" class="slotContainer slotIcon" style="flex-grow: 1; flex-direction: row-reverse; flex-shrink: 1;" />
         </ui:VisualElement>
-        <ui:VisualElement enabled="true" name="TooltipLayer" focusable="false" picking-mode="Ignore" class="tooltipLayer" style="opacity: 1; display: flex; visibility: visible; top: -1px; bottom: 2px; right: 0; left: 0;">
+        <ui:VisualElement enabled="true" name="TooltipLayer" focusable="false" picking-mode="Ignore" class="tooltipLayer" style="opacity: 1; display: flex; visibility: visible; top: -1px; bottom: 0%; right: 0; left: 0;">
             <ui:VisualElement name="GhostImage" focusable="false" tabindex="-1" picking-mode="Ignore" class="slotContainer ghostImage" />
             <ui:Label text="fasdffffffffffffffffffasfdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd" name="Tooltip" picking-mode="Ignore" enabled="true" class="tooltip" />
         </ui:VisualElement>

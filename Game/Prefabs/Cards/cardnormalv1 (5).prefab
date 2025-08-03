@@ -9,11 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6035995299084074986}
+  - component: {fileID: 3280689242756973139}
   - component: {fileID: 4100999510827885163}
   - component: {fileID: 5226749878546934150}
   - component: {fileID: 427158015421274655}
   - component: {fileID: 6085179901586727991}
-  - component: {fileID: 3280689242756973139}
+  - component: {fileID: 4103783618034514969}
   m_Layer: 0
   m_Name: cardnormalv1 (5)
   m_TagString: Card
@@ -36,6 +37,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3280689242756973139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5813996574779826660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d941591ffa944414287f8b38e0db8770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemInstance:
+    <ItemType>k__BackingField: {fileID: 11400000, guid: 67ce1e8f200e6b440986c5a6a4b64b2d, type: 2}
+    Quantity: 0
+  _inventory: {fileID: 11400000, guid: 429beb422e6f2764ab242e6b1ace72b8, type: 2}
 --- !u!33 &4100999510827885163
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -137,7 +154,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.025569042, y: 0.8984812, z: 0.5600375}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3280689242756973139
+--- !u!114 &4103783618034514969
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,10 +163,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5813996574779826660}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d941591ffa944414287f8b38e0db8770, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d8eb33112161b8439d7d113109709c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemInstance:
-    <ItemType>k__BackingField: {fileID: 11400000, guid: d3504dcd84747f7479ba1958e8caa076, type: 2}
-    Quantity: 0
-  _inventory: {fileID: 11400000, guid: 429beb422e6f2764ab242e6b1ace72b8, type: 2}

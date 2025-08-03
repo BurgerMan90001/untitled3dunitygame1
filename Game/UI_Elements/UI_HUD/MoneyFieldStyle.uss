@@ -2,27 +2,21 @@
 }
 
 .text-money {
-    align-items: center;
-    align-content: flex-start;
-    align-self: flex-start;
     font-size: 65px;
     color: rgb(255, 255, 255);
     -unity-font-definition: url("project://database/Assets/PackageStuff/TextMesh%20Pro/Fonts/LiberationSans.ttf?fileID=12800000&guid=e3265ab4bf004d28a9537516768c1c75&type=3#LiberationSans");
     -unity-font-style: bold;
     letter-spacing: -15px;
+    align-self: flex-start;
+    justify-content: flex-start;
+    align-content: auto;
+    align-items: auto;
 }
 
-.panel-money1 {
+.subPanel-money1 {
     flex-grow: 1;
-    width: 12%;
-    height: 9%;
-    background-size: 100% 100%;
-    align-items: auto;
-    justify-content: center;
-    align-self: flex-start;
     max-width: 100%;
     max-height: 100%;
-    background-color: rgba(0, 0, 0, 0.54);
     margin-left: 0%;
     margin-bottom: 0%;
     padding-bottom: 0;
@@ -34,19 +28,30 @@
     padding-top: 0;
     padding-left: 0;
     top: auto;
-    align-content: auto;
     display: flex;
     flex-shrink: 1;
-    min-height: 0%;
     min-width: 0%;
     flex-basis: auto;
     transform-origin: center;
+    background-image: url("project://database/Assets/myprojectV1/Game/Graphics/2D_Textures&Mats/2D_UI_Sprites/penny.png?fileID=2800000&guid=2eae31b6cb5caee4d97486d324aa6846&type=3#penny");
+    background-color: rgba(0, 0, 0, 0.27);
+    min-height: 0%;
+    align-self: flex-start;
+    align-content: auto;
+    justify-content: center;
+    align-items: auto;
+    height: 100%;
+    width: auto;
+    background-size: 100% 100%;
+    background-position-x: right 0;
+    background-position-y: center 0;
+    -unity-background-scale-mode: stretch-to-fill;
 }
 
-.panel-money2 {
-    flex-grow: 1;
-    width: 12%;
-    height: 9%;
+.subPanel-money2 {
+    flex-grow: 30;
+    width: 100%;
+    height: 100%;
     background-size: 100% 100%;
     align-items: auto;
     justify-content: flex-start;
@@ -67,10 +72,11 @@
     flex-shrink: 1;
     -unity-text-align: upper-left;
     background-position-y: center 0;
-    align-content: auto;
     opacity: 1;
     top: auto;
     left: auto;
+    display: flex;
+    align-content: auto;
 }
 
 .money {
@@ -84,9 +90,11 @@
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
-    height: 100%;
+    height: 97%;
     width: 100%;
     flex-shrink: 1;
     align-items: auto;
     align-content: auto;
+    min-width: 0%;
+    min-height: 0%;
 }

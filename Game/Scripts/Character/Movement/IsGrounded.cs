@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using UnityEngine.Rendering.HighDefinition;
 
 /// <summary> 
 /// checks if the player is grounded by casting a ray or sphere downwards.
@@ -9,9 +10,9 @@ public class IsGrounded
 
     private const float MAX_SLOPE_ANGLE = 45f; // 45 degrees
 
-    private MovementStateManager _movementStateManager;
-    private Transform _body;
-    private HorizontalMovement _horizontalMovement;
+    private readonly MovementStateManager _movementStateManager;
+    private readonly Transform _body;
+    private readonly HorizontalMovement _horizontalMovement;
 
     private RaycastHit _slopeHit;
     private Vector3 _slopeMoveDirection;
@@ -26,6 +27,11 @@ public class IsGrounded
     private float _slopeAngle;
 
     private float _groundCheckTimer;
+
+
+    private WaterSurface waterSurface;
+    WaterSearchParameters searchParameters = new WaterSearchParameters();
+    WaterSearchResult searchResult = new WaterSearchResult();
 
     public IsGrounded(MovementStateManager MovementStateManager, HorizontalMovement horizontalMovement, Transform body)
     {
@@ -57,20 +63,7 @@ public class IsGrounded
         }
     }
 
-    public bool CheckIfInWater(float probeDistance, LayerMask probeMask, bool drawDebugRay)
-    {
-        if (drawDebugRay)
-        {
-            Debug.DrawRay(_body.position, Vector3.down * probeDistance, Color.red);
-        }
-        if (!Physics.Raycast(
-            _body.position, Vector3.down, out RaycastHit hit,
-            probeDistance, probeMask, QueryTriggerInteraction.Ignore))
-        {
-            return false;
-        }
-        return true;
-    }
+
     public void CheckIfGrounded(bool crouching, float groundCheckDistance, LayerMask groundMask, bool drawDebugRay)
     {
         _groundCheckTimer += Time.fixedDeltaTime;

@@ -26,7 +26,7 @@ public class PlayerMovement : GameInput, IPlayerMovement
     [Header("Sprint Settings")]
     [SerializeField] private float _staminaRegenRate = 1f;
     [SerializeField] private float _sprintStaminaCost = 1f;
-    [SerializeField] private double _buttonDurationThreshold = 0.30d;
+    private const double _buttonDurationThreshold = 0.30d;
 
 
     [Header("Ground Check Settings")]
@@ -52,11 +52,10 @@ public class PlayerMovement : GameInput, IPlayerMovement
     private IsGrounded _isGrounded;
     private Sprint _sprint;
 
-
-
-
     private void Awake()
     {
+
+
         _playerMovementObject = transform;
 
         _originalYScale = transform.localScale.y;
@@ -71,7 +70,6 @@ public class PlayerMovement : GameInput, IPlayerMovement
 
         _isGrounded = new IsGrounded(_movementStateManager, _horizontalMovement, _playerMovementObject);
     }
-
 
     public void OnMove(InputAction.CallbackContext ctx)
     {
@@ -120,10 +118,8 @@ public class PlayerMovement : GameInput, IPlayerMovement
         _horizontalMovement.MoveRigidBody(_movementInput, _isGrounded, _orientation);
 
 
-        if (_isGrounded.CheckIfInWater(_probeDistance, _probeMask, _drawDebugRayWater))
-        {
-            Debug.Log("IN WATER");
-        }
+        //  _isGrounded.CheckIfInWater(_probeDistance, _probeMask, _drawDebugRayWater));
+
         if (Math.Abs(_rigidBody.linearVelocity.y) > Y_VELOCITY_THRESHOLD)
         {
             _isGrounded.CheckIfGrounded(_verticalMovement.IsCrouched, _groundCheckDistance, _groundMask, _drawDebugRayGround);
@@ -133,7 +129,5 @@ public class PlayerMovement : GameInput, IPlayerMovement
     {
         _sprint.UpdateStamina(_movementStateManager, _sprintStaminaCost, _staminaRegenRate, _isGrounded.OnGround);
     }
-
-
 }
 

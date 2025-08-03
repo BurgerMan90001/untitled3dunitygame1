@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 //TODO MAYBE MAKE NOT SINGLETON FOR MULTI
@@ -7,7 +6,6 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// all of the actions that the camera will handle
 /// </summary>
-
 public class GameCamera : GameInput, IGameCamera
 {
     private Interact _interact;
@@ -15,6 +13,7 @@ public class GameCamera : GameInput, IGameCamera
     private RotateCamera _rotateCamera;
     private MouseClick _mouseClick;
     private HitDetect _hitDetect;
+    private PickupInteraction _pickupInteraction;
 
     private Vector2 _lookInput;
     private Vector2 _mousePosition;
@@ -41,6 +40,11 @@ public class GameCamera : GameInput, IGameCamera
     [SerializeField] private bool _showInteractDebugRayCast = true;
     [SerializeField] private LayerMask _interactMask;
 
+    [Header("Pickup Settings")]
+    [SerializeField] private float _pickupDistance = 5f;
+    [SerializeField] private LayerMask _pickupMask;
+    [SerializeField] private bool _showPickupDebugRayCast = true;
+
     [Header("MouseClick Settings")]
     [SerializeField] private bool _showMouseClickDebugRayCast = true;
     [SerializeField] private float _leftClickDistance = 5f;
@@ -55,9 +59,10 @@ public class GameCamera : GameInput, IGameCamera
         // the camera transform is this script's transform because it will be on the cinemachine camera gameobject
 
         _hitDetect = new HitDetect(_cameraTransform);
-        _interact = new Interact(_hitDetect, _interactMask);
+        _interact = new Interact(_hitDetect, _interactMask, _interactDistance, _showInteractDebugRayCast, _player);
+        _pickupInteraction = new PickupInteraction(_hitDetect, _pickupMask, _pickupDistance, _showPickupDebugRayCast, _player);
         _rotateCamera = new RotateCamera(_verticalRotationLimit);
-        _mouseClick = new MouseClick(_cameraTransform, _hitDetect, _leftClickMask);
+        _mouseClick = new MouseClick(_cameraTransform, _hitDetect, _leftClickMask, _leftClickDistance, _showMouseClickDebugRayCast);
         _positionCamera = new PositionCamera();
 
     }
@@ -67,20 +72,17 @@ public class GameCamera : GameInput, IGameCamera
     {
         if (ctx.started)
         {
-            _mouseClick.StartLeftClick(_leftClickDistance, _showMouseClickDebugRayCast);
+            _mouseClick.StartAction();
         }
         else if (ctx.canceled)
         {
-            _mouseClick.CancleLeftClick();
+            _mouseClick.CancelAction();
         }
 
     }
     public void OnLook(InputAction.CallbackContext ctx)
     {
         _lookInput = ctx.ReadValue<Vector2>(); // the velocity direction and magnitude from a device, such as a mouse or joystick
-
-        //    _mousePosition = Mouse.current.position.ReadValue(); // get the current mouse position
-
     }
 
     public void OnInteract(InputAction.CallbackContext ctx)
@@ -89,19 +91,23 @@ public class GameCamera : GameInput, IGameCamera
         if (ctx.started)
         {
 
-            _interact.StartInteract(_interactDistance, _showInteractDebugRayCast, _player);
+            _interact.StartAction();
 
         }
         else if (ctx.canceled)
         {
-            _interact.CancelInteract();
+            _interact.CancelAction();
         }
     }
     public void OnPickup(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
         {
-            throw new System.NotImplementedException();
+            _pickupInteraction.StartAction();
+        }
+        else if (ctx.canceled)
+        {
+            _pickupInteraction.CancelAction();
         }
     }
 

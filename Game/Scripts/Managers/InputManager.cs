@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -186,5 +187,37 @@ public class InputManager : MonoBehaviour, PlayerInputActions.IPlayerActions, Pl
     public void OnLeftClick(InputAction.CallbackContext ctx)
     {
         _gameCamera.OnLeftClick(ctx);
+    }
+
+    public void OnQuit(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+        {
+#if UNITY_EDITOR
+            if (EditorApplication.isPlaying)
+            {
+                EditorApplication.isPlaying = false;
+            }
+#else
+                    Application.Quit();
+#endif
+        }
+
+    }
+
+    public void OnFullscreen(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started)
+        {
+            if (Screen.fullScreenMode != FullScreenMode.ExclusiveFullScreen)
+            {
+                Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+            }
+            else
+            {
+                Screen.fullScreenMode = FullScreenMode.Windowed;
+            }
+        }
+
     }
 }
