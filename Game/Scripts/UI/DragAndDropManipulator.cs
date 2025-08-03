@@ -122,15 +122,11 @@ public class DragAndDropManipulator : PointerManipulator
         _selectedFullItemSlot = hoveredElement;
 
         float width = _ghostImage.resolvedStyle.width / 2f;
-        //    float height = _ghostImage.resolvedStyle.height / 2f;
 
         Vector3 offset = new Vector3(0, width, 0);
 
 
-        _ghostImageStartPosition = evt.position - offset;
-        //   _ghostImageStartPosition = RootSpaceOfSlot(_selectedFullItemSlot);
-
-        _ghostImageStartPosition = new Vector2(_ghostImageStartPosition.x - 5, _ghostImageStartPosition.y - 5);
+        _ghostImageStartPosition = evt.position - offset + RootSpaceOfSlot(_selectedFullItemSlot);
 
         _ghostImage.transform.position = _ghostImageStartPosition;
         _pointerStartPosition = evt.position;
