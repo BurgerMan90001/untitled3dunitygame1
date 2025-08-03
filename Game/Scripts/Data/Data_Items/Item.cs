@@ -21,6 +21,9 @@ public class Item : ScriptableObject
 
     [field: SerializeField] public RarityType RarityType { get; protected set; }
 
+    [field: SerializeField] public MeshRenderer MeshRenderer;
+
+
     public Item() // when creating a new item SO, these are the default values
     {
         Description = "This is a placehodler for an item please remove.";
@@ -34,6 +37,6 @@ public class Item : ScriptableObject
 
         RarityType = RarityType.Common;
     }
-    
+
 }
 

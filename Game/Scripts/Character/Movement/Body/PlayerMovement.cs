@@ -14,7 +14,6 @@ public class PlayerMovement : GameInput, IPlayerMovement
     [SerializeField] private float _baseSpeed;
     [SerializeField] private float _globalSpeedMultiplier = 2f;
 
-
     [Header("Crouch Settings")]
     [SerializeField] private float _crouchYScale = 0.5f;
     private float _originalYScale; // the originalYScale is found from transform.parent.localScale.y;
@@ -116,8 +115,6 @@ public class PlayerMovement : GameInput, IPlayerMovement
     {
         _horizontalMovement.MoveRigidBody(_movementInput, _isGrounded, _orientation);
 
-
-        //  _isGrounded.CheckIfInWater(_probeDistance, _probeMask, _drawDebugRayWater));
 
         if (Math.Abs(_rigidBody.linearVelocity.y) > Y_VELOCITY_THRESHOLD)
         {

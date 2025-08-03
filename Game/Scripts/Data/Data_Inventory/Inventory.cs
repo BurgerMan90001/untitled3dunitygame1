@@ -14,7 +14,7 @@ public class Inventory : ScriptableObject
 {
 
     public int MaxItems = 28;
-    [DisplayInspector] public List<ItemInstance> Items;
+    [DisplayInspector][SerializeField] public List<ItemInstance> Items;
 
     public event Action OnInventoryChanged;
 
@@ -39,13 +39,13 @@ public class Inventory : ScriptableObject
 
     private void AddOrStackItem(ItemInstance itemToAdd)
     {
-        if (ExistInInventory(itemToAdd, out ItemInstance matchingItem) && matchingItem.IsStackable)
+        if (ExistInInventory(itemToAdd, out ItemInstance matchingItem) && matchingItem.ItemType.IsStackable)
         {
             matchingItem.Quantity += itemToAdd.Quantity;
 
             Debug.Log("QUANITY ADDDED");
         }
-        else if (!ExistInInventory(itemToAdd, out _) || !itemToAdd.IsStackable)
+        else if (!ExistInInventory(itemToAdd, out _) || !itemToAdd.ItemType.IsStackable)
         { // if it does not exist or is not stackable, add a new item
 
             AddToInventory(itemToAdd);

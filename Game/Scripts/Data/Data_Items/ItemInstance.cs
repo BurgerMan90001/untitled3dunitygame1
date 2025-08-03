@@ -10,23 +10,16 @@ public class ItemInstance
 {
     [DisplayInspector]
     [field: SerializeField] public virtual Item ItemType { get; protected set; }
+    public MeshRenderer MeshRenderer;
 
     private readonly float _pricePercent = 0.8f; // eighty percent of original value
     private readonly int _decimalPlaces = 2;
+    public Sprite Icon { get; protected set; }
+    public int Quantity; // amount of items
 
-    // properties are already hidden but these are for safety
 
-    [HideInInspector] public Sprite Icon { get; protected set; }
-    [HideInInspector] public int Quantity; // amount of items
-    [HideInInspector] public bool IsStackable { get; protected set; }
-
-    [HideInInspector]
-    public virtual int Quality { get; private set; }
-
-    [HideInInspector] public virtual int MaxQuality { get; private set; }
-    [HideInInspector] public virtual int MinQuality { get; private set; }
-    [HideInInspector]
-    [DisplayInspector] public virtual float Value { get; private set; }
+    public int Quality; // quality determines the value of the item
+    public float Value;
 
     protected virtual float CalculateValue(float itemValue, int quality, int maxQuality)
     {
@@ -38,16 +31,20 @@ public class ItemInstance
     {
         return (float)Math.Round(value * _pricePercent);
     }
-    [HideInInspector]
-    public virtual float SellPrice { get; protected set; }
 
-    [HideInInspector][TextArea] public string Description { get; protected set; }
+    public float SellPrice;
 
-    [HideInInspector] public Action OnValueChanged;
+    [TextArea] public string Description;
 
-    [HideInInspector] private StringBuilder _tooltipString;
+    public Action OnValueChanged;
 
-    public ItemInstance() { } // an empty item
+    private StringBuilder _tooltipString = new StringBuilder();
+    #region
+    /// <summary>
+    /// An empty item
+    /// </summary>
+    #endregion
+    public ItemInstance() { }
     public ItemInstance(Item item)  // when a card is first created
     {
 
@@ -60,21 +57,14 @@ public class ItemInstance
         ItemType = item;
         Icon = item.Icon;
 
-        IsStackable = item.IsStackable;
-
         Quantity = 1;
 
         Description = item.Description;
 
-        MinQuality = item.MinQuality;
-        MaxQuality = item.MaxQuality + 1;
+        Quality = UnityEngine.Random.Range(1, ItemType.MaxQuality);
 
-        Quality = UnityEngine.Random.Range(1, MaxQuality);
-
-        Value = CalculateValue(item.OriginalValue, Quality, MaxQuality);
+        Value = CalculateValue(item.OriginalValue, Quality, ItemType.MaxQuality + 1);
         SellPrice = CalculateSellPrice(Value);
-
-        _tooltipString = new StringBuilder();
 
         GetToolTipString();
 

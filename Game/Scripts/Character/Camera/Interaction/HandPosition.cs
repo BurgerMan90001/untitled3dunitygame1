@@ -12,8 +12,6 @@ public class Hand : MonoBehaviour
     [SerializeField] private float _zOffset = 1f;
     [SerializeField] private float _followSpeed = 10f;
 
-
-
     [SerializeField] private float _dist = 1f;
 
     private Vector3 totalOffset;
