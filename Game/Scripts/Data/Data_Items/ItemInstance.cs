@@ -1,4 +1,3 @@
-using MyBox;
 using System;
 using System.Text;
 using UnityEngine;
@@ -8,9 +7,9 @@ using UnityEngine;
 
 public class ItemInstance
 {
-    [DisplayInspector]
+
     [field: SerializeField] public virtual Item ItemType { get; protected set; }
-    public MeshRenderer MeshRenderer;
+    [field: SerializeField] public virtual Mesh Mesh { get; protected set; }
 
     private readonly float _pricePercent = 0.8f; // eighty percent of original value
     private readonly int _decimalPlaces = 2;
@@ -45,6 +44,7 @@ public class ItemInstance
     /// </summary>
     #endregion
     public ItemInstance() { }
+
     public ItemInstance(Item item)  // when a card is first created
     {
 
@@ -91,6 +91,11 @@ public class ItemInstance
             .Append(Description);
 
         return _tooltipString.ToString();
+    }
+
+    public virtual void SetMesh(Mesh mesh)
+    {
+        Mesh = mesh;
     }
     #region
     /// <summary>

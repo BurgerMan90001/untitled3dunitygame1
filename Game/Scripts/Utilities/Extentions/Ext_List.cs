@@ -1,16 +1,9 @@
-using UnityEngine;
+using System.Collections.Generic;
 
-public class Ext_List : MonoBehaviour
+public static class ListExtensions
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public static void Swap<T>(this List<T> list, int indexA, int indexB)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        (list[indexB], list[indexA]) = (list[indexA], list[indexB]);
     }
 }

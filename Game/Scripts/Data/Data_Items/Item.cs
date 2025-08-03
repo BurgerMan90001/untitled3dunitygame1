@@ -1,5 +1,6 @@
-
+using MyBox;
 using UnityEngine;
+
 
 [CreateAssetMenu(menuName = "Items/Item")]
 public class Item : ScriptableObject
@@ -9,7 +10,10 @@ public class Item : ScriptableObject
     /// Serializable fields.
     /// </summary>
     #endregion
+    [DisplayInspector]
     [field: SerializeField] public string ItemName { get; protected set; }
+    [DisplayInspector]
+    public Mesh Mesh;// mesh renderer for the item, used for 3D items
     [field: SerializeField] public Sprite Icon { get; protected set; }
 
     [field: SerializeField][TextArea] public string Description { get; protected set; }
@@ -21,7 +25,8 @@ public class Item : ScriptableObject
 
     [field: SerializeField] public RarityType RarityType { get; protected set; }
 
-    [field: SerializeField] public MeshRenderer MeshRenderer;
+
+
 
 
     public Item() // when creating a new item SO, these are the default values

@@ -1,5 +1,3 @@
-
-using MyBox;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +12,7 @@ public class Inventory : ScriptableObject
 {
 
     public int MaxItems = 28;
-    [DisplayInspector][SerializeField] public List<ItemInstance> Items;
+    public List<ItemInstance> Items;
 
     public event Action OnInventoryChanged;
 
@@ -186,6 +184,23 @@ public class Inventory : ScriptableObject
 
         return true; // Inventory is full
     }
+
+    public bool SwapItems(ItemInstance itemA, ItemInstance itemB)
+    {
+        int indexA = Items.IndexOf(itemA);
+        int indexB = Items.IndexOf(itemB);
+
+        if (indexA == -1 || indexB == -1)
+            return false; // One or both items not found
+
+        Items.Swap(indexA, indexB);
+        InventoryChange();
+        return true;
+    }
+
+}
+
+/*
     #region
     /// <summary>
     /// <br> Swaps the indexes of two item instances in the Items list. </br>
@@ -198,24 +213,8 @@ public class Inventory : ScriptableObject
     public bool SwapItems(int indexA, int indexB)
     {
 
-        SwapIndexes(indexA, indexB);
+        Items.Swap(indexA, indexB);
         InventoryChange();
         return true;
     }
-    public bool SwapItems(ItemInstance itemA, ItemInstance itemB)
-    {
-        int indexA = Items.IndexOf(itemA);
-        int indexB = Items.IndexOf(itemB);
-
-        if (indexA == -1 || indexB == -1)
-            return false; // One or both items not found
-
-        SwapIndexes(indexA, indexB);
-        InventoryChange();
-        return true;
-    }
-    private void SwapIndexes(int indexA, int indexB)
-    {
-        (Items[indexB], Items[indexA]) = (Items[indexA], Items[indexB]);
-    }
-}
+    */

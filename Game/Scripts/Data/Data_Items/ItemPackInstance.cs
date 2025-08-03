@@ -6,9 +6,7 @@ using UnityEngine;
 public class ItemPackInstance : ItemInstance
 {
     [HideInInspector] public List<ItemInstance> ContainedItems { get; protected set; } // contained items are generated from the lists of PossibleItems and GuaranteedRewards.
-
     [HideInInspector] public int MaxItems { get; protected set; }
-
 
     [HideInInspector] public PackType PackType { get; protected set; }
     #region
@@ -22,13 +20,13 @@ public class ItemPackInstance : ItemInstance
     [HideInInspector] public Action OnPackOpened { get; protected set; }
 
     public ItemPackInstance() : base() { } // empty constructor
-    
-    public ItemPackInstance(Item item) : base (item) //whenever a new item pack instance is created
+
+    public ItemPackInstance(Item item) : base(item) //whenever a new item pack instance is created
     {
-        
+
         if (item is ItemPack itemPack)
         {
-            
+
             ItemType = itemPack;
 
             ContainedItems = new List<ItemInstance>();
@@ -42,17 +40,19 @@ public class ItemPackInstance : ItemInstance
 
             GeneratePackContents();
 
-        } else if (item == null)
+        }
+        else if (item == null)
         {
             Debug.LogError("The item being instantiated is not null!");
 
-        } else
+        }
+        else
         {
             Debug.LogError("The item being instantiated is not a an ItemPack!");
 
         }
 
-       
+
     }
     /*
     public override void SetToolTipString()
@@ -63,15 +63,15 @@ public class ItemPackInstance : ItemInstance
 
     private void GeneratePackContents()
     {
-        
+
         ContainedItems.Clear(); // so that it can regenerate contents
-        
+
         AddGuaranteedRewards(); // Add guaranteed rewards first
 
 
         AddRandomItems(); // Generate random items
 
-        
+
         CalculatePackValue(); // Recalculate pack value based on contents
     }
     private ItemInstance GetRandomItem()
@@ -89,15 +89,15 @@ public class ItemPackInstance : ItemInstance
 
     private void CalculatePackValue()
     {
-        
-    //   Value = ContainedItems.Sum(item => item.Value * item.Quantity);
-        
+
+        //   Value = ContainedItems.Sum(item => item.Value * item.Quantity);
+
     }
     private void AddGuaranteedRewards()
     {
         foreach (var reward in GuaranteedRewards)
         {
-            
+
 
             ItemInstance rewardItem = new ItemInstance(reward.Item);
 
@@ -110,10 +110,10 @@ public class ItemPackInstance : ItemInstance
             {
                 ContainedItems.Add(rewardItem);
             }
-            
+
         }
     }
-    
+
     private void AddRandomItems()
     {
         int itemCount = MaxItems + 1;
@@ -127,12 +127,13 @@ public class ItemPackInstance : ItemInstance
                 if (ExistInContainedItems(randomItem, out ItemInstance exsistingItem))
                 {
                     exsistingItem.Quantity += 1;
-                } else
+                }
+                else
                 {
                     ContainedItems.Add(randomItem);
                 }
 
-                    
+
             }
         }
     }
@@ -205,7 +206,7 @@ public class PackReward
 {
     public Item Item;
     public float DropChance = 1f; // 1 = 100% chance
-    
+
 }
 
 public enum PackType

@@ -5,7 +5,8 @@ using UnityEngine;
 public class Hand : MonoBehaviour
 {
     [Header("Dependancies")]
-    [SerializeField] private Transform _orientation;
+    [SerializeField] private Transform _camera;
+
     [Header("Position Settings")]
     [SerializeField] private float _xOffset = 0f;
     [SerializeField] private float _yOffset = 0f;
@@ -17,7 +18,7 @@ public class Hand : MonoBehaviour
     private Vector3 totalOffset;
     private Vector3 cameraEndPoint;
 
-    private MeshRenderer _meshRenderer;
+    // private MeshRenderer _meshRenderer;
     private MeshFilter _meshFilter;
 
 
@@ -26,7 +27,12 @@ public class Hand : MonoBehaviour
         _meshFilter = GetComponent<MeshFilter>();
     }
 
+    public void SetHandMesh(ItemInstance itemInstance)
+    {
 
+        _meshFilter.mesh = itemInstance.ItemType.Mesh;
+
+    }
     #region
     /// <summary>
     /// Follows the orientation.
@@ -36,14 +42,13 @@ public class Hand : MonoBehaviour
     {
         totalOffset = new Vector3(_xOffset, _yOffset, _zOffset);
 
-        cameraEndPoint = _orientation.forward * _dist;
+        Vector3 end = _camera.position + (_camera.forward * _dist);
 
-        //   transform.rotation = _orientation.rotation;'
-        Vector3 start = transform.position;
-        Vector3 end = cameraEndPoint;
-        transform.position = Vector3.Lerp(start, end, Time.deltaTime * _followSpeed);
+
+        transform.position = Vector3.Lerp(transform.position, end, Time.deltaTime * _followSpeed);
+
     }
-    private void Update()
+    private void LateUpdate()
     {
         MoveHand();
     }

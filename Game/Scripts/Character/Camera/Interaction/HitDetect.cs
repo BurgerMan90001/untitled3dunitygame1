@@ -1,11 +1,10 @@
 using UnityEngine;
 
-public class HitDetect 
-{ 
-    private Transform _camera;
+public class HitDetect
+{
+    private readonly Transform _camera;
+
     private RaycastHit _hitInfo;
-
-
     public bool HitSomething { get; private set; }
 
     public RaycastHit HitInfo { get; private set; }
@@ -24,9 +23,9 @@ public class HitDetect
         {
             HitInfo = _hitInfo; // update the public property if it hit something
         }
-        
+
     }
-    
+
     private void ShowDebugRayCast(bool showDebugRayCast, float distance)
     {
         if (showDebugRayCast)

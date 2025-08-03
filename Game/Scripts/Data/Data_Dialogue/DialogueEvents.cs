@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Events/DialogueEvents")]
 public class DialogueEvents : Event
 {
-    //    [SerializeField] private DialogueData _dialogueData;
     #region
     /// <summary>
     /// <br> The string knotName and the gameobeject npc that was interacted with. </br>
@@ -20,13 +19,10 @@ public class DialogueEvents : Event
     public event Action<List<string>> OnUpdateChoices;
     public event Action<int> OnChoiceSelected;
 
-    //    private GameObject _npc;
+
     [ReadOnly][field: SerializeField] public bool InDialogue { get; private set; } = false;
 
-    /*
-    public bool InDialogue => _dialogueData.InDialogue;
-    public bool InCombat => 
-    */
+
     #region
     /// <summary>
     /// <br> Triggers the OnEnterDialogue event. </br>

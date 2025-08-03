@@ -12,146 +12,201 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cfeeeb3126788742bfd2d7d9e0f9df1, type: 3}
   m_Name: Player inventory
   m_EditorClassIdentifier: 
-  _stats: {fileID: 11400000, guid: 52b218812565c5e4a950196553673cc0, type: 2}
   MaxItems: 28
   Items:
+  - <ItemType>k__BackingField: {fileID: 11400000, guid: 67ce1e8f200e6b440986c5a6a4b64b2d, type: 2}
+    <Mesh>k__BackingField: {fileID: 0}
+    Quantity: 1
+    Quality: 1
+    Value: 0
+    SellPrice: 0
+    Description: This is a placehodler for a Hurt Item please remove.
   - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
     Quantity: 0
-    IsStackable: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
     Description: 
   - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
     Quantity: 0
-    IsStackable: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
     Description: 
   - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
     Quantity: 0
-    IsStackable: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
     Description: 
   - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
     Quantity: 0
-    IsStackable: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
+    Description: 
+  - <ItemType>k__BackingField: {fileID: 11400000, guid: 67ce1e8f200e6b440986c5a6a4b64b2d, type: 2}
+    <Mesh>k__BackingField: {fileID: 0}
+    Quantity: 1
+    Quality: 2
+    Value: 0
+    SellPrice: 0
+    Description: This is a placehodler for a Hurt Item please remove.
+  - <ItemType>k__BackingField: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
+    Quantity: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
     Description: 
   - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
     Quantity: 0
-    IsStackable: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
     Description: 
   - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
     Quantity: 0
-    IsStackable: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
     Description: 
   - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
     Quantity: 0
-    IsStackable: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
     Description: 
   - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
     Quantity: 0
-    IsStackable: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
     Description: 
   - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
     Quantity: 0
-    IsStackable: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
     Description: 
   - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
     Quantity: 0
-    IsStackable: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
     Description: 
   - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
     Quantity: 0
-    IsStackable: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
     Description: 
   - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
     Quantity: 0
-    IsStackable: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
     Description: 
   - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
     Quantity: 0
-    IsStackable: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
     Description: 
   - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
     Quantity: 0
-    IsStackable: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
     Description: 
   - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
     Quantity: 0
-    IsStackable: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
     Description: 
   - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
     Quantity: 0
-    IsStackable: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
     Description: 
   - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
     Quantity: 0
-    IsStackable: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
     Description: 
   - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
     Quantity: 0
-    IsStackable: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
     Description: 
   - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
     Quantity: 0
-    IsStackable: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
     Description: 
   - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
     Quantity: 0
-    IsStackable: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
     Description: 
   - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
     Quantity: 0
-    IsStackable: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
     Description: 
   - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
     Quantity: 0
-    IsStackable: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
     Description: 
   - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
     Quantity: 0
-    IsStackable: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
     Description: 
   - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
     Quantity: 0
-    IsStackable: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
     Description: 
   - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
+    <Mesh>k__BackingField: {fileID: 0}
     Quantity: 0
-    IsStackable: 0
-    Description: 
-  - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
-    Quantity: 0
-    IsStackable: 0
-    Description: 
-  - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
-    Quantity: 0
-    IsStackable: 0
-    Description: 
-  - <ItemType>k__BackingField: {fileID: 0}
-    Icon: {fileID: 0}
-    Quantity: 0
-    IsStackable: 0
+    Quality: 0
+    Value: 0
+    SellPrice: 0
     Description: 
