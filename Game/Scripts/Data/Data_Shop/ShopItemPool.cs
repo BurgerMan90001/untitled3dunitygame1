@@ -7,8 +7,4 @@ public class ShopItemPool : ItemPool
 {
     public ShopType ShopType;
 
-    private void OnValidate()
-    {
-        AddItems();
-    }
 }

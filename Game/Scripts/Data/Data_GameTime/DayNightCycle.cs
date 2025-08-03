@@ -1,14 +1,7 @@
-using System;
 using UnityEngine;
 
 public class DayNightCycle
 {
-    //   private Vector3 sunInitialRotation = new Vector3(50f, -30f, 0f);
-
-    public event Action OnSunrise;
-    public event Action OnNoon;
-    public event Action OnSunset;
-    public event Action OnMidnight;
 
     private const int SUNSET_TIME = 9; // 9 PM
     private const int SUNRISE_TIME = 21; // 9 AM
@@ -26,13 +19,14 @@ public class DayNightCycle
     */
 
 
-
+    private GameTimeEvents _gameTimeEvents;
 
     private int lastEventHour = -1;
 
 
-    public DayNightCycle()
+    public DayNightCycle(GameTimeEvents gameTimeEvents)
     {
+        _gameTimeEvents = gameTimeEvents;
         /*
         _moon = moon;
         _sun = sun;
@@ -61,8 +55,6 @@ public class DayNightCycle
         float sunRotation = time / 24f * 360f;
         sun.transform.rotation = Quaternion.Euler(sunInitialRotation.x + sunRotation, sunInitialRotation.y, sunInitialRotation.z);
 
-
-        //    moon.transform.rotation = Quaternion.Euler(sunInitialRotation.x + sunRotation + 180f, sunInitialRotation.y, sunInitialRotation.z);
     }
 
     public void ShowTime(int currentHour)

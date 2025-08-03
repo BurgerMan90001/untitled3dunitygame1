@@ -44,6 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 808bd6776b7a53d4b96343c0fbf7b079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameTimeData: {fileID: 11400000, guid: f3223eda7f7083746af792cf6c2215fa, type: 2}
+  Day: 0
+  Month: 0
+  Hour: 0
+  Year: 0
+  _events: {fileID: 11400000, guid: aa91e4f052082614e9b9b630e3c923b8, type: 2}
   _sun: {fileID: 6106511725019629283, guid: 4d6111ec0f8dab042bb69c613708eba3, type: 3}
   _moon: {fileID: 0}
+  _dayGlobalVolume: {fileID: 0}
+  _sunInitialRotation: {x: 50, y: -30, z: 0}
+  dayLength: 120

@@ -15,6 +15,7 @@ public enum SceneType
 /// <br> Settings and data that can be set for scene loading. </br>
 /// </summary>
 #endregion
+[System.Serializable]
 public struct SceneLoadingSettings
 {
     private static readonly Vector3 _citySpawnPoint = new Vector3(-21.9972f, 54.65f, -37.326f);
@@ -94,3 +95,5 @@ public struct SceneLoadingSettings
         PlayerSpawnPoint = Vector3.zero;
     }
 }
+
+

@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Text;
 using static KaimiraGames.WeightErrorHandlingType;
 
+
+// NOTES: MADE WeightedListItem struct serializable 
 namespace KaimiraGames
 {
     /// <summary>
@@ -34,8 +36,8 @@ namespace KaimiraGames
             _rand = rand ?? new Random();
             foreach (WeightedListItem<T> item in listItems)
             {
-                _list.Add(item._item);
-                _weights.Add(item._weight);
+                _list.Add(item.Item);
+                _weights.Add(item.Weight);
             }
             Recalculate();
         }
@@ -100,8 +102,8 @@ namespace KaimiraGames
         {
             foreach (WeightedListItem<T> listItem in listItems)
             {
-                _list.Add(listItem._item);
-                _weights.Add(FixWeight(listItem._weight));
+                _list.Add(listItem.Item);
+                _weights.Add(FixWeight(listItem.Weight));
             }
             Recalculate();
         }
@@ -287,15 +289,16 @@ namespace KaimiraGames
     /// and Add() to the WeightedList for a single calculation pass.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public readonly struct WeightedListItem<T>
+    [System.Serializable]
+    public struct WeightedListItem<T>
     {
-        internal readonly T _item;
-        internal readonly int _weight;
+        public T Item;
+        public int Weight;
 
         public WeightedListItem(T item, int weight)
         {
-            _item = item;
-            _weight = weight;
+            Item = item;
+            Weight = weight;
         }
     }
 
@@ -305,3 +308,5 @@ namespace KaimiraGames
         ThrowExceptionOnAdd, // Throw exception for adding non-positive weight.
     }
 }
+
+

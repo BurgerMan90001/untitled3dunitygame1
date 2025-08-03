@@ -32407,6 +32407,68 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 427721728}
   m_Mesh: {fileID: 1412391902}
+--- !u!1001 &428524935
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1451217266}
+    m_Modifications:
+    - target: {fileID: 4635347148487137357, guid: 81ecd9818a59c2b47b10571290f12ead, type: 3}
+      propertyPath: m_Name
+      value: GameTimeManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7470657657201338333, guid: 81ecd9818a59c2b47b10571290f12ead, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -15.67702
+      objectReference: {fileID: 0}
+    - target: {fileID: 7470657657201338333, guid: 81ecd9818a59c2b47b10571290f12ead, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 44.81333
+      objectReference: {fileID: 0}
+    - target: {fileID: 7470657657201338333, guid: 81ecd9818a59c2b47b10571290f12ead, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -99.49412
+      objectReference: {fileID: 0}
+    - target: {fileID: 7470657657201338333, guid: 81ecd9818a59c2b47b10571290f12ead, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7470657657201338333, guid: 81ecd9818a59c2b47b10571290f12ead, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7470657657201338333, guid: 81ecd9818a59c2b47b10571290f12ead, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7470657657201338333, guid: 81ecd9818a59c2b47b10571290f12ead, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7470657657201338333, guid: 81ecd9818a59c2b47b10571290f12ead, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7470657657201338333, guid: 81ecd9818a59c2b47b10571290f12ead, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7470657657201338333, guid: 81ecd9818a59c2b47b10571290f12ead, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 81ecd9818a59c2b47b10571290f12ead, type: 3}
+--- !u!4 &428524936 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7470657657201338333, guid: 81ecd9818a59c2b47b10571290f12ead, type: 3}
+  m_PrefabInstance: {fileID: 428524935}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &464233649
 Mesh:
   m_ObjectHideFlags: 0
@@ -45722,7 +45784,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d8eb33112161b8439d7d113109709c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Held>k__BackingField: 0
 --- !u!1 &746888179
 GameObject:
   m_ObjectHideFlags: 0
@@ -69006,7 +69067,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1451217266}
   m_Layer: 5
-  m_Name: Gameplay_Player
+  m_Name: Root_Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69031,6 +69092,7 @@ Transform:
   - {fileID: 1300290141}
   - {fileID: 621002674}
   - {fileID: 1479470578}
+  - {fileID: 428524936}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1460452344
@@ -74806,7 +74868,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d8eb33112161b8439d7d113109709c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Held>k__BackingField: 0
 --- !u!43 &1564884828
 Mesh:
   m_ObjectHideFlags: 0
@@ -87967,6 +88028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58e6971f2ff34ce45983822fdad67750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _itemPool: {fileID: 11400000, guid: 7f8c9773ce992124a8061919981b73ec, type: 2}
   <Density>k__BackingField: 1
   <LinearDamping>k__BackingField: 8.1
 --- !u!43 &2128126337
@@ -89769,7 +89831,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d8eb33112161b8439d7d113109709c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Held>k__BackingField: 0
 --- !u!23 &7071182760909204386
 MeshRenderer:
   m_ObjectHideFlags: 0
