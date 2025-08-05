@@ -7,6 +7,8 @@ public class Hand : MonoBehaviour
     [Header("Dependancies")]
     [SerializeField] private Transform _camera;
 
+
+
     [Header("Position Settings")]
     [SerializeField] private Vector3 _totalOffset;
     [SerializeField] private float _followSpeed = 10f;
