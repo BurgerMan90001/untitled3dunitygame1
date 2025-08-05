@@ -26,5 +26,9 @@ public class PhysicsObject : MonoBehaviour
     {
         _buoyancy.FloatObject();
     }
+    private void OnTriggerExit(Collider other)
+    {
+        _buoyancy.StopFloat();
+    }
 }
 

@@ -1,3 +1,4 @@
+using MyBox;
 using System;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -6,9 +7,6 @@ using UnityEngine.Rendering;
 /// <br> Months and days and in game time stuff.</br>
 /// </summary>
 #endregion
-
-
-
 public class GameTimeManager : MonoBehaviour
 {
     [Header("Time")]
@@ -18,7 +16,7 @@ public class GameTimeManager : MonoBehaviour
     public int Year; // MAYBE
 
     [Header("Events")]
-    [SerializeField] private GameTimeEvents _events;
+    [DisplayInspector][SerializeField] private GameTimeEvents _events;
 
     [Header("Lights")]
     [SerializeField] private Light _sun;
@@ -39,15 +37,21 @@ public class GameTimeManager : MonoBehaviour
     }
     private void OnEnable()
     {
+        _events.OnHourChanged += OnHourChanged;
         _events.OnDayChanged += OnDayChanged;
         _events.OnMonthChanged += OnMonthChanged;
     }
     private void OnDestroy()
     {
+        _events.OnHourChanged -= OnHourChanged;
         _events.OnDayChanged -= OnDayChanged;
         _events.OnMonthChanged -= OnMonthChanged;
     }
-
+    private void OnHourChanged(int hour)
+    {
+        Hour = hour;
+        Debug.Log("HOUR CHANGED");
+    }
     private void OnDayChanged(Day day)
     {
         Day = day;
@@ -61,7 +65,7 @@ public class GameTimeManager : MonoBehaviour
     }
 
 
-
+    /*
     public void IncrementHour(int value)
     {
         int newTimeOfDay = Hour + value;
@@ -75,16 +79,15 @@ public class GameTimeManager : MonoBehaviour
         }
         Hour += value;
     }
-
+    */
     private void OnValidate()
     {
-        Debug.Log("ASDASdasd");
         UpdateSun(_sun, Hour, _sunInitialRotation);
         //    _dayNightCycle.UpdateSun(_sun, Hour, _sunInitialRotation);
     }
     private void Update()
     {
-        //    _gameTimeData.DayNightCycle.UpdateSun(_sun, _gameTimeData.Hour);
+        //    _dayNightCycle.UpdateSun(_sun, _gameTimeData.Hour);
     }
 
     public void UpdateSun(Light sun, int time, Vector3 sunInitialRotation)

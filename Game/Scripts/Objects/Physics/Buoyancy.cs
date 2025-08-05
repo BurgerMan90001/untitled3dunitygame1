@@ -3,6 +3,8 @@ using UnityEngine.Rendering.HighDefinition;
 
 public class Buoyancy
 {
+
+
     private readonly Rigidbody _rigidBody;
     private GameObject GameObject => _rigidBody.gameObject;
 
@@ -35,7 +37,7 @@ public class Buoyancy
             }
             _targetSurface = waterSurface;
 
-            _rigidBody.SetLinearDamping(waterSurface.LinearDamping);
+
         }
     }
     public void FloatObject()
@@ -46,6 +48,7 @@ public class Buoyancy
 
             AddBuoyancyForce(depth);
 
+
         }
         else
         {
@@ -55,13 +58,20 @@ public class Buoyancy
     }
     private void AddBuoyancyForce(float depth)
     {
+        // if deeper than the depth threshhold, add the force and set linear damping
         if (_rigidBody.TryAddBuoyancyForce(depth, _targetSurface.Density, out Vector3 buoyantForce))
         {
+            _rigidBody.SetLinearDamping(_targetSurface.LinearDamping);
             if (DrawBuoyancyRay)
             {
                 _rigidBody.DrawRay(buoyantForce, Color.red);
 
             }
         }
+    }
+    public void StopFloat()
+    {
+        _targetSurface = null;
+        _rigidBody.SetLinearDamping(2f);
     }
 }

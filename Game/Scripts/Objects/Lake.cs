@@ -18,12 +18,6 @@ public class Lake : MonoBehaviour, IWaterBody
     {
         WaterSurface = GetComponent<WaterSurface>();
 
-
-
     }
 
-    private void OnEnable()
-    {
-
-    }
 }

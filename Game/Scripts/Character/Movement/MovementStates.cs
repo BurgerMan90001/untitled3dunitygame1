@@ -31,7 +31,7 @@ public struct MovementStates
     public static readonly MovementStates Climbing = new MovementStates(0.5f, 0);
     public static readonly MovementStates Crouching = new MovementStates(0.72f, DefaultLinearDamping);
     public static readonly MovementStates InAir = new MovementStates(0.07f, 0);
-    public static readonly MovementStates Swimming = new MovementStates(1, 6);
+    //  public static readonly MovementStates Swimming = new MovementStates(1, 0.5); MAYBE 
     public float SpeedMultiplier { get; set; }
     public float LinearDamping { get; set; } // amount of air drag
     public MovementStates(float speedMultiplier, float linearDamping)

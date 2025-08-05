@@ -10,7 +10,7 @@
 
 .panel-inventory-left {
     position: relative;
-    background-color: rgba(9, 10, 19, 0.33);
+    background-color: rgba(9, 10, 19, 0);
     -unity-text-outline-color: rgba(0, 0, 0, 0);
     font-size: 14px;
     flex-basis: auto;
