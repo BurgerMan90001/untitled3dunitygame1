@@ -30,5 +30,10 @@ public class PhysicsObject : MonoBehaviour
     {
         _buoyancy.StopFloat();
     }
+
+    private void Throw()
+    {
+
+    }
 }
 

@@ -3,8 +3,6 @@ using UnityEngine.Rendering.HighDefinition;
 
 public class Buoyancy
 {
-
-
     private readonly Rigidbody _rigidBody;
     private GameObject GameObject => _rigidBody.gameObject;
 
@@ -47,8 +45,6 @@ public class Buoyancy
             var depth = -(_searchResult.projectedPositionWS.y - GameObject.transform.position.y);
 
             AddBuoyancyForce(depth);
-
-
         }
         else
         {
