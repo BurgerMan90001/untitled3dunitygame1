@@ -1,8 +1,3 @@
-VAR yourVariable = true
-
-VAR combatEntered = false
-
-VAR rivalDefeated = false
 
 VAR myNumber = 1
 
@@ -26,19 +21,7 @@ VAR myNumber = 1
 // * to NOT show a question again when its picked/
 // ~
 -> City_Shop_LineWaiter
-=== function startBattle()
-[ BATTLE START ]
-~ combatEntered = true
 
-
-
-=== girl1 ===
-fdgjlsdfhggflkhflgmjgdfhjmkdf
-
--> END
-=== somebody1 === //MAYBE
-//t..tha.thank you NO
--> END // after, *stares at player* 
 
 == PayPhone ===
 
@@ -53,38 +36,29 @@ Hello? Is your refrigerator running?
         HAHAHAHAHA!!!
         -> END
         
-== girl2 === // i need a baddie for mass apeal
 
--> END
-=== boy1 ===
-HI IM A DUDE
--> END
 
 
 === silentDialogue === 
-    im giving you the silent treatment...
+    silentDialogue...
 -> END
 
 
 
 
-=== Rival === // generic rival
-HELLO, MY RIVAL
-IT'S ME.
-HM
-DO YOU WAN'T TO CARD BATTLE?
--> Rival_Q1
+=== Someone === 
+
+-> Someone_Q1
     
-    === Rival_Q1 ===
+    === Someone_Q1 ===
     * [Who are you?]
         AHAHAHAH
-        OH, I'M JUST THE BEST CARD BATTLER IN WASHINGTON.
-        ENOUGH, I'M HERE TO BEAT YOU.
-        -> Rival_Q1
+        
+        -> Someone_Q1
         
     * [Ok]
         
-        ~ startBattle()
+        
         -> END
     + [No]
         ...
@@ -92,21 +66,7 @@ DO YOU WAN'T TO CARD BATTLE?
         
         -> END
     
-=== Rival2 ===
-HELLO, MY RIVAL.
-I'VE MASTERED THE FIVE JUJITSU ARTS.
-THIS TIME, I'M SURE TO BEAT YOU!
-    * [Ok]
         
-        ~ startBattle()
-        -> END
-    + [No]
-        ...
-        
-        -> END
-        
-=== Rival_Teacher === 
--> END
 
 === City_Shop_LineWaiter ===
 Oh I'm just waiting in line, but you can skip ahead of me.
