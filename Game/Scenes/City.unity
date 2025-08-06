@@ -90728,7 +90728,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3589159676945201763, guid: 2283d4bcaacfd784b857439b3bb9f926, type: 3}
       propertyPath: m_Name
-      value: NPC_Rival
+      value: NPC_?
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3113350624775158176, guid: 2283d4bcaacfd784b857439b3bb9f926, type: 3}
