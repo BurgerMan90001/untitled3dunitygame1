@@ -209,7 +209,7 @@ public class ItemDragAndDropManipulator : PointerManipulator
 
         closestOverlappingSlot.userData = itemInstance;
         _selectedItemSlot.userData = null;
-        _inventory.SwapItems(itemInstance, overlappingSlotItemInstance);
+        _inventory.TrySwapItems(itemInstance, overlappingSlotItemInstance);
 
 
     }

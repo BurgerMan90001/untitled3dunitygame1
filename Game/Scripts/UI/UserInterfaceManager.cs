@@ -11,6 +11,7 @@ using UnityEngine.UIElements;
 #endregion
 public class UserInterfaceManager : MonoBehaviour
 {
+    [Header("Data")]
     [SerializeField] private Inventory _inventory; // the dynamic inventory scriptable object that will be used to manage the inventory
                                                    //    [SerializeField] private UserInterfaceEvents _userInterfaceEvents;
     [Header("Events")]
@@ -29,16 +30,12 @@ public class UserInterfaceManager : MonoBehaviour
     [SerializeField] private bool _debugMode;
     [SerializeField] private bool _showHoveredOnElement = false;
 
-
-
     private VisualElement _currentElement;
 
-    private UserInterfaceData _userInterfaceData;
+    private UserInterfaceToggler _userInterfaceToggler;
 
     private UIDocument _uiDocument;
-    public VisualElement Root { get; private set; }// the base visual element that will uxmls be added on to
-
-
+    public VisualElement Root { get; private set; } // the base visual element that will uxmls be added on to
 
 
     private UI_Dialogue _uiDialogue; // handles dialogue related user interface functionality
@@ -64,17 +61,14 @@ public class UserInterfaceManager : MonoBehaviour
         _userInterfaces.Add(_uiMainMenu);
         _userInterfaces.Add(_uiSaveSlotsMenu);
         _userInterfaces.Add(_uiDialogue);
-
         _userInterfaces.Add(_uiInventory);
-
-
 
 
         Root = _uiDocument.rootVisualElement;
         Root.style.flexGrow = 1;
 
 
-        _userInterfaceData = GetComponent<UserInterfaceData>();
+        _userInterfaceToggler = GetComponent<UserInterfaceToggler>();
 
         _uxmlFileHandler = new UxmlFileHandler(Root);
 
@@ -83,9 +77,7 @@ public class UserInterfaceManager : MonoBehaviour
 
     private async void Start()
     {
-
-
-        await _uxmlFileHandler.LoadInterfacesAsync(_uxmlAssetLabelReference, _userInterfaceData.UserInterfaceElements); // load the user interfaces asynchronously. visual element configuration is done after this.
+        await _uxmlFileHandler.LoadInterfacesAsync(_uxmlAssetLabelReference, _userInterfaceToggler.UserInterfaceElements); // load the user interfaces asynchronously. visual element configuration is done after this.
 
 
         QueryAllElements();
@@ -123,7 +115,7 @@ public class UserInterfaceManager : MonoBehaviour
 
     private void OnSceneLoadComplete(SceneLoadingSettings settings)
     {
-        _userInterfaceData.SwitchToUserInterface(settings.UserInterface);
+        _userInterfaceToggler.SwitchToUserInterface(settings.UserInterface);
 
     }
 
@@ -137,7 +129,7 @@ public class UserInterfaceManager : MonoBehaviour
     }
     private void ShowInitialInterface()
     {
-        _userInterfaceData.SwitchToUserInterface(InitalShownUserInterface);
+        _userInterfaceToggler.SwitchToUserInterface(InitalShownUserInterface);
 
     }
     private void OnMouseMove(MouseMoveEvent evt)

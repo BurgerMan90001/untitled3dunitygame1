@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da28a69878df9c044904249dbacff8ce, type: 3}
   m_Name: CityPool
   m_EditorClassIdentifier: 
-  ItemWeightPools:
-  - {fileID: 11400000, guid: 847d6888de663a945ab144aac1167e84, type: 2}
-  - {fileID: 11400000, guid: 1bae7447fea8bc84ba34f66faa93f778, type: 2}
-  - {fileID: 11400000, guid: b00be351c92631242aede0364f8f0d8b, type: 2}
-  Test: 5
+  ItemWeights: []
+  _testItemPool: 0
+  _tries: 10
   ShopType: 1

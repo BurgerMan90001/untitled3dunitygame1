@@ -7,14 +7,22 @@ using UnityEngine;
 /// <br> </br>
 /// </summary>
 
-[CreateAssetMenu(menuName = "Items/Inventory")]
-public class Inventory : ScriptableObject
+public class Inventory : Data
 {
 
-    public int MaxItems = 28;
-    public List<ItemInstance> Items;
+    public readonly int MaxItems;
+    public List<ItemInstance> Items { get; private set; }
 
     public event Action OnInventoryChanged;
+
+    /*
+    public Inventory(int maxItems)
+    {
+        MaxItems = maxItems;
+        Items = new List<ItemInstance>(MaxItems);
+        Debug.Log("INVENTORY CREATD");
+    }
+    */
 
     private void AddToInventory(ItemInstance itemToAdd)
     {
@@ -71,7 +79,7 @@ public class Inventory : ScriptableObject
 
 
     }
-    public virtual bool AddItem(ItemInstance itemToAdd)
+    public virtual bool TryAddItem(ItemInstance itemToAdd)
     {
 
 
@@ -185,7 +193,7 @@ public class Inventory : ScriptableObject
         return true; // Inventory is full
     }
 
-    public bool SwapItems(ItemInstance itemA, ItemInstance itemB)
+    public bool TrySwapItems(ItemInstance itemA, ItemInstance itemB)
     {
         int indexA = Items.IndexOf(itemA);
         int indexB = Items.IndexOf(itemB);
@@ -198,23 +206,27 @@ public class Inventory : ScriptableObject
         return true;
     }
 
-}
-
-/*
-    #region
-    /// <summary>
-    /// <br> Swaps the indexes of two item instances in the Items list. </br>
-    /// <br> Can either use specific item instances or indexes of item instances. </br>
-    /// </summary>
-    /// <param name="indexA"></param>
-    /// <param name="indexB"></param>
-    /// <returns></returns>
-    #endregion
-    public bool SwapItems(int indexA, int indexB)
+    public override void LoadData(GameData data)
     {
+        data.Items = Items;
 
-        Items.Swap(indexA, indexB);
-        InventoryChange();
-        return true;
+        if (data.Items == null || data.Items.Count == 0)
+        {
+            Debug.LogWarning("No items found in the loaded data, initializing with empty inventory.");
+            Items = new List<ItemInstance>(MaxItems);
+            for (int i = 0; i < MaxItems; i++)
+            {
+                Items.Add(new ItemInstance());
+            }
+        }
+        else
+        {
+            Items = data.Items;
+        }
     }
-    */
+
+    public override void SaveData(GameData data)
+    {
+        Items = data.Items;
+    }
+}

@@ -22,6 +22,8 @@ public class DialogueManager : MonoBehaviour
 
         _dialogueData = GetComponent<DialogueData>();
 
+
+
         if (_dialogueData.Story == null)
         {
             _dialogueData.Story = new Story(_dialogueData.InkJson.text);

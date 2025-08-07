@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.SceneManagement;
 // TODO INSTANTIATE SCRIPTABLE OBJECTS WITH GAME OBJECTS.
 // MAYBE ADD MULTIPLAYER
 /// <summary>
@@ -20,7 +19,7 @@ public class PlayerObjectPool : ObjectPool
     private IPlayerMovement _playerMovement;
 
 
-
+    /*
     public async override void InstantiatePoolObjects()
     {
         var playerInstanceGO = await InstantiateObject(_playerPrefabKey);
@@ -33,8 +32,7 @@ public class PlayerObjectPool : ObjectPool
         _camera = cameraInstanceGO.GetComponent<IGameCamera>();
         _playerMovement = playerInstanceGO.GetComponent<IPlayerMovement>();
 
-
-
     }
+    */
 
 }

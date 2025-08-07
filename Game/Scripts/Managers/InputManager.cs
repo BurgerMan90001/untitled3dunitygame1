@@ -13,8 +13,6 @@ public class InputManager : MonoBehaviour, PlayerInputActions.IPlayerActions, Pl
 
     [SerializeField] private CombatManager _combatManager;
 
-    [Header("Debug")]
-    [SerializeField] private bool _clearInventoryOnEnable = false;
 
     private bool _interfaceEnabled = false;
 

@@ -1,14 +1,11 @@
-using MyBox;
-using UnityEngine;
 /// <summary>
 /// <br> Stats that are used during combat. </br>
 /// </summary>
-[CreateAssetMenu(menuName = "Stats/CombatStats")]
-public class CombatStats : Stats
+
+public class CombatStats : Data
 {
-    [Header("Data")]
-    //   [SerializeField] private CombatData _combatData;
-    [DisplayInspector][SerializeField] private Inventory _inventory;
+
+    private Inventory _inventory;
 
     public float MaxHealth;
     public float Health; // used in battle

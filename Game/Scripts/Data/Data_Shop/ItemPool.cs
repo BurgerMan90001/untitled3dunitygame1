@@ -7,12 +7,12 @@ using UnityEngine;
 public class ItemPool : ScriptableObject
 {
 
-    public List<WeightedListItem<Item>> ItemWeights = new(); // List of items with their weights
+    [DisplayInspector] public List<WeightedListItem<Item>> ItemWeights; // List of items with their weights
 
     public WeightedList<Item> WeightedItemList = new();
 
     [Header("Debug")]
-    [SerializeField] private bool _testItemPool = true;
+    [SerializeField] private bool _testItemPool = false;
     [ConditionalField(nameof(_testItemPool))]
     [SerializeField] private int _tries = 10;
 

@@ -7,8 +7,7 @@ using UnityEngine.AddressableAssets;
 [CreateAssetMenu(menuName = "ObjectPool/ManagerObjectPool")]
 public class ManagerObjectPool : ObjectPool
 {
-    [Header("Data")]
-    [SerializeField] private Inventory _playerInventory;
+    private Inventory _playerInventory;
 
 
     [Header("Managers")]
@@ -20,11 +19,11 @@ public class ManagerObjectPool : ObjectPool
     [SerializeField] private AssetReferenceGameObject _dataPersistenceManagerPrefabKey;
     [SerializeField] private AssetReferenceGameObject _gameTimeManagerPrefabKey;
 
-
+    /*
 
     public async override void InstantiatePoolObjects()
     {
-        /*
+        
         var eventManagerInstanceGO = await InstantiateObject(_eventManagerPrefabKey);
         _eventManager = eventManagerInstanceGO.GetComponent<IEventManager>();
 
@@ -70,9 +69,8 @@ public class ManagerObjectPool : ObjectPool
 
         SceneManager.MoveGameObjectToScene(inputManagerInstanceGO, PoolScene);
 
-        */
-
 
 
     }
+    */
 }

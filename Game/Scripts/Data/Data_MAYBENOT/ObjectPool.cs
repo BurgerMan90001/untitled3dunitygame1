@@ -25,11 +25,13 @@ public abstract class ObjectPool : ScriptableObject
         var instanceHandle = gameObjectReference.InstantiateAsync();
     }
 
+    /*
     /// <summary>
     /// <br> Instantiates and moves the game objects to the pool scene. </br>
     /// <br> Abstract so that implementers can do different things.</br>
     /// </summary>
     public abstract void InstantiatePoolObjects();
+    */
 
     protected async Task<GameObject> LoadObject(AssetReferenceGameObject GOreference)
     {

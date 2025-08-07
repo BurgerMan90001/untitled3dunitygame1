@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.SceneManagement;
 /// <summary>
 /// <br> A generic gameobject pool that just moves all of the gameobjects to the scene pool.</br>
 /// </summary>
@@ -10,6 +9,7 @@ public class GenericObjectPool : ObjectPool
 {
     //    public List<GameObject> PoolObjects;
     public List<AssetReferenceGameObject> PoolObjectKeys;
+    /*
     public async override void InstantiatePoolObjects()
     {
         foreach (var poolObject in PoolObjectKeys)
@@ -25,4 +25,5 @@ public class GenericObjectPool : ObjectPool
 
 
     }
+    */
 }

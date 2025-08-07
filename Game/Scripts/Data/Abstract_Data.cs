@@ -9,9 +9,7 @@ using UnityEngine;
 /// </summary>
 public abstract class Data : MonoBehaviour, IDataPersistence
 {
-
     public abstract void LoadData(GameData data);
-
     public abstract void SaveData(GameData data);
 }
 

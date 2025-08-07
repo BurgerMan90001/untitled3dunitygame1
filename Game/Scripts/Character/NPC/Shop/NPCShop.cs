@@ -1,4 +1,5 @@
 
+using MyBox;
 using UnityEngine;
 
 
@@ -6,7 +7,7 @@ using UnityEngine;
 public class NPCShop : MonoBehaviour, IInteractable
 {
     [Header("Shop Settings")]
-    [SerializeField] private ShopItemPool _shopItemPool;
+    [DisplayInspector][SerializeField] private ShopItemPool _shopItemPool;
 
 
 

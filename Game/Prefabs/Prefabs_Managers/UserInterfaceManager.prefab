@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3293367255992662212}
   - component: {fileID: 5242112016568343094}
   m_Layer: 5
-  m_Name: UserInterface
+  m_Name: UserInterfaceManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,3 +97,5 @@ MonoBehaviour:
     _keys: 000000000000000000000000
   Test: 0
   _events: {fileID: 11400000, guid: 5fb333813e03981409debdbf88246c14, type: 2}
+  _inventory: {fileID: 0}
+  _debugMode: 1

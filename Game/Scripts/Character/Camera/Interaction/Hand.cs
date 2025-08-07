@@ -21,13 +21,20 @@ public class Hand : MonoBehaviour
     {
         _meshFilter = GetComponent<MeshFilter>();
     }
-    public void SetHandMesh(ItemInstance itemInstance)
+
+
+    public void SetHeldItem(ItemInstance itemInstance)
     {
+        if (itemInstance == null)
+        {
+            _meshFilter.mesh = null;
+            return;
+        }
+
+        //  _totalOffset = itemInstance.ItemType.HandOffset;
 
         _meshFilter.mesh = itemInstance.ItemType.Mesh;
-
     }
-
 
     private void LateUpdate()
     {

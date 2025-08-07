@@ -27,7 +27,7 @@ public class GameTimeManager : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private Vector3 _sunInitialRotation = new Vector3(50f, -30f, 0f);
-    [SerializeField] private float dayLength = 120f;
+    //   [SerializeField] private float dayLength = 120f;
 
     private DayNightCycle _dayNightCycle;
 

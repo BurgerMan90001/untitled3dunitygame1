@@ -26,7 +26,7 @@ public class GameDebug : MonoBehaviour
 
 
     [Header("Stuff")]
-    [SerializeField] private UserInterfaceData _userInterfaceData;
+
 
     [Header("Debug Settings")]
     [ConditionalField(nameof(_enableDebuging))][SerializeField] private bool _lockCursor = true;
@@ -65,7 +65,7 @@ public class GameDebug : MonoBehaviour
             {
                 GameCursor.Lock();
             }
-            Debug.LogError(_userInterfaceData.Test);
+
         }
 
 

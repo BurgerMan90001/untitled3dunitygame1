@@ -1,37 +1,36 @@
+
 #region
-/// <summary>
-/// <br> A helper class that toggles user interfaces. </br>
-/// </summary>
 #endregion
 
-// TODO MAKE HELPER CLASS
 
-/*
-public class UserInterfaceToggler
+using MyBox;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+/// <summary>
+/// <br> Toggleable user interfaces. </br>
+/// </summary>
+public class UserInterfaceToggler : MonoBehaviour
 {
-    public event Action OnInterfaceChanged;
+    // for caching on assembely reload
+    public MyDictionary<UserInterfaceType, VisualElement> UserInterfaceElements = new MyDictionary<UserInterfaceType, VisualElement>();
+    public Stack<UserInterfaceType> ShownInterfaces = new Stack<UserInterfaceType>();
 
-    private readonly userInterfaceEvents _data;
-    public UserInterfaceToggler(userInterfaceEvents data)
+    [Header("Events")]
+    [SerializeField] private UserInterfaceEvents _events;
+
+    private void OnEnable()
     {
-        _data = data;
-        _data.ShownInterface = UserInterfaceType.None;
+
+        _events.OnShowInterface += ShowInterface;
+        _events.OnHideRecentInterface += HideRecentInterface;
     }
-
-
-    private void ShowInterface(UserInterfaceType userInterface)
+    private void OnDestroy()
     {
-        _data.ShownInterface = userInterface;
-        VisualElement elementToBeShown = _data.UserInterfaceElements[userInterface];
-        elementToBeShown.style.display = DisplayStyle.Flex;
+        _events.OnShowInterface -= ShowInterface;
+        _events.OnHideRecentInterface -= HideRecentInterface;
     }
-    private void HideInterface(UserInterfaceType userInterface)
-    {
-        VisualElement elementToBeHiden = _data.UserInterfaceElements[userInterface];
-        elementToBeHiden.style.display = DisplayStyle.None;
-    }
-
-
     #region
     /// <summary>
     /// <br> Switches to the UserInterfaceType userInterface. </br>
@@ -40,37 +39,48 @@ public class UserInterfaceToggler
     #endregion
     public void SwitchToUserInterface(UserInterfaceType userInterface)
     {
-
-        if (_data.ShownInterface == UserInterfaceType.None)
+        if (ShownInterfaces == null)
         {
-            ShowInterface(userInterface);
+            Debug.LogError("Shown interfaces is null.");
+            return;
         }
-        else
-        {
-
-            HideInterface(_data.ShownInterface);
-            ShowInterface(userInterface);
-            _data.ShownInterface = userInterface;
-        }
+        HideRecentInterface();
+        ShowInterface(userInterface);
 
     }
-    public void SetInterfaceActive(UserInterfaceType userInterface, bool active)
+
+
+
+    public void ShowInterface(UserInterfaceType userInterface)
     {
-        if (active)
+        if (userInterface == UserInterfaceType.None)
         {
-            ShowInterface(userInterface);
+            Debug.LogWarning($"Can't show {UserInterfaceType.None}");
+            return;
         }
-        else
-        {
-            HideInterface(userInterface);
-        }
+
+        ShownInterfaces.Push(userInterface);
+        VisualElement elementToBeShown = UserInterfaceElements[userInterface];
+        elementToBeShown.style.display = DisplayStyle.Flex;
+
+        //  ShownInterfacesStack = ShownInterfaces.ToList();
+
+
     }
-    public void SwitchToUserInterface(SceneLoadingSettings sceneLoadingSettings)
+    /// <summary>
+    /// <br> Hides the most recently shown interface. Does nothing if there is none. </br>
+    /// </summary>
+    public void HideRecentInterface()
     {
-        SwitchToUserInterface(sceneLoadingSettings.UserInterface);
+
+        if (ShownInterfaces.TryPop(out UserInterfaceType userInterface))
+        {
+            VisualElement elementToBeHiden = UserInterfaceElements[userInterface];
+            elementToBeHiden.style.display = DisplayStyle.None;
+
+            //   ShownInterfacesStack = ShownInterfaces.ToList<UserInterfaceType>();
+        }
     }
 
 }
 
-
-*/

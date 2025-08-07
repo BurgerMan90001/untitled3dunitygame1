@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-/// <summary>
-/// <br> Unessecary wrappers. </br>
-/// </summary>
+
 [CreateAssetMenu(menuName = "Events/DataPersistenceData")]
 public class DataPersistenceEvents : Event
 {

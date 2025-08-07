@@ -19,3 +19,5 @@ MonoBehaviour:
     Weight: 20
   - Item: {fileID: 11400000, guid: ef218617240ebc34abf9a722d0c21e01, type: 2}
     Weight: 70
+  _testItemPool: 0
+  _tries: 10

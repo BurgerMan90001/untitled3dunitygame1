@@ -1,4 +1,6 @@
+using MyBox;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -8,69 +10,62 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 public class DataPersistenceManager : MonoBehaviour
 {
 
-    [Header("LabelReferences")]
-    [SerializeField] private AssetLabelReference _dataLabelReference;
 
+    [Header("Events")]
+    [SerializeField] private DataPersistenceEvents _dataPersistenceEvents;
 
     [Header("File Storage")]
+    [ReadOnly][SerializeField] private string _selectedProfileID = "";
+
     [SerializeField] private string _fileName;
     [SerializeField] private string _storyStateFileName;
 
-    [Header("Debugging")]
-    [SerializeField] private bool _loadDataDebug = false;
 
-    [SerializeField] private bool _loadNewGameIFDataIfNull = false;
-    [SerializeField] private bool _disableDataPersistence = false;
-    [SerializeField] private bool _overrideSelectedProfileID = false;
-    [SerializeField] private string _testSelectedProfileID = "test";
+    [Header("Debugging")]
+    [SerializeField] private bool _enableDataPersistence = false;
+    [ConditionalField(nameof(_enableDataPersistence))][SerializeField] private bool _loadNewGameIFDataIfNull = false;
+    [ConditionalField(nameof(_enableDataPersistence))][SerializeField] private bool _overrideSelectedProfileID = false;
+    [ConditionalField(nameof(_overrideSelectedProfileID))][SerializeField] private string _testSelectedProfileID = "test";
 
 
     private List<IDataPersistence> _dataPersistenceObjects;
     private FileDataHandler _fileDataHandler;
 
-    private DataPersistenceEvents _dataPersistenceEvents;
 
-    private string selectedProfileID = "";
-
-
-    public void Inject(DataPersistenceEvents dataPersistenceEvents)
-    {
-        _dataPersistenceEvents = dataPersistenceEvents;
-    }
     private void Awake()
     {
 
-        if (_disableDataPersistence)
+        if (!_enableDataPersistence)
         {
             Debug.LogWarning("Data persistence is off!");
+            return;
         }
 
         _fileDataHandler = new FileDataHandler(Application.persistentDataPath, _fileName);
         Debug.Log(Application.persistentDataPath + _fileName);
-        selectedProfileID = _fileDataHandler.GetMostRecentlyUpdatedProfileID();
+        _selectedProfileID = _fileDataHandler.GetMostRecentlyUpdatedProfileID();
 
         if (_overrideSelectedProfileID) // for testing and debugging
         {
-            selectedProfileID = _testSelectedProfileID;
+            _selectedProfileID = _testSelectedProfileID;
             Debug.LogWarning("The selected profileID is being overridden with a test ID: " + _testSelectedProfileID);
         }
 
 
     }
-    private async void Start()
+    private void Start()
     {
-        _dataPersistenceObjects = await FindAllDistancePersistenceObjects(_dataLabelReference);
+
+        _dataPersistenceObjects = FindAllDistancePersistenceObjects();
 
 
     }
 
     private void OnEnable()
     {
-        //   SceneLoadingManager.OnSceneLoaded += OnSceneLoaded;
+        _dataPersistenceEvents.OnStartNewGame += OnNewGame;
 
-        _dataPersistenceEvents.OnStartNewGame += NewGame;
-
-        _dataPersistenceEvents.OnLoadGame += LoadGame;
+        _dataPersistenceEvents.OnLoadGame += OnLoadGame;
 
         _dataPersistenceEvents.OnGetAllProfilesGameData += GetAllProfilesGameData;
 
@@ -80,11 +75,9 @@ public class DataPersistenceManager : MonoBehaviour
     private void OnDisable()
     {
 
-        //    SceneLoadingManager.OnSceneLoaded -= OnSceneLoaded;
+        _dataPersistenceEvents.OnStartNewGame -= OnNewGame;
 
-        _dataPersistenceEvents.OnStartNewGame -= NewGame;
-
-        _dataPersistenceEvents.OnLoadGame -= LoadGame;
+        _dataPersistenceEvents.OnLoadGame -= OnLoadGame;
 
         _dataPersistenceEvents.OnGetAllProfilesGameData -= GetAllProfilesGameData;
 
@@ -93,39 +86,27 @@ public class DataPersistenceManager : MonoBehaviour
     {
         SaveGame();
     }
-
-    #region
-    /// <summary>
-    /// <br> When a scene loads, finds all objects that implement IDataPersistence. </br>
-    /// </summary>
-    /// <param name="scene"></param>
-    /// <param name="mode"></param>
-    #endregion
-    private async void OnSceneLoaded(UserInterfaceType _, bool _1)
-    {
-
-        //    _dataPersistenceObjects = await FindAllDistancePersistenceObjects(_dataLabelReference).Result;
-        Debug.Log(_dataPersistenceObjects.Count);
-        LoadGame();
-    }
+    /*
     public void ChangeSelectedProfileID(string newProfileID)
     {
         selectedProfileID = newProfileID;
-        LoadGame();
+        OnLoadGame();
     }
-    private void NewGame()
+    */
+    private void OnNewGame()
     {
         _dataPersistenceEvents.SetGameData(new GameData());
 
 
     }
-    private void LoadGame()
+    private void OnLoadGame()
     {
-        if (_disableDataPersistence)
+        if (!_enableDataPersistence)
         { // if saving and loading is disabled
+            Debug.LogWarning("Data persistence is disabled. Cannot load game data.");
             return;
         }
-        _dataPersistenceEvents.SetGameData(_fileDataHandler.Load(selectedProfileID));
+        _dataPersistenceEvents.SetGameData(_fileDataHandler.Load(_selectedProfileID));
         if (_dataPersistenceEvents.GameData == null)
         {
             Debug.Log("No data was found. A new game needs to be started to load");
@@ -133,7 +114,7 @@ public class DataPersistenceManager : MonoBehaviour
         }
         if (_dataPersistenceEvents.GameData == null && _loadNewGameIFDataIfNull)
         {
-            NewGame();
+            OnNewGame();
         }
         foreach (IDataPersistence dataPersistenceObj in _dataPersistenceObjects)
         {
@@ -143,8 +124,9 @@ public class DataPersistenceManager : MonoBehaviour
     }
     private void SaveGame()
     {
-        if (_disableDataPersistence)
+        if (!_enableDataPersistence)
         {
+            Debug.LogWarning("Data persistence is disabled. Cannot save game data.");
             return;
         }
         if (_dataPersistenceEvents.GameData == null)
@@ -158,29 +140,20 @@ public class DataPersistenceManager : MonoBehaviour
             dataPersistenceObj.SaveData(_dataPersistenceEvents.GameData);
 
         }
+
+        Debug.Log(System.DateTime.Now.ToBinary());
         _dataPersistenceEvents.GameData.LastUpdated = System.DateTime.Now.ToBinary();
-        _fileDataHandler.Save(_dataPersistenceEvents.GameData, selectedProfileID);
+        _fileDataHandler.Save(_dataPersistenceEvents.GameData, _selectedProfileID);
     }
 
 
-    private async Task<List<IDataPersistence>> FindAllDistancePersistenceObjects(AssetLabelReference labelReference)
+    private List<IDataPersistence> FindAllDistancePersistenceObjects()
     {
-        var dataLabelHandle = Addressables.LoadAssetsAsync<IDataPersistence>(labelReference.labelString);
-
-        await dataLabelHandle.Task;
-
-        if (dataLabelHandle.Status == AsyncOperationStatus.Succeeded)
-        {
-
-            return (List<IDataPersistence>)dataLabelHandle.Result;
-        }
-        else
-        {
-            Debug.LogError($"Could not load {labelReference}. ");
-            return null;
-        }
-
+        var dataPersistenceObjects = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IDataPersistence>().ToList();
+        Debug.Log($" Data persistence objects : {dataPersistenceObjects.Count}");
+        return dataPersistenceObjects;
     }
+
     private Dictionary<string, GameData> GetAllProfilesGameData()
     {
         return _fileDataHandler.LoadAllProfiles();

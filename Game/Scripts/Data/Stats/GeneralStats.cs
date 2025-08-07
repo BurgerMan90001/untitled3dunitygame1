@@ -1,12 +1,9 @@
+//[System.Serializable]
 
-using System.Collections.Generic;
 using UnityEngine;
 
-// data that will persist
-[CreateAssetMenu(menuName = "Stats/GeneralStats")]
-public class GeneralStats : Stats
+public class GeneralStats : Data
 {
- //   public List<ItemInstance> Items;
 
     public float Stamina;
     public float MaxStamina;
@@ -16,15 +13,13 @@ public class GeneralStats : Stats
     public float Energy;
     public float MaxEnergy;
 
-
     public float Experience;
     public float Level;
 
-    
+    public float BaseSpeed;
+
     public override void SaveData(GameData data)
     {
-    //    data.
-        
         data.MaxStamina = MaxStamina;
 
         data.MaxEnergy = MaxEnergy;
@@ -40,6 +35,8 @@ public class GeneralStats : Stats
     }
     public override void LoadData(GameData data)
     {
+
+
         MaxStamina = data.MaxStamina;
 
         MaxEnergy = data.MaxEnergy;
@@ -52,7 +49,7 @@ public class GeneralStats : Stats
         Experience = data.Experience;
         Level = data.Level;
 
-        
+
     }
 }
 
