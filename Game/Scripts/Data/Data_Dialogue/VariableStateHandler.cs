@@ -8,7 +8,7 @@ using UnityEngine;
 // NOT WORKING TODO
 public class VariableStateHandler
 {
-   
+ 
     private CombatData _combatData;
 
     private bool _showVariableName = false;

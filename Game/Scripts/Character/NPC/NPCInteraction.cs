@@ -9,7 +9,7 @@ public class NPCInteraction
 {
 
     private string _dialogueKnotName;
-
+    
     private DialogueEvents _dialogueEvents;
 
     //   private int _interactionStage = 0; MAYBE
