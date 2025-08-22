@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Core
+  m_EditorClassIdentifier: 
+  m_GroupName: Core
+  m_GUID: 9d67316e64492f84da1380aa6fee6adb
+  m_SerializeEntries:
+  - m_GUID: 0d49fdf812635c94cb7cff2e10acdeb7
+    m_Address: Audio
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3dcd1278e9929784babe5f6f4aa09654
+    m_Address: Settings
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4b34a566ab7974f4b8ff1fc497ed77bf
+    m_Address: Animation
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 709f11a7f3c4041caa4ef136ea32d874
+    m_Address: Config
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 878a7e97ae255b84fa189df057119d26
+    m_Address: Art
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9c53962885c2c4f449125a979d6ad240
+    m_Address: Scenes
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ad52a3044c70d1b4184be09459ff078a
+    m_Address: UI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - preload
+    - uxml
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 93464402904fa4a47b1e849636252352, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: a0509f9fc175e16429f3fe1fafc56f7b, type: 2}
+    - {fileID: 11400000, guid: c60998637d001044ba204389533a5165, type: 2}
