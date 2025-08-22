@@ -1,0 +1,15 @@
+:root {
+}
+
+#MoneyField > .unity-integer-field__label {
+}
+
+.unity-progress-bar__progress {
+    opacity: 1;
+    flex-grow: 1;
+    background-color: rgba(156, 20, 20, 0.77);
+}
+
+.unity-progress-bar__background {
+    background-color: rgba(0, 0, 0, 0.15);
+}

@@ -1,0 +1,34 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Css/Inventory.uss?fileID=7433441132597879392&amp;guid=8089a9f7c998d4a46aac97bb4e11a787&amp;type=3#Inventory" />
+    <Style src="project://database/Assets/UI/Css/MoneyField.uss?fileID=7433441132597879392&amp;guid=e664ec3c1db1e58498b812ec768f58d3&amp;type=3#MoneyField" />
+    <Style src="project://database/Assets/UI/Css/Tooltip.uss?fileID=7433441132597879392&amp;guid=6929b6b2a9f9a634e85a70efb9576883&amp;type=3#Tooltip" />
+    <Style src="project://database/Assets/UI/Css/Main.uss?fileID=7433441132597879392&amp;guid=757f22a8dbbe3da45bc1202011c8dbde&amp;type=3#Main" />
+    <ui:VisualElement name="Root" style="margin-top: 0%; margin-right: 0%; margin-bottom: 0%; margin-left: 0%; flex-direction: row; align-items: auto; align-content: center; justify-content: flex-start; align-self: auto; flex-grow: 1;">
+        <ui:VisualElement name="Panel_Left" class="panel-left">
+            <ui:VisualElement name="Panel_Money" picking-mode="Ignore" class="money" style="height: 15%; width: 100%; flex-grow: 1; margin-top: 0%; margin-right: 0%; margin-bottom: 0%; margin-left: 0%; padding-top: 1px; padding-right: 1px; padding-bottom: 1px; padding-left: 1px;">
+                <ui:VisualElement name="Image_Penny" class="subPanel-money1 image-penny" />
+                <ui:Label text="Label" name="Value_Money" class="text-money" style="flex-shrink: 1; flex-grow: 1;">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="Money" data-source="project://database/Assets/myprojectV1/Game/Scripts/Data/SO_Datas/SO_Stats/GeneralPlayerStats%201.asset?fileID=11400000&amp;guid=52b218812565c5e4a950196553673cc0&amp;type=2#GeneralPlayerStats 1" binding-mode="ToTarget" />
+                    </Bindings>
+                </ui:Label>
+            </ui:VisualElement>
+            <ui:VisualElement name="EmptyPanel_Left" class="normalize" style="flex-grow: 1; align-content: auto; justify-content: flex-start; align-items: flex-end; width: 100%; height: 100%; margin-top: 0%; margin-right: 0%; margin-bottom: 0%; margin-left: 0%;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="EmptyPanel_Middle" class="emptyPanel-middle normalize" style="border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0;" />
+        <ui:VisualElement name="Panel_Inventory_Left" class="panel-inventory-left">
+            <ui:VisualElement name="VisualElement" class="round-black-container 128x" />
+            <ui:VisualElement name="VisualElement" class="128x round-black-container" />
+            <ui:VisualElement name="VisualElement" class="128x round-black-container" />
+            <ui:VisualElement name="VisualElement" class="128x round-black-container" />
+            <ui:VisualElement name="VisualElement" class="128x round-black-container" />
+            <ui:VisualElement name="VisualElement" class="128x round-black-container" />
+            <ui:VisualElement name="VisualElement" class="128x round-black-container" />
+            <ui:VisualElement name="VisualElement" class="128x round-black-container" />
+        </ui:VisualElement>
+        <ui:VisualElement enabled="true" name="TooltipLayer" focusable="false" picking-mode="Ignore" class="tooltipLayer" style="opacity: 1; display: flex; visibility: visible; top: -1px; bottom: 100%; right: 0; left: 0;">
+            <ui:VisualElement name="GhostImage" focusable="false" tabindex="-1" picking-mode="Ignore" class="ghostImage 128" style="display: flex;" />
+            <ui:Label text="fasdffffffffffffffffffasfdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd" name="Tooltip" picking-mode="Ignore" enabled="true" class="tooltip" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,45 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/myprojectV1/Game/UI_Elements/UI_HUD/HUDStyle.uss?fileID=7433441132597879392&amp;guid=afc80005e6bdf1f40b7c7934dbd33934&amp;type=3#HUDStyle" />
+    <Style src="project://database/Assets/myprojectV1/Game/UI_Elements/UI_HUD/MoneyFieldStyle.uss?fileID=7433441132597879392&amp;guid=e664ec3c1db1e58498b812ec768f58d3&amp;type=3#MoneyFieldStyle" />
+    <Style src="project://database/Assets/myprojectV1/Game/UI_Elements/root.uss?fileID=7433441132597879392&amp;guid=dab9f6c68fd38894fa1aaaa31fa32d0c&amp;type=3#root" />
+    <Style src="project://database/Assets/myprojectV1/Game/UI_Elements/UI_Inventory/InventoryPanel.uss?fileID=7433441132597879392&amp;guid=00b983830bad45a438a9ae208b803045&amp;type=3#InventoryPanel" />
+    <ui:VisualElement name="Root_Hud" picking-mode="Ignore" class="root_hud">
+        <ui:VisualElement name="Left_Panel" class="left-panel">
+            <ui:VisualElement name="Panel_Time" class="panel-time">
+                <ui:Label name="Label_Time" enabled="true" text="MARCH" enable-rich-text="false" class="header_primary" style="white-space: pre-wrap;" />
+                <ui:Label name="Label_Time" enabled="true" text="MONDAY 6:30" enable-rich-text="false" class="header_primary" style="text-overflow: ellipsis;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 10; flex-direction: row; display: flex;">
+                <ui:VisualElement name="Panel_Hotbar" class="panel-inventory-left" style="flex-grow: 1; width: auto; height: 100%; display: flex;">
+                    <ui:VisualElement class="slotIcon slotContainer" style="flex-grow: 1; flex-shrink: 1;" />
+                </ui:VisualElement>
+                <ui:VisualElement style="flex-grow: 10;" />
+            </ui:VisualElement>
+            <ui:ProgressBar enabled="true" value="92.9" low-value="0" name="StaminaBar" class="unity-stamina-bar staminabar" style="display: none; visibility: visible;">
+                <Bindings>
+                    <ui:DataBinding property="value" data-source-path="Stamina" data-source="project://database/Assets/myprojectV1/Game/Scripts/Data/SO_Datas/SO_Stats/GeneralPlayerStats%201.asset?fileID=11400000&amp;guid=52b218812565c5e4a950196553673cc0&amp;type=2#GeneralPlayerStats 1" binding-mode="ToTarget" />
+                    <ui:DataBinding property="highValue" data-source-path="MaxStamina" data-source="project://database/Assets/myprojectV1/Game/Scripts/Data/SO_Datas/SO_Stats/GeneralPlayerStats%201.asset?fileID=11400000&amp;guid=52b218812565c5e4a950196553673cc0&amp;type=2#GeneralPlayerStats 1" binding-mode="ToTarget" />
+                </Bindings>
+            </ui:ProgressBar>
+            <ui:ProgressBar high-value="100" low-value="0" name="HealthBar" class="unity-health-bar" style="background-image: none; -unity-slice-left: -74; -unity-slice-top: -74; -unity-slice-right: -74; -unity-slice-bottom: -74; width: 30%; -unity-background-image-tint-color: rgba(255, 255, 255, 0); height: auto; visibility: visible; background-color: rgba(0, 0, 0, 0); display: none; flex-shrink: 1; flex-grow: 1;">
+                <Bindings>
+                    <ui:DataBinding property="highValue" data-source-path="MaxHealth" data-source="project://database/Assets/myprojectV1/Game/Scripts/Data/SO_Datas/SO_Stats/GeneralPlayerStats%201.asset?fileID=11400000&amp;guid=52b218812565c5e4a950196553673cc0&amp;type=2#GeneralPlayerStats 1" binding-mode="ToTarget" />
+                    <ui:DataBinding property="value" data-source-path="Health" data-source="project://database/Assets/myprojectV1/Game/Scripts/Data/SO_Datas/SO_Stats/GeneralPlayerStats%201.asset?fileID=11400000&amp;guid=52b218812565c5e4a950196553673cc0&amp;type=2#GeneralPlayerStats 1" binding-mode="ToTarget" />
+                </Bindings>
+            </ui:ProgressBar>
+            <ui:VisualElement name="Money" style="flex-grow: 1; flex-direction: row; width: auto; align-content: auto; display: none;">
+                <ui:VisualElement name="MoneyTextBackingPanel" class="moneyTextBackingPanel" style="flex-grow: 1; flex-direction: row-reverse; width: auto; align-content: auto; align-items: auto;">
+                    <ui:Label text="MONEY&#10;" name="MoneyText" class="moneytext" />
+                </ui:VisualElement>
+                <ui:VisualElement name="MoneyValueBackingPanel" class="moneyValueBackingPanel" style="flex-grow: 1; flex-direction: row;">
+                    <ui:Label text="Label" class="moneytext">
+                        <Bindings>
+                            <ui:DataBinding property="text" data-source-path="Money" data-source="project://database/Assets/myprojectV1/Game/Scripts/Data/SO_Datas/SO_Stats/GeneralPlayerStats%201.asset?fileID=11400000&amp;guid=52b218812565c5e4a950196553673cc0&amp;type=2#GeneralPlayerStats 1" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:Label>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="Right_Panel" class="right-panel" />
+    </ui:VisualElement>
+</ui:UXML>

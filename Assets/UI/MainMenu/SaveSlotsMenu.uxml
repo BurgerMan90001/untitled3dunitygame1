@@ -1,0 +1,13 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/myprojectV1/Game/UI_Elements/UI_MainMenu/MainMenu.uss?fileID=7433441132597879392&amp;guid=9ecdb2b011bfcb542bf4d266c586fa9e&amp;type=3#MainMenu" />
+    <Style src="project://database/Assets/myprojectV1/Game/UI_Elements/UI_MainMenu/SaveSlotsMenu.uss?fileID=7433441132597879392&amp;guid=652c238f6dfc9cc4c99c4b42af27d275&amp;type=3#SaveSlotsMenu" />
+    <Style src="project://database/Assets/myprojectV1/Game/UI_Elements/root.uss?fileID=7433441132597879392&amp;guid=dab9f6c68fd38894fa1aaaa31fa32d0c&amp;type=3#root" />
+    <ui:VisualElement name="root_saveSlotsMenu" picking-mode="Ignore" class="root_saveSlotsMenu">
+        <ui:VisualElement name="Panel_SaveSlots" picking-mode="Ignore" class="panel panel_primary">
+            <ui:Button text="Save Slot 1" name="Button_SaveSlot1" class="button-primary button_saveSlot" />
+            <ui:Button text="Save Slot 2" name="Button_SaveSlot2" class="menuButton button button-primary button_saveSlot" />
+            <ui:Button text="Save Slot 3" name="Button_SaveSlot3" class="button-primary button_saveSlot" />
+            <ui:Button text="Back" name="Button_Back" class="button-secondary button_back" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
